@@ -66,11 +66,63 @@ class GameCenterManager: RefCounted, @unchecked Sendable {
             _ = callback.call(Variant(wrapped))
         }
     }
+
+    /// The callback is invoked with nil on success, or a string with a description of the error
+    @Callable()
+    func report_achivement(achivements: VariantArray, callback: Callable) {
+        var array: [GKAchievement] = []
+        for va in achivements {
+            guard let va else { continue }
+            if let a = va.asObject(AppleAchievement.self) {
+                array.append(a.achievement)
+            }
+        }
+        GKAchievement.report(array) { error in
+            if let error {
+                _ = callback.call(Variant(error.localizedDescription))
+            } else {
+                _ = callback.call(nil)
+            }
+        }
+    }
+
+    /// The callback is invoked with nil on success, or a string with a description of the error
+    @Callable
+    func reset_achivements(callback: Callable) {
+        GKAchievement.resetAchievements { error in
+            if let error {
+                _ = callback.call(Variant(error.localizedDescription))
+            } else {
+                _ = callback.call(nil)
+            }
+        }
+    }
+
+    @Callable
+    func load_achievement_descriptions(callback: Callable) {
+        GKAchievementDescription.loadAchievementDescriptions { achievementDescriptions, error in
+            if let error {
+                _ = callback.call(Variant(error.localizedDescription))
+            } else if let achievementDescriptions {
+                let res = VariantArray()
+                for ad in achievementDescriptions {
+                    if let ad = AppleAchievementDescription(ad) {
+                        res.append(Variant(ad))
+                    }
+                }
+                _ = callback.call(Variant(res))
+            } else {
+                _ = callback.call(Variant(VariantArray()))
+            }
+        }
+    }
 }
 
 #initSwiftExtension(cdecl: "godot_game_center_init", types: [
     GameCenterManager.self,
     AppleLocalPlayer.self,
     ApplePlayer.self,
-    AppleLeaderboard.self
+    AppleLeaderboard.self,
+    AppleAchievement.self,
+    AppleAchievementDescription.self
 ])
