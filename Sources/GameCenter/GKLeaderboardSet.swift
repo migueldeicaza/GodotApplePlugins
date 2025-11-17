@@ -15,10 +15,10 @@ import AppKit
 import GameKit
 
 @Godot
-class AppleLeaderboardSet: RefCounted, @unchecked Sendable {
-    var boardset = GKLeaderboardSet()
+class GKLeaderboardSet: RefCounted, @unchecked Sendable {
+    var boardset = GameKit.GKLeaderboardSet()
 
-    convenience init?(boardset: GKLeaderboardSet) {
+    convenience init?(boardset: GameKit.GKLeaderboardSet) {
         self.init()
         self.boardset = boardset
     }

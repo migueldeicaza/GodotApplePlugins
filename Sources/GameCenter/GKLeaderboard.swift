@@ -21,10 +21,10 @@ enum AppleLeaderboardType: Int, CaseIterable {
 }
 
 @Godot
-class AppleLeaderboard: RefCounted, @unchecked Sendable {
-    var board: GKLeaderboard = GKLeaderboard()
+class GKLeaderboard: RefCounted, @unchecked Sendable {
+    var board: GameKit.GKLeaderboard = GameKit.GKLeaderboard()
 
-    convenience init(board: GKLeaderboard) {
+    convenience init(board: GameKit.GKLeaderboard) {
         self.init()
     }
 
@@ -63,7 +63,7 @@ class AppleLeaderboard: RefCounted, @unchecked Sendable {
 
     @Callable
     /// Callback is invoked with nil on success, or a string on error
-    func submit_score(score: Int, context: Int, player: ApplePlayer, callback: Callable) {
+    func submit_score(score: Int, context: Int, player: GKPlayer, callback: Callable) {
         board.submitScore(score, context: context, player: player.player) { error in
             let result: Variant?
             if let error {
@@ -103,11 +103,11 @@ class AppleLeaderboard: RefCounted, @unchecked Sendable {
             }
             sids = result
         }
-        GKLeaderboard.loadLeaderboards(IDs: sids) { result, error in
+        GameKit.GKLeaderboard.loadLeaderboards(IDs: sids) { result, error in
             let wrapped = VariantArray()
             if let result {
                 for l in result {
-                    let wrap = AppleLeaderboard(board: l)
+                    let wrap = GKLeaderboard(board: l)
                     wrapped.append(Variant(wrap))
                 }
             }

@@ -16,21 +16,21 @@ import AppKit
 import GameKit
 
 @Godot
-class AppleAchievement: RefCounted, @unchecked Sendable {
-    var achievement: GKAchievement = GKAchievement()
+class GKAchievement: RefCounted, @unchecked Sendable {
+    var achievement: GameKit.GKAchievement = GameKit.GKAchievement()
 
-    convenience init(identifier: String, player: ApplePlayer?) {
+    convenience init(identifier: String, player: GKPlayer?) {
         self.init()
 
         if let player {
-            self.achievement = GKAchievement(identifier: identifier, player: player.player)
+            self.achievement = GameKit.GKAchievement(identifier: identifier, player: player.player)
         } else {
-            self.achievement = GKAchievement(identifier: identifier)
+            self.achievement = GameKit.GKAchievement(identifier: identifier)
         }
     }
 
     @Export var identifier: String { achievement.identifier }
-    @Export var player: ApplePlayer { ApplePlayer(player: achievement.player) }
+    @Export var player: GKPlayer { GKPlayer(player: achievement.player) }
     @Export var percentComplete: Double { achievement.percentComplete }
     @Export var isCompleted: Bool { achievement.isCompleted }
     // TODO: lastReportedDate - how to encode Dates in Godot
@@ -38,14 +38,14 @@ class AppleAchievement: RefCounted, @unchecked Sendable {
     /// The callback is invoked with nil on success, or a string with a description of the error
     @Callable()
     static func report_achivement(achivements: VariantArray, callback: Callable) {
-        var array: [GKAchievement] = []
+        var array: [GameKit.GKAchievement] = []
         for va in achivements {
             guard let va else { continue }
-            if let a = va.asObject(AppleAchievement.self) {
+            if let a = va.asObject(GKAchievement.self) {
                 array.append(a.achievement)
             }
         }
-        GKAchievement.report(array) { error in
+        GameKit.GKAchievement.report(array) { error in
             if let error {
                 _ = callback.call(Variant(error.localizedDescription))
             } else {
@@ -57,7 +57,7 @@ class AppleAchievement: RefCounted, @unchecked Sendable {
     /// The callback is invoked with nil on success, or a string with a description of the error
     @Callable
     static func reset_achivements(callback: Callable) {
-        GKAchievement.resetAchievements { error in
+        GameKit.GKAchievement.resetAchievements { error in
             if let error {
                 _ = callback.call(Variant(error.localizedDescription))
             } else {
@@ -65,13 +65,31 @@ class AppleAchievement: RefCounted, @unchecked Sendable {
             }
         }
     }
+
+    @Callable
+    func load_achievement_descriptions(callback: Callable) {
+        GameKit.GKAchievementDescription.loadAchievementDescriptions { achievementDescriptions, error in
+            if let error {
+                _ = callback.call(Variant(error.localizedDescription))
+            } else if let achievementDescriptions {
+                let res = VariantArray()
+                for ad in achievementDescriptions {
+                    let ad = GKAchievementDescription(ad)
+                    res.append(Variant(ad))
+                }
+                _ = callback.call(Variant(res))
+            } else {
+                _ = callback.call(Variant(VariantArray()))
+            }
+        }
+    }
 }
 
 @Godot
-class AppleAchievementDescription: RefCounted, @unchecked Sendable {
-    var achievementDescription: GKAchievementDescription = GKAchievementDescription()
+class GKAchievementDescription: RefCounted, @unchecked Sendable {
+    var achievementDescription: GameKit.GKAchievementDescription = GameKit.GKAchievementDescription()
 
-    convenience init(_ ad: GKAchievementDescription) {
+    convenience init(_ ad: GameKit.GKAchievementDescription) {
         self.init()
         self.achievementDescription = ad
     }
@@ -103,24 +121,6 @@ class AppleAchievementDescription: RefCounted, @unchecked Sendable {
                 _ = callback.call(Variant(array))
             } else {
                 _ = callback.call(Variant("Could not load image"))
-            }
-        }
-    }
-
-    @Callable
-    func load_achievement_descriptions(callback: Callable) {
-        GKAchievementDescription.loadAchievementDescriptions { achievementDescriptions, error in
-            if let error {
-                _ = callback.call(Variant(error.localizedDescription))
-            } else if let achievementDescriptions {
-                let res = VariantArray()
-                for ad in achievementDescriptions {
-                    let ad = AppleAchievementDescription(ad)
-                    res.append(Variant(ad))
-                }
-                _ = callback.call(Variant(res))
-            } else {
-                _ = callback.call(Variant(VariantArray()))
             }
         }
     }

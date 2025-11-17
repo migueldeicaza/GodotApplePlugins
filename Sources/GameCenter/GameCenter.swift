@@ -22,16 +22,16 @@ class GameCenterManager: RefCounted, @unchecked Sendable {
 
     var isAuthenticated: Bool = false
     
-    @Export var localPlayer: AppleLocalPlayer
+    @Export var localPlayer: GKLocalPlayer
 
     required init(_ context: InitContext) {
-        localPlayer = AppleLocalPlayer()
+        localPlayer = GKLocalPlayer()
         super.init(context)
     }
 
     @Callable
     func authenticate() {
-        let localPlayer = GKLocalPlayer.local
+        let localPlayer = GameKit.GKLocalPlayer.local
         localPlayer.authenticateHandler = { viewController, error in
             GD.print("AppleLocalPlayer: authentication callback")
             MainActor.assumeIsolated {
@@ -46,19 +46,21 @@ class GameCenterManager: RefCounted, @unchecked Sendable {
                     self.authentication_error.emit(String(describing: error))
                 }
                 GD.print("Raising events")
-                self.isAuthenticated = GKLocalPlayer.local.isAuthenticated
+                self.isAuthenticated = GameKit.GKLocalPlayer.local.isAuthenticated
                 self.authentication_result.emit(self.isAuthenticated)
             }
         }
     }
+
+
 }
 
 #initSwiftExtension(cdecl: "godot_game_center_init", types: [
     GameCenterManager.self,
-    AppleLocalPlayer.self,
-    ApplePlayer.self,
-    AppleLeaderboard.self,
-    AppleLeaderboardSet.self,
-    AppleAchievement.self,
-    AppleAchievementDescription.self
+    GKLocalPlayer.self,
+    GKPlayer.self,
+    GKLeaderboard.self,
+    GKLeaderboardSet.self,
+    GKAchievement.self,
+    GKAchievementDescription.self
 ])

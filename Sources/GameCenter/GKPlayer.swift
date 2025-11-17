@@ -16,12 +16,12 @@ import AppKit
 import GameKit
 
 @Godot
-class ApplePlayer: RefCounted, @unchecked Sendable {
-    var player: GKPlayer = GKPlayer()
+class GKPlayer: RefCounted, @unchecked Sendable {
+    var player: GameKit.GKPlayer = GameKit.GKPlayer()
 
-    init(player: GKPlayer) {
+    init(player: GameKit.GKPlayer) {
         self.player = player
-        guard let ctxt = InitContext.createObject(className: ApplePlayer.godotClassName) else {
+        guard let ctxt = InitContext.createObject(className: GKPlayer.godotClassName) else {
             fatalError("Could not create object")
         }
         super.init(ctxt)
@@ -29,7 +29,7 @@ class ApplePlayer: RefCounted, @unchecked Sendable {
     }
 
     required init(_ context: InitContext) {
-        player = GKPlayer()
+        player = GameKit.GKPlayer()
         super.init(context)
     }
 
@@ -57,21 +57,4 @@ class ApplePlayer: RefCounted, @unchecked Sendable {
             }
         }
     }
-}
-
-@Godot
-class AppleLocalPlayer: ApplePlayer, @unchecked Sendable {
-    required init(_ context: InitContext) {
-        super.init(context)
-        player = GKLocalPlayer.local
-    }
-
-    init() {
-        super.init(player: GKLocalPlayer.local)
-    }
-
-    @Export var isAuthenticated: Bool { GKLocalPlayer.local.isAuthenticated }
-    @Export var isUnderage: Bool { GKLocalPlayer.local.isUnderage }
-    @Export var isMultiplayerGamingRestricted: Bool { GKLocalPlayer.local.isMultiplayerGamingRestricted }
-    @Export var isPersonalizedCommunicationRestricted: Bool { GKLocalPlayer.local.isPersonalizedCommunicationRestricted }
 }
