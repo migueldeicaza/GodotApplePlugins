@@ -20,8 +20,7 @@ class GKMatch: RefCounted, @unchecked Sendable {
     var gkmatch = GameKit.GKMatch()
     var delegate: Proxy?
 
-    @PickerNameProvider
-    enum SendDataMode: Int {
+    enum SendDataMode: Int, CaseIterable {
         case reliable
         case unreliable
         func toGameKit() -> GameKit.GKMatch.SendDataMode {
