@@ -69,10 +69,10 @@ func topMostViewController() -> UIViewController? {
 
 @MainActor
 func presentOnTop(_ vc: UIViewController) {
-    guard let vc = topMostViewController() else {
+    guard let top = topMostViewController() else {
         print("Could not find the top view controller")
         return
     }
-    vc.present(vc, animated: true)
+    top.present(vc, animated: true)
 }
 #endif

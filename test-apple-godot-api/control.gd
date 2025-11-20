@@ -30,7 +30,17 @@ func _on_button_pressed() -> void:
 				else:
 					print(error)
 				)
-		else:
+				
+			GKLeaderboard.load_leaderboards(["MyLeaderboard"], func(leaderboards: Array [GKLeaderboard], error: Variant)->void:
+				var score = 100
+				var context = 0
+				
+				leaderboards[0].submit_score(score, context, local, func(error: Variant)->void:
+					if error:
+						print("Error submitting leadeboard %s" % error)
+				)
+			)
+			
 			$auth_state.text = "Not Authenticated"
 		)
 	gameCenter.authenticate()
@@ -62,6 +72,12 @@ func _on_button_requestmatch_pressed() -> void:
 				gameMatch.player_changed.connect(func(player: GKPlayer, connected: bool)->void: 
 					print("Status of player changed to %s" % connected)
 				)
-				gameMatch.send_data_to_all_players(PackedByteArray(), GKMatch.SendDataMode.reliable)
+				var array = "Hello".to_utf8_buffer()
+				var first = local
+				var second = local
+				
+				gameMatch.send_data_to_all_players(array, GKMatch.SendDataMode.reliable)
+				
+				gameMatch.send(array, [first, second], GKMatch.SendDataMode.reliable)
 		)
 		print("Not authenticated, authenticate first")

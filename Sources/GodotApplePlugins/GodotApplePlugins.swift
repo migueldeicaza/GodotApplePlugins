@@ -23,6 +23,7 @@ import SwiftGodotRuntime
         GKPlayer.self,
     ],
     enums: [
+        GKLeaderboard.TimeScope.self,
         GKMatch.SendDataMode.self,
-        AVAudioSession.SessionCategory.self
+        AVAudioSession.SessionCategory.self,
     ])

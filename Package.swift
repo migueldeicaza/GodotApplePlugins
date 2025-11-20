@@ -29,15 +29,15 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(url: "https://github.com/migueldeicaza/SwiftGodot", branch: "barebone-split")
+//        .package(url: "https://github.com/migueldeicaza/SwiftGodot", branch: "barebone-split")
         // For local development:
-//        .package(path: "../splitSwiftGodot")
+        .package(path: "../splitSwiftGodot")
     ],
     targets: [
         .target(
             name: "GodotApplePlugins",
             dependencies: [
-                .product(name: "SwiftGodotRuntimeStatic", package: "SwiftGodot")
+                .product(name: "SwiftGodotRuntimeStatic", package: "splitSwiftGodot")
             ],
             swiftSettings: swiftSettings,
             linkerSettings: linkerSettings

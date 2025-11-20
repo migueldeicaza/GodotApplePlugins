@@ -24,6 +24,32 @@ enum AppleLeaderboardType: Int, CaseIterable {
 class GKLeaderboard: RefCounted, @unchecked Sendable {
     var board: GameKit.GKLeaderboard = GameKit.GKLeaderboard()
 
+    enum TimeScope: Int, CaseIterable {
+        case today
+        case week
+        case allTime
+
+        func toGameKit() -> GameKit.GKLeaderboard.TimeScope {
+            switch self {
+            case .today: return .today
+            case .week: return .week
+            case .allTime: return .allTime
+            }
+        }
+    }
+
+    enum PlayerScope: Int, CaseIterable {
+        case global
+        case friendsOnly
+
+        func toGameKit() -> GameKit.GKLeaderboard.PlayerScope {
+            switch self {
+            case .global: return .global
+            case .friendsOnly: return .friendsOnly
+            }
+        }
+    }
+
     convenience init(board: GameKit.GKLeaderboard) {
         self.init()
         self.board = board
@@ -115,6 +141,78 @@ class GKLeaderboard: RefCounted, @unchecked Sendable {
                 }
             }
             _ = callback.call(Variant(wrapped), error != nil ? Variant(String(describing: error)) : nil)
+        }
+    }
+
+    func processEntries(
+        callback: Callable,
+        local: GameKit.GKLeaderboard.Entry?,
+        requested: [GameKit.GKLeaderboard.Entry]?,
+        range: Int? = nil,
+        error: (any Error)?
+    ) {
+
+        let le: GKLeaderboardEntry?
+        if let local {
+            le = GKLeaderboardEntry(store: local)
+        } else {
+            le = nil
+        }
+        let re: Variant?
+        if let requested {
+            let arr = TypedArray<GKLeaderboardEntry?>()
+            for x in requested {
+                arr.append(GKLeaderboardEntry(store: x))
+            }
+            re = Variant(arr)
+        } else {
+            re = nil
+        }
+        if let range {
+            _ = callback.call(Variant(le), re, Variant(range), mapError(error))
+        } else {
+            _ = callback.call(Variant(le), re, mapError(error))
+        }
+    }
+
+    ///
+    /// Returns the scores for the local player and other players for the specified time period.
+    /// Calls the callback with:
+    /// - Score for the local player (or nil if he does not have one)
+    /// - Scores for the specified players
+    /// - Error if not nil
+    @Callable
+    func load_entries(players: VariantArray, timeScope: GKLeaderboard.TimeScope, callback: Callable) {
+        var gkPlayers: [GameKit.GKPlayer] = []
+        for p in players {
+            guard let p, let po = p.asObject(GKPlayer.self) else { continue }
+            gkPlayers.append(po.player)
+        }
+
+        board.loadEntries(for: gkPlayers, timeScope: timeScope.toGameKit()) { local, requested, error in
+            self.processEntries(callback: callback, local: local, requested: requested, error: error)
+        }
+    }
+}
+
+@Godot
+class GKLeaderboardEntry: RefCounted, @unchecked Sendable {
+    var store: GameKit.GKLeaderboard.Entry? = nil
+
+    convenience init(store: GameKit.GKLeaderboard.Entry) {
+        self.init()
+        self.store = store
+    }
+
+    @Export var context: Int { store?.context ?? 0 }
+    @Export var rank: Int { store?.context ?? 0 }
+    @Export var score: Int { store?.score ?? 0 }
+    @Export var formattedScore: String { store?.formattedScore ?? "" }
+    @Export var player: GKPlayer? {
+        if let p = store?.player {
+            return GKPlayer(player: p)
+        } else {
+            return nil
         }
     }
 }

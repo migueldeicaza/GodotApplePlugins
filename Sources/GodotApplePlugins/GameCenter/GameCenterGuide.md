@@ -274,15 +274,57 @@ GKMatchmakerViewController.request_match(req, func(gameMatch: GKMatch, error: Va
 )
 ```
 
-### Disconnect
+## Disconnect
 
 ```gdscript
 gameMatch.disconnect()
 ```
 
-### Send to all
+## Send to all
 
 ```gdscript
-func sendMessage(data: PackedByteArray):
+    var data = "How do you do fellow kids".to_utf8_buffer()
     gameMatch.send_data_to_all_players(data, GKMatch.SendDataMode.reliable)
 ```
+
+## Send to Players
+
+```gdscript
+                
+gameMatch.send(array, [firstPlayer, secondPlayer], GKMatch.SendDataMode.reliable)
+
+```
+
+# Leaderboards
+
+## Report Score
+
+```gdscript
+GKLeaderboard.load_leaderboards(["MyLeaderboard"], func(leaderboards: Array [GKLeaderboard], error: Variant)->void:
+    var score = 100
+    var context = 0
+    
+    leaderboards[0].submit_score(score, context, local, func(error: Variant)->void:
+        if error:
+            print("Error submitting leadeboard %s" % error)
+    )
+)
+```
+
+## Load Leaderboards
+
+```
+# Loads all leaderboards
+GKLeaderboard.load_leaderboards([], func(leaderboards: Array [GKLeaderboard], error: Variant)->void:
+    print("Got %s" % leaderboards)
+)
+
+# Load specific ones
+GKLeaderboard.load_leaderboards(["My leaderboard"], func(leaderboards: Array [GKLeaderboard], error: Variant)->void:
+    print("Got %s" % leaderboards)
+)
+
+```
+
+## Load Scores
+
