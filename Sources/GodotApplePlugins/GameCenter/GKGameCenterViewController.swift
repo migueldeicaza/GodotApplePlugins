@@ -18,6 +18,12 @@ import GameKit
 class GKGameCenterViewController: RefCounted, @unchecked Sendable {
     class Delegate: NSObject, GameKit.GKGameCenterControllerDelegate {
         func gameCenterViewControllerDidFinish(_ gameCenterViewController: GameKit.GKGameCenterViewController) {
+#if os(iOS)
+            gameCenterViewController.dismiss(animated: true)
+#else
+            dialogController?.dismiss(gameCenterViewController)
+
+#endif
             done()
         }
         
