@@ -69,9 +69,9 @@
 			<return type="void" />
 			<param index="0" name="callback" type="Callable" />
 			<description>
-                Use this API to retrieve the list of saved games, upon completion, this
-                method invokes the provided callback with both an array of GKSavedGame objects
-                and a variant error, if not nil it contains a string describing the problem.
+				Use this API to retrieve the list of saved games, upon completion, this
+				                method invokes the provided callback with both an array of GKSavedGame objects
+				                and a variant error, if not nil it contains a string describing the problem.
 			</description>
 		</method>
 		<method name="load_challengeable_friends">
@@ -101,10 +101,10 @@
 			<param index="1" name="withName" type="String" />
 			<param index="2" name="callback" type="Callable" />
 			<description>
-                Saves the packed byte array as the game data with the specified name, upon
-                completion the callback is invoked with both a GKSavedObject parameter and
-                a Variant parameter for the error.   The GKSavedObject is not-nil on success,
-                and on error, the second parameter is not-nil and contains the error message.
+				Saves the packed byte array as the game data with the specified name, upon
+				                completion the callback is invoked with both a GKSavedObject parameter and
+				                a Variant parameter for the error.   The GKSavedObject is not-nil on success,
+				                and on error, the second parameter is not-nil and contains the error message.
 			</description>
 		</method>
 	</methods>

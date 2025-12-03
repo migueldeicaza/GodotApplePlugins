@@ -43,7 +43,7 @@
 		<method name="load_entries">
 			<return type="void" />
 			<param index="0" name="players" type="Array" />
-			<param index="1" name="timeScope" type="int" enum="TimeScope" />
+			<param index="1" name="timeScope" type="TimeScope" />
 			<param index="2" name="callback" type="Callable" />
 			<description>
 				Loads the local player's score together with the specified [code]Array[/code] of [code]GKPlayer[/code] objects for the given time scope. The callback receives [code](GKLeaderboardEntry local, Array[GKLeaderboardEntry] scores, Variant error)[/code] where the first entry can be [code]null[/code] if the local player has not posted a score.
@@ -88,6 +88,10 @@
 		<member name="group_identifier" type="String" setter="" getter="get_group_identifier" default="&quot;&quot;">
 			Group identifier that you configured in App Store Connect, or an empty string if not grouped.
 		</member>
+		<member name="next_start_date" type="float" setter="" getter="get_next_start_date" default="0.0">
+		</member>
+		<member name="start_date" type="float" setter="" getter="get_start_date" default="0.0">
+		</member>
 		<member name="title" type="String" setter="" getter="get_title" default="&quot;&quot;">
 			Display name shown to players.
 		</member>
@@ -96,6 +100,12 @@
 		</member>
 	</members>
 	<constants>
+		<constant name="classic" value="0" enum="AppleLeaderboardType">
+		</constant>
+		<constant name="recurring" value="1" enum="AppleLeaderboardType">
+		</constant>
+		<constant name="unknown" value="2" enum="AppleLeaderboardType">
+		</constant>
 		<constant name="today" value="0" enum="TimeScope">
 			Scans the current day.
 		</constant>
@@ -104,6 +114,10 @@
 		</constant>
 		<constant name="allTime" value="2" enum="TimeScope">
 			Returns scores across the entire history of the leaderboard.
+		</constant>
+		<constant name="global" value="0" enum="PlayerScope">
+		</constant>
+		<constant name="friendsOnly" value="1" enum="PlayerScope">
 		</constant>
 	</constants>
 </class>

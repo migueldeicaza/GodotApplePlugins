@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <class name="GKSavedGame" inherits="GKPlayer" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
 	<brief_description>
-        Represents a saved game
-    </brief_description>
+		Represents a saved game
+	</brief_description>
 	<description>
-        Instances of this class are returned after you save a game with GKLocalPlayer's save_game_data, or
-        after you load the game data with GKLocalPlayer fetch_saved_games
+		Instances of this class are returned after you save a game with GKLocalPlayer's save_game_data, or
+		        after you load the game data with GKLocalPlayer fetch_saved_games
 	</description>
 	<tutorials>
 	</tutorials>
@@ -14,18 +14,18 @@
 			<return type="void" />
 			<param index="0" name="done" type="Callable" />
 			<description>
-                Loads the game data, and invokes the provided callbacj with the first argument
-                being a PackedByteArray and the second argument being a Variant encoding an error,
-                if not-nil it contains a string description of the problem.
+				Loads the game data, and invokes the provided callbacj with the first argument
+				                being a PackedByteArray and the second argument being a Variant encoding an error,
+				                if not-nil it contains a string description of the problem.
 			</description>
 		</method>
 	</methods>
 	<members>
 		<member name="device_name" type="String" setter="" getter="get_device_name" default="&quot;&quot;">
-            Name of the saved game.
+			Name of the saved game.
 		</member>
 		<member name="name" type="String" setter="" getter="get_name" default="&quot;&quot;">
-            The name of the device where the player saved the game.
+			The name of the device where the player saved the game.
 		</member>
 	</members>
 </class>

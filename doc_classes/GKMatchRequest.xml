@@ -22,7 +22,7 @@
 	<methods>
 		<method name="max_players_allowed_for_match" qualifiers="static">
 			<return type="int" />
-			<param index="0" name="forType" type="int" enum="MatchType" />
+			<param index="0" name="forType" type="MatchType" />
 			<description>
 				Returns Apple's maximum supported player count for the supplied match type ([code]peer_to_peer[/code], [code]hosted[/code], or [code]turn_based[/code]).
 			</description>
@@ -42,15 +42,4 @@
 			Minimum player count required before the match can start.
 		</member>
 	</members>
-	<constants>
-		<constant name="peerToPeer" value="0" enum="MatchType">
-			Requests the peer-to-peer matchmaking flow.
-		</constant>
-		<constant name="hosted" value="1" enum="MatchType">
-			Requests a server-hosted match managed outside the local device.
-		</constant>
-		<constant name="turnBased" value="2" enum="MatchType">
-			Requests a turn-based match that exchanges moves asynchronously.
-		</constant>
-	</constants>
 </class>
