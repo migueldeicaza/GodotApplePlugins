@@ -1,0 +1,52 @@
+<class name="ProductView" inherits="RefCounted" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		A view that displays a single product from the App Store.
+	</brief_description>
+	<description>
+		This class represents a view that displays a single product from the App Store. It allows you to configure the product to display, the style of the view, and the icon to use.
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="dismiss">
+			<return type="void" />
+			<description>
+				Dismisses the currently presented view.
+			</description>
+		</method>
+		<method name="present">
+			<return type="void" />
+			<description>
+				Presents the product view on top of the current view hierarchy.
+			</description>
+		</method>
+	</methods>
+	<members>
+		<member name="prefers_promotional_icon" type="bool" setter="set_prefers_promotional_icon" getter="get_prefers_promotional_icon" default="false">
+			Whether the view prefers to show the promotional icon for the product.
+		</member>
+		<member name="product_id" type="String" setter="set_product_id" getter="get_product_id" default="&quot;&quot;">
+			The product identifier of the product to display.
+		</member>
+		<member name="style" type="int" setter="set_style" getter="get_style" default="0">
+			The style of the product view. See [enum ViewStyle] for available options.
+		</member>
+		<member name="system_icon_name" type="String" setter="set_system_icon_name" getter="get_system_icon_name" default="&quot;cart&quot;">
+			The name of the system icon to use as a placeholder while the product icon loads.
+		</member>
+	</members>
+	<constants>
+		<constant name="automatic" value="0" enum="ViewStyle">
+			The system automatically chooses the most appropriate style.
+		</constant>
+		<constant name="compact" value="1" enum="ViewStyle">
+			A compact style that displays minimal information.
+		</constant>
+		<constant name="large" value="2" enum="ViewStyle">
+			A large style that displays more detailed information.
+		</constant>
+		<constant name="regular" value="3" enum="ViewStyle">
+			The regular style.
+		</constant>
+	</constants>
+</class>

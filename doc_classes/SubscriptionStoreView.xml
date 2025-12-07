@@ -1,0 +1,58 @@
+<class name="SubscriptionStoreView" inherits="RefCounted" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		A view for displaying subscription options.
+	</brief_description>
+	<description>
+		This class presents a standard StoreKit subscription view. It can be configured to show a specific subscription group or a list of specific products. The visual style of the controls is also customizable.
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="dismiss">
+			<return type="void" />
+			<description>
+				Dismisses the currently presented view.
+			</description>
+		</method>
+		<method name="present">
+			<return type="void" />
+			<description>
+				Presents the subscription store view on top of the current view hierarchy.
+			</description>
+		</method>
+	</methods>
+	<members>
+		<member name="control_style" type="int" setter="set_control_style" getter="get_control_style" default="0">
+			The visual style of the subscription controls. See [enum ControlStyle] for options.
+		</member>
+		<member name="group_id" type="String" setter="set_group_id" getter="get_group_id" default="&quot;&quot;">
+			The identifier of the subscription group to display. If set, this takes precedence over [member product_i_ds].
+		</member>
+		<member name="product_i_ds" type="PackedStringArray" setter="set_product_i_ds" getter="get_product_i_ds" default="PackedStringArray()">
+			A list of specific product identifiers to display. Ignored if [member group_id] is set.
+		</member>
+	</members>
+	<constants>
+		<constant name="automatic" value="0" enum="ControlStyle">
+			The system automatically chooses the most appropriate style.
+		</constant>
+		<constant name="picker" value="1" enum="ControlStyle">
+			A picker style.
+		</constant>
+		<constant name="buttons" value="2" enum="ControlStyle">
+			A button-based style.
+		</constant>
+		<constant name="compactPicker" value="3" enum="ControlStyle">
+			A compact picker style.
+		</constant>
+		<constant name="prominentPicker" value="4" enum="ControlStyle">
+			A prominent picker style.
+		</constant>
+		<constant name="pagedPicker" value="5" enum="ControlStyle">
+			A paged picker style.
+		</constant>
+		<constant name="pagedProminentPicker" value="6" enum="ControlStyle">
+			A prominent paged picker style.
+		</constant>
+	</constants>
+</class>

@@ -1,0 +1,33 @@
+<class name="StoreProduct" inherits="RefCounted" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Represents a product available for purchase in the App Store.
+	</brief_description>
+	<description>
+		This class contains information about a product, such as its ID, display name, description, and price. It is returned by [method StoreKitManager.request_products].
+	</description>
+	<tutorials>
+	</tutorials>
+	<members>
+		<member name="description_value" type="String" setter="" getter="get_description_value" default="&quot;&quot;">
+			A localized description of the product.
+		</member>
+		<member name="display_name" type="String" setter="" getter="get_display_name" default="&quot;&quot;">
+			The localized name of the product.
+		</member>
+		<member name="display_price" type="String" setter="" getter="get_display_price" default="&quot;&quot;">
+			The formatted price of the product, including currency symbol (e.g., "$0.99").
+		</member>
+		<member name="is_family_shareable" type="bool" setter="" getter="get_is_family_shareable" default="false">
+			Whether the product is shareable with family members.
+		</member>
+		<member name="json_representation" type="String" setter="" getter="get_json_representation" default="&quot;&quot;">
+			A JSON string representation of the underlying StoreKit product, useful for debugging or accessing properties not exposed directly.
+		</member>
+		<member name="price" type="float" setter="" getter="get_price" default="0.0">
+			The price of the product as a number.
+		</member>
+		<member name="product_id" type="String" setter="" getter="get_product_id" default="&quot;&quot;">
+			The unique identifier of the product.
+		</member>
+	</members>
+</class>

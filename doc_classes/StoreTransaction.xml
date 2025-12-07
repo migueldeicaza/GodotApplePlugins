@@ -1,0 +1,36 @@
+<class name="StoreTransaction" inherits="RefCounted" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Represents a successful purchase transaction.
+	</brief_description>
+	<description>
+		This class contains details about a purchase, such as the product ID, purchase date, and expiration date (for subscriptions).
+	</description>
+	<tutorials>
+	</tutorials>
+	<members>
+		<member name="expiration_date" type="float" setter="" getter="get_expiration_date" default="0.0">
+			The date when the subscription expires, as a Unix timestamp. Returns 0 if not applicable.
+		</member>
+		<member name="is_upgraded" type="bool" setter="" getter="get_is_upgraded" default="false">
+			Whether this transaction is an upgrade of another transaction.
+		</member>
+		<member name="original_id" type="int" setter="" getter="get_original_id" default="0">
+			The transaction identifier of the original purchase.
+		</member>
+		<member name="ownership_type" type="String" setter="" getter="get_ownership_type" default="&quot;unknown&quot;">
+			The type of ownership (e.g., "purchased", "familyShared", "unknown").
+		</member>
+		<member name="product_id" type="String" setter="" getter="get_product_id" default="&quot;&quot;">
+			The unique identifier of the purchased product.
+		</member>
+		<member name="purchase_date" type="float" setter="" getter="get_purchase_date" default="0.0">
+			The date when the purchase was made, as a Unix timestamp.
+		</member>
+		<member name="revocation_date" type="float" setter="" getter="get_revocation_date" default="0.0">
+			The date when the transaction was revoked, as a Unix timestamp. Returns 0 if not revoked.
+		</member>
+		<member name="transaction_id" type="int" setter="" getter="get_transaction_id" default="0">
+			The unique identifier of the transaction.
+		</member>
+	</members>
+</class>

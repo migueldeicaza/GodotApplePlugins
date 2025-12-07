@@ -1,0 +1,43 @@
+<class name="SubscriptionOfferView" inherits="RefCounted" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		A view for redeeming subscription offers.
+	</brief_description>
+	<description>
+		This class provides a view for users to redeem subscription offer codes. It handles the UI flow for entering and verifying offer codes.
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="dismiss">
+			<return type="void" />
+			<description>
+				Dismisses the currently presented view.
+			</description>
+		</method>
+		<method name="present">
+			<return type="void" />
+			<param index="0" name="callback" type="Callable" />
+			<description>
+				Presents the offer code redemption view. note: The `callback` parameter is currently unused; use the [signal success] and [signal error] signals to handle the result.
+			</description>
+		</method>
+	</methods>
+	<members>
+		<member name="title" type="String" setter="set_title" getter="get_title" default="&quot;Redeeming Offer...&quot;">
+			The title displayed on the view.
+		</member>
+	</members>
+	<signals>
+		<signal name="error">
+			<param index="0" name="arg1" type="String" />
+			<description>
+				Emitted when the offer redemption fails. `arg1` contains the error message.
+			</description>
+		</signal>
+		<signal name="success">
+			<description>
+				Emitted when the offer redemption is successful.
+			</description>
+		</signal>
+	</signals>
+</class>

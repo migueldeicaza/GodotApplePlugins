@@ -1,0 +1,29 @@
+<class name="StoreView" inherits="RefCounted" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		A view that displays a collection of products.
+	</brief_description>
+	<description>
+		This class represents a view that displays multiple products from the App Store. It is useful for creating a storefront or a list of available items.
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="dismiss">
+			<return type="void" />
+			<description>
+				Dismisses the currently presented view.
+			</description>
+		</method>
+		<method name="present">
+			<return type="void" />
+			<description>
+				Presents the store view on top of the current view hierarchy.
+			</description>
+		</method>
+	</methods>
+	<members>
+		<member name="product_ids" type="PackedStringArray" setter="set_product_ids" getter="get_product_ids" default="PackedStringArray()">
+			A list of product identifiers to display in the store view.
+		</member>
+	</members>
+</class>
