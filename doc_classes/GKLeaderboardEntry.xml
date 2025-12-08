@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <class name="GKLeaderboardEntry" inherits="RefCounted" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
 	<brief_description>
-        Single score information on the leaderboard.
+		Single score information on the leaderboard.
 	</brief_description>
 	<description>
 	</description>
@@ -9,19 +9,19 @@
 	</tutorials>
 	<members>
 		<member name="context" type="int" setter="" getter="get_context" default="0">
-            An integer value that your game uses.
+			An integer value that your game uses.
 		</member>
 		<member name="formatted_score" type="String" setter="" getter="get_formatted_score" default="&quot;&quot;">
-            The player’s score as a localized string.
+			The player’s score as a localized string.
 		</member>
 		<member name="player" type="GKPlayer" setter="" getter="get_player" default="null">
-            The player who earns the score.
+			The player who earns the score.
 		</member>
 		<member name="rank" type="int" setter="" getter="get_rank" default="0">
-            The position of the score in the results of a leaderboard search.
+			The position of the score in the results of a leaderboard search.
 		</member>
 		<member name="score" type="int" setter="" getter="get_score" default="0">
-            The score that the player earns.
+			The score that the player earns.
 		</member>
 	</members>
 </class>

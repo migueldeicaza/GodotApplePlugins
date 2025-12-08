@@ -2,6 +2,7 @@ extends Control
 
 var gameCenter: GameCenterManager
 var local: GKLocalPlayer
+var auth_controller = ASAuthorizationController
 
 func _ready() -> void:
 	gameCenter = GameCenterManager.new()
@@ -12,10 +13,31 @@ func _ready() -> void:
 	print("ONREADY: local, is auth: %s" % local.is_authenticated)
 	print("ONREADY: local, player ID: %s" % local.game_player_id)
 
+	auth_controller = ASAuthorizationController.new()
+	auth_controller.authorization_completed.connect(_on_authorization_completed)
+	auth_controller.authorization_failed.connect(_on_authorization_failed)
+
 func _on_button_pressed() -> void:
+	# Request full name and email
+	auth_controller.perform_apple_id_request(["full_name", "email"])
+
+func _on_authorization_completed(credential):
+	if credential is ASAuthorizationAppleIDCredential:
+		print("User ID: ", credential.user)
+		print("Email: ", credential.email)
+		print("Full Name: ", credential.fullName)
+	elif credential is ASPasswordCredential:
+		print("User: ", credential.user)
+		print("Password: ", credential.password)
+
+func _on_authorization_failed(error_message):
+	print("Authorization failed: ", error_message)
+
+func _xon_button_pressed() -> void:
 	var player = gameCenter.local_player
 	print("Got %s" % player)
 	print("Fetching the other object: %s" % player.is_authenticated)
+	var demo = GKLeaderboard.new()
 	
 	gameCenter.authentication_error.connect(func(error: String) -> void:
 		$auth_result.text = error

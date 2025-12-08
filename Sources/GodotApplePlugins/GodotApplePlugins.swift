@@ -31,7 +31,11 @@ import SwiftGodotRuntime
         StoreTransaction.self,
         StoreView.self,
         SubscriptionOfferView.self,
-        SubscriptionStoreView.self
+        SubscriptionStoreView.self,
+
+        ASAuthorizationAppleIDCredential.self,
+        ASPasswordCredential.self,
+        ASAuthorizationController.self
     ],
     enums: [
         AVAudioSession.SessionCategory.self,
@@ -45,5 +49,8 @@ import SwiftGodotRuntime
 
         ProductView.ViewStyle.self,
         StoreKitManager.StoreKitStatus.self,
-        SubscriptionStoreView.ControlStyle.self
+        SubscriptionStoreView.ControlStyle.self,
+
+        ASAuthorizationAppleIDCredential.UserDetectionStatus.self,
+        ASAuthorizationAppleIDCredential.UserAgeRange.self
     ])

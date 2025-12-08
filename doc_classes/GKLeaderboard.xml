@@ -72,7 +72,7 @@
 			<param index="3" name="rangeLenght" type="int" />
 			<param index="4" name="callback" type="Callable" />
 			<description>
-                Loads leaderboard entries for the local player.  The callback receives [code](GKLeaderboardEntry local, Array[GKLeaderboardEntry] scores, Variant range, Variant error)[/code] where the first entry can be [code]null[/code] if the local player has not posted a score.   The value `range` is the number of total player count that matched the scope
+				Loads leaderboard entries for the local player.  The callback receives [code](GKLeaderboardEntry local, Array[GKLeaderboardEntry] scores, Variant range, Variant error)[/code] where the first entry can be [code]null[/code] if the local player has not posted a score.   The value `range` is the number of total player count that matched the scope
 			</description>
 		</method>
 		<method name="submit_score">
@@ -112,10 +112,10 @@
 	</members>
 	<constants>
 		<constant name="classic" value="0" enum="AppleLeaderboardType">
-            A leaderboard that never expires, showing all-time rankings of all players.
+			A leaderboard that never expires, showing all-time rankings of all players.
 		</constant>
 		<constant name="recurring" value="1" enum="AppleLeaderboardType">
-            A leaderboard that recurs, allowing players a fresh start to compete and earn higher ranks in each ocurrence.
+			A leaderboard that recurs, allowing players a fresh start to compete and earn higher ranks in each ocurrence.
 		</constant>
 		<constant name="unknown" value="2" enum="AppleLeaderboardType">
 		</constant>
@@ -129,10 +129,10 @@
 			Returns scores across the entire history of the leaderboard.
 		</constant>
 		<constant name="global" value="0" enum="PlayerScope">
-            Loads data for all players of the game.
+			Loads data for all players of the game.
 		</constant>
 		<constant name="friendsOnly" value="1" enum="PlayerScope">
-            Loads only data for friends of the local player.
+			Loads only data for friends of the local player.
 		</constant>
 	</constants>
 </class>
