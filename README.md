@@ -27,10 +27,6 @@ switch to "Release Mode" and set "Create Merged Binary" to "Manual"
 and you will further reduce the size of your executable (about 1.7
 megs at the time of this writing).
 
-The "AuthenticationServices" code was derived from [Dragos Daian's/
-Nirmal Ac's](https://github.com/appsinacup/godot-apple-login) binding and 
-Xogot's own use.
-
 # API Design
 
 The API surfaced by this add-ons is to be as close to possible to the Apple APIs (classes, methods names, enumerations) and to avoid attempting to provide an abstraction over them - as these tend to have impedance mismatches.  
@@ -138,3 +134,10 @@ If you manually disable mergeable libraries and build your own addon:
 Debug:   114 MB
 Release: 105 MB
 ```
+
+# Credits
+
+The "AuthenticationServices" code was derived from [Dragos Daian's/
+Nirmal Ac's](https://github.com/appsinacup/godot-apple-login) binding and 
+Xogot's own use.   Dragos also provided extensive technical guidance on 
+putting together this addon for distribution.   Thank you!
