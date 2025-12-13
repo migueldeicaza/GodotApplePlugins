@@ -1,96 +1,103 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <class name="StoreKitManager" inherits="RefCounted" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
-	<brief_description>
-		Manages StoreKit interactions such as requesting products, purchasing, and restoring purchases.
-	</brief_description>
-	<description>
-		This class handles the core StoreKit functionality. It provides methods to fetch product information from the App Store, initiate purchases, and restore previous purchases. It emits signals to notify the application about the status of these operations.
-	</description>
-	<tutorials>
-	</tutorials>
-	<methods>
-		<method name="purchase">
-			<return type="void" />
-			<param index="0" name="product" type="StoreProduct" />
-			<description>
-				Initiates the purchase of a specific product, e.g. [code]purchase(product)[/code].
-			</description>
-		</method>
-		<method name="request_products">
-			<return type="void" />
-			<param index="0" name="productIds" type="PackedStringArray" />
-			<description>
-				Requests product information for a list of product identifiers, e.g. [code]request_products(["com.example.product1", "com.example.product2"])[/code].
-			</description>
-		</method>
-		<method name="restore_purchases">
-			<return type="void" />
-			<description>
-				Restores previously purchased non-consumable products and auto-renewable subscriptions.
-			</description>
-		</method>
-	</methods>
-	<signals>
-		<signal name="products_request_completed">
-			<param index="0" name="products" type="Array" />
-			<param index="1" name="status" type="int" />
-			<description>
-				Emitted when a product request completes.
-				[param products] is an Array of [StoreProduct]s (or nulls).
-				[param status] indicates success or failure.
-			</description>
-		</signal>
-		<signal name="purchase_completed">
-			<param index="0" name="transaction" type="StoreTransaction" />
-			<param index="1" name="status" type="int" />
-			<param index="2" name="error_message" type="String" />
-			<description>
-				Emitted when a purchase completes.
-				[param transaction] is the [StoreTransaction] on success.
-				[param status] indicates the result (OK, cancelled, invalid product, etc.).
-				[param error_message] contains error details if failed.
-			</description>
-		</signal>
-		<signal name="purchase_intent">
-			<param index="0" name="arg1" type="StoreProduct" />
-			<description>
-			</description>
-		</signal>
-		<signal name="restore_completed">
-			<param index="0" name="status" type="int" />
-			<param index="1" name="error_message" type="String" />
-			<description>
-				Emitted when the restore process completes. `arg1` is the [enum StoreKitStatus], and `arg2` is an error message if applicable.
-			</description>
-		</signal>
-		<signal name="transaction_updated">
-			<param index="0" name="transaction" type="StoreTransaction" />
-			<description>
-				Emitted when a transaction is updated (e.g., a subscription renews or a purchase is approved externally). `arg1` is the updated [StoreTransaction].
-			</description>
-		</signal>
-	</signals>
-	<constants>
-		<constant name="ok" value="0" enum="StoreKitStatus">
-			The operation completed successfully.
-		</constant>
-		<constant name="invalidProduct" value="1" enum="StoreKitStatus">
-			The product identifier is invalid.
-		</constant>
-		<constant name="cancelled" value="2" enum="StoreKitStatus">
-			The operation was cancelled.
-		</constant>
-		<constant name="unverifiedTransaction" value="3" enum="StoreKitStatus">
-			The transaction could not be verified.
-		</constant>
-		<constant name="userCancelled" value="4" enum="StoreKitStatus">
-			The user cancelled the operation.
-		</constant>
-		<constant name="purchasePending" value="5" enum="StoreKitStatus">
-			The purchase is pending (e.g., waiting for parental approval).
-		</constant>
-		<constant name="unknownStatus" value="6" enum="StoreKitStatus">
-			An unknown status occurred.
-		</constant>
-	</constants>
+    <brief_description>
+        Manages StoreKit interactions such as requesting products, purchasing, and restoring purchases.
+    </brief_description>
+    <description>
+        This class handles the core StoreKit functionality. It provides methods to fetch product information from the App Store, initiate purchases,
+        restore previous purchases and be notified of the current status of the purchase upon startup.
+
+        Upon creation, this class will start immediately to raise the [code]transaction_updated[/code] signal
+        to notify you of the status of purchases as well as the [code]purchase_intent[/code] signal
+        letting you know any purchase intents.   You should register the signals immediately after
+        instantiating.
+
+    </description>
+    <tutorials>
+    </tutorials>
+    <methods>
+        <method name="purchase">
+            <return type="void" />
+            <param index="0" name="product" type="StoreProduct" />
+            <description>
+                Initiates the purchase of a specific product, e.g. [code]purchase(product)[/code].
+            </description>
+        </method>
+        <method name="request_products">
+            <return type="void" />
+            <param index="0" name="productIds" type="PackedStringArray" />
+            <description>
+                Requests product information for a list of product identifiers, e.g. [code]request_products(["com.example.product1", "com.example.product2"])[/code].
+            </description>
+        </method>
+        <method name="restore_purchases">
+            <return type="void" />
+            <description>
+                Restores previously purchased non-consumable products and auto-renewable subscriptions.
+            </description>
+        </method>
+    </methods>
+    <signals>
+        <signal name="products_request_completed">
+            <param index="0" name="products" type="Array" />
+            <param index="1" name="status" type="int" />
+            <description>
+                Emitted when a product request completes.
+                [param products] is an Array of [StoreProduct]s (or nulls).
+                [param status] indicates success or failure.
+            </description>
+        </signal>
+        <signal name="purchase_completed">
+            <param index="0" name="transaction" type="StoreTransaction" />
+            <param index="1" name="status" type="int" />
+            <param index="2" name="error_message" type="String" />
+            <description>
+                Emitted when a purchase completes.
+                [param transaction] is the [StoreTransaction] on success.
+                [param status] indicates the result (OK, cancelled, invalid product, etc.).
+                [param error_message] contains error details if failed.
+            </description>
+        </signal>
+        <signal name="purchase_intent">
+            <param index="0" name="arg1" type="StoreProduct" />
+            <description>
+            </description>
+        </signal>
+        <signal name="restore_completed">
+            <param index="0" name="status" type="int" />
+            <param index="1" name="error_message" type="String" />
+            <description>
+                Emitted when the restore process completes. `arg1` is the [enum StoreKitStatus], and `arg2` is an error message if applicable.
+            </description>
+        </signal>
+        <signal name="transaction_updated">
+            <param index="0" name="transaction" type="StoreTransaction" />
+            <description>
+                Emitted when a transaction is updated (e.g., a subscription renews or a purchase is approved externally). `arg1` is the updated [StoreTransaction].
+            </description>
+        </signal>
+    </signals>
+    <constants>
+        <constant name="ok" value="0" enum="StoreKitStatus">
+            The operation completed successfully.
+        </constant>
+        <constant name="invalidProduct" value="1" enum="StoreKitStatus">
+            The product identifier is invalid.
+        </constant>
+        <constant name="cancelled" value="2" enum="StoreKitStatus">
+            The operation was cancelled.
+        </constant>
+        <constant name="unverifiedTransaction" value="3" enum="StoreKitStatus">
+            The transaction could not be verified.
+        </constant>
+        <constant name="userCancelled" value="4" enum="StoreKitStatus">
+            The user cancelled the operation.
+        </constant>
+        <constant name="purchasePending" value="5" enum="StoreKitStatus">
+            The purchase is pending (e.g., waiting for parental approval).
+        </constant>
+        <constant name="unknownStatus" value="6" enum="StoreKitStatus">
+            An unknown status occurred.
+        </constant>
+    </constants>
 </class>
