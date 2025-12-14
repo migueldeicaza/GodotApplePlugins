@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="StoreProductPurchaseOption" inherits="RefCounted" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+	</brief_description>
+	<description>
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="app_account_token" qualifiers="static">
+			<return type="StoreProductPurchaseOption" />
+			<param index="0" name="stringUuidToken" type="String" />
+			<description>
+			</description>
+		</method>
+		<method name="introductory_offer_elligibility" qualifiers="static">
+			<return type="StoreProductPurchaseOption" />
+			<param index="0" name="jws" type="String" />
+			<description>
+			</description>
+		</method>
+		<method name="quantity" qualifiers="static">
+			<return type="StoreProductPurchaseOption" />
+			<param index="0" name="value" type="int" />
+			<description>
+			</description>
+		</method>
+		<method name="simulate_ask_to_buy_in_sandbox" qualifiers="static">
+			<return type="StoreProductPurchaseOption" />
+			<param index="0" name="enabled" type="bool" />
+			<description>
+			</description>
+		</method>
+		<method name="win_back_offer" qualifiers="static">
+			<return type="StoreProductPurchaseOption" />
+			<param index="0" name="offer" type="StoreProductSubscriptionOffer" />
+			<description>
+			</description>
+		</method>
+	</methods>
+</class>

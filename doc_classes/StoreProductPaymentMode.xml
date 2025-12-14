@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="StoreProductPaymentMode" inherits="RefCounted" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+	</brief_description>
+	<description>
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="get_free_trial" qualifiers="static">
+			<return type="StoreProductPaymentMode" />
+			<description>
+			</description>
+		</method>
+		<method name="get_pay_as_you_go" qualifiers="static">
+			<return type="StoreProductPaymentMode" />
+			<description>
+			</description>
+		</method>
+		<method name="pay_up_front" qualifiers="static">
+			<return type="StoreProductPaymentMode" />
+			<description>
+			</description>
+		</method>
+	</methods>
+	<members>
+		<member name="localized_description" type="String" setter="" getter="get_localized_description" default="&quot;&quot;">
+		</member>
+	</members>
+</class>

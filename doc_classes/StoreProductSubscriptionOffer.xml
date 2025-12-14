@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="StoreProductSubscriptionOffer" inherits="RefCounted" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+	</brief_description>
+	<description>
+	</description>
+	<tutorials>
+	</tutorials>
+	<constants>
+		<constant name="introductory" value="0" enum="OfferType">
+		</constant>
+		<constant name="promotional" value="1" enum="OfferType">
+		</constant>
+		<constant name="winBack" value="2" enum="OfferType">
+		</constant>
+		<constant name="unknown" value="3" enum="OfferType">
+		</constant>
+	</constants>
+</class>
