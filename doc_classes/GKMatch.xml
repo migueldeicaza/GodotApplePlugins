@@ -95,29 +95,29 @@
 	</members>
 	<signals>
 		<signal name="data_received">
-			<param index="0" name="arg1" type="PackedByteArray" />
-			<param index="1" name="arg2" type="GKPlayer" />
+			<param index="0" name="data" type="PackedByteArray" />
+			<param index="1" name="player" type="GKPlayer" />
 			<description>
 				Emitted when another player sends data to the local device. Provides the raw bytes and the sender.
 			</description>
 		</signal>
 		<signal name="data_received_for_recipient_from_player">
-			<param index="0" name="arg1" type="PackedByteArray" />
-			<param index="1" name="arg2" type="GKPlayer" />
-			<param index="2" name="arg3" type="GKPlayer" />
+			<param index="0" name="data" type="PackedByteArray" />
+			<param index="1" name="recipient" type="GKPlayer" />
+			<param index="2" name="from_remote_player" type="GKPlayer" />
 			<description>
 				Emitted when the local player receives data that was addressed to a specific recipient. Arguments provide the payload, the intended recipient, and the sender.
 			</description>
 		</signal>
 		<signal name="did_fail_with_error">
-			<param index="0" name="arg1" type="String" />
+			<param index="0" name="message" type="String" />
 			<description>
 				Fires when Apple reports a networking error. The [code skip-lint]String[/code] argument contains the localized description.
 			</description>
 		</signal>
 		<signal name="player_changed">
-			<param index="0" name="arg1" type="GKPlayer" />
-			<param index="1" name="arg2" type="bool" />
+			<param index="0" name="player" type="GKPlayer" />
+			<param index="1" name="connected" type="bool" />
 			<description>
 				Notifies you when a player connects or disconnects. The boolean is [code]true[/code] for connected players and [code]false[/code] otherwise.
 			</description>

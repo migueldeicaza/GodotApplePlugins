@@ -23,8 +23,8 @@ class GKMatchmakerViewController: RefCounted, @unchecked Sendable {
                 base.dialogController?.dismiss(viewController)
 #else
                 viewController.dismiss(animated: true)
-                base.cancelled.emit("")
 #endif
+                base.cancelled.emit("")
             }
         }
 
@@ -54,16 +54,16 @@ class GKMatchmakerViewController: RefCounted, @unchecked Sendable {
         }
     }
 
-    @Signal var cancelled: SignalWithArguments<String>
+    @Signal("detail") var cancelled: SignalWithArguments<String>
 
     /// Matchmaking has failed with an error
-    @Signal var failed_with_error: SignalWithArguments<String>
+    @Signal("message") var failed_with_error: SignalWithArguments<String>
 
     /// A peer-to-peer match has been found, the game should start
-    @Signal var did_find_match: SignalWithArguments<GKMatch>
+    @Signal("match") var did_find_match: SignalWithArguments<GKMatch>
 
     /// Players have been found for a server-hosted game, the game should start, receives an array of GKPlayers
-    @Signal var did_find_hosted_players: SignalWithArguments<VariantArray>
+    @Signal("players") var did_find_hosted_players: SignalWithArguments<VariantArray>
 
     /// The view controller if we create it
     var vc: GameKit.GKMatchmakerViewController?

@@ -13,7 +13,7 @@ import SwiftUI
 class SubscriptionOfferView: RefCounted, @unchecked Sendable {
     @Export var title: String = "Redeeming Offer..."
     @Signal var success: SimpleSignal
-    @Signal var error: SignalWithArguments<String>
+    @Signal("message") var error: SignalWithArguments<String>
 
     // TODO: should this instead raise signals instead of the callback here?
     @Callable

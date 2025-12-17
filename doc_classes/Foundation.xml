@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <class name="Foundation" inherits="RefCounted" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
 	<brief_description>
-	This class exposes some common APIs from Apple's Foundation framework that can be used elsewhere.
+		This class exposes some common APIs from Apple's Foundation framework that can be used elsewhere.
 	</brief_description>
 	<description>
 	</description>
@@ -11,7 +11,7 @@
 		<method name="uuid" qualifiers="static">
 			<return type="String" />
 			<description>
-			This creates a Foundation UUID and returns the string representation of it - you can then pass this to methods that expect a UUID.
+				This creates a Foundation UUID and returns the string representation of it - you can then pass this to methods that expect a UUID.
 			</description>
 		</method>
 	</methods>

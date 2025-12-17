@@ -68,8 +68,10 @@ dist:
 
 XCFRAMEWORK_GODOTAPPLEPLUGINS ?= $(CURDIR)/addons/GodotApplePlugins/bin/GodotApplePlugins.xcframework
 
-gendocs:
+justgen:
 	(cd test-apple-godot-api; ~/cvs/master-godot/editor/bin/godot.macos.editor.dev.arm64 --headless --path . --doctool .. --gdextension-docs)
+
+gendocs: justgen
 	./fix_doc_enums.sh
 	$(MAKE) -C doctools html
 

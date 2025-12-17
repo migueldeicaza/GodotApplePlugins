@@ -40,13 +40,13 @@
 	</members>
 	<signals>
 		<signal name="authentication_error">
-			<param index="0" name="arg1" type="String" />
+			<param index="0" name="message" type="String" />
 			<description>
 				Emitted whenever GameKit authentication fails. The argument is the localized error string provided by Apple.
 			</description>
 		</signal>
 		<signal name="authentication_result">
-			<param index="0" name="arg1" type="bool" />
+			<param index="0" name="status" type="bool" />
 			<description>
 				Emitted after [code skip-lint]authenticate()[/code] finishes. The boolean is [code]true[/code] when [code skip-lint]GKLocalPlayer.local.isAuthenticated[/code] reports success.
 			</description>

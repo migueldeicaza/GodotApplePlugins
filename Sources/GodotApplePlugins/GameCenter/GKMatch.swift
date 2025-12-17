@@ -107,12 +107,12 @@ class GKMatch: RefCounted, @unchecked Sendable {
         }
     }
 
-    @Signal var data_received: SignalWithArguments<PackedByteArray, GKPlayer>
-    @Signal var data_received_for_recipient_from_player: SignalWithArguments<PackedByteArray,GKPlayer,GKPlayer>
+    @Signal("data", "player") var data_received: SignalWithArguments<PackedByteArray, GKPlayer>
+    @Signal("data", "recipient", "from_remote_player") var data_received_for_recipient_from_player: SignalWithArguments<PackedByteArray,GKPlayer,GKPlayer>
 
     // The boolean indicates if it is connected (true) or disconncted(false
-    @Signal var player_changed: SignalWithArguments<GKPlayer, Bool>
-    @Signal var did_fail_with_error: SignalWithArguments<String>
+    @Signal("player", "connected") var player_changed: SignalWithArguments<GKPlayer, Bool>
+    @Signal("message") var did_fail_with_error: SignalWithArguments<String>
 
     // Connect to a function that accepts a GKPlayer and returns a boolean
     @Export var should_reinvite_disconnected_player: Callable?

@@ -17,10 +17,10 @@ import AppKit
 @Godot
 class ASAuthorizationController: RefCounted, @unchecked Sendable {
     /// Can be either ASAuthorizationAppleIDCredential, ASPasswordCredential or nil for others
-    @Signal
+    @Signal("credential")
     var authorization_completed: SignalWithArguments<RefCounted?>
     
-    @Signal
+    @Signal("message")
     var authorization_failed: SignalWithArguments<String>
 
     var controller: AuthenticationServices.ASAuthorizationController?

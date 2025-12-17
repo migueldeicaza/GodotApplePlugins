@@ -11,16 +11,16 @@ import StoreKit
 @Godot
 public class StoreKitManager: RefCounted, @unchecked Sendable {
     // [StoreProduct], StoreKitStatus
-    @Signal var products_request_completed: SignalWithArguments<TypedArray<StoreProduct?>, Int>
+    @Signal("products", "status") var products_request_completed: SignalWithArguments<TypedArray<StoreProduct?>, Int>
     // StoreTransaction, StoreKitStatus, error message
-    @Signal var purchase_completed: SignalWithArguments<StoreTransaction?, Int, String>
+    @Signal("transaction", "status", "message") var purchase_completed: SignalWithArguments<StoreTransaction?, Int, String>
     // StoreTransaction
-    @Signal var transaction_updated: SignalWithArguments<StoreTransaction?>
+    @Signal("transaction") var transaction_updated: SignalWithArguments<StoreTransaction?>
     // StoreProduct
-    @Signal var purchase_intent: SignalWithArguments<StoreProduct?>
+    @Signal("product") var purchase_intent: SignalWithArguments<StoreProduct?>
 
     // StoreKitStatus, error_message (empty on success)
-    @Signal var restore_completed: SignalWithArguments<Int, String>
+    @Signal("status", "message") var restore_completed: SignalWithArguments<Int, String>
 
     public enum StoreKitStatus: Int, CaseIterable {
         case ok

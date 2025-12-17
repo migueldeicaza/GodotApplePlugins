@@ -30,7 +30,7 @@
 	</members>
 	<signals>
 		<signal name="error">
-			<param index="0" name="arg1" type="String" />
+			<param index="0" name="message" type="String" />
 			<description>
 				Emitted when the offer redemption fails. `arg1` contains the error message.
 			</description>

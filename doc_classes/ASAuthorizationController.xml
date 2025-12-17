@@ -40,31 +40,31 @@
 		<method name="signin">
 			<return type="void" />
 			<description>
-                Call this method to initiate the signin with Apple workflow with the default scopes ([code]email[/code], [code]full_name[/code}]),
-                this will raise the signal [signal authorization_completed] upon
-                success, or the [signal authorization_failed] on failure.
+				Call this method to initiate the signin with Apple workflow with the default scopes ([code]email[/code], [code]full_name[/code}]),
+				                this will raise the signal [signal authorization_completed] upon
+				                success, or the [signal authorization_failed] on failure.
 			</description>
 		</method>
 		<method name="signin_with_scopes">
 			<return type="void" />
 			<param index="0" name="scopeStrings" type="Array" />
 			<description>
-                Call this method to initiate the signin with Apple workflow with a specific set of scopes, currently they can be any of [code]email[/code]
-                and [code]full_name[/code].  This will raise the event [signal authorization_completed] upon
-                success, or the [signal authorization_failed] on failure.
+				Call this method to initiate the signin with Apple workflow with a specific set of scopes, currently they can be any of [code]email[/code]
+				                and [code]full_name[/code].  This will raise the event [signal authorization_completed] upon
+				                success, or the [signal authorization_failed] on failure.
 			</description>
 		</method>
 	</methods>
 	<signals>
 		<signal name="authorization_completed">
-			<param index="0" name="arg1" type="RefCounted" />
+			<param index="0" name="credential" type="RefCounted" />
 			<description>
 				Emitted when the authorization request completes successfully.
 				[param credential] is usually an [ASAuthorizationAppleIDCredential] or [ASPasswordCredential]. It can be null if the credential type is unsupported.
 			</description>
 		</signal>
 		<signal name="authorization_failed">
-			<param index="0" name="arg1" type="String" />
+			<param index="0" name="message" type="String" />
 			<description>
 				Emitted when the authorization request fails.
 				[param error] contains the localized description of the error.

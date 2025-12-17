@@ -17,8 +17,8 @@ import GameKit
 
 @Godot
 class GameCenterManager: RefCounted, @unchecked Sendable {
-    @Signal var authentication_error: SignalWithArguments<String>
-    @Signal var authentication_result: SignalWithArguments<Bool>
+    @Signal("message") var authentication_error: SignalWithArguments<String>
+    @Signal("status") var authentication_result: SignalWithArguments<Bool>
 
     var isAuthenticated: Bool = false
     

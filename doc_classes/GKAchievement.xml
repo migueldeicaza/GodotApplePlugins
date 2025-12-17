@@ -84,7 +84,7 @@
 		<member name="is_completed" type="bool" setter="" getter="get_is_completed" default="false">
 			Read-only flag that mirrors GameKit's [code]isCompleted[/code] property.
 		</member>
-		<member name="last_reported_date" type="float" setter="" getter="get_last_reported_date" default="1765743000.0">
+		<member name="last_reported_date" type="float" setter="" getter="get_last_reported_date" default="1766012700.0">
 		</member>
 		<member name="percent_complete" type="float" setter="set_percent_complete" getter="get_percent_complete" default="0.0">
 			The player's reported completion percentage (0-100). Update this and then call [method report_achivement] to submit it.

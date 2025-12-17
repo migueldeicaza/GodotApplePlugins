@@ -51,25 +51,25 @@
 	</methods>
 	<signals>
 		<signal name="cancelled">
-			<param index="0" name="arg1" type="String" />
+			<param index="0" name="detail" type="String" />
 			<description>
 				Emitted when the user cancels the matchmaking UI. The string is empty on UIKit and contains an informational message on macOS.
 			</description>
 		</signal>
 		<signal name="did_find_hosted_players">
-			<param index="0" name="arg1" type="Array" />
+			<param index="0" name="players" type="Array" />
 			<description>
 				Fired when GameKit returns players for a hosted-server scenario. The array contains [code skip-lint]GKPlayer[/code] instances.
 			</description>
 		</signal>
 		<signal name="did_find_match">
-			<param index="0" name="arg1" type="GKMatch" />
+			<param index="0" name="match" type="GKMatch" />
 			<description>
 				Triggered when a peer-to-peer match has been found and is ready to start.
 			</description>
 		</signal>
 		<signal name="failed_with_error">
-			<param index="0" name="arg1" type="String" />
+			<param index="0" name="message" type="String" />
 			<description>
 				Emitted if Apple reports an error while matchmaking. The string contains [code]localizedDescription[/code].
 			</description>
