@@ -14,14 +14,6 @@ import AppKit
 #endif
 import UniformTypeIdentifiers
 
-@Godot(.tool)
-class DatabaseEditorWindow: Window
-{
-
-    @Export(.nodeType, "TabContainer") var editorTabs: TabContainer? = nil
-    @Export(.nodeType, "Container") var databaseDetailsContainer: Container? = nil
-
-}
 @Godot
 public class AppleFilePicker: RefCounted, @unchecked Sendable {
     // AppleURL, path
