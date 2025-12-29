@@ -90,7 +90,7 @@ might want to use in your game like `is_authenticated`, `is_underage`,
 
 ### GKPlayer
 
-* [GKPlayer]((https://developer.apple.com/documentation/gamekit/gkplayer)
+* [GKPlayer](https://developer.apple.com/documentation/gamekit/gkplayer)
 
 This is the base class for a player, either the local one or friends
 and contains properties and methods that are common to both
