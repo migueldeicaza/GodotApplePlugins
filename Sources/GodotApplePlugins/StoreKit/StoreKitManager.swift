@@ -117,20 +117,19 @@ public class StoreKitManager: RefCounted, @unchecked Sendable {
 
     @Callable
     func request_products(productIds: PackedStringArray) {
+        var ids: [String] = []
+        ids.reserveCapacity(productIds.count)
+        for id in productIds {
+            ids.append(id)
+        }
         Task {
             do {
-                var ids: [String] = []
-                for id in productIds {
-                    ids.append(id)
-                }
                 let products = try await Product.products(for: ids)
-                let storeProducts = products.map { StoreProduct($0) }
-                let variantArray = TypedArray<StoreProduct?>()
-                for sp in storeProducts {
-                    variantArray.append(sp)
-                }
-                
                 await MainActor.run {
+                    let variantArray = TypedArray<StoreProduct?>()
+                    for product in products {
+                        variantArray.append(StoreProduct(product))
+                    }
                     _ = self.products_request_completed.emit(variantArray, StoreKitStatus.OK.rawValue)
                 }
             } catch {
