@@ -34,6 +34,41 @@
 		</member>
 	</members>
 	<constants>
+		<constant name="MIX_WITH_OTHERS" value="1" enum="CategoryOptions">
+			Option to mix audio with other apps.
+		</constant>
+		<constant name="DUCK_OTHERS" value="2" enum="CategoryOptions">
+			Option to duck other apps' audio.
+		</constant>
+		<constant name="ALLOW_BLUETOOTH" value="4" enum="CategoryOptions">
+			Option to allow Bluetooth output.
+		</constant>
+		<constant name="DEFAULT_TO_SPEAKER" value="8" enum="CategoryOptions">
+			Option to default audio to speaker.
+		</constant>
+		<constant name="INTERRUPT_SPOKEN_AUDIO_AND_MIX_WITH_OTHERS" value="17" enum="CategoryOptions">
+			Option to interrupt spoken audio and mix with others.
+		</constant>
+		<constant name="ALLOW_BLUETOOTH_A2DP" value="32" enum="CategoryOptions">
+			Option to allow Bluetooth A2DP.
+		</constant>
+		<constant name="ALLOW_AIRPLAY" value="64" enum="CategoryOptions">
+		</constant>
+		<constant name="OVERRIDE_MUTED_MICROPHONE_INTERRUPTION" value="128" enum="CategoryOptions">
+			Option to override muted microphone interruption.
+		</constant>
+		<constant name="DEFAULT" value="0" enum="RouteSharingPolicy">
+			Default route sharing policy.
+		</constant>
+		<constant name="LONG_FORM_AUDIO" value="1" enum="RouteSharingPolicy">
+			Route sharing policy for long-form audio.
+		</constant>
+		<constant name="INDEPENDENT" value="2" enum="RouteSharingPolicy">
+			Independent route sharing policy.
+		</constant>
+		<constant name="LONG_FORM" value="3" enum="RouteSharingPolicy">
+			Alias for [constant LONG_FORM_AUDIO].
+		</constant>
 		<constant name="AMBIENT" value="0" enum="SessionCategory">
 			Plays audio quietly and mixes with other apps, ideal for games that should respect background music.
 		</constant>
@@ -55,9 +90,6 @@
 		<constant name="UNKNOWN" value="6" enum="SessionCategory">
 			Default fallback when the platform does not expose audio sessions (macOS desktop).
 		</constant>
-		<constant name="DEFAULT" value="0" enum="SessionMode">
-			The default audio session mode.
-		</constant>
 		<constant name="GAME_CHAT" value="1" enum="SessionMode">
 			Mode for game chat, optimizing for voice processing.
 		</constant>
@@ -78,42 +110,6 @@
 		</constant>
 		<constant name="VOICE_PROMPT" value="7" enum="SessionMode">
 			Mode for voice prompts.
-		</constant>
-		<constant name="DEFAULT" value="0" enum="RouteSharingPolicy">
-			Default route sharing policy.
-		</constant>
-		<constant name="LONG_FORM_AUDIO" value="1" enum="RouteSharingPolicy">
-			Route sharing policy for long-form audio.
-		</constant>
-		<constant name="INDEPENDENT" value="2" enum="RouteSharingPolicy">
-			Independent route sharing policy.
-		</constant>
-		<constant name="LONG_FORM" value="3" enum="RouteSharingPolicy">
-			Alias for [constant LONG_FORM_AUDIO].
-		</constant>
-		<constant name="MIX_WITH_OTHERS" value="1" enum="CategoryOptions" is_bitfield="true">
-			Option to mix audio with other apps.
-		</constant>
-		<constant name="DUCK_OTHERS" value="2" enum="CategoryOptions" is_bitfield="true">
-			Option to duck other apps' audio.
-		</constant>
-		<constant name="ALLOW_BLUETOOTH" value="4" enum="CategoryOptions" is_bitfield="true">
-			Option to allow Bluetooth output.
-		</constant>
-		<constant name="DEFAULT_TO_SPEAKER" value="8" enum="CategoryOptions" is_bitfield="true">
-			Option to default audio to speaker.
-		</constant>
-		<constant name="INTERRUPT_SPOKEN_AUDIO_AND_MIX_WITH_OTHERS" value="17" enum="CategoryOptions" is_bitfield="true">
-			Option to interrupt spoken audio and mix with others.
-		</constant>
-		<constant name="ALLOW_BLUETOOTH_A2DP" value="32" enum="CategoryOptions" is_bitfield="true">
-			Option to allow Bluetooth A2DP.
-		</constant>
-		<constant name="ALLOW_AIR_PLAY" value="64" enum="CategoryOptions" is_bitfield="true">
-			Option to allow AirPlay.
-		</constant>
-		<constant name="OVERRIDE_MUTED_MICROPHONE_INTERRUPTION" value="128" enum="CategoryOptions" is_bitfield="true">
-			Option to override muted microphone interruption.
 		</constant>
 	</constants>
 </class>

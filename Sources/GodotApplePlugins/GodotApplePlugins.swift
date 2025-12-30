@@ -49,7 +49,10 @@ import SwiftGodotRuntime
         ASAuthorizationController.self
     ],
     enums: [
+        AVAudioSession.CategoryOptions.self,
+        AVAudioSession.RouteSharingPolicy.self,
         AVAudioSession.SessionCategory.self,
+        AVAudioSession.SessionMode.self,
 
         GKGameCenterViewController.State.self,
         GKLeaderboard.AppleLeaderboardType.self,
