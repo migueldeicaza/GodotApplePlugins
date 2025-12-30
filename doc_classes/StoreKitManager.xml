@@ -10,7 +10,7 @@
 		                Once you instantiate this class, connect to the the [signal transaction_updated] signal to
 		                get notification related to the status of your purchases - these are delivered to notify
 		                your application of what products your user is entitled to at startup.   If you are using
-		                Apple's PurchaseIntent, you will also want to connect to the [signal purchas_intent].
+		                Apple's PurchaseIntent, you will also want to connect to the [signal purchase_intent].
 
 		                After you have set up your signals, you need to call [method start] when you are ready
 		                to receive those events.
