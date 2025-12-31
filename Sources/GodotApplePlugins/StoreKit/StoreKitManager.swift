@@ -122,20 +122,16 @@ public class StoreKitManager: RefCounted, @unchecked Sendable {
         for id in productIds {
             ids.append(id)
         }
-        Task {
+        Task { @MainActor in
             do {
                 let products = try await Product.products(for: ids)
-                await MainActor.run {
-                    let variantArray = TypedArray<StoreProduct?>()
-                    for product in products {
-                        variantArray.append(StoreProduct(product))
-                    }
-                    _ = self.products_request_completed.emit(variantArray, StoreKitStatus.OK.rawValue)
+                let variantArray = TypedArray<StoreProduct?>()
+                for product in products {
+                    variantArray.append(StoreProduct(product))
                 }
+                _ = self.products_request_completed.emit(variantArray, StoreKitStatus.OK.rawValue)
             } catch {
-                await MainActor.run {
-                    _ = self.products_request_completed.emit(TypedArray<StoreProduct?>(), StoreKitStatus.CANCELLED.rawValue)
-                }
+                _ = self.products_request_completed.emit(TypedArray<StoreProduct?>(), StoreKitStatus.CANCELLED.rawValue)
             }
         }
     }
