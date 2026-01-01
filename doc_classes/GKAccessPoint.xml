@@ -75,9 +75,6 @@
 		<member name="active" type="bool" setter="set_active" getter="get_active" default="false">
 			A Boolean value that determines whether to display the access point.
 		</member>
-		<member name="focused" type="bool" setter="set_focused" getter="get_focused" default="false">
-			Whether the access point is focused on tvOS. On other platforms this is always [code]false[/code] and setting it has no effect.
-		</member>
 		<member name="frame_in_screen_coordinates" type="Rect2" setter="" getter="get_frame_in_screen_coordinates" default="Rect2(0, 0, 0, 0)">
 			The frame of the access point in screen coordinates.
 		</member>

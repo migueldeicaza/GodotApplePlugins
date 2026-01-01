@@ -90,6 +90,11 @@
 				Emitted when the restore process completes. `arg1` is the [enum StoreKitStatus], and `arg2` is an error message if applicable.
 			</description>
 		</signal>
+		<signal name="supscription_update">
+			<param index="0" name="status" type="StoreSubscriptionInfoStatus" />
+			<description>
+			</description>
+		</signal>
 		<signal name="transaction_updated">
 			<param index="0" name="transaction" type="StoreTransaction" />
 			<description>

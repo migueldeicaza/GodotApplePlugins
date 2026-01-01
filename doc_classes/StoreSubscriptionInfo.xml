@@ -14,7 +14,7 @@
 			<return type="void" />
 			<param index="0" name="callback" type="Callable" />
 			<description>
-				Fetches the current status entries for this subscription. The callback receives a [code skip-lint]Array[StoreSubscriptionInfoStatus][/code] on success, or a [code]String[/code] describing the error.
+				Fetches the current status entries for this subscription. The callback receives a [code skip-lint]Array[StoreSubscriptionInfoStatus][/code] on success, or a [code skip-lint]String[/code] describing the error.
 			</description>
 		</method>
 		<method name="status_for_group_id">
@@ -22,7 +22,7 @@
 			<param index="0" name="group_id" type="String" />
 			<param index="1" name="status" type="Callable" />
 			<description>
-				Fetches status entries for the subscription group identifier. The callback receives a [code skip-lint]Array[StoreSubscriptionInfoStatus][/code] on success, or a [code]String[/code] describing the error.
+				Fetches status entries for the subscription group identifier. The callback receives a [code skip-lint]Array[StoreSubscriptionInfoStatus][/code] on success, or a [code skip-lint]String[/code] describing the error.
 			</description>
 		</method>
 		<method name="status_for_transaction">
@@ -30,7 +30,7 @@
 			<param index="0" name="transaction_id" type="int" />
 			<param index="1" name="status" type="Callable" />
 			<description>
-				Fetches the status entry for the provided transaction identifier. The callback receives a [code skip-lint]StoreSubscriptionInfoStatus[/code] when available, an empty [code skip-lint]Array[StoreSubscriptionInfoStatus][/code] when no status is found, or a [code]String[/code] describing the error.
+				Fetches the status entry for the provided transaction identifier. The callback receives a [code skip-lint]StoreSubscriptionInfoStatus[/code] when available, an empty [code skip-lint]Array[StoreSubscriptionInfoStatus][/code] when no status is found, or a [code skip-lint]String[/code] describing the error.
 				On macOS, this requires macOS 15.4 or newer; earlier versions perform no action.
 			</description>
 		</method>
