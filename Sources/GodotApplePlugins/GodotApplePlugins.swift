@@ -58,6 +58,7 @@ import SwiftGodotRuntime
         AVAudioSession.SessionCategory.self,
         AVAudioSession.SessionMode.self,
 
+        GKAccessPoint.Location.self,
         GKGameCenterViewController.State.self,
         GKLeaderboard.AppleLeaderboardType.self,
         GKLeaderboard.TimeScope.self,
