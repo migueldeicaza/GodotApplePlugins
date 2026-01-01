@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="GKAccessPoint" inherits="RefCounted" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Controls the Game Center access point overlay.
+	</brief_description>
+	<description>
+		The access point displays a control in a corner of your game that opens a Game Center dashboard when the player taps or clicks it.
+		Use the [member GameCenterManager.access_point] property to get the shared access point object, then configure its [member location], [member active], and other properties.
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="trigger">
+			<return type="void" />
+			<param index="0" name="done" type="Callable" />
+			<description>
+				Displays the Game Center dashboard as if the player taps or presses the access point.
+				[param done] is called (with no arguments) when the dashboard presentation completes or is dismissed.
+			</description>
+		</method>
+		<method name="trigger_with_achievement">
+			<return type="void" />
+			<param index="0" name="achievementID" type="String" />
+			<param index="1" name="done" type="Callable" />
+			<description>
+				Displays the Game Center dashboard in a state that shows a specific achievement.
+				[param done] is called (with no arguments) when the dashboard presentation completes or is dismissed.
+				Only available on macOS 15, iOS 18, tvOS 14, and visionOS 1; earlier versions perform no action.
+			</description>
+		</method>
+		<method name="trigger_with_leaderboard">
+			<return type="void" />
+			<param index="0" name="leaderboardID" type="String" />
+			<param index="1" name="playerScope" type="int" />
+			<param index="2" name="timeScope" type="int" />
+			<param index="3" name="done" type="Callable" />
+			<description>
+				Displays the Game Center dashboard in a state that shows a specific leaderboard.
+				Use [enum GKLeaderboard.PlayerScope] for [param playerScope] and [enum GKLeaderboard.TimeScope] for [param timeScope].
+				[param done] is called (with no arguments) when the dashboard presentation completes or is dismissed.
+				Only available on macOS 15, iOS 18, tvOS 14, and visionOS 1; earlier versions perform no action.
+			</description>
+		</method>
+		<method name="trigger_with_leaderboard_set">
+			<return type="void" />
+			<param index="0" name="leaderboardSetID" type="String" />
+			<param index="1" name="done" type="Callable" />
+			<description>
+				Displays the Game Center dashboard in a state that shows a specific leaderboard set.
+				[param done] is called (with no arguments) when the dashboard presentation completes or is dismissed.
+				Only available on macOS 15, iOS 18, tvOS 14, and visionOS 1; earlier versions perform no action.
+			</description>
+		</method>
+		<method name="trigger_with_player">
+			<return type="void" />
+			<param index="0" name="player" type="GKPlayer" />
+			<param index="1" name="done" type="Callable" />
+			<description>
+				Displays the Game Center dashboard in a state that shows a player profile.
+				[param done] is called (with no arguments) when the dashboard presentation completes or is dismissed.
+				Only available on macOS 15, iOS 18, tvOS 14, and visionOS 1; earlier versions perform no action.
+			</description>
+		</method>
+		<method name="trigger_with_state">
+			<return type="void" />
+			<param index="0" name="state" type="int" />
+			<param index="1" name="done" type="Callable" />
+			<description>
+				Displays the Game Center dashboard in the specified state. See [enum GKGameCenterViewController.State] for values.
+				[param done] is called (with no arguments) when the dashboard presentation completes or is dismissed.
+			</description>
+		</method>
+	</methods>
+	<members>
+		<member name="active" type="bool" setter="set_active" getter="get_active" default="false">
+			A Boolean value that determines whether to display the access point.
+		</member>
+		<member name="focused" type="bool" setter="set_focused" getter="get_focused" default="false">
+			Whether the access point is focused on tvOS. On other platforms this is always [code]false[/code] and setting it has no effect.
+		</member>
+		<member name="frame_in_screen_coordinates" type="Rect2" setter="" getter="get_frame_in_screen_coordinates" default="Rect2(0, 0, 0, 0)">
+			The frame of the access point in screen coordinates.
+		</member>
+		<member name="is_presenting_game_center" type="bool" setter="" getter="get_is_presenting_game_center" default="false">
+			A Boolean value that indicates whether the game is presenting the Game Center dashboard.
+		</member>
+		<member name="location" type="int" setter="set_location" getter="get_location" default="0">
+			The corner of the screen to display the access point. Use the [enum Location] constants.
+		</member>
+		<member name="show_highlights" type="bool" setter="set_show_highlights" getter="get_show_highlights" default="false">
+			A Boolean value that indicates whether to display highlights for achievements and current ranks for leaderboards.
+		</member>
+		<member name="visible" type="bool" setter="" getter="get_visible" default="false">
+			A Boolean value that indicates whether the access point is visible.
+		</member>
+	</members>
+	<constants>
+		<constant name="TOP_LEADING" value="0" enum="Location">
+			Display the access point in the top-leading corner.
+		</constant>
+		<constant name="TOP_TRAILING" value="1" enum="Location">
+			Display the access point in the top-trailing corner.
+		</constant>
+		<constant name="BOTTOM_LEADING" value="2" enum="Location">
+			Display the access point in the bottom-leading corner.
+		</constant>
+		<constant name="BOTTOM_TRAILING" value="3" enum="Location">
+			Display the access point in the bottom-trailing corner.
+		</constant>
+	</constants>
+</class>

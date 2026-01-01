@@ -22,7 +22,8 @@ func _on_button_pressed() -> void:
 	auth_controller.signin_with_scopes(["full_name", "email"])
 	var d = GKMatch.new()
 	var x: AVAudioSession.SessionCategory
-	x = AVAudioSession.SessionCategory.AMBIENT
+	var a = StoreKitManager.new()
+	a.request_products(PackedStringArray(["a"]))
 	print(x)
 
 	

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="StoreSubscriptionInfo" inherits="RefCounted" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Provides subscription group metadata and status queries.
+	</brief_description>
+	<description>
+		This class wraps StoreKit subscription information and exposes the subscription group metadata for a product.
+		Use the status methods to query the current subscription status for a product, subscription group, or transaction ID.
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="getStatus">
+			<return type="void" />
+			<param index="0" name="callback" type="Callable" />
+			<description>
+				Fetches the current status entries for this subscription. The callback receives a [code skip-lint]Array[StoreSubscriptionInfoStatus][/code] on success, or a [code]String[/code] describing the error.
+			</description>
+		</method>
+		<method name="status_for_group_id">
+			<return type="void" />
+			<param index="0" name="group_id" type="String" />
+			<param index="1" name="status" type="Callable" />
+			<description>
+				Fetches status entries for the subscription group identifier. The callback receives a [code skip-lint]Array[StoreSubscriptionInfoStatus][/code] on success, or a [code]String[/code] describing the error.
+			</description>
+		</method>
+		<method name="status_for_transaction">
+			<return type="void" />
+			<param index="0" name="transaction_id" type="int" />
+			<param index="1" name="status" type="Callable" />
+			<description>
+				Fetches the status entry for the provided transaction identifier. The callback receives a [code skip-lint]StoreSubscriptionInfoStatus[/code] when available, an empty [code skip-lint]Array[StoreSubscriptionInfoStatus][/code] when no status is found, or a [code]String[/code] describing the error.
+				On macOS, this requires macOS 15.4 or newer; earlier versions perform no action.
+			</description>
+		</method>
+	</methods>
+	<members>
+		<member name="group_display_name" type="String" setter="" getter="get_group_display_name" default="&quot;&quot;">
+			The localized display name of the subscription group. Returns an empty string if unavailable.
+		</member>
+		<member name="group_level" type="int" setter="" getter="get_group_level" default="-1">
+			The subscription group level used for upgrade/downgrade ranking. Returns [code]-1[/code] when unavailable.
+		</member>
+		<member name="subscription_group_id" type="String" setter="" getter="get_subscription_group_id" default="&quot;&quot;">
+			The subscription group identifier from App Store Connect. Returns an empty string if unavailable.
+		</member>
+	</members>
+</class>

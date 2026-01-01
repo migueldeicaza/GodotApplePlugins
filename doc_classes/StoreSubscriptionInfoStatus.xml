@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="StoreSubscriptionInfoStatus" inherits="RefCounted" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Describes the status of a subscription in a subscription group.
+	</brief_description>
+	<description>
+		This class wraps StoreKit's subscription status information, including renewal state, verified renewal info, and the latest verified transaction.
+	</description>
+	<tutorials>
+	</tutorials>
+	<members>
+		<member name="renewal_info" type="StoreSubscriptionInfoRenewalInfo" setter="" getter="get_renewal_info" default="null">
+			Verified renewal info for the subscription, or [code]null[/code] if it is missing or unverified.
+		</member>
+		<member name="state" type="int" setter="" getter="get_state" default="0">
+			The current renewal state. Use the [enum RenewalState] constants.
+		</member>
+		<member name="transaction" type="StoreTransaction" setter="" getter="get_transaction" default="null">
+			The latest verified transaction for the subscription, or [code]null[/code] if it is missing or unverified.
+		</member>
+	</members>
+	<constants>
+		<constant name="UNKNOWN" value="0" enum="RenewalState">
+			The renewal state is unknown or not available.
+		</constant>
+		<constant name="EXPIRED" value="1" enum="RenewalState">
+			The subscription has expired.
+		</constant>
+		<constant name="SUBSCRIBED" value="2" enum="RenewalState">
+			The subscription is currently active.
+		</constant>
+		<constant name="IN_BILLING_RETRY_PERIOD" value="3" enum="RenewalState">
+			The subscription is in the billing retry period after a failed renewal.
+		</constant>
+		<constant name="IN_GRACE_PERIOD" value="4" enum="RenewalState">
+			The subscription is in the grace period after a failed renewal.
+		</constant>
+		<constant name="REVOKED" value="5" enum="RenewalState">
+			The subscription was revoked by Apple.
+		</constant>
+	</constants>
+</class>

@@ -37,7 +37,11 @@ import SwiftGodotRuntime
         StoreProductSubscriptionOffer.self,
         StoreProductPaymentMode.self,
         StoreProductSubscriptionPeriod.self,
+        StoreSubscriptionInfo.self,
+        StoreSubscriptionInfoStatus.self,
+        StoreSubscriptionInfoRenewalInfo.self,
         StoreTransaction.self,
+        
         StoreView.self,
         SubscriptionOfferView.self,
         SubscriptionStoreView.self,
@@ -66,6 +70,7 @@ import SwiftGodotRuntime
         SubscriptionStoreView.ControlStyle.self,
         StoreProductSubscriptionOffer.OfferType.self,
         StoreProductSubscriptionPeriod.Unit.self,
+        StoreSubscriptionInfoStatus.RenewalState.self,
 
         ASAuthorizationAppleIDCredential.UserDetectionStatus.self,
         ASAuthorizationAppleIDCredential.UserAgeRange.self

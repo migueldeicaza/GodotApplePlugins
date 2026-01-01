@@ -22,6 +22,9 @@ public class StoreKitManager: RefCounted, @unchecked Sendable {
     // StoreKitStatus, error_message (empty on success)
     @Signal("status", "message") var restore_completed: SignalWithArguments<Int, String>
 
+    // This is only raised for verified results
+    @Signal("status") var supscription_update: SignalWithArguments<StoreSubscriptionInfoStatus?>
+
     public enum StoreKitStatus: Int, CaseIterable {
         case OK
         /// Invalid product, the StoreProduct does not contains a valid product
@@ -38,6 +41,7 @@ public class StoreKitManager: RefCounted, @unchecked Sendable {
         case UNKNOWN_STATUS
     }
     private var updatesTask: Task<Void, Never>?
+    private var subscriptionTask: Task<Void, Never>?
     private var intentsTask: Task<Void, Never>?
 
     required init(_ context: InitContext) {
@@ -48,6 +52,7 @@ public class StoreKitManager: RefCounted, @unchecked Sendable {
     deinit {
         updatesTask?.cancel()
         intentsTask?.cancel()
+        subscriptionTask?.cancel()
     }
 
     var started = false
@@ -63,6 +68,8 @@ public class StoreKitManager: RefCounted, @unchecked Sendable {
         guard started else { return }
         updatesTask?.cancel()
         intentsTask?.cancel()
+        subscriptionTask?.cancel()
+        subscriptionTask = nil
         updatesTask = nil
         intentsTask = nil
         started = false
@@ -72,6 +79,21 @@ public class StoreKitManager: RefCounted, @unchecked Sendable {
         updatesTask = Task {
             for await verificationResult in Transaction.updates {
                 handleTransaction(verificationResult)
+            }
+        }
+        subscriptionTask = Task {
+            for await status in Product.SubscriptionInfo.Status.updates {
+                guard case .verified(_) = status.transaction,
+                      case .verified(_) = status.renewalInfo else {
+                    // TODO: should raise an event here, just like the updateTask does
+                    GD.print("Unverified transaction")
+                    continue
+                }
+                Task { @MainActor in
+                    Task { @MainActor in
+                        self.supscription_update.emit(StoreSubscriptionInfoStatus(status))
+                    }
+                }
             }
         }
     }

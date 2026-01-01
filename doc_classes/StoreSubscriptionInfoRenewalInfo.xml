@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="StoreSubscriptionInfoRenewalInfo" inherits="RefCounted" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Contains verified renewal metadata for a subscription.
+	</brief_description>
+	<description>
+		This class wraps StoreKit renewal information and is only created from verified renewal data.
+	</description>
+	<tutorials>
+	</tutorials>
+	<members>
+		<member name="app_account_token" type="String" setter="" getter="get_app_account_token" default="&quot;&quot;">
+			The app account token used when purchasing, as a UUID string. Returns an empty string when not set.
+		</member>
+		<member name="app_transaction_id" type="String" setter="" getter="get_app_transaction_id" default="&quot;&quot;">
+			The app transaction identifier associated with the subscription. Returns an empty string when unavailable.
+		</member>
+		<member name="current_product_id" type="String" setter="" getter="get_current_product_id" default="&quot;&quot;">
+			The current product identifier for the subscription group.
+		</member>
+		<member name="original_transaction_id" type="int" setter="" getter="get_original_transaction_id" default="0">
+			The original transaction identifier for the subscription. Returns [code]0[/code] when unavailable.
+		</member>
+	</members>
+</class>
