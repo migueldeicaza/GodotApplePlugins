@@ -118,7 +118,7 @@ o:
 #
 # This I am using to test on the "Exported" project I placed
 #
-XCFRAMEWORK_EXPORT_PATH=test-apple-godot-api/TestAppleGodotApi/dylibs/addons/GodotApplePlugins/bin/GodotApplePlugins.xcframework
+XCFRAMEWORK_EXPORT_PATH=test-apple-godot-api/demo/output/dylibs/addons/GodotApplePlugins/bin/GodotApplePlugins.xcframework
 make oo:
 	rm -rf $(XCFRAMEWORK_EXPORT_PATH)
 	$(XCODEBUILD) -create-xcframework \

@@ -18,7 +18,7 @@
 		<method name="show_leaderboard" qualifiers="static">
 			<return type="void" />
 			<param index="0" name="leaderboard" type="GKLeaderboard" />
-			<param index="1" name="scope" type="int" />
+			<param index="1" name="scope" type="PlayerScope" />
 			<description>
 				Shows a leaderboard with the players on the specified scope. Use one of the [enum GKLeaderboard.PlayerScope] values.
 			</description>
@@ -26,8 +26,8 @@
 		<method name="show_leaderboard_time_period" qualifiers="static">
 			<return type="void" />
 			<param index="0" name="id" type="String" />
-			<param index="1" name="scope" type="int" />
-			<param index="2" name="timeScope" type="int" />
+			<param index="1" name="scope" type="PlayerScope" />
+			<param index="2" name="timeScope" type="TimeScope" />
 			<description>
 				Shows a leaderboard with the players on the specified scope and the time period. The scope should match [enum GKLeaderboard.PlayerScope] and the time scope should match [enum GKLeaderboard.TimeScope].
 			</description>
@@ -48,7 +48,7 @@
 		</method>
 		<method name="show_type" qualifiers="static">
 			<return type="void" />
-			<param index="0" name="type" type="int" />
+			<param index="0" name="type" type="State" />
 			<description>
 				Used to present one of the different Game Center dashboards specified by the type parameter.
 			</description>

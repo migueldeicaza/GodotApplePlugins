@@ -31,7 +31,6 @@ import SwiftGodotRuntime
         GKSavedGame.self,
 
         ProductView.self,
-        StoreKitManager.self,
         StoreProduct.self,
         StoreProductPurchaseOption.self,
         StoreProductSubscriptionOffer.self,
@@ -41,7 +40,8 @@ import SwiftGodotRuntime
         StoreSubscriptionInfoStatus.self,
         StoreSubscriptionInfoRenewalInfo.self,
         StoreTransaction.self,
-        
+        StoreKitManager.self,
+
         StoreView.self,
         SubscriptionOfferView.self,
         SubscriptionStoreView.self,
@@ -68,6 +68,7 @@ import SwiftGodotRuntime
 
         ProductView.ViewStyle.self,
         StoreKitManager.StoreKitStatus.self,
+        StoreKitManager.VerificationError.self,
         SubscriptionStoreView.ControlStyle.self,
         StoreProductSubscriptionOffer.OfferType.self,
         StoreProductSubscriptionPeriod.Unit.self,

@@ -12,6 +12,10 @@
 		                your application of what products your user is entitled to at startup.   If you are using
 		                Apple's PurchaseIntent, you will also want to connect to the [signal purchase_intent].
 
+						The [signal transaction_updated] is only raised for verified transactions.   
+						Apple also supports unverified transactions, those are posted to the [signal unverified_transaction_updated] signal 
+						and in addition to the transaction they contains a status code from the [enum VerificationError].
+
 		                After you have set up your signals, you are ready to receive those events.
 
 		                In addition, when you call the [method purchase] or [method purchase_with_options] you will
@@ -21,6 +25,21 @@
 	<tutorials>
 	</tutorials>
 	<methods>
+		<method name="fetch_current_entitlements">
+			<return type="void" />
+			<description>
+				The current entitlements sequence provides the most recent transaction for each product the customer is entitled to, use this
+				to refresh the list of features the user is entitled to.
+				
+				Specifically, it includes:
+
+	* One transaction for each non-consumable In-App Purchase
+	* The latest transaction for each auto-renewable subscription whose Product.SubscriptionInfo.RenewalState is either subscribed or inGracePeriod
+	* The latest transaction for each non-renewing subscription, including those that have ended
+	* Products that have been refunded or revoked by the App Store are excluded from the current entitlements, as are consumable In-App Purchases. To retrieve transactions for unfinished consumables, use the unfinished or all transaction sequences instead.
+
+			</description>
+		</method>
 		<method name="purchase">
 			<return type="void" />
 			<param index="0" name="product" type="StoreProduct" />
@@ -33,7 +52,7 @@
 		<method name="purchase_with_options">
 			<return type="void" />
 			<param index="0" name="product" type="StoreProduct" />
-			<param index="1" name="options" type="Array" />
+			<param index="1" name="options" type="Array[StoreProductPurchaseOption]" />
 			<description>
 				Initiates the purchase of a specific product, e.g. [code]purchase(product)[/code], and allows you to provide additional purchase options.
 				                This will raise the
@@ -59,7 +78,7 @@
 	</methods>
 	<signals>
 		<signal name="products_request_completed">
-			<param index="0" name="products" type="Array" />
+			<param index="0" name="products" type="Array[StoreProduct]" />
 			<param index="1" name="status" type="int" />
 			<description>
 				Emitted when a product request completes.
@@ -70,7 +89,7 @@
 		<signal name="purchase_completed">
 			<param index="0" name="transaction" type="StoreTransaction" />
 			<param index="1" name="status" type="int" />
-			<param index="2" name="error_message" type="String" />
+			<param index="2" name="message" type="String" />
 			<description>
 				Emitted when a purchase completes.
 				                [param transaction] is the [StoreTransaction] on success.
@@ -85,7 +104,7 @@
 		</signal>
 		<signal name="restore_completed">
 			<param index="0" name="status" type="int" />
-			<param index="1" name="error_message" type="String" />
+			<param index="1" name="message" type="String" />
 			<description>
 				Emitted when the restore process completes. `arg1` is the [enum StoreKitStatus], and `arg2` is an error message if applicable.
 			</description>
@@ -99,6 +118,12 @@
 			<param index="0" name="transaction" type="StoreTransaction" />
 			<description>
 				Emitted when a transaction is updated (e.g., a subscription renews or a purchase is approved externally). `arg1` is the updated [StoreTransaction].
+			</description>
+		</signal>
+		<signal name="unverified_transaction_updated">
+			<param index="0" name="transaction" type="StoreTransaction" />
+			<param index="1" name="verification_error" type="int" />
+			<description>
 			</description>
 		</signal>
 	</signals>
@@ -123,6 +148,27 @@
 		</constant>
 		<constant name="UNKNOWN_STATUS" value="6" enum="StoreKitStatus">
 			An unknown status occurred.
+		</constant>
+		<constant name="REVOKED_CERTIFICATE" value="0" enum="VerificationError">
+		The certificate chain was parsable, but was invalid due to one or more revoked certificates.
+		</constant>
+		<constant name="INVALID_CERTIFICATE_CHAIN" value="1" enum="VerificationError">
+		The certificate chain was parsable, but it was invalid for signing this data.
+		</constant>
+		<constant name="INVALID_DEVICE_VERIFICATION" value="2" enum="VerificationError">
+		The device verification properties were invalid for this device.
+		</constant>
+		<constant name="INVALID_ENCODING" value="3" enum="VerificationError">
+		Th JWS header and any data included in it or it's certificate chain had an invalid encoding.
+		</constant>
+		<constant name="INVALID_SIGNATURE" value="4" enum="VerificationError">
+		The certificate chain was valid for signing this data, but the leaf's public key was invalid for the JWS signature.
+		</constant>
+		<constant name="MISSING_REQUIRED_PROPERTIES" value="5" enum="VerificationError">
+		Either the JWS header or any certificate in the chain was missing necessary properties for verification.
+		</constant>
+		<constant name="OTHER" value="6" enum="VerificationError">
+		A new error code was introduced that was not previously handled.
 		</constant>
 	</constants>
 </class>

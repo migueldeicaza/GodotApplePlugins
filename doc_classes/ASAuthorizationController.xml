@@ -63,7 +63,7 @@
 			</description>
 		</signal>
 		<signal name="authorization_failed">
-			<param index="0" name="error" type="String" />
+			<param index="0" name="message" type="String" />
 			<description>
 				Emitted when the authorization request fails.
 				[param error] contains the localized description of the error.

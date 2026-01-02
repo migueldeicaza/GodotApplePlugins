@@ -82,7 +82,7 @@ class StoreSubscriptionInfo: RefCounted, @unchecked Sendable {
 
     @Callable
     func status_for_transaction(_ transaction_id: Int, status: Callable) {
-        guard #available(macOS 15.4, *) else {
+        guard #available(macOS 15.4, iOS 18.4, *) else {
             return
         }
         MainActor.assumeIsolated {

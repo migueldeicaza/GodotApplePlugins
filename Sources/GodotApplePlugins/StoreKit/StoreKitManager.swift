@@ -16,6 +16,8 @@ public class StoreKitManager: RefCounted, @unchecked Sendable {
     @Signal("transaction", "status", "message") var purchase_completed: SignalWithArguments<StoreTransaction?, Int, String>
     // StoreTransaction
     @Signal("transaction") var transaction_updated: SignalWithArguments<StoreTransaction?>
+    @Signal("transaction", "verification_error") var unverified_transaction_updated: SignalWithArguments<StoreTransaction?, Int>
+
     // StoreProduct
     @Signal("product") var purchase_intent: SignalWithArguments<StoreProduct?>
 
@@ -112,7 +114,30 @@ public class StoreKitManager: RefCounted, @unchecked Sendable {
              }
         }
      }
-    
+
+    enum VerificationError: Int, CaseIterable {
+        case REVOKED_CERTIFICATE
+        case INVALID_CERTIFICATE_CHAIN
+        case INVALID_DEVICE_VERIFICATION
+        case INVALID_ENCODING
+        case INVALID_SIGNATURE
+        case MISSING_REQUIRED_PROPERTIES
+        case OTHER
+
+        static func from(_ error: VerificationResult<Transaction>.VerificationError) -> VerificationError {
+            switch error {
+            case .revokedCertificate: return .REVOKED_CERTIFICATE
+            case .invalidCertificateChain: return .INVALID_CERTIFICATE_CHAIN
+            case .invalidDeviceVerification: return .INVALID_DEVICE_VERIFICATION
+            case .invalidEncoding: return .INVALID_ENCODING
+            case .invalidSignature: return .INVALID_SIGNATURE
+            case .missingRequiredProperties: return .MISSING_REQUIRED_PROPERTIES
+            default:
+                return .OTHER
+            }
+        }
+    }
+
     private func handleTransaction(_ verificationResult: VerificationResult<Transaction>) {
         switch verificationResult {
         case .verified(let transaction):
@@ -130,9 +155,11 @@ public class StoreKitManager: RefCounted, @unchecked Sendable {
                 GD.print("Posting transaction_updated")
                 self.transaction_updated.emit(storeTransaction)
             }
-        case .unverified(_, _):
-            // TODO: would be nice to raise this one
-            GD.print("Transaction: got an unverified one")
+        case .unverified(let transaction, let verificationError):
+            let storeTransaction = StoreTransaction(transaction)
+            Task { @MainActor in
+                self.unverified_transaction_updated.emit(storeTransaction, VerificationError.from(verificationError).rawValue)
+            }
             break
         }
     }
@@ -226,6 +253,15 @@ public class StoreKitManager: RefCounted, @unchecked Sendable {
                 await MainActor.run {
                     _ = self.restore_completed.emit(StoreKitStatus.CANCELLED.rawValue, error.localizedDescription)
                 }
+            }
+        }
+    }
+
+    @Callable()
+    func fetch_current_entitlements() {
+        Task {
+            for await entitlement in Transaction.currentEntitlements {
+                handleTransaction(entitlement)
             }
         }
     }
