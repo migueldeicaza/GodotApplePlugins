@@ -5,9 +5,25 @@
 	</brief_description>
 	<description>
 		This class contains details about a purchase, such as the product ID, purchase date, and expiration date (for subscriptions).
+
+		When you receive a transaction update, you must call the [method finish] method on the transaction once you have made sure 
+		that you have delivered the content to the user.
 	</description>
 	<tutorials>
 	</tutorials>
+	<methods>
+		<method name="finish">
+			<return type="void" />
+			<description>
+				The finish method notifies the App Store that the app has successfully provided the purchased content or 
+				activated the purchased service, allowing the transaction to be completed.
+
+				Call [method finish] only after your app has delivered the content or enabled the service. If the purchase 
+				includes on-demand resources, wait to finish the transaction until the download is complete or the 
+				resources have otherwise been fully delivered.
+			</description>
+		</method>
+	</methods>
 	<members>
 		<member name="expiration_date" type="float" setter="" getter="get_expiration_date" default="0.0">
 			The date when the subscription expires, as a Unix timestamp. Returns 0 if not applicable.

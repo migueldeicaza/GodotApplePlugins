@@ -116,7 +116,9 @@
 		<signal name="transaction_updated">
 			<param index="0" name="transaction" type="StoreTransaction" />
 			<description>
-				Emitted when a transaction is updated (e.g., a subscription renews or a purchase is approved externally). `arg1` is the updated [StoreTransaction].
+				Emitted when a transaction is updated (e.g., a subscription renews or a purchase is approved externally). `transaction` is the updated [StoreTransaction].
+
+				You must call the finished method on the transaction once you have made sure that you have delivered the content to the user.
 			</description>
 		</signal>
 		<signal name="unverified_transaction_updated">

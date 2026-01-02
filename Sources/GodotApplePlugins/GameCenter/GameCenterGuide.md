@@ -10,18 +10,21 @@ class names that Apple uses for their own data types to simplify
 looking things up and finding resources online.  The method names on
 the other hand reflect the Godot naming scheme.
 
-So instead of calling `loadPhoto` on GKPlayer, you would use the
+So instead of calling `loadPhoto` on `GKPlayer`, you would use the
 `load_photo` method.  And instead of the property `gamePlayerID`, you
 would access `game_player_id`.
 
 # Table of Contents
 
-* [Installation]
-* [Players]
+* [Installation](#installation)
+* [Authentication](#authentication)
+* [Players](#players)
+* [Achievements](#achievements)
+* [Realtime Matchmaking](#realtime-matchmaking)
 
-## Installation
+# Installation
 
-### Installing in your project
+## Installing in your project
 
 Make sure that you have added the directory containing the
 "GodotApplePlugins" to your project, it should contain both a
@@ -31,7 +34,7 @@ native libraries that you will use.
 The APIs have been exposed to both MacOS and iOS, so you can iterate
 quickly on your projects.
 
-### Entitlements
+## Entitlements
 
 For your software to be able to use the GameKit APIs, you will need
 your Godot engine to have the `com.apple.developer.game-center`
@@ -41,38 +44,37 @@ entitlement to your iOS project.
 See the file [Entitlements](Entitlements.md) for additional directions
 - without this, calling the APIs won't do much.
 
-## Authentication
+# Authentication
 
-Create an instance of GameCenterManager, and then you can connect to
+Create an instance of `GameCenterManager`, and then you can connect to
 the `authentication_error` and `authentication_result` signals to
 track the authentication state.
 
 Then call the `authenticate()` method to trigger the authentication:
 
 ```gdscript
-var gameCenter: GameCenterManager
+var game_center: GameCenterManager
 
 func _ready() -> void:
-	gameCenter = GameCenterManager.new()
+	game_center = GameCenterManager.new()
 
-	gameCenter.authentication_error.connect(func(error: String) -> void:
+	game_center.authentication_error.connect(func(error: String) -> void:
 		print("Received error %s" % error)
 	)
-	gameCenter.authentication_result.connect(func(status: bool) -> void:
+	game_center.authentication_result.connect(func(status: bool) -> void:
 		print("Authentication updated, status: %s" % status
 	)
+
+	game_center.authenticate()
 ```
 
-The `local_player` is a special version of `GKPlayer` with properties
-that track the local player state.
+# Players
 
-## Players
+## Fetch the Local Player
 
-### Fetch the Local Player
-
-From the GameCenterManager, you can call `local_player`, this returns
-a `GKLocalPlayer`, which is a subclass of `GKPlayer` and represents
-the player using your game.
+From the `GameCenterManager` instance, you can access `local_player`, which is
+a `GKLocalPlayer`. `GKLocalPlayer` is a subclass of `GKPlayer` and represents
+the player using your game, with properties that track the local player state.
 
 ```gdscript
 var local: GKLocalPlayer
@@ -84,11 +86,11 @@ func _ready() -> void:
 	print("ONREADY: local, player ID: %s" % local.game_player_id)
 ```
 
-There are a number of interesting properties in local_player that you
+There are a number of interesting properties in `local_player` that you
 might want to use in your game like `is_authenticated`, `is_underage`,
 `is_multiplayer_gaming_restricted` and so on.
 
-### GKPlayer
+## GKPlayer
 
 * [GKPlayer](https://developer.apple.com/documentation/gamekit/gkplayer)
 
@@ -99,7 +101,7 @@ Apple Documentation:
 
 * [GKLocalPlayer](https://developer.apple.com/documentation/gamekit/gklocalplayer)
 
-### Loading a Player Photo
+## Loading a Player Photo
 
 
 ```gdscript
@@ -110,7 +112,7 @@ local_player.load_photo(true, func(image: Image, error: Variant)->void:
 )
 ```
 
-### Friends
+## Friends
 
 ```gdscript
 # Loads the local player's friends list if the local player and their friends grant access.
@@ -119,7 +121,7 @@ local_player.load_friends(func(friends: Array[GKPlayer], error: Variant)->void:
 		print(error)
 	else:
 		for friend in friends:
-			print(friend.displayName)
+			print(friend.display_name)
 )
 
 # Loads players to whom the local player can issue a challenge.
@@ -128,25 +130,25 @@ local_player.local.load_challengeable_friends(func(friends: Array[GKPlayer], err
         print(error)
     else:
         for friend in friends:
-            print(friend.displayName)
+            print(friend.display_name)
 )
 
 # Loads players from the friends list or players that recently participated in a game with the local player.
-local.load_recent_friends(func(friends: Array[GKPlayer], error: Variant)->void:
+local_player.load_recent_friends(func(friends: Array[GKPlayer], error: Variant)->void:
     if error:
         print(error)
     else:
         for friend in friends:
-            print(friend.displayName)
+            print(friend.display_name)
 )
 ```
 
-### FetchItemsForIdentityVerificationSignature
+## FetchItemsForIdentityVerificationSignature
 
 * [Apple Documentation](https://developer.apple.com/documentation/gamekit/gklocalplayer/3516283-fetchitems)
 
-```
-local.fetch_items_for_identity_verification_signature(func(values: Dictionary, error: Variant)->void:
+```gdscript
+local_player.fetch_items_for_identity_verification_signature(func(values: Dictionary, error: Variant)->void:
     if error:
         print(error)
     else:
@@ -155,14 +157,14 @@ local.fetch_items_for_identity_verification_signature(func(values: Dictionary, e
 )
 ```
 
-## Achievements
+# Achievements
 
 * [GKAchievement](https://developer.apple.com/documentation/gamekit/gkachievement)
 * [GKAchievementDescription](https://developer.apple.com/documentation/gamekit/gkachievementdescription)
 
-### List all achievements
+## List all achievements
 
-Note: This only returns achievements with progress that the player has reported. Use GKAchievementDescription for a list of all available achievements.
+Note: This only returns achievements with progress that the player has reported. Use `GKAchievementDescription` for a list of all available achievements.
 
 ```gdscript
 GKAchievement.load_achievements(func(achievements: Array[GKAchievement], error: Variant)->void:
@@ -174,12 +176,12 @@ GKAchievement.load_achievements(func(achievements: Array[GKAchievement], error: 
 )
 ```
 
-### List Descriptions
+## List Descriptions
 
 ```gdscript
 GKAchievementDescription.load_achievement_descriptions(func(adescs: Array[GKAchievementDescription], error: Variant)->void:
     if error:
-        print("Load achievementDescription error %s" % error)
+        print("Load achievement description error %s" % error)
     else:
         for adesc in adescs:
             print("Achievement Description ID: %s" % adesc.identifier)
@@ -188,7 +190,7 @@ GKAchievementDescription.load_achievement_descriptions(func(adescs: Array[GKAchi
 )
 ```
 
-### Load Achievement Description Image
+## Load Achievement Description Image
 
 ```gdscript
 adesc.load_image(func(image: Image, error: Variant)->void:
@@ -198,8 +200,33 @@ adesc.load_image(func(image: Image, error: Variant)->void:
         print("Error loading achievement image %s" % error)                            
 ```
 
-### Report Progress
+## Report Progress
 
+### Reporting Achievement First Time
+```gdscript
+var id = "a001"
+var percentage = 100
+
+GKAchievementDescription.load_achievement_descriptions(func(descriptions: Array[GKAchievementDescription], error: Variant)->void:
+    if error:
+        print("Load achievement descriptions error %s" % error)
+    else:
+        for desc in descriptions:
+            if desc.identifier == id:
+                var new_achievement := GKAchievement.new()
+                new_achievement.identifier = desc.identifier
+                new_achievement.percent_complete = percentage
+
+                GKAchievement.report_achievement([new_achievement], func(error: Variant)->void: 
+                    if error:
+                        print("Error submitting achievement")
+                    else:
+                        print("Success!")
+                )
+)
+```
+
+### Updating Already Reported Achievement
 ```gdscript
 var id = "a001"
 var percentage = 100
@@ -219,9 +246,10 @@ GKAchievement.load_achievements(func(achievements: Array[GKAchievement], error: 
                     else:
                         print("Success!")
                 )
+)
 ```
 
-### Reset All Achievements
+## Reset All Achievements
 
 ```gdscript
 GKAchievement.reset_achievements(func(error: Variant)->void:
@@ -240,8 +268,8 @@ GKAchievement.reset_achievements(func(error: Variant)->void:
 
 ## Events
 
-You can use the convenience request_match method after configuring your request,
-and on your callback setup the gameMatch to track the various states of the match,
+You can use the convenience `request_match` method after configuring your request,
+and on your callback setup the `game_match` to track the various states of the match,
 like this:
 
 ```gdscript
@@ -249,20 +277,20 @@ var req = GKMatchRequest.new()
 req.max_players = 2
 req.min_players = 1
 req.invite_message = "Join me in a quest to fun"
-GKMatchmakerViewController.request_match(req, func(gameMatch: GKMatch, error: Variant)->void:
+GKMatchmakerViewController.request_match(req, func(game_match: GKMatch, error: Variant)->void:
     if error:
-        print("Could nto request a match %s" % error)
+        print("Could not request a match %s" % error)
     else:
         print("Got a match!")
 
-        gameMatch.data_received.connect(func (data: PackedByteArray, fromPlayer: GKPlayer)->void:
-            print("received data from Player")
+        game_match.data_received.connect(func (data: PackedByteArray, from_player: GKPlayer)->void:
+            print("Received data from Player")
         )
-        gameMatch.data_received_for_recipient_from_player.connect(func(data: PackedByteArray, forRecipient: GKPlayer, fromRemotePlayer: GKPlayer)->void: 
+        game_match.data_received_for_recipient_from_player.connect(func(data: PackedByteArray, for_recipient: GKPlayer, from_remote_player: GKPlayer)->void: 
             print("Received data from a player to another player")
         )
         gameMatch.did_fail_with_error.connect(func(error: String)->void:
-            print("match failed with %s" % error)
+            print("Match failed with %s" % error)
         )
         gameMatch.should_reinvite_disconnected_player = (func(player: GKPlayer)->bool:
             # We always reinvite
@@ -277,22 +305,20 @@ GKMatchmakerViewController.request_match(req, func(gameMatch: GKMatch, error: Va
 ## Disconnect
 
 ```gdscript
-gameMatch.disconnect()
+game_match.disconnect()
 ```
 
 ## Send to all
 
 ```gdscript
-    var data = "How do you do fellow kids".to_utf8_buffer()
-    gameMatch.send_data_to_all_players(data, GKMatch.SendDataMode.reliable)
+var data = "How do you do fellow kids".to_utf8_buffer()
+game_match.send_data_to_all_players(data, GKMatch.SendDataMode.reliable)
 ```
 
 ## Send to Players
 
 ```gdscript
-                
-gameMatch.send(array, [firstPlayer, secondPlayer], GKMatch.SendDataMode.reliable)
-
+game_match.send(array, [first_player, second_player], GKMatch.SendDataMode.reliable)
 ```
 
 # Leaderboards
@@ -303,10 +329,13 @@ gameMatch.send(array, [firstPlayer, secondPlayer], GKMatch.SendDataMode.reliable
 GKLeaderboard.load_leaderboards(["MyLeaderboard"], func(leaderboards: Array [GKLeaderboard], error: Variant)->void:
     var score = 100
     var context = 0
-    
-    leaderboards[0].submit_score(score, context, local, func(error: Variant)->void:
-        if error:
-            print("Error submitting leadeboard %s" % error)
+
+    if error:
+        print("Error loading leaderboard %s" % error)
+    else:
+        leaderboards[0].submit_score(score, context, local, func(error: Variant)->void:
+            if error:
+                print("Error submitting leadeboard %s" % error)
     )
 )
 ```
@@ -316,12 +345,18 @@ GKLeaderboard.load_leaderboards(["MyLeaderboard"], func(leaderboards: Array [GKL
 ```
 # Loads all leaderboards
 GKLeaderboard.load_leaderboards([], func(leaderboards: Array [GKLeaderboard], error: Variant)->void:
-    print("Got %s" % leaderboards)
+    if error:
+        print("Error loading leaderboards %s" % error)
+    else:
+        print("Got %s" % leaderboards)
 )
 
 # Load specific ones
 GKLeaderboard.load_leaderboards(["My leaderboard"], func(leaderboards: Array [GKLeaderboard], error: Variant)->void:
-    print("Got %s" % leaderboards)
+    if error:
+        print("Error loading leaderboard %s" % error)
+    else:
+        print("Got %s" % leaderboards)
 )
 
 ```

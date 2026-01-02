@@ -33,4 +33,11 @@ class StoreTransaction: RefCounted, @unchecked Sendable {
         default: return "unknown"
         }
     }
+
+    @Callable
+    func finish() {
+        Task {
+            await transaction?.finish()
+        }
+    }
 }

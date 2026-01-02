@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://bo8mk4s2810bd"]
+[gd_scene format=3 uid="uid://bo8mk4s2810bd"]
 
 [ext_resource type="Script" uid="uid://k565oj0kotti" path="res://control.gd" id="1_0fbet"]
 [ext_resource type="Texture2D" uid="uid://cbxsxk1je7s3g" path="res://icon.svg" id="2_62e2m"]
 
-[node name="Control" type="Control"]
+[node name="Control" type="Control" unique_id=1250235644]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -12,7 +12,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_0fbet")
 
-[node name="Button" type="Button" parent="."]
+[node name="Button" type="Button" parent="." unique_id=1315110527]
 layout_mode = 0
 offset_left = 64.0
 offset_top = 99.0
@@ -21,7 +21,7 @@ offset_bottom = 152.0
 theme_override_font_sizes/font_size = 32
 text = "Authenticate"
 
-[node name="auth_result" type="Label" parent="."]
+[node name="auth_result" type="Label" parent="." unique_id=1027620327]
 layout_mode = 0
 offset_left = 71.0
 offset_top = 168.0
@@ -30,7 +30,7 @@ offset_bottom = 213.0
 theme_override_font_sizes/font_size = 32
 text = "Auth Error:"
 
-[node name="auth_state" type="Label" parent="."]
+[node name="auth_state" type="Label" parent="." unique_id=94322258]
 layout_mode = 0
 offset_left = 70.0
 offset_top = 236.0
@@ -39,7 +39,7 @@ offset_bottom = 281.0
 theme_override_font_sizes/font_size = 32
 text = "Authenticated: "
 
-[node name="texture_rect" type="TextureRect" parent="."]
+[node name="texture_rect" type="TextureRect" parent="." unique_id=2060251836]
 layout_mode = 0
 offset_left = 599.0
 offset_top = 46.0
@@ -47,7 +47,7 @@ offset_right = 967.0
 offset_bottom = 494.0
 texture = ExtResource("2_62e2m")
 
-[node name="button_requestmatch" type="Button" parent="."]
+[node name="button_requestmatch" type="Button" parent="." unique_id=1420377993]
 layout_mode = 0
 offset_left = 73.0
 offset_top = 342.0
@@ -55,7 +55,7 @@ offset_right = 197.0
 offset_bottom = 373.0
 text = "Request Match"
 
-[node name="Node3D" type="Node3D" parent="button_requestmatch"]
+[node name="Node3D" type="Node3D" parent="button_requestmatch" unique_id=1360684109]
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="button_requestmatch" to="." method="_on_button_requestmatch_pressed"]
