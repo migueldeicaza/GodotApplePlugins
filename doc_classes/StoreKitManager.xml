@@ -49,6 +49,14 @@
 				                This method will raise the [signal products_request_completed] signal when the information is retrieved.
 			</description>
 		</method>
+		<method name="refresh_purchased_products">
+			<return type="void" />
+			<description>
+				Checks the user's currently owned products (entitlements) without prompting for a login (silent check).
+				                This iterates through verified entitlements and emits [signal transaction_updated] for each one.
+				                This will raise the [signal refresh_completed] signal when the check is complete.
+			</description>
+		</method>
 		<method name="restore_purchases">
 			<return type="void" />
 			<description>
@@ -81,6 +89,13 @@
 		<signal name="purchase_intent">
 			<param index="0" name="product" type="StoreProduct" />
 			<description>
+			</description>
+		</signal>
+		<signal name="refresh_completed">
+			<param index="0" name="status" type="int" />
+			<param index="1" name="error_message" type="String" />
+			<description>
+				Emitted when the refresh process completes. `arg1` is the [enum StoreKitStatus], and `arg2` is an error message if applicable.
 			</description>
 		</signal>
 		<signal name="restore_completed">

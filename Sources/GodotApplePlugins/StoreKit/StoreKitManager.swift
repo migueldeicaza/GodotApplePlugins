@@ -24,6 +24,9 @@ public class StoreKitManager: RefCounted, @unchecked Sendable {
     // StoreKitStatus, error_message (empty on success)
     @Signal("status", "message") var restore_completed: SignalWithArguments<Int, String>
 
+    // StoreKitStatus, error_message (empty on success)
+    @Signal("status", "message") var refresh_completed: SignalWithArguments<Int, String>
+
     // This is only raised for verified results
     @Signal("status") var subscription_update: SignalWithArguments<StoreSubscriptionInfoStatus?>
 
@@ -252,6 +255,9 @@ public class StoreKitManager: RefCounted, @unchecked Sendable {
                 await MainActor.run {
                     handleTransaction(verificationResult)
                 }
+            }
+            await MainActor.run {
+                _ = self.refresh_completed.emit(StoreKitStatus.OK.rawValue, "")
             }
         }
     }
