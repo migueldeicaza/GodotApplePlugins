@@ -44,13 +44,13 @@
 		<member name="display_name" type="String" setter="" getter="get_display_name" default="&quot;&quot;">
 			Localized display name suited for UI.
 		</member>
-		<member name="game_player_id" type="String" setter="" getter="get_game_player_id" default="&quot;1F6A78E8CBC8FE719449A04D574FC4C97F3997C7E1D7C51E2C7AD3416529CCFB&quot;">
+		<member name="game_player_id" type="String" setter="" getter="get_game_player_id" default="&quot;A4BDD88018E0EF911AC93926C6F40E21B314E081D7EB646CB1A18D0F1C7170E2&quot;">
 			Stable, per-game identifier used by Apple to uniquely address the player.
 		</member>
 		<member name="is_invitable" type="bool" setter="" getter="get_is_invitable" default="false">
 			True if the player allows Game Center invitations.
 		</member>
-		<member name="team_player_id" type="String" setter="" getter="get_team_player_id" default="&quot;3C75ADA8F8BA5B2DB5F4296F92773E52D066ED1FBFA6386C264DE73648DEB83C&quot;">
+		<member name="team_player_id" type="String" setter="" getter="get_team_player_id" default="&quot;F91C27BC4A20464A8DA0AFF32D3CDB8BF6711EA87C245EA29106553541592548&quot;">
 			Team-scoped identifier shared with other games from the same developer account.
 		</member>
 	</members>

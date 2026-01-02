@@ -63,7 +63,7 @@
 		</method>
 		<method name="trigger_with_state">
 			<return type="void" />
-			<param index="0" name="state" type="State" />
+			<param index="0" name="state" type="int" />
 			<param index="1" name="done" type="Callable" />
 			<description>
 				Displays the Game Center dashboard in the specified state. See [enum GKGameCenterViewController.State] for values.

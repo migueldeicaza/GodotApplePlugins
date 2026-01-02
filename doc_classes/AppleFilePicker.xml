@@ -14,7 +14,7 @@
 	<methods>
 		<method name="pick_document">
 			<return type="void" />
-			<param index="0" name="allowed_types" type="Array[String]" />
+			<param index="0" name="allowed_types" type="Array" />
 			<param index="1" name="allow_multiple" type="bool" />
 			<description>
 				Opens the file picker.
@@ -37,7 +37,7 @@
 			</description>
 		</signal>
 		<signal name="files_selected">
-			<param index="0" name="urls" type="Array[AppleURL]" />
+			<param index="0" name="urls" type="Array" />
 			<param index="1" name="paths" type="PackedStringArray" />
 			<description>
 				Emitted when multiple files are selected (when [code]allow_multiple[/code] is true).

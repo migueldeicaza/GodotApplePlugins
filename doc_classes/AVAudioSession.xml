@@ -13,9 +13,9 @@
 	<methods>
 		<method name="set_category">
 			<return type="int" />
-			<param index="0" name="category" type="SessionCategory" />
-			<param index="1" name="mode" type="SessionMode" />
-			<param index="2" name="policy" type="RouteSharingPolicy" />
+			<param index="0" name="category" type="int" />
+			<param index="1" name="mode" type="int" />
+			<param index="2" name="policy" type="int" />
 			<param index="3" name="options" type="int" />
 			<description>
 				Sets the shared audio session category, mode, route sharing policy, and options.

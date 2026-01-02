@@ -68,7 +68,7 @@
 			<return type="int" />
 			<param index="0" name="data" type="PackedByteArray" />
 			<param index="1" name="toPlayers" type="Array" />
-			<param index="2" name="dataMode" type="SendDataMode" />
+			<param index="2" name="dataMode" type="int" />
 			<description>
 				Sends a payload to the specified [code skip-lint]Array[GKPlayer][/code]. Returns a [enum @GlobalScope.Error] value ([code skip-lint]OK[/code] on success, [code skip-lint]FAILED[/code] when the payload could not be converted or Apple reported an error). Choose a [enum SendDataMode] constant for [param dataMode].
 			</description>
@@ -76,7 +76,7 @@
 		<method name="send_data_to_all_players">
 			<return type="int" />
 			<param index="0" name="data" type="PackedByteArray" />
-			<param index="1" name="dataMode" type="SendDataMode" />
+			<param index="1" name="dataMode" type="int" />
 			<description>
 				Broadcasts the packed bytes to everyone in the match. Return value matches [method send]. Use the [enum SendDataMode] constants.
 			</description>
