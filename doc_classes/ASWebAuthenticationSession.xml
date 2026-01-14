@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="ASWebAuthenticationSession" inherits="RefCounted" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Presents a secure web-based authentication flow (OAuth) using the system browser.
+	</brief_description>
+	<description>
+		Wraps Apple's [code]ASWebAuthenticationSession[/code] so you can perform OAuth-style logins (e.g. Facebook/Google) with a callback URL.
+
+		This presents a system-controlled authentication UI and returns the callback URL when the provider redirects back to your app.
+
+		Notes:
+		- You must configure your callback URL scheme in your app (e.g. via Info.plist URL Types).
+		- Use [param prefers_ephemeral] if you want to avoid shared cookies (useful for “pick account” flows).
+
+		[codeblocks]
+		[gdscript]
+		var web_auth := ASWebAuthenticationSession.new()
+
+		func _ready():
+			web_auth.completed.connect(_on_web_auth_completed)
+			web_auth.failed.connect(_on_web_auth_failed)
+			web_auth.canceled.connect(_on_web_auth_canceled)
+
+		func login_facebook():
+			var auth_url = "https://www.facebook.com/v18.0/dialog/oauth?client_id=...&redirect_uri=mygame://oauth&response_type=code"
+			web_auth.start(auth_url, "mygame", false)
+
+		func _on_web_auth_completed(callback_url: String):
+			print("Callback URL: ", callback_url)
+			# parse 'code=' etc.
+
+		func _on_web_auth_failed(message: String):
+			push_error("Web auth failed: %s" % message)
+
+		func _on_web_auth_canceled():
+			print("User canceled")
+		[/gdscript]
+		[/codeblocks]
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="start">
+			<return type="bool" />
+			<param index="0" name="auth_url" type="String" />
+			<param index="1" name="callback_scheme" type="String" />
+			<param index="2" name="prefers_ephemeral" type="bool" />
+			<description>
+				Starts the authentication session.
+				[param auth_url] is the provider authorization URL.
+				[param callback_scheme] is your app's callback URL scheme (pass an empty string to not restrict).
+				[param prefers_ephemeral] controls whether the session uses an ephemeral browser session.
+				Returns [code]true[/code] if the session started.
+			</description>
+		</method>
+		<method name="cancel">
+			<return type="void" />
+			<description>
+				Cancels the running authentication session (if any).
+			</description>
+		</method>
+	</methods>
+	<signals>
+		<signal name="completed">
+			<param index="0" name="callback_url" type="String" />
+			<description>
+				Emitted when the authentication session completes successfully.
+				[param callback_url] is the full callback URL as a string.
+			</description>
+		</signal>
+		<signal name="failed">
+			<param index="0" name="message" type="String" />
+			<description>
+				Emitted when the authentication session fails.
+				[param message] is the localized error description.
+			</description>
+		</signal>
+		<signal name="canceled">
+			<description>
+				Emitted when the user cancels the authentication UI.
+			</description>
+		</signal>
+	</signals>
+</class>

@@ -50,7 +50,8 @@ import SwiftGodotRuntime
 
         ASAuthorizationAppleIDCredential.self,
         ASPasswordCredential.self,
-        ASAuthorizationController.self
+        ASAuthorizationController.self,
+        ASWebAuthenticationSession.self
     ],
     enums: [
         AVAudioSession.CategoryOptions.self,
