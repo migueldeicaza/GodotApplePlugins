@@ -67,7 +67,7 @@ jobs:
           PACKAGE_NAME="GodotApplePlugins-addons-${GITHUB_SHA}.zip"
           mkdir dist
           mv addons dist
-          zip -r "$PACKAGE_NAME" dist
+          ditto -c -k --sequesterRsrc --keepParent dist "$PACKAGE_NAME"
           echo "PACKAGE_NAME=$PACKAGE_NAME" >> "$GITHUB_ENV"
 
       - name: Publish release
