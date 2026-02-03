@@ -22,88 +22,130 @@
 	</members>
 	<constants>
 		<constant name="GAME_UNRECOGNIZED" value="0" enum="Code">
+			The system can’t complete the requested operation because Game Center doesn’t recognize the app.
 		</constant>
 		<constant name="NOT_SUPPORTED" value="1" enum="Code">
+			The app doesn’t have Game Center enabled.
 		</constant>
 		<constant name="APP_UNLISTED" value="2" enum="Code">
+			The system can’t complete the requested operation because the game isn’t available on the App Store.
 		</constant>
 		<constant name="UNKNOWN" value="3" enum="Code">
+			The system can’t complete the requested operation due to an unknown error.
 		</constant>
 		<constant name="CANCELLED" value="4" enum="Code">
+			The system canceled the requested operation or the user disabled it.
 		</constant>
 		<constant name="COMMUNICATIONS_FAILURE" value="5" enum="Code">
+			The system can’t complete the requested operation due to an error communicating with the server.
 		</constant>
 		<constant name="INVALID_PLAYER" value="6" enum="Code">
+			The system can’t complete the requested operation because the player is invalid.
 		</constant>
 		<constant name="INVALID_PARAMETER" value="7" enum="Code">
+			The system can’t complete the requested operation because one or more parameters are invalid.
 		</constant>
 		<constant name="GAME_SESSION_REQUEST_INVALID" value="8" enum="Code">
+			The properties of the game session request are impossible to fulfill.
 		</constant>
 		<constant name="API_NOT_AVAILABLE" value="9" enum="Code">
+			The system can’t complete the requested operation because the API isn’t available.
 		</constant>
 		<constant name="CONNECTION_TIMEOUT" value="10" enum="Code">
+			The system can’t complete the requested operation because the connection timed out.
 		</constant>
 		<constant name="API_OBSOLETE" value="11" enum="Code">
+			The system can’t complete the requested operation because Apple deprecated the API.
 		</constant>
 		<constant name="USER_DENIED" value="12" enum="Code">
+			The system can’t complete the requested operation because the user denied it.
 		</constant>
 		<constant name="INVALID_CREDENTIALS" value="13" enum="Code">
+			The system can’t complete the requested operation because the user name or password are incorrect.
 		</constant>
 		<constant name="NOT_AUTHENTICATED" value="14" enum="Code">
+			The system can’t complete the requested operation because the system hasn’t authorized the player.
 		</constant>
 		<constant name="AUTHENTICATION_IN_PROGRESS" value="15" enum="Code">
+			The system can’t complete the requested operation because the local player is already authenticating.
 		</constant>
 		<constant name="PARENTAL_CONTROLS_BLOCKED" value="16" enum="Code">
+			The system can’t complete the requested operation because the user disabled this feature in Restrictions.
 		</constant>
 		<constant name="PLAYER_STATUS_EXCEEDS_MAXIMUM_LENGTH" value="17" enum="Code">
+			The player’s status exceeds the maximum length.
 		</constant>
 		<constant name="PLAYER_STATUS_INVALID" value="18" enum="Code">
+			The player’s status is invalid.
 		</constant>
 		<constant name="UNDERAGE" value="19" enum="Code">
+			The system can’t complete the requested operation because this feature isn’t available to underage players.
 		</constant>
 		<constant name="PLAYER_PHOTO_FAILURE" value="20" enum="Code">
+			The system can’t complete the requested operation to retrieve a player’s photo.
 		</constant>
 		<constant name="UBIQUITY_CONTAINER_UNAVAILABLE" value="21" enum="Code">
+			The system can’t complete the requested operation because the user hasn’t signed in to iCloud or hasn’t enabled iCloud Drive.
 		</constant>
 		<constant name="NOT_AUTHORIZED" value="22" enum="Code">
+			The system can’t complete the requested operation because the system hasn’t authorized the player.
 		</constant>
 		<constant name="ICLOUD_UNAVAILABLE" value="23" enum="Code">
+			The system can’t complete the requested operation because it can’t access the player’s iCloud account.
 		</constant>
 		<constant name="LOCKDOWN_MODE" value="24" enum="Code">
+			The system can’t complete the requested operation because the player enabled Lockdown Mode on the device.
 		</constant>
 		<constant name="FRIEND_LIST_DESCRIPTION_MISSING" value="25" enum="Code">
+			Access to the local player’s list of friends denied for lack of a reason.
 		</constant>
 		<constant name="FRIEND_LIST_RESTRICTED" value="26" enum="Code">
+			Access to the local player’s list of friends restricted.
 		</constant>
 		<constant name="FRIEND_LIST_DENIED" value="27" enum="Code">
+			Access to the local player’s list of friends denied.
 		</constant>
 		<constant name="FRIEND_REQUEST_NOT_AVAILABLE" value="28" enum="Code">
+			The player can’t send a friend request at this time from this device.
 		</constant>
 		<constant name="MATCH_REQUEST_INVALID" value="29" enum="Code">
+			The system can’t complete the requested operation because the match request is invalid.
 		</constant>
 		<constant name="UNEXPECTED_CONNECTION" value="30" enum="Code">
+			An unexpected player has connected to a match.
 		</constant>
 		<constant name="INVITATIONS_DISABLED" value="31" enum="Code">
+			The system can’t complete the requested operation because the receiving player has disabled invitations.
 		</constant>
 		<constant name="MATCH_NOT_CONNECTED" value="32" enum="Code">
+			The system can’t complete the requested operation because the match isn’t connected to other players.
 		</constant>
 		<constant name="RESTRICTED_TO_AUTOMATCH" value="33" enum="Code">
+			The system can’t complete the requested operation because the player is using automatch.
 		</constant>
 		<constant name="TURN_BASED_MATCH_DATA_TOO_LARGE" value="34" enum="Code">
+			The system can’t complete the requested operation because the match data is too large.
 		</constant>
 		<constant name="TURN_BASED_TOO_MANY_SESSIONS" value="35" enum="Code">
+			The system can’t complete the requested operation because it exceeds the maximum number of sessions.
 		</constant>
 		<constant name="TURN_BASED_INVALID_PARTICIPANT" value="36" enum="Code">
+			The system can’t complete the requested operation because the specified participant is invalid.
 		</constant>
 		<constant name="TURN_BASED_INVALID_TURN" value="37" enum="Code">
+			The system can’t complete the requested operation because the participant doesn’t have the required turn state.
 		</constant>
 		<constant name="TURN_BASED_INVALID_STATE" value="38" enum="Code">
+			The system can’t complete the requested operation because the session is in an invalid state.
 		</constant>
 		<constant name="SCORE_NOT_SET" value="39" enum="Code">
+			The system can’t complete the requested operation because the system hasn’t set the score.
 		</constant>
 		<constant name="CHALLENGE_INVALID" value="40" enum="Code">
+			The challenge request failed due to invalid challenge data. (Deprecated)
 		</constant>
 		<constant name="DEBUG_MODE" value="41" enum="Code">
+			Enumeration case.
 		</constant>
 	</constants>
 </class>
