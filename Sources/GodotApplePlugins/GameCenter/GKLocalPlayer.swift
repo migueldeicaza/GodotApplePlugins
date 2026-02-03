@@ -90,7 +90,7 @@ class GKLocalPlayer: GKPlayer, @unchecked Sendable {
             }
         }
 
-        _ = callback.call(Variant(array), mapGKError(error))
+        _ = callback.call(Variant(array), GKError.from(error))
     }
 
     /// Loads the friends, the callback receives two arguments an `Array[GKPlayer]` and Variant
@@ -139,7 +139,7 @@ class GKLocalPlayer: GKPlayer, @unchecked Sendable {
                 result["salt"] = encodeSalt != nil ? Variant(encodeSalt) : nil
                 result["timestamp"] = Variant(timestamp)
             }
-            _ = callback.call(Variant(result), mapGKError(error))
+            _ = callback.call(Variant(result), GKError.from(error))
         }
     }
 
@@ -154,7 +154,7 @@ class GKLocalPlayer: GKPlayer, @unchecked Sendable {
             if let savedGame = savedGame {
                 savedV = Variant(GKSavedGame(saved: savedGame))
             }
-            _ = callback.call(savedV, mapGKError(error))
+            _ = callback.call(savedV, GKError.from(error))
         }
     }
 
@@ -167,14 +167,14 @@ class GKLocalPlayer: GKPlayer, @unchecked Sendable {
                     ret.append(GKSavedGame(saved: sg))
                 }
             }
-            _ = callback.call(Variant(ret), mapGKError(error))
+            _ = callback.call(Variant(ret), GKError.from(error))
         }
     }
 
     @Callable
     func delete_saved_games(named: String, callback: Callable) {
         local.deleteSavedGames(withName: named) { error in
-            _ = callback.call(mapGKError(nil))
+            _ = callback.call(GKError.from(nil))
         }
     }
 
@@ -214,7 +214,7 @@ class GKLocalPlayer: GKPlayer, @unchecked Sendable {
         local.resolveConflictingSavedGames(conflictList, with: data) { savedGames, error in
             let ret = TypedArray<GKSavedGame?>()
             savedGames?.forEach { ret.append(GKSavedGame(saved: $0)) }
-            _ = callback.call(Variant(ret), mapGKError(error))
+            _ = callback.call(Variant(ret), GKError.from(error))
         }
     }
 }

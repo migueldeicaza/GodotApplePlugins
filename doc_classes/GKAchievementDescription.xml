@@ -40,14 +40,14 @@
 			<return type="void" />
 			<param index="0" name="callback" type="Callable" />
 			<description>
-				Loads the entire catalog of achievement descriptions and calls the callback with [code skip-lint]Array[GKAchievementDescription][/code] and a [code skip-lint]Variant[/code] error ([code]null[/code] on success, or a [GameCenterError] from GameKit).
+				Loads the entire catalog of achievement descriptions and calls the callback with [code skip-lint]Array[GKAchievementDescription][/code] and a [code skip-lint]Variant[/code] error ([code]null[/code] on success, or a [GKError] from GameKit).
 			</description>
 		</method>
 		<method name="load_image">
 			<return type="void" />
 			<param index="0" name="callback" type="Callable" />
 			<description>
-				Downloads the image for this description. The callback receives [code](Image image, Variant error)[/code] where exactly one argument is [code]null[/code]. If an error occurs, it is returned as a [GameCenterError].
+				Downloads the image for this description. The callback receives [code](Image image, Variant error)[/code] where exactly one argument is [code]null[/code]. If an error occurs, it is returned as a [GKError].
 			</description>
 		</method>
 	</methods>

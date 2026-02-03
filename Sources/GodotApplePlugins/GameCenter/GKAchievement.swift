@@ -63,7 +63,7 @@ class GKAchievement: RefCounted, @unchecked Sendable {
             }
         }
         GameKit.GKAchievement.report(array) { error in
-            _ = callback.call(mapGKError(error))
+            _ = callback.call(GKError.from(error))
         }
     }
 
@@ -71,7 +71,7 @@ class GKAchievement: RefCounted, @unchecked Sendable {
     @Callable
     static func reset_achievements(callback: Callable) {
         GameKit.GKAchievement.resetAchievements { error in
-            _ = callback.call(mapGKError(error))
+            _ = callback.call(GKError.from(error))
         }
     }
 
@@ -88,7 +88,7 @@ class GKAchievement: RefCounted, @unchecked Sendable {
                     res.append(ad)
                 }
             }
-            _ = callback.call(Variant(res), mapGKError(error))
+            _ = callback.call(Variant(res), GKError.from(error))
         }
     }
 }
@@ -126,7 +126,7 @@ class GKAchievementDescription: RefCounted, @unchecked Sendable {
     func load_image(callback: Callable) {
         achievementDescription.loadImage { image, error in
             if let error {
-                _ = callback.call(nil, mapGKError(error))
+                _ = callback.call(nil, GKError.from(error))
             } else if let image, let godotImage = image.asGodotImage() {
                 _ = callback.call(godotImage, nil)
             } else {
@@ -149,7 +149,7 @@ class GKAchievementDescription: RefCounted, @unchecked Sendable {
                     res.append(ad)
                 }
             }
-            _ = callback.call(Variant(res), mapGKError(error))
+            _ = callback.call(Variant(res), GKError.from(error))
         }
     }
 }

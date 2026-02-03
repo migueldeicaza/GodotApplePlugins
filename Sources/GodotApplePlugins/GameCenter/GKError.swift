@@ -1,5 +1,5 @@
 //
-//  GameCenterError.swift
+//  GKError.swift
 //  GodotApplePlugins
 //
 //
@@ -8,7 +8,7 @@ import GameKit
 @preconcurrency import SwiftGodotRuntime
 
 @Godot
-public class GameCenterError: RefCounted, @unchecked Sendable {
+public class GKError: RefCounted, @unchecked Sendable {
     @Export var code: Int = 0
     @Export var message: String = ""
     @Export var domain: String = ""
@@ -82,8 +82,13 @@ public class GameCenterError: RefCounted, @unchecked Sendable {
         self.code = Self.mapCode(error)
     }
 
+    static func from(_ error: Error?) -> Variant? {
+        guard let error else { return nil }
+        return Variant(GKError(error: error))
+    }
+
     static func mapCode(_ error: Error) -> Int {
-        if let gkError = error as? GKError {
+        if let gkError = error as? GameKit.GKError {
             switch gkError.code {
             // Configuration Errors
             case .gameUnrecognized: return Code.GAME_UNRECOGNIZED.rawValue
@@ -151,9 +156,4 @@ public class GameCenterError: RefCounted, @unchecked Sendable {
         }
         return Code.UNKNOWN.rawValue
     }
-}
-
-func mapGKError(_ error: Error?) -> Variant? {
-    guard let error else { return nil }
-    return Variant(GameCenterError(error: error))
 }

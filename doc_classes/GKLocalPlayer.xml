@@ -4,7 +4,7 @@
 		Represents the signed-in Game Center player and exposes local-only APIs.
 	</brief_description>
 	<description>
-		Use [code skip-lint]GKLocalPlayer[/code] to inspect authentication flags and to fetch the local player's friends as shown in the "Players" section of [code skip-lint]GameCenterGuide.md[/code]. Every asynchronous call mirrors Apple's API and invokes your [code skip-lint]Callable[/code] with the requested data plus an optional error [code skip-lint]Variant[/code] (which contains a [GameCenterError] on failure). Refer to Apple's documentation at [url=https://developer.apple.com/documentation/gamekit/gklocalplayer]Apple's GKLocalPlayer reference[/url] for platform-specific behavior.
+		Use [code skip-lint]GKLocalPlayer[/code] to inspect authentication flags and to fetch the local player's friends as shown in the "Players" section of [code skip-lint]GameCenterGuide.md[/code]. Every asynchronous call mirrors Apple's API and invokes your [code skip-lint]Callable[/code] with the requested data plus an optional error [code skip-lint]Variant[/code] (which contains a [GKError] on failure). Refer to Apple's documentation at [url=https://developer.apple.com/documentation/gamekit/gklocalplayer]Apple's GKLocalPlayer reference[/url] for platform-specific behavior.
 
 		Sample from the guide that fetches the local player when your scene loads:
 		[codeblocks]
@@ -82,7 +82,7 @@
 			<return type="void" />
 			<param index="0" name="callback" type="Callable" />
 			<description>
-				Calls Apple's [code]fetchItems[/code] helper for server-side authentication. The callback receives [code](Dictionary data, Variant error)[/code]. The dictionary contains the [code]url[/code], [code]data[/code], [code]salt[/code], and [code]timestamp[/code] keys described in the inline Swift documentation, letting your backend verify the player's identity. If not null, [code]error[/code] contains a [GameCenterError].
+				Calls Apple's [code]fetchItems[/code] helper for server-side authentication. The callback receives [code](Dictionary data, Variant error)[/code]. The dictionary contains the [code]url[/code], [code]data[/code], [code]salt[/code], and [code]timestamp[/code] keys described in the inline Swift documentation, letting your backend verify the player's identity. If not null, [code]error[/code] contains a [GKError].
 			</description>
 		</method>
 		<method name="fetch_saved_games">
@@ -91,21 +91,21 @@
 			<description>
 				Use this API to retrieve the list of saved games, upon completion, this
 				                method invokes the provided callback with both an array of GKSavedGame objects
-				                and a variant error, if not nil it contains a [GameCenterError] describing the problem.
+				                and a variant error, if not nil it contains a [GKError] describing the problem.
 			</description>
 		</method>
 		<method name="load_challengeable_friends">
 			<return type="void" />
 			<param index="0" name="callback" type="Callable" />
 			<description>
-				Loads players whom the local user can challenge. The callback receives [code](Array[GKPlayer] friends, Variant error)[/code] where either argument can be [code]null[/code]. If error is present, it is a [GameCenterError].
+				Loads players whom the local user can challenge. The callback receives [code](Array[GKPlayer] friends, Variant error)[/code] where either argument can be [code]null[/code]. If error is present, it is a [GKError].
 			</description>
 		</method>
 		<method name="load_friends">
 			<return type="void" />
 			<param index="0" name="callback" type="Callable" />
 			<description>
-				Fetches the friends list. The callback receives [code](Array[GKPlayer] friends, Variant error)[/code]; a non-null error [code skip-lint]Variant[/code] holds the [GameCenterError].
+				Fetches the friends list. The callback receives [code](Array[GKPlayer] friends, Variant error)[/code]; a non-null error [code skip-lint]Variant[/code] holds the [GKError].
 			</description>
 		</method>
 		<method name="load_recent_friends">
@@ -124,7 +124,7 @@
 				Saves the packed byte array as the game data with the specified name, upon
 				                completion the callback is invoked with both a GKSavedObject parameter and
 				                a Variant parameter for the error.   The GKSavedObject is not-nil on success,
-				                and on error, the second parameter is not-nil and contains the [GameCenterError].
+				                and on error, the second parameter is not-nil and contains the [GKError].
 			</description>
 		</method>
 		      <method name="register_listener">
@@ -145,7 +145,7 @@
 		          <param index="1" name="data" type="PackedByteArray" />
 		          <param index="2" name="callback" type="Callable" />
 		          <description>
-		              Resolves conflicting saved games using the provided data. The [code]conflicts[/code] array should contain the [GKSavedGame] objects that are in conflict (received from the [signal conflicting_saved_games]). The [code]data[/code] is the correct game data to save. The callback receives [code](Array[GKSavedGame] saved_games, Variant error)[/code]. [code]error[/code] is a [GameCenterError] if not null.
+		              Resolves conflicting saved games using the provided data. The [code]conflicts[/code] array should contain the [GKSavedGame] objects that are in conflict (received from the [signal conflicting_saved_games]). The [code]data[/code] is the correct game data to save. The callback receives [code](Array[GKSavedGame] saved_games, Variant error)[/code]. [code]error[/code] is a [GKError] if not null.
 		          </description>
 		      </method>
 	</methods>

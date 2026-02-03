@@ -95,7 +95,7 @@ class GKLeaderboard: RefCounted, @unchecked Sendable {
     /// Callback is invoked with nil on success, or a string on error
     func submit_score(score: Int, context: Int, player: GKPlayer, callback: Callable) {
         board.submitScore(score, context: context, player: player.player) { error in
-            _ = callback.call(mapGKError(error))
+            _ = callback.call(GKError.from(error))
         }
     }
 
@@ -108,7 +108,7 @@ class GKLeaderboard: RefCounted, @unchecked Sendable {
             if let image, let godotImage = image.asGodotImage() {
                 _ = callback.call(godotImage, nil)
             } else if let error {
-                _ = callback.call(nil, mapGKError(error))
+                _ = callback.call(nil, GKError.from(error))
             } else {
                 _ = callback.call(nil, Variant("Could not load leaderboard image"))
             }
@@ -137,7 +137,7 @@ class GKLeaderboard: RefCounted, @unchecked Sendable {
                     wrapped.append(wrap)
                 }
             }
-            _ = callback.call(Variant(wrapped), mapGKError(error))
+            _ = callback.call(Variant(wrapped), GKError.from(error))
         }
     }
 
@@ -166,9 +166,9 @@ class GKLeaderboard: RefCounted, @unchecked Sendable {
             re = nil
         }
         if let range {
-            _ = callback.call(Variant(le), re, Variant(range), mapGKError(error))
+            _ = callback.call(Variant(le), re, Variant(range), GKError.from(error))
         } else {
-            _ = callback.call(Variant(le), re, mapGKError(error))
+            _ = callback.call(Variant(le), re, GKError.from(error))
         }
     }
 

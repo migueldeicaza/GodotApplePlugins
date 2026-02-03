@@ -29,6 +29,7 @@ import SwiftGodotRuntime
         GKMatchRequest.self,
         GKPlayer.self,
         GKSavedGame.self,
+        GKError.self,
 
         ProductView.self,
         StoreProduct.self,
@@ -51,7 +52,7 @@ import SwiftGodotRuntime
         ASAuthorizationAppleIDCredential.self,
         ASPasswordCredential.self,
         ASAuthorizationController.self,
-        ASWebAuthenticationSession.self
+        ASWebAuthenticationSession.self,
     ],
     enums: [
         AVAudioSession.CategoryOptions.self,
@@ -76,7 +77,7 @@ import SwiftGodotRuntime
         StoreSubscriptionInfoStatus.RenewalState.self,
 
         ASAuthorizationAppleIDCredential.UserDetectionStatus.self,
-        ASAuthorizationAppleIDCredential.UserAgeRange.self
+        ASAuthorizationAppleIDCredential.UserAgeRange.self,
     ],
     registerDocs: true
 )

@@ -49,7 +49,7 @@ class GKSavedGame: GKPlayer, @unchecked Sendable {
             } else {
                 ret = Variant(PackedByteArray())
             }
-            _ = done.call(ret, mapGKError(error))
+            _ = done.call(ret, GKError.from(error))
         }
     }
 }
