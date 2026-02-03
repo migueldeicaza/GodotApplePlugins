@@ -67,6 +67,7 @@ import SwiftGodotRuntime
         GKLeaderboard.PlayerScope.self,
         GKMatch.SendDataMode.self,
         GKMatchRequest.MatchType.self,
+        GKError.Code.self,
 
         ProductView.ViewStyle.self,
         StoreKitManager.StoreKitStatus.self,
