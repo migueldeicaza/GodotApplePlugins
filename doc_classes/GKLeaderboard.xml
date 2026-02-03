@@ -50,14 +50,14 @@
 			<param index="1" name="timeScope" type="TimeScope" />
 			<param index="2" name="callback" type="Callable" />
 			<description>
-				Loads the local player's score together with the specified [code skip-lint]Array[/code] of [code skip-lint]GKPlayer[/code] objects for the given time scope (use the [enum TimeScope] values). The callback receives [code](GKLeaderboardEntry local, Array[GKLeaderboardEntry] scores, Variant error)[/code] where the first entry can be [code]null[/code] if the local player has not posted a score.
+				Loads the local player's score together with the specified [code skip-lint]Array[/code] of [code skip-lint]GKPlayer[/code] objects for the given time scope (use the [enum TimeScope] values). The callback receives [code](GKLeaderboardEntry local, Array[GKLeaderboardEntry] scores, Variant error)[/code] where the first entry can be [code]null[/code] if the local player has not posted a score. If [code]error[/code] is not null, it contains a [GKError].
 			</description>
 		</method>
 		<method name="load_image">
 			<return type="void" />
 			<param index="0" name="callback" type="Callable" />
 			<description>
-				Downloads the leaderboard icon. The callback arguments are [code](Image image, Variant error)[/code] with exactly one being [code]null[/code], matching the [code skip-lint]load_image[/code] helper shown in the guide.
+				Downloads the leaderboard icon. The callback arguments are [code](Image image, Variant error)[/code] with exactly one being [code]null[/code], matching the [code skip-lint]load_image[/code] helper shown in the guide. [code]error[/code] is a [GKError].
 			</description>
 		</method>
 		<method name="load_leaderboards" qualifiers="static">
@@ -76,7 +76,7 @@
 			<param index="3" name="rangeLenght" type="int" />
 			<param index="4" name="callback" type="Callable" />
 			<description>
-				Loads leaderboard entries for the local player.  The callback receives [code](GKLeaderboardEntry local, Array[GKLeaderboardEntry] scores, Variant range, Variant error)[/code] where the first entry can be [code]null[/code] if the local player has not posted a score.   The value `range` is the number of total player count that matched the scope. Supply [enum PlayerScope] and [enum TimeScope] integers for the first two parameters.
+				Loads leaderboard entries for the local player.  The callback receives [code](GKLeaderboardEntry local, Array[GKLeaderboardEntry] scores, Variant range, Variant error)[/code] where the first entry can be [code]null[/code] if the local player has not posted a score.   The value `range` is the number of total player count that matched the scope. Supply [enum PlayerScope] and [enum TimeScope] integers for the first two parameters. If [code]error[/code] is not null, it is a [GKError].
 			</description>
 		</method>
 		<method name="submit_score">
@@ -86,7 +86,7 @@
 			<param index="2" name="player" type="GKPlayer" />
 			<param index="3" name="callback" type="Callable" />
 			<description>
-				Submits a score for the provided player. The callback receives a [code skip-lint]Variant[/code] with the error string or [code]null[/code] when the submission succeeds. See [code skip-lint]GameCenterGuide.md[/code] for an end-to-end example.
+				Submits a score for the provided player. The callback receives a [code skip-lint]Variant[/code] with the [GKError] or [code]null[/code] when the submission succeeds. See [code skip-lint]GameCenterGuide.md[/code] for an end-to-end example.
 			</description>
 		</method>
 	</methods>

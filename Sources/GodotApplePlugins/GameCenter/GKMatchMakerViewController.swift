@@ -1,3 +1,4 @@
+import GameKit
 //
 //  GKMatchMakerViewController.swift
 //  GodotApplePlugins
@@ -6,34 +7,40 @@
 //
 @preconcurrency import SwiftGodotRuntime
 import SwiftUI
+
 #if canImport(UIKit)
-import UIKit
+    import UIKit
 #else
-import AppKit
+    import AppKit
 #endif
-import GameKit
 
 @Godot
 class GKMatchmakerViewController: RefCounted, @unchecked Sendable {
     class Proxy: NSObject, GameKit.GKMatchmakerViewControllerDelegate, GKLocalPlayerListener {
-        func matchmakerViewControllerWasCancelled(_ viewController: GameKit.GKMatchmakerViewController) {
+        func matchmakerViewControllerWasCancelled(
+            _ viewController: GameKit.GKMatchmakerViewController
+        ) {
             guard let base else { return }
             MainActor.assumeIsolated {
-#if os(macOS)
-                base.dialogController?.dismiss(viewController)
-#else
-                viewController.dismiss(animated: true)
-#endif
+                #if os(macOS)
+                    base.dialogController?.dismiss(viewController)
+                #else
+                    viewController.dismiss(animated: true)
+                #endif
                 base.cancelled.emit("")
             }
         }
 
-        func matchmakerViewController(_ viewController: GameKit.GKMatchmakerViewController, didFailWithError error: any Error) {
+        func matchmakerViewController(
+            _ viewController: GameKit.GKMatchmakerViewController, didFailWithError error: any Error
+        ) {
             GD.print("GKMVC: didFailWithError")
             base?.failed_with_error.emit(String(describing: error))
         }
 
-        func matchmakerViewController(_ viewController: GameKit.GKMatchmakerViewController, didFind match: GameKit.GKMatch) {
+        func matchmakerViewController(
+            _ viewController: GameKit.GKMatchmakerViewController, didFind match: GameKit.GKMatch
+        ) {
             base?.did_find_match.emit(GKMatch(match: match))
         }
 
@@ -70,14 +77,15 @@ class GKMatchmakerViewController: RefCounted, @unchecked Sendable {
     /// Delegate class if the user is rolling his own
     var proxy: Proxy?
 
-#if os(macOS)
-    /// When the user triggers the presentation, on macOS, we keep track of it
-    var dialogController: GKDialogController? = nil
-#endif
+    #if os(macOS)
+        /// When the user triggers the presentation, on macOS, we keep track of it
+        var dialogController: GKDialogController? = nil
+    #endif
 
     /// Returns a view controller for the specified request, configure the various callbacks, and then
     /// call `present` on it.
-    @Callable static func create_controller(request: GKMatchRequest) -> GKMatchmakerViewController? {
+    @Callable static func create_controller(request: GKMatchRequest) -> GKMatchmakerViewController?
+    {
         MainActor.assumeIsolated {
             if let vc = GameKit.GKMatchmakerViewController(matchRequest: request.request) {
                 let v = GKMatchmakerViewController()
@@ -94,13 +102,15 @@ class GKMatchmakerViewController: RefCounted, @unchecked Sendable {
     }
 
     // This is used for the custom request that is vastly simpler than rolling your own
-    class RequestMatchDelegate: NSObject, GameKit.GKMatchmakerViewControllerDelegate, @unchecked Sendable {
-#if os(macOS)
-        var dialogController: GKDialogController?
-#endif
+    class RequestMatchDelegate: NSObject, GameKit.GKMatchmakerViewControllerDelegate,
+        @unchecked Sendable
+    {
+        #if os(macOS)
+            var dialogController: GKDialogController?
+        #endif
         private let callback: Callable
-        let done: () -> ()
-        init(_ callback: Callable, done: @escaping () -> () = { }) {
+        let done: () -> Void
+        init(_ callback: Callable, done: @escaping () -> Void = {}) {
             self.callback = callback
             self.done = done
         }
@@ -116,13 +126,16 @@ class GKMatchmakerViewController: RefCounted, @unchecked Sendable {
             _ source: GameKit.GKMatchmakerViewController
         ) {
             MainActor.assumeIsolated {
-#if os(iOS)
-                source.dismiss(animated: true)
-#else
-                dialogController?.dismiss(source)
+                #if os(iOS)
+                    source.dismiss(animated: true)
+                #else
+                    dialogController?.dismiss(source)
 
-#endif
-                _ = self.callback.call(nil, Variant("cancelled"))
+                #endif
+                let error = NSError(
+                    domain: GKErrorDomain, code: GKError.Code.CANCELLED.rawValue,
+                    userInfo: [NSLocalizedDescriptionKey: "Cancelled"])
+                _ = self.callback.call(nil, GKError.from(error))
                 done()
             }
         }
@@ -131,7 +144,7 @@ class GKMatchmakerViewController: RefCounted, @unchecked Sendable {
             _ source: GameKit.GKMatchmakerViewController,
             didFailWithError: (any Error)
         ) {
-            _ = self.callback.call(nil, Variant(didFailWithError.localizedDescription))
+            _ = self.callback.call(nil, GKError.from(didFailWithError))
             done()
         }
     }
@@ -144,14 +157,16 @@ class GKMatchmakerViewController: RefCounted, @unchecked Sendable {
             if let vc = GameKit.GKMatchmakerViewController(matchRequest: request.request) {
                 var hold: RequestMatchDelegate?
 
-                hold = RequestMatchDelegate(callback, done: {
-                    hold = nil
-                })
+                hold = RequestMatchDelegate(
+                    callback,
+                    done: {
+                        hold = nil
+                    })
                 vc.matchmakerDelegate = hold
                 GKMatchmakerViewController.present(controller: vc) {
-#if os(macOS)
-                    hold?.dialogController = $0 as? GKDialogController
-#endif
+                    #if os(macOS)
+                        hold?.dialogController = $0 as? GKDialogController
+                    #endif
                 }
             }
         }
@@ -162,22 +177,24 @@ class GKMatchmakerViewController: RefCounted, @unchecked Sendable {
             return
         }
         GKMatchmakerViewController.present(controller: vc) { v in
-#if os(macOS)
-            dialogController = v as? GKDialogController
-#endif
+            #if os(macOS)
+                dialogController = v as? GKDialogController
+            #endif
         }
     }
 
-    static func present(controller: GameKit.GKMatchmakerViewController, track: @MainActor (AnyObject) -> ()) {
+    static func present(
+        controller: GameKit.GKMatchmakerViewController, track: @MainActor (AnyObject) -> Void
+    ) {
         MainActor.assumeIsolated {
-#if os(iOS)
-            presentOnTop(controller)
-#else
-            let dialogController = GKDialogController.shared()
-            dialogController.parentWindow = NSApplication.shared.mainWindow
-            dialogController.present(controller)
-            track(dialogController)
-#endif
+            #if os(iOS)
+                presentOnTop(controller)
+            #else
+                let dialogController = GKDialogController.shared()
+                dialogController.parentWindow = NSApplication.shared.mainWindow
+                dialogController.present(controller)
+                track(dialogController)
+            #endif
         }
     }
 }

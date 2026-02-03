@@ -5,15 +5,15 @@
 //  Created by Miguel de Icaza on 11/15/25.
 //
 
+import GameKit
 @preconcurrency import SwiftGodotRuntime
 import SwiftUI
-#if canImport(UIKit)
-import UIKit
-#else
-import AppKit
-#endif
 
-import GameKit
+#if canImport(UIKit)
+    import UIKit
+#else
+    import AppKit
+#endif
 
 @Godot
 class GKAchievement: RefCounted, @unchecked Sendable {
@@ -63,7 +63,7 @@ class GKAchievement: RefCounted, @unchecked Sendable {
             }
         }
         GameKit.GKAchievement.report(array) { error in
-            _ = callback.call(mapError(error))
+            _ = callback.call(GKError.from(error))
         }
     }
 
@@ -71,7 +71,7 @@ class GKAchievement: RefCounted, @unchecked Sendable {
     @Callable
     static func reset_achievements(callback: Callable) {
         GameKit.GKAchievement.resetAchievements { error in
-            _ = callback.call(mapError(error))
+            _ = callback.call(GKError.from(error))
         }
     }
 
@@ -88,14 +88,15 @@ class GKAchievement: RefCounted, @unchecked Sendable {
                     res.append(ad)
                 }
             }
-            _ = callback.call(Variant(res), mapError(error))
+            _ = callback.call(Variant(res), GKError.from(error))
         }
     }
 }
 
 @Godot
 class GKAchievementDescription: RefCounted, @unchecked Sendable {
-    var achievementDescription: GameKit.GKAchievementDescription = GameKit.GKAchievementDescription()
+    var achievementDescription: GameKit.GKAchievementDescription =
+        GameKit.GKAchievementDescription()
 
     convenience init(_ ad: GameKit.GKAchievementDescription) {
         self.init()
@@ -125,7 +126,7 @@ class GKAchievementDescription: RefCounted, @unchecked Sendable {
     func load_image(callback: Callable) {
         achievementDescription.loadImage { image, error in
             if let error {
-                _ = callback.call(nil, mapError(error))
+                _ = callback.call(nil, GKError.from(error))
             } else if let image, let godotImage = image.asGodotImage() {
                 _ = callback.call(godotImage, nil)
             } else {
@@ -138,7 +139,8 @@ class GKAchievementDescription: RefCounted, @unchecked Sendable {
     /// either one can be nil.
     @Callable
     static func load_achievement_descriptions(callback: Callable) {
-        GameKit.GKAchievementDescription.loadAchievementDescriptions { achievementDescriptions, error in
+        GameKit.GKAchievementDescription.loadAchievementDescriptions {
+            achievementDescriptions, error in
             let res = TypedArray<GKAchievementDescription?>()
 
             if let achievementDescriptions {
@@ -147,7 +149,7 @@ class GKAchievementDescription: RefCounted, @unchecked Sendable {
                     res.append(ad)
                 }
             }
-            _ = callback.call(Variant(res), mapError(error))
+            _ = callback.call(Variant(res), GKError.from(error))
         }
     }
 }

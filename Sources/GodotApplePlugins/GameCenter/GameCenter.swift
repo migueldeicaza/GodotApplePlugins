@@ -5,15 +5,15 @@
 //  Created by Miguel de Icaza on 11/15/25.
 //
 
+import GameKit
 @preconcurrency import SwiftGodotRuntime
 import SwiftUI
-#if canImport(UIKit)
-import UIKit
-#else
-import AppKit
-#endif
 
-import GameKit
+#if canImport(UIKit)
+    import UIKit
+#else
+    import AppKit
+#endif
 
 @Godot
 class GameCenterManager: RefCounted, @unchecked Sendable {
@@ -21,10 +21,10 @@ class GameCenterManager: RefCounted, @unchecked Sendable {
     @Signal("status") var authentication_result: SignalWithArguments<Bool>
 
     var isAuthenticated: Bool = false
-    
+
     @Export var localPlayer: GKLocalPlayer
     @Export var accessPoint: GKAccessPoint {
-        get { GKAccessPoint() }
+        GKAccessPoint()
     }
 
     required init(_ context: InitContext) {

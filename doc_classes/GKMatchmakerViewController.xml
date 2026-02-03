@@ -45,7 +45,7 @@
 			<param index="0" name="request" type="GKMatchRequest" />
 			<param index="1" name="callback" type="Callable" />
 			<description>
-				Shows the matchmaking UI and invokes the callback with [code](GKMatch match, Variant error)[/code] where only one argument is non-[code]null[/code]. Errors are reported as strings such as "cancelled" when the user dismisses the sheet.
+				Shows the matchmaking UI and invokes the callback with [code](GKMatch match, Variant error)[/code] where only one argument is non-[code]null[/code]. Errors are reported as [GKError] objects.
 			</description>
 		</method>
 	</methods>

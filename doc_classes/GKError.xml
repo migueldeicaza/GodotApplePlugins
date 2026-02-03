@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="GKError" inherits="RefCounted" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Represents an error returned by Game Center operations.
+	</brief_description>
+	<description>
+		This class wraps [code]GKError[/code] information, providing the error code, domain, and localized message.
+		The [member code] property corresponds to the [enum Code] constants.
+	</description>
+	<tutorials>
+	</tutorials>
+	<members>
+		<member name="code" type="int" setter="" getter="get_code" default="0">
+			The error code. See [enum Code] for possible values.
+		</member>
+		<member name="domain" type="String" setter="" getter="get_domain" default="""">
+			The error domain (typically "GKErrorDomain").
+		</member>
+		<member name="message" type="String" setter="" getter="get_message" default="""">
+			A localized description of the error.
+		</member>
+	</members>
+	<constants>
+		<constant name="GAME_UNRECOGNIZED" value="0" enum="Code">
+		</constant>
+		<constant name="NOT_SUPPORTED" value="1" enum="Code">
+		</constant>
+		<constant name="APP_UNLISTED" value="2" enum="Code">
+		</constant>
+		<constant name="UNKNOWN" value="3" enum="Code">
+		</constant>
+		<constant name="CANCELLED" value="4" enum="Code">
+		</constant>
+		<constant name="COMMUNICATIONS_FAILURE" value="5" enum="Code">
+		</constant>
+		<constant name="INVALID_PLAYER" value="6" enum="Code">
+		</constant>
+		<constant name="INVALID_PARAMETER" value="7" enum="Code">
+		</constant>
+		<constant name="GAME_SESSION_REQUEST_INVALID" value="8" enum="Code">
+		</constant>
+		<constant name="API_NOT_AVAILABLE" value="9" enum="Code">
+		</constant>
+		<constant name="CONNECTION_TIMEOUT" value="10" enum="Code">
+		</constant>
+		<constant name="API_OBSOLETE" value="11" enum="Code">
+		</constant>
+		<constant name="USER_DENIED" value="12" enum="Code">
+		</constant>
+		<constant name="INVALID_CREDENTIALS" value="13" enum="Code">
+		</constant>
+		<constant name="NOT_AUTHENTICATED" value="14" enum="Code">
+		</constant>
+		<constant name="AUTHENTICATION_IN_PROGRESS" value="15" enum="Code">
+		</constant>
+		<constant name="PARENTAL_CONTROLS_BLOCKED" value="16" enum="Code">
+		</constant>
+		<constant name="PLAYER_STATUS_EXCEEDS_MAXIMUM_LENGTH" value="17" enum="Code">
+		</constant>
+		<constant name="PLAYER_STATUS_INVALID" value="18" enum="Code">
+		</constant>
+		<constant name="UNDERAGE" value="19" enum="Code">
+		</constant>
+		<constant name="PLAYER_PHOTO_FAILURE" value="20" enum="Code">
+		</constant>
+		<constant name="UBIQUITY_CONTAINER_UNAVAILABLE" value="21" enum="Code">
+		</constant>
+		<constant name="NOT_AUTHORIZED" value="22" enum="Code">
+		</constant>
+		<constant name="ICLOUD_UNAVAILABLE" value="23" enum="Code">
+		</constant>
+		<constant name="LOCKDOWN_MODE" value="24" enum="Code">
+		</constant>
+		<constant name="FRIEND_LIST_DESCRIPTION_MISSING" value="25" enum="Code">
+		</constant>
+		<constant name="FRIEND_LIST_RESTRICTED" value="26" enum="Code">
+		</constant>
+		<constant name="FRIEND_LIST_DENIED" value="27" enum="Code">
+		</constant>
+		<constant name="FRIEND_REQUEST_NOT_AVAILABLE" value="28" enum="Code">
+		</constant>
+		<constant name="MATCH_REQUEST_INVALID" value="29" enum="Code">
+		</constant>
+		<constant name="UNEXPECTED_CONNECTION" value="30" enum="Code">
+		</constant>
+		<constant name="INVITATIONS_DISABLED" value="31" enum="Code">
+		</constant>
+		<constant name="MATCH_NOT_CONNECTED" value="32" enum="Code">
+		</constant>
+		<constant name="RESTRICTED_TO_AUTOMATCH" value="33" enum="Code">
+		</constant>
+		<constant name="TURN_BASED_MATCH_DATA_TOO_LARGE" value="34" enum="Code">
+		</constant>
+		<constant name="TURN_BASED_TOO_MANY_SESSIONS" value="35" enum="Code">
+		</constant>
+		<constant name="TURN_BASED_INVALID_PARTICIPANT" value="36" enum="Code">
+		</constant>
+		<constant name="TURN_BASED_INVALID_TURN" value="37" enum="Code">
+		</constant>
+		<constant name="TURN_BASED_INVALID_STATE" value="38" enum="Code">
+		</constant>
+		<constant name="SCORE_NOT_SET" value="39" enum="Code">
+		</constant>
+		<constant name="CHALLENGE_INVALID" value="40" enum="Code">
+		</constant>
+		<constant name="DEBUG_MODE" value="41" enum="Code">
+		</constant>
+	</constants>
+</class>

@@ -1,3 +1,4 @@
+import GameKit
 //
 //  GKSavedGame.swift
 //  GodotApplePlugins
@@ -6,18 +7,17 @@
 //
 @preconcurrency import SwiftGodotRuntime
 import SwiftUI
-#if canImport(UIKit)
-import UIKit
-#else
-import AppKit
-#endif
 
-import GameKit
+#if canImport(UIKit)
+    import UIKit
+#else
+    import AppKit
+#endif
 
 @Godot
 class GKSavedGame: GKPlayer, @unchecked Sendable {
     var saved: GameKit.GKSavedGame?
-    
+
     convenience init(saved: GameKit.GKSavedGame) {
         self.init()
         self.saved = saved
@@ -38,7 +38,8 @@ class GKSavedGame: GKPlayer, @unchecked Sendable {
     @Callable
     func load_data(done: Callable) {
         guard let saved else {
-            _ = done.call(Variant(PackedByteArray()), Variant(String("GKSavedGame: Instance was not setup")))
+            _ = done.call(
+                Variant(PackedByteArray()), Variant(String("GKSavedGame: Instance was not setup")))
             return
         }
         saved.loadData { data, error in
@@ -48,7 +49,7 @@ class GKSavedGame: GKPlayer, @unchecked Sendable {
             } else {
                 ret = Variant(PackedByteArray())
             }
-            _ = done.call(ret, mapError(error))
+            _ = done.call(ret, GKError.from(error))
         }
     }
 }

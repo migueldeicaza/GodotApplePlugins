@@ -5,15 +5,15 @@
 //  Created by Miguel de Icaza on 11/17/25.
 //
 
+import GameKit
 @preconcurrency import SwiftGodotRuntime
 import SwiftUI
-#if canImport(UIKit)
-import UIKit
-#else
-import AppKit
-#endif
 
-import GameKit
+#if canImport(UIKit)
+    import UIKit
+#else
+    import AppKit
+#endif
 
 @Godot
 class GKLocalPlayer: GKPlayer, @unchecked Sendable {
@@ -27,7 +27,9 @@ class GKLocalPlayer: GKPlayer, @unchecked Sendable {
             self.base = base
         }
 
-        func player(_ player: GameKit.GKPlayer, hasConflictingSavedGames savedGames: [GameKit.GKSavedGame]) {
+        func player(
+            _ player: GameKit.GKPlayer, hasConflictingSavedGames savedGames: [GameKit.GKSavedGame]
+        ) {
             guard let base = base else { return }
             let array = VariantArray()
             savedGames.forEach { array.append(Variant(GKSavedGame(saved: $0))) }
@@ -50,12 +52,14 @@ class GKLocalPlayer: GKPlayer, @unchecked Sendable {
     /// Emitted when there is a conflict between saved games.
     /// The `player` argument is the GKPlayer wrapper.
     /// The `conflicting_saved_games` argument is a VariantArray of GKSavedGame objects.
-    @Signal("player", "conflicting_saved_games") var conflicting_saved_games: SignalWithArguments<GKPlayer, VariantArray>
+    @Signal("player", "conflicting_saved_games") var conflicting_saved_games:
+        SignalWithArguments<GKPlayer, VariantArray>
 
     /// Emitted when a saved game is modified.
     /// The `player` argument is the GKPlayer wrapper.
     /// The `saved_game` argument is the GKSavedGame wrapper.
-    @Signal("player", "saved_game") var saved_game_modified: SignalWithArguments<GKPlayer, GKSavedGame>
+    @Signal("player", "saved_game") var saved_game_modified:
+        SignalWithArguments<GKPlayer, GKSavedGame>
 
     required init(_ context: InitContext) {
         local = GameKit.GKLocalPlayer.local
@@ -71,9 +75,12 @@ class GKLocalPlayer: GKPlayer, @unchecked Sendable {
     @Export var isAuthenticated: Bool { local.isAuthenticated }
     @Export var isUnderage: Bool { local.isUnderage }
     @Export var isMultiplayerGamingRestricted: Bool { local.isMultiplayerGamingRestricted }
-    @Export var isPersonalizedCommunicationRestricted: Bool { local.isPersonalizedCommunicationRestricted }
+    @Export var isPersonalizedCommunicationRestricted: Bool {
+        local.isPersonalizedCommunicationRestricted
+    }
 
-    func friendDispatch(_ callback: Callable, _ friends: [GameKit.GKPlayer]?, _ error: (any Error)?) {
+    func friendDispatch(_ callback: Callable, _ friends: [GameKit.GKPlayer]?, _ error: (any Error)?)
+    {
         let array = TypedArray<GKPlayer?>()
 
         if let friends {
@@ -83,7 +90,7 @@ class GKLocalPlayer: GKPlayer, @unchecked Sendable {
             }
         }
 
-        _ = callback.call(Variant(array), mapError(error))
+        _ = callback.call(Variant(array), GKError.from(error))
     }
 
     /// Loads the friends, the callback receives two arguments an `Array[GKPlayer]` and Variant
@@ -105,7 +112,7 @@ class GKLocalPlayer: GKPlayer, @unchecked Sendable {
     /// Loads the recent friends, the callback receives two arguments an array of GKPlayers and a String error
     /// either one can be null
     @Callable func load_recent_friends(callback: Callable) {
-        local.loadRecentPlayers  { friends, error in
+        local.loadRecentPlayers { friends, error in
             self.friendDispatch(callback, friends, error)
         }
     }
@@ -121,18 +128,18 @@ class GKLocalPlayer: GKPlayer, @unchecked Sendable {
     @Callable
     func fetch_items_for_identity_verification_signature(callback: Callable) {
         local.fetchItems { url, data, salt, timestamp, error in
-            let result = VariantDictionary();
+            let result = VariantDictionary()
 
             if error == nil {
                 let encodeData = data?.toPackedByteArray()
                 let encodeSalt = salt?.toPackedByteArray()
 
                 result["url"] = (Variant(url?.description ?? ""))
-                result["data"]  = encodeData != nil ? Variant(encodeData) : nil
+                result["data"] = encodeData != nil ? Variant(encodeData) : nil
                 result["salt"] = encodeSalt != nil ? Variant(encodeSalt) : nil
                 result["timestamp"] = Variant(timestamp)
             }
-            _ = callback.call(Variant(result), mapError(error))
+            _ = callback.call(Variant(result), GKError.from(error))
         }
     }
 
@@ -147,7 +154,7 @@ class GKLocalPlayer: GKPlayer, @unchecked Sendable {
             if let savedGame = savedGame {
                 savedV = Variant(GKSavedGame(saved: savedGame))
             }
-            _ = callback.call(savedV, mapError(error))
+            _ = callback.call(savedV, GKError.from(error))
         }
     }
 
@@ -160,14 +167,14 @@ class GKLocalPlayer: GKPlayer, @unchecked Sendable {
                     ret.append(GKSavedGame(saved: sg))
                 }
             }
-            _ = callback.call(Variant(ret), mapError(error))
+            _ = callback.call(Variant(ret), GKError.from(error))
         }
     }
 
     @Callable
     func delete_saved_games(named: String, callback: Callable) {
         local.deleteSavedGames(withName: named) { error in
-            _ = callback.call(mapError(nil))
+            _ = callback.call(GKError.from(nil))
         }
     }
 
@@ -207,7 +214,7 @@ class GKLocalPlayer: GKPlayer, @unchecked Sendable {
         local.resolveConflictingSavedGames(conflictList, with: data) { savedGames, error in
             let ret = TypedArray<GKSavedGame?>()
             savedGames?.forEach { ret.append(GKSavedGame(saved: $0)) }
-            _ = callback.call(Variant(ret), mapError(error))
+            _ = callback.call(Variant(ret), GKError.from(error))
         }
     }
 }

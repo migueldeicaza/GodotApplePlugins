@@ -1,3 +1,4 @@
+import GameKit
 //
 //  AppleLeaderboard.swift
 //  GodotApplePlugins
@@ -6,13 +7,12 @@
 //
 @preconcurrency import SwiftGodotRuntime
 import SwiftUI
-#if canImport(UIKit)
-import UIKit
-#else
-import AppKit
-#endif
 
-import GameKit
+#if canImport(UIKit)
+    import UIKit
+#else
+    import AppKit
+#endif
 
 @Godot
 class GKLeaderboard: RefCounted, @unchecked Sendable {
@@ -95,13 +95,7 @@ class GKLeaderboard: RefCounted, @unchecked Sendable {
     /// Callback is invoked with nil on success, or a string on error
     func submit_score(score: Int, context: Int, player: GKPlayer, callback: Callable) {
         board.submitScore(score, context: context, player: player.player) { error in
-            let result: Variant?
-            if let error {
-                result = Variant(error.localizedDescription)
-            } else {
-                result = nil
-            }
-            _ = callback.call(result)
+            _ = callback.call(GKError.from(error))
         }
     }
 
@@ -114,7 +108,7 @@ class GKLeaderboard: RefCounted, @unchecked Sendable {
             if let image, let godotImage = image.asGodotImage() {
                 _ = callback.call(godotImage, nil)
             } else if let error {
-                _ = callback.call(nil, Variant(error.localizedDescription))
+                _ = callback.call(nil, GKError.from(error))
             } else {
                 _ = callback.call(nil, Variant("Could not load leaderboard image"))
             }
@@ -143,7 +137,7 @@ class GKLeaderboard: RefCounted, @unchecked Sendable {
                     wrapped.append(wrap)
                 }
             }
-            _ = callback.call(Variant(wrapped), error != nil ? Variant(String(describing: error)) : nil)
+            _ = callback.call(Variant(wrapped), GKError.from(error))
         }
     }
 
@@ -172,9 +166,9 @@ class GKLeaderboard: RefCounted, @unchecked Sendable {
             re = nil
         }
         if let range {
-            _ = callback.call(Variant(le), re, Variant(range), mapError(error))
+            _ = callback.call(Variant(le), re, Variant(range), GKError.from(error))
         } else {
-            _ = callback.call(Variant(le), re, mapError(error))
+            _ = callback.call(Variant(le), re, GKError.from(error))
         }
     }
 
@@ -185,23 +179,33 @@ class GKLeaderboard: RefCounted, @unchecked Sendable {
     /// - Scores for the specified players
     /// - Error if not nil
     @Callable
-    func load_entries(players: VariantArray, timeScope: GKLeaderboard.TimeScope, callback: Callable) {
+    func load_entries(players: VariantArray, timeScope: GKLeaderboard.TimeScope, callback: Callable)
+    {
         var gkPlayers: [GameKit.GKPlayer] = []
         for p in players {
             guard let p, let po = p.asObject(GKPlayer.self) else { continue }
             gkPlayers.append(po.player)
         }
 
-        board.loadEntries(for: gkPlayers, timeScope: timeScope.toGameKit()) { local, requested, error in
-            self.processEntries(callback: callback, local: local, requested: requested, error: error)
+        board.loadEntries(for: gkPlayers, timeScope: timeScope.toGameKit()) {
+            local, requested, error in
+            self.processEntries(
+                callback: callback, local: local, requested: requested, error: error)
         }
     }
 
     @Callable
-    func load_local_player_entries(playerScope: GKLeaderboard.PlayerScope, timeScope: GKLeaderboard.TimeScope, rangeStart: Int, rangeLenght: Int, callback: Callable) {
-        let range = NSRange(location: rangeStart, length: rangeLenght)
-        board.loadEntries(for: playerScope.toGameKit(), timeScope: timeScope.toGameKit(), range: range) { localPlayerEntry, entries, totalPlayerCount, error in
-            self.processEntries(callback: callback, local: localPlayerEntry, requested: entries, range: totalPlayerCount, error: error)
+    func load_local_player_entries(
+        playerScope: GKLeaderboard.PlayerScope, timeScope: GKLeaderboard.TimeScope, rangeStart: Int,
+        rangeLength: Int, callback: Callable
+    ) {
+        let range = NSRange(location: rangeStart, length: rangeLength)
+        board.loadEntries(
+            for: playerScope.toGameKit(), timeScope: timeScope.toGameKit(), range: range
+        ) { localPlayerEntry, entries, totalPlayerCount, error in
+            self.processEntries(
+                callback: callback, local: localPlayerEntry, requested: entries,
+                range: totalPlayerCount, error: error)
         }
     }
 }
