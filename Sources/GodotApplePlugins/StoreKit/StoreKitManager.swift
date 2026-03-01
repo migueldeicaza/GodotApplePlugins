@@ -58,6 +58,7 @@ public class StoreKitManager: RefCounted, @unchecked Sendable {
 
     var started = false
 
+    @Callable
     func start() {
         if started { return }
         startTransactionListener()
