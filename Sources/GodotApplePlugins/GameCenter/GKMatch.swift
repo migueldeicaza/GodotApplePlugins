@@ -279,4 +279,32 @@ class GKMatch: RefCounted, @unchecked Sendable {
     func disconnect() {
         gkmatch.disconnect()
     }
+
+    @Callable
+    func choose_best_hosting_player(callback: Callable) {
+        gkmatch.chooseBestHostingPlayer { player in
+            if let player {
+                _ = callback.call(Variant(GKPlayer(player: player)), nil)
+            } else {
+                _ = callback.call(nil, nil)
+            }
+        }
+    }
+
+    @Callable
+    func voice_chat(channel: String) -> GKVoiceChat? {
+        guard let chat = gkmatch.voiceChat(withName: channel) else { return nil }
+        return GKVoiceChat(chat: chat)
+    }
+
+    @Callable
+    func rematch(callback: Callable) {
+        gkmatch.rematch { match, error in
+            if let match {
+                _ = callback.call(Variant(GKMatch(match: match)), nil)
+            } else {
+                _ = callback.call(nil, GKError.from(error))
+            }
+        }
+    }
 }
