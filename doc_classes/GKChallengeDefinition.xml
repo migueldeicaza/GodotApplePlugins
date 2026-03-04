@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="GKChallengeDefinition" inherits="RefCounted" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Describes a challenge template configured in Game Center.
+	</brief_description>
+	<description>
+		Wraps [code skip-lint]GKChallengeDefinition[/code], including metadata, repeatability, and image/loading helpers.
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="has_active_challenges">
+			<return type="void" />
+			<param index="0" name="callback" type="Callable" />
+			<description>
+				Checks whether this definition currently has active challenges. The callback receives [code](bool has_active, Variant error)[/code].
+			</description>
+		</method>
+		<method name="load_challenge_definitions" qualifiers="static">
+			<return type="void" />
+			<param index="0" name="callback" type="Callable" />
+			<description>
+				Loads challenge definitions for the current player/account context.
+			</description>
+		</method>
+		<method name="load_image">
+			<return type="void" />
+			<param index="0" name="callback" type="Callable" />
+			<description>
+				Loads this challenge definition's image.
+			</description>
+		</method>
+	</methods>
+	<members>
+		<member name="details" type="String" setter="" getter="get_details" default="&quot;&quot;">
+			Detailed challenge description.
+		</member>
+		<member name="duration_options" type="Array" setter="" getter="get_duration_options" default="[]">
+			Supported challenge durations represented as date-component dictionaries.
+		</member>
+		<member name="group_identifier" type="String" setter="" getter="get_group_identifier" default="&quot;&quot;">
+			Group identifier for related challenge definitions.
+		</member>
+		<member name="identifier" type="String" setter="" getter="get_identifier" default="&quot;&quot;">
+			Unique challenge definition identifier.
+		</member>
+		<member name="is_repeatable" type="bool" setter="" getter="get_is_repeatable" default="false">
+			Whether the challenge can be repeated.
+		</member>
+		<member name="leaderboard" type="GKLeaderboard" setter="" getter="get_leaderboard" default="null">
+			Associated leaderboard, if this definition tracks score.
+		</member>
+		<member name="release_state" type="int" setter="" getter="get_release_state" default="0">
+			Apple release-state raw value.
+		</member>
+		<member name="title" type="String" setter="" getter="get_title" default="&quot;&quot;">
+			Display title.
+		</member>
+	</members>
+</class>

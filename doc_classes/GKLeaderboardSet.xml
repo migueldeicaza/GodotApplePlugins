@@ -1,11 +1,45 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <class name="GKLeaderboardSet" inherits="RefCounted" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
 	<brief_description>
-		Groups related Apple Game Center leaderboards.
+		Represents a Game Center leaderboard set.
 	</brief_description>
 	<description>
-		[code skip-lint]GKLeaderboardSet[/code] mirrors Apple's "leaderboard set" concept. Although the current binding only exposes the opaque object, you can keep references to sets returned by other APIs to organise UI the same way as on iOS. See [url=https://developer.apple.com/documentation/gamekit/gkleaderboardset]Apple's GKLeaderboardSet reference[/url] for the native API guide.
+		[code skip-lint]GKLeaderboardSet[/code] groups related leaderboards in Game Center. Use [method load_leaderboard_sets] to fetch available sets, then [method load_leaderboards] to enumerate the boards inside a set.
 	</description>
 	<tutorials>
 	</tutorials>
+	<methods>
+		<method name="load_image">
+			<return type="void" />
+			<param index="0" name="callback" type="Callable" />
+			<description>
+				Loads the image for this leaderboard set. The callback receives [code](Image image, Variant error)[/code].
+			</description>
+		</method>
+		<method name="load_leaderboard_sets" qualifiers="static">
+			<return type="void" />
+			<param index="0" name="callback" type="Callable" />
+			<description>
+				Loads available leaderboard sets. The callback receives [code](Array[GKLeaderboardSet] sets, Variant error)[/code].
+			</description>
+		</method>
+		<method name="load_leaderboards">
+			<return type="void" />
+			<param index="0" name="callback" type="Callable" />
+			<description>
+				Loads leaderboards that belong to this set. The callback receives [code](Array[GKLeaderboard] leaderboards, Variant error)[/code].
+			</description>
+		</method>
+	</methods>
+	<members>
+		<member name="group_identifier" type="String" setter="" getter="get_group_identifier" default="&quot;&quot;">
+			Group identifier used to associate related leaderboard sets.
+		</member>
+		<member name="identifier" type="String" setter="" getter="get_identifier" default="&quot;&quot;">
+			Unique identifier for this leaderboard set.
+		</member>
+		<member name="title" type="String" setter="" getter="get_title" default="&quot;&quot;">
+			Localized display title.
+		</member>
+	</members>
 </class>

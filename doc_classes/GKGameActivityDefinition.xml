@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="GKGameActivityDefinition" inherits="RefCounted" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Describes a Game Activity template.
+	</brief_description>
+	<description>
+		Wraps [code skip-lint]GKGameActivityDefinition[/code], including metadata, defaults, and associated leaderboard/achievement loaders.
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="load_achievement_descriptions">
+			<return type="void" />
+			<param index="0" name="callback" type="Callable" />
+			<description>
+				Loads achievement descriptions associated with this definition.
+			</description>
+		</method>
+		<method name="load_game_activity_definitions" qualifiers="static">
+			<return type="void" />
+			<param index="0" name="callback" type="Callable" />
+			<description>
+				Loads available game activity definitions.
+			</description>
+		</method>
+		<method name="load_game_activity_definitions_with_ids" qualifiers="static">
+			<return type="void" />
+			<param index="0" name="ids" type="PackedStringArray" />
+			<param index="1" name="callback" type="Callable" />
+			<description>
+				Loads game activity definitions matching [param ids].
+			</description>
+		</method>
+		<method name="load_image">
+			<return type="void" />
+			<param index="0" name="callback" type="Callable" />
+			<description>
+				Loads this definition's image.
+			</description>
+		</method>
+		<method name="load_leaderboards">
+			<return type="void" />
+			<param index="0" name="callback" type="Callable" />
+			<description>
+				Loads leaderboards associated with this definition.
+			</description>
+		</method>
+	</methods>
+	<members>
+		<member name="default_properties" type="Dictionary[String, String]" setter="" getter="get_default_properties" default="{}">
+			Default key/value metadata assigned to created activities.
+		</member>
+		<member name="details" type="String" setter="" getter="get_details" default="&quot;&quot;">
+			Detailed description.
+		</member>
+		<member name="fallback_url" type="String" setter="" getter="get_fallback_url" default="&quot;&quot;">
+			Fallback URL when direct activity launch is unavailable.
+		</member>
+		<member name="group_identifier" type="String" setter="" getter="get_group_identifier" default="&quot;&quot;">
+			Group identifier for related activity definitions.
+		</member>
+		<member name="identifier" type="String" setter="" getter="get_identifier" default="&quot;&quot;">
+			Unique definition identifier.
+		</member>
+		<member name="max_players" type="Variant" setter="" getter="get_max_players">
+			Maximum supported player count, or [code]null[/code] if unspecified.
+		</member>
+		<member name="min_players" type="Variant" setter="" getter="get_min_players">
+			Minimum supported player count, or [code]null[/code] if unspecified.
+		</member>
+		<member name="play_style" type="int" setter="" getter="get_play_style" default="0">
+			Apple play-style raw value.
+		</member>
+		<member name="release_state" type="int" setter="" getter="get_release_state" default="0">
+			Apple release-state raw value.
+		</member>
+		<member name="supports_party_code" type="bool" setter="" getter="get_supports_party_code" default="false">
+			Whether party-code joining is supported.
+		</member>
+		<member name="supports_unlimited_players" type="bool" setter="" getter="get_supports_unlimited_players" default="false">
+			Whether unlimited player counts are supported.
+		</member>
+		<member name="title" type="String" setter="" getter="get_title" default="&quot;&quot;">
+			Display title.
+		</member>
+	</members>
+</class>

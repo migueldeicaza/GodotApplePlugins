@@ -58,10 +58,24 @@
 	<tutorials>
 	</tutorials>
 	<methods>
+		<method name="choose_best_hosting_player">
+			<return type="void" />
+			<param index="0" name="callback" type="Callable" />
+			<description>
+				Asks GameKit to choose the best host candidate for this peer-to-peer match. The callback receives [code](GKPlayer player, Variant error)[/code], where both values can be [code]null[/code] if no candidate is available.
+			</description>
+		</method>
 		<method name="disconnect">
 			<return type="void" />
 			<description>
 				Calls [code skip-lint]GKMatch.disconnect()[/code] to leave the match immediately.
+			</description>
+		</method>
+		<method name="rematch">
+			<return type="void" />
+			<param index="0" name="callback" type="Callable" />
+			<description>
+				Requests a rematch with the same players. The callback receives [code](GKMatch match, Variant error)[/code].
 			</description>
 		</method>
 		<method name="send">
@@ -81,17 +95,26 @@
 				Broadcasts the packed bytes to everyone in the match. Return value matches [method send]. Use the [enum SendDataMode] constants.
 			</description>
 		</method>
+		<method name="voice_chat">
+			<return type="GKVoiceChat" />
+			<param index="0" name="channel" type="String" />
+			<description>
+				Returns a [code skip-lint]GKVoiceChat[/code] object for the named [param channel], or [code]null[/code] if voice chat is unavailable.
+			</description>
+		</method>
 	</methods>
 	<members>
 		<member name="expected_player_count" type="int" setter="" getter="get_expected_player_count" default="0">
 			The number of additional players that GameKit is recruiting before the match can begin.
 		</member>
 		<member name="player_properties" type="Dictionary" setter="" getter="get_player_properties" default="{}">
+			Player-specific properties reported by GameKit for this match.
 		</member>
 		<member name="players" type="Array" setter="" getter="get_players" default="[]">
 			Array of [code skip-lint]GKPlayer[/code] instances that are currently connected.
 		</member>
 		<member name="properties" type="Dictionary" setter="" getter="get_properties" default="{}">
+			Match-level custom properties provided by GameKit.
 		</member>
 		<member name="should_reinvite_disconnected_player" type="Variant" setter="set_should_reinvite_disconnected_player" getter="get_should_reinvite_disconnected_player">
 			Optional [code skip-lint]Callable[/code] that receives a [code skip-lint]GKPlayer[/code] and returns [code]true[/code] if the player should be reinvited after disconnecting (see the sample in [code skip-lint]GameCenterGuide.md[/code]).

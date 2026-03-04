@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="GKGameActivity" inherits="RefCounted" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Represents an active Game Activity session.
+	</brief_description>
+	<description>
+		Wraps [code skip-lint]GKGameActivity[/code], including lifecycle control, matching helpers, and score/achievement progress APIs.
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="check_pending_game_activity_existence" qualifiers="static">
+			<return type="void" />
+			<param index="0" name="callback" type="Callable" />
+			<description>
+				Checks whether a pending game activity exists.
+			</description>
+		</method>
+		<method name="create_with_definition" qualifiers="static">
+			<return type="GKGameActivity" />
+			<param index="0" name="definition" type="GKGameActivityDefinition" />
+			<description>
+				Creates an activity object from [param definition].
+			</description>
+		</method>
+		<method name="end">
+			<return type="void" />
+			<description>
+				Ends this activity.
+			</description>
+		</method>
+		<method name="find_match">
+			<return type="void" />
+			<param index="0" name="callback" type="Callable" />
+			<description>
+				Finds a realtime [GKMatch] for this activity.
+			</description>
+		</method>
+		<method name="find_players_for_hosted_match">
+			<return type="void" />
+			<param index="0" name="callback" type="Callable" />
+			<description>
+				Finds players for a hosted-match flow.
+			</description>
+		</method>
+		<method name="get_progress_on_achievement">
+			<return type="float" />
+			<param index="0" name="achievement" type="GKAchievement" />
+			<description>
+				Returns progress percentage for [param achievement].
+			</description>
+		</method>
+		<method name="get_score_on_leaderboard">
+			<return type="GKLeaderboardScore" />
+			<param index="0" name="leaderboard" type="GKLeaderboard" />
+			<description>
+				Gets this activity's score entry for [param leaderboard].
+			</description>
+		</method>
+		<method name="is_valid_party_code" qualifiers="static">
+			<return type="bool" />
+			<param index="0" name="partyCode" type="String" />
+			<description>
+				Returns [code]true[/code] if [param partyCode] is valid.
+			</description>
+		</method>
+		<method name="make_match_request">
+			<return type="GKMatchRequest" />
+			<description>
+				Creates a [GKMatchRequest] based on this activity.
+			</description>
+		</method>
+		<method name="pause">
+			<return type="void" />
+			<description>
+				Pauses this activity.
+			</description>
+		</method>
+		<method name="remove_achievements">
+			<return type="void" />
+			<param index="0" name="achievements" type="Array" />
+			<description>
+				Removes the given achievements from this activity.
+			</description>
+		</method>
+		<method name="remove_scores_from_leaderboards">
+			<return type="void" />
+			<param index="0" name="leaderboards" type="Array" />
+			<description>
+				Removes scores from the specified leaderboards.
+			</description>
+		</method>
+		<method name="resume">
+			<return type="void" />
+			<description>
+				Resumes a paused activity.
+			</description>
+		</method>
+		<method name="set_achievement_completed">
+			<return type="void" />
+			<param index="0" name="achievement" type="GKAchievement" />
+			<description>
+				Marks [param achievement] as completed.
+			</description>
+		</method>
+		<method name="set_progress_on_achievement">
+			<return type="void" />
+			<param index="0" name="achievement" type="GKAchievement" />
+			<param index="1" name="percentComplete" type="float" />
+			<description>
+				Sets progress on [param achievement] to [param percentComplete].
+			</description>
+		</method>
+		<method name="set_score_on_leaderboard">
+			<return type="void" />
+			<param index="0" name="leaderboard" type="GKLeaderboard" />
+			<param index="1" name="score" type="int" />
+			<description>
+				Sets [param score] on [param leaderboard].
+			</description>
+		</method>
+		<method name="set_score_on_leaderboard_with_context">
+			<return type="void" />
+			<param index="0" name="leaderboard" type="GKLeaderboard" />
+			<param index="1" name="score" type="int" />
+			<param index="2" name="context" type="int" />
+			<description>
+				Sets [param score] and [param context] on [param leaderboard].
+			</description>
+		</method>
+		<method name="start">
+			<return type="void" />
+			<description>
+				Starts this activity.
+			</description>
+		</method>
+		<method name="start_with_definition" qualifiers="static">
+			<return type="void" />
+			<param index="0" name="definition" type="GKGameActivityDefinition" />
+			<param index="1" name="callback" type="Callable" />
+			<description>
+				Starts an activity from [param definition].
+			</description>
+		</method>
+		<method name="start_with_definition_and_party_code" qualifiers="static">
+			<return type="void" />
+			<param index="0" name="definition" type="GKGameActivityDefinition" />
+			<param index="1" name="partyCode" type="String" />
+			<param index="2" name="callback" type="Callable" />
+			<description>
+				Starts an activity from [param definition] and [param partyCode].
+			</description>
+		</method>
+		<method name="valid_party_code_alphabet" qualifiers="static">
+			<return type="PackedStringArray" />
+			<description>
+				Returns valid characters for Game Activity party codes.
+			</description>
+		</method>
+	</methods>
+	<members>
+		<member name="achievements" type="Array" setter="" getter="get_achievements" default="[]">
+			Achievements associated with this activity.
+		</member>
+		<member name="activity_definition" type="GKGameActivityDefinition" setter="" getter="get_activity_definition" default="null">
+			Definition used to create/configure this activity.
+		</member>
+		<member name="creation_date" type="float" setter="" getter="get_creation_date" default="0.0">
+			Activity creation timestamp (Unix seconds).
+		</member>
+		<member name="duration" type="float" setter="" getter="get_duration" default="0.0">
+			Current activity duration in seconds.
+		</member>
+		<member name="end_date" type="float" setter="" getter="get_end_date" default="0.0">
+			End timestamp (Unix seconds), or [code]0[/code] while active.
+		</member>
+		<member name="identifier" type="String" setter="" getter="get_identifier" default="&quot;&quot;">
+			Unique activity identifier.
+		</member>
+		<member name="last_resume_date" type="float" setter="" getter="get_last_resume_date" default="0.0">
+			Last resume timestamp (Unix seconds).
+		</member>
+		<member name="leaderboard_scores" type="Array" setter="" getter="get_leaderboard_scores" default="[]">
+			Leaderboard scores associated with this activity.
+		</member>
+		<member name="party_code" type="String" setter="" getter="get_party_code" default="&quot;&quot;">
+			Party code for joining this activity.
+		</member>
+		<member name="party_url" type="String" setter="" getter="get_party_url" default="&quot;&quot;">
+			Party URL for this activity, if available.
+		</member>
+		<member name="properties" type="Dictionary" setter="set_properties" getter="get_properties" default="{}">
+			Custom properties attached to this activity.
+		</member>
+		<member name="start_date" type="float" setter="" getter="get_start_date" default="0.0">
+			Start timestamp (Unix seconds).
+		</member>
+		<member name="state" type="int" setter="" getter="get_state" default="0">
+			Apple activity-state raw value.
+		</member>
+	</members>
+</class>

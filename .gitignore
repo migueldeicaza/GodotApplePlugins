@@ -6,3 +6,6 @@
 .xcframework
 .xcodebuild
 .xcodebuildx86_64
+test-apple-godot-api
+multi-demo
+#*

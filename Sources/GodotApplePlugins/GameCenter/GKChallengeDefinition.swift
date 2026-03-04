@@ -8,14 +8,23 @@ import UIKit
 import AppKit
 #endif
 
-@available(iOS 26.0, macOS 26.0, *)
 @Godot
 class GKChallengeDefinition: RefCounted, @unchecked Sendable {
-    var definition: GameKit.GKChallengeDefinition?
+    var rawDefinition: AnyObject?
 
+    @available(iOS 26.0, macOS 26.0, *)
     convenience init(definition: GameKit.GKChallengeDefinition) {
         self.init()
-        self.definition = definition
+        self.rawDefinition = definition
+    }
+
+    private static func unavailableError(_ method: String) -> Variant? {
+        let error = NSError(
+            domain: GKErrorDomain,
+            code: GameKit.GKError.Code.apiNotAvailable.rawValue,
+            userInfo: [NSLocalizedDescriptionKey: "\(method) requires iOS 26/macOS 26"]
+        )
+        return GKError.from(error)
     }
 
     private static func dateComponentsToVariant(_ components: DateComponents) -> VariantDictionary {
@@ -35,45 +44,86 @@ class GKChallengeDefinition: RefCounted, @unchecked Sendable {
     }
 
     @Export var details: String {
-        definition?.details ?? ""
+        if #available(iOS 26.0, macOS 26.0, *),
+            let definition = rawDefinition as? GameKit.GKChallengeDefinition
+        {
+            return definition.details ?? ""
+        }
+        return ""
     }
 
     @Export var durationOptions: VariantArray {
         let result = VariantArray()
-        for option in definition?.durationOptions ?? [] {
-            result.append(Variant(Self.dateComponentsToVariant(option)))
+        if #available(iOS 26.0, macOS 26.0, *),
+            let definition = rawDefinition as? GameKit.GKChallengeDefinition
+        {
+            for option in definition.durationOptions {
+                result.append(Variant(Self.dateComponentsToVariant(option)))
+            }
         }
         return result
     }
 
     @Export var groupIdentifier: String {
-        definition?.groupIdentifier ?? ""
+        if #available(iOS 26.0, macOS 26.0, *),
+            let definition = rawDefinition as? GameKit.GKChallengeDefinition
+        {
+            return definition.groupIdentifier ?? ""
+        }
+        return ""
     }
 
     @Export var identifier: String {
-        definition?.identifier ?? ""
+        if #available(iOS 26.0, macOS 26.0, *),
+            let definition = rawDefinition as? GameKit.GKChallengeDefinition
+        {
+            return definition.identifier
+        }
+        return ""
     }
 
     @Export var isRepeatable: Bool {
-        definition?.isRepeatable ?? false
+        if #available(iOS 26.0, macOS 26.0, *),
+            let definition = rawDefinition as? GameKit.GKChallengeDefinition
+        {
+            return definition.isRepeatable
+        }
+        return false
     }
 
     @Export var leaderboard: GKLeaderboard? {
-        guard let leaderboard = definition?.leaderboard else { return nil }
-        return GKLeaderboard(board: leaderboard)
+        if #available(iOS 26.0, macOS 26.0, *),
+            let definition = rawDefinition as? GameKit.GKChallengeDefinition,
+            let leaderboard = definition.leaderboard
+        {
+            return GKLeaderboard(board: leaderboard)
+        }
+        return nil
     }
 
     @Export var releaseState: Int {
-        Int(definition?.releaseState.rawValue ?? 0)
+        if #available(iOS 26.0, macOS 26.0, *),
+            let definition = rawDefinition as? GameKit.GKChallengeDefinition
+        {
+            return Int(definition.releaseState.rawValue)
+        }
+        return 0
     }
 
     @Export var title: String {
-        definition?.title ?? ""
+        if #available(iOS 26.0, macOS 26.0, *),
+            let definition = rawDefinition as? GameKit.GKChallengeDefinition
+        {
+            return definition.title
+        }
+        return ""
     }
 
     @Callable
     func has_active_challenges(callback: Callable) {
-        guard let definition else {
+        guard #available(iOS 26.0, macOS 26.0, *),
+            let definition = rawDefinition as? GameKit.GKChallengeDefinition
+        else {
             _ = callback.call(Variant(false), Variant("Invalid challenge definition object"))
             return
         }
@@ -85,18 +135,24 @@ class GKChallengeDefinition: RefCounted, @unchecked Sendable {
 
     @Callable
     static func load_challenge_definitions(callback: Callable) {
-        GameKit.GKChallengeDefinition.loadChallengeDefinitions { definitions, error in
-            let wrapped = TypedArray<GKChallengeDefinition?>()
-            definitions?.forEach {
-                wrapped.append(GKChallengeDefinition(definition: $0))
+        if #available(iOS 26.0, macOS 26.0, *) {
+            GameKit.GKChallengeDefinition.loadChallengeDefinitions { definitions, error in
+                let wrapped = TypedArray<GKChallengeDefinition?>()
+                definitions?.forEach {
+                    wrapped.append(GKChallengeDefinition(definition: $0))
+                }
+                _ = callback.call(Variant(wrapped), GKError.from(error))
             }
-            _ = callback.call(Variant(wrapped), GKError.from(error))
+        } else {
+            _ = callback.call(Variant(TypedArray<GKChallengeDefinition?>()), unavailableError("load_challenge_definitions"))
         }
     }
 
     @Callable
     func load_image(callback: Callable) {
-        guard let definition else {
+        guard #available(iOS 26.0, macOS 26.0, *),
+            let definition = rawDefinition as? GameKit.GKChallengeDefinition
+        else {
             _ = callback.call(nil, Variant("Invalid challenge definition object"))
             return
         }

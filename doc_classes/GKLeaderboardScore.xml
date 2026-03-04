@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="GKLeaderboardScore" inherits="RefCounted" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Represents a leaderboard score entry.
+	</brief_description>
+	<description>
+		Wraps [code skip-lint]GKLeaderboardScore[/code], including score value, context, leaderboard identifier, and player.
+	</description>
+	<tutorials>
+	</tutorials>
+	<members>
+		<member name="context" type="int" setter="set_context" getter="get_context" default="0">
+			Developer-defined context value for this score.
+		</member>
+		<member name="leaderboard_id" type="String" setter="set_leaderboard_id" getter="get_leaderboard_id" default="&quot;&quot;">
+			Leaderboard identifier associated with this score.
+		</member>
+		<member name="player" type="GKPlayer" setter="set_player" getter="get_player" default="null">
+			Player associated with this score.
+		</member>
+		<member name="value" type="int" setter="set_value" getter="get_value" default="0">
+			Raw score value.
+		</member>
+	</members>
+</class>

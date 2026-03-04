@@ -27,11 +27,25 @@
 	<tutorials>
 	</tutorials>
 	<methods>
+		<method name="add_players_to_match">
+			<return type="void" />
+			<param index="0" name="match" type="GKMatch" />
+			<description>
+				Adds additional players to an existing [GKMatch].
+			</description>
+		</method>
 		<method name="create_controller" qualifiers="static">
 			<return type="GKMatchmakerViewController" />
 			<param index="0" name="request" type="GKMatchRequest" />
 			<description>
 				Builds a wrapper around Apple's view controller for the supplied [code skip-lint]GKMatchRequest[/code]. Configure the returned object and call [method present] to display it.
+			</description>
+		</method>
+		<method name="create_controller_from_invite" qualifiers="static">
+			<return type="GKMatchmakerViewController" />
+			<param index="0" name="invite" type="GKInvite" />
+			<description>
+				Creates a matchmaking controller configured from an accepted [GKInvite].
 			</description>
 		</method>
 		<method name="present">
@@ -48,7 +62,32 @@
 				Shows the matchmaking UI and invokes the callback with [code](GKMatch match, Variant error)[/code] where only one argument is non-[code]null[/code]. Errors are reported as [code skip-lint]GKError[/code] objects.
 			</description>
 		</method>
+		<method name="set_hosted_player_did_connect">
+			<return type="void" />
+			<param index="0" name="player" type="GKPlayer" />
+			<param index="1" name="didConnect" type="bool" />
+			<description>
+				Notifies GameKit that a hosted player has connected or disconnected.
+			</description>
+		</method>
 	</methods>
+	<members>
+		<member name="can_start_with_minimum_players" type="bool" setter="set_can_start_with_minimum_players" getter="get_can_start_with_minimum_players" default="false">
+			When supported, allows starting the match once minimum player count is met.
+		</member>
+		<member name="get_match_properties_for_recipient" type="Variant" setter="set_get_match_properties_for_recipient" getter="get_get_match_properties_for_recipient">
+			Optional [code skip-lint]Callable[/code] used for hosted matches. It receives a [GKPlayer] recipient and should return a [code skip-lint]Dictionary[/code] of match properties.
+		</member>
+		<member name="is_hosted" type="bool" setter="set_is_hosted" getter="get_is_hosted" default="false">
+			If [code]true[/code], matchmaking is configured for hosted/server scenarios.
+		</member>
+		<member name="match_request" type="GKMatchRequest" setter="" getter="get_match_request" default="null">
+			The underlying match request used to configure this controller.
+		</member>
+		<member name="matchmaking_mode" type="int" setter="set_matchmaking_mode" getter="get_matchmaking_mode" default="0">
+			Controls matchmaking strategy. Raw values map to default/nearby-only/automatch-only/invite-only modes.
+		</member>
+	</members>
 	<signals>
 		<signal name="cancelled">
 			<param index="0" name="detail" type="String" />
@@ -72,6 +111,12 @@
 			<param index="0" name="message" type="String" />
 			<description>
 				Emitted if Apple reports an error while matchmaking. The string contains [code]localizedDescription[/code].
+			</description>
+		</signal>
+		<signal name="hosted_player_did_accept">
+			<param index="0" name="player" type="GKPlayer" />
+			<description>
+				Emitted when a hosted player accepts the match invitation.
 			</description>
 		</signal>
 	</signals>

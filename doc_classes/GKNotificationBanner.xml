@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="GKNotificationBanner" inherits="RefCounted" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Shows Apple's Game Center notification banners.
+	</brief_description>
+	<description>
+		Utility wrapper for [code skip-lint]GKNotificationBanner[/code] display APIs.
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="show" qualifiers="static">
+			<return type="void" />
+			<param index="0" name="title" type="String" />
+			<param index="1" name="message" type="String" />
+			<description>
+				Shows a banner with [param title] and [param message].
+			</description>
+		</method>
+		<method name="show_with_duration" qualifiers="static">
+			<return type="void" />
+			<param index="0" name="title" type="String" />
+			<param index="1" name="message" type="String" />
+			<param index="2" name="duration" type="float" />
+			<description>
+				Shows a banner for [param duration] seconds.
+			</description>
+		</method>
+	</methods>
+</class>

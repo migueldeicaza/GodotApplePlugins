@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="GKVoiceChat" inherits="RefCounted" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Represents a Game Center voice chat channel.
+	</brief_description>
+	<description>
+		Use [method GKMatch.voice_chat] to open a voice channel for a realtime match, then call [method start] / [method stop] and monitor [signal player_state_changed].
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="is_voip_allowed" qualifiers="static">
+			<return type="bool" />
+			<description>
+				Returns [code]true[/code] when voice chat is allowed on the current platform/account.
+			</description>
+		</method>
+		<method name="set_player_muted">
+			<return type="void" />
+			<param index="0" name="player" type="GKPlayer" />
+			<param index="1" name="muted" type="bool" />
+			<description>
+				Mutes or unmutes [param player] in this channel.
+			</description>
+		</method>
+		<method name="start">
+			<return type="void" />
+			<description>
+				Starts voice chat transmission.
+			</description>
+		</method>
+		<method name="stop">
+			<return type="void" />
+			<description>
+				Stops voice chat transmission.
+			</description>
+		</method>
+	</methods>
+	<members>
+		<member name="is_active" type="bool" setter="set_is_active" getter="get_is_active" default="false">
+			Whether this voice chat is currently active.
+		</member>
+		<member name="name" type="String" setter="" getter="get_name" default="&quot;&quot;">
+			Channel name.
+		</member>
+		<member name="players" type="Array" setter="" getter="get_players" default="[]">
+			Players currently participating in the channel.
+		</member>
+		<member name="volume" type="float" setter="set_volume" getter="get_volume" default="0.0">
+			Output volume for this channel.
+		</member>
+	</members>
+	<signals>
+		<signal name="player_state_changed">
+			<param index="0" name="player" type="GKPlayer" />
+			<param index="1" name="state" type="int" />
+			<description>
+				Emitted when a player's voice chat state changes. [param state] uses Apple's raw [code skip-lint]GKVoiceChat.PlayerState[/code] value.
+			</description>
+		</signal>
+	</signals>
+</class>
