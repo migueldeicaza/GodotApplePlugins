@@ -21,6 +21,7 @@ would access `game_player_id`.
 * [Players](#players)
 * [Achievements](#achievements)
 * [Realtime Matchmaking](#realtime-matchmaking)
+* [Turn-Based Matchmaking](#turn-based-matchmaking)
 
 # Installation
 
@@ -377,6 +378,117 @@ game_match.send_data_to_all_players(data, GKMatch.SendDataMode.reliable)
 game_match.send(array, [first_player, second_player], GKMatch.SendDataMode.reliable)
 ```
 
+## Rule-Based Matchmaking Properties (iOS/macOS 17.2+)
+
+You can attach properties to `GKMatchRequest` to let Game Center use rule-based
+matching data, and inspect those values from `GKMatch` once a match is created.
+
+```gdscript
+var request := GKMatchRequest.new()
+request.min_players = 2
+request.max_players = 2
+request.queue_name = "ranked_duo"
+request.properties = {
+    "region": "us-east",
+    "skill_bucket": 12,
+    "mode": "ranked"
+}
+
+# Keys can be a player's game_player_id (or GKPlayer object).
+request.recipient_properties = {
+    friend_player.game_player_id: {"role": "support"}
+}
+```
+
+On the resulting `GKMatch`:
+
+```gdscript
+print(game_match.properties)
+print(game_match.player_properties) # Dictionary keyed by game_player_id
+```
+
+## Invite Acceptance Event
+
+`GKLocalPlayer` now emits an `invite_accepted` signal when an invite is accepted.
+Use it to immediately resolve to a `GKMatch`.
+
+```gdscript
+var local := game_center.local_player
+var matchmaker := GKMatchmaker.new()
+
+func _ready() -> void:
+    local.register_listener()
+    local.invite_accepted.connect(func(player: GKPlayer, invite: GKInvite) -> void:
+        matchmaker.match_for_invite(invite, func(match: GKMatch, error: Variant) -> void:
+            if error:
+                print("Invite match error: %s" % error)
+            else:
+                print("Joined invited match")
+        )
+    )
+```
+
+# Turn-Based Matchmaking
+
+Use `GKTurnBasedMatch` for asynchronous turn-based sessions, and register a
+`GKLocalPlayer` listener to receive turn-based events.
+
+```gdscript
+var local := game_center.local_player
+
+func _ready() -> void:
+    local.register_listener()
+
+    local.turn_event_received.connect(func(player: GKPlayer, match: GKTurnBasedMatch, did_become_active: bool) -> void:
+        print("Turn event for match %s (active=%s)" % [match.match_id, did_become_active])
+    )
+
+    local.match_requested_with_other_players.connect(func(player: GKPlayer, recipients: Array) -> void:
+        print("Turn-based request with %d recipients" % recipients.size())
+    )
+
+    local.turn_based_match_ended.connect(func(player: GKPlayer, match: GKTurnBasedMatch) -> void:
+        print("Turn-based match ended: %s" % match.match_id)
+    )
+```
+
+Create/find and advance a turn:
+
+```gdscript
+var request := GKMatchRequest.new()
+request.min_players = 2
+request.max_players = 2
+
+GKTurnBasedMatch.find(request, func(match: GKTurnBasedMatch, error: Variant) -> void:
+    if error:
+        print("Find turn-based match failed: %s" % error)
+        return
+
+    match.load_match_data(func(data: PackedByteArray, load_error: Variant) -> void:
+        if load_error:
+            print("Load match data error: %s" % load_error)
+            return
+
+        var updated_data := "next turn payload".to_utf8_buffer()
+        var next_participants: Array = match.participants
+        match.end_turn(
+            next_participants,
+            604800.0, # one week default timeout
+            updated_data,
+            func(end_error: Variant) -> void:
+                if end_error:
+                    print("End turn error: %s" % end_error)
+        )
+    )
+)
+```
+
+Exchange-related signals:
+- `exchange_received(player, exchange, match)`
+- `exchange_canceled(player, exchange, match)`
+- `exchange_completed(player, replies, match)`
+- `player_wants_to_quit_match(player, match)`
+
 # Leaderboards
 
 ## Report Score
@@ -418,4 +530,3 @@ GKLeaderboard.load_leaderboards(["My leaderboard"], func(leaderboards: Array [GK
 ```
 
 ## Load Scores
-

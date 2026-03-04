@@ -56,6 +56,91 @@ class GKLocalPlayer: GKPlayer, @unchecked Sendable {
                 base.invite_accepted.emit(gkPlayer, gkInvite)
             }
         }
+
+        func player(
+            _ player: GameKit.GKPlayer,
+            receivedExchangeRequest exchange: GameKit.GKTurnBasedExchange,
+            for match: GameKit.GKTurnBasedMatch
+        ) {
+            guard let base = base else { return }
+            let gkPlayer = GKPlayer(player: player)
+            let gkExchange = GKTurnBasedExchange(exchange: exchange)
+            let gkMatch = GKTurnBasedMatch(match: match)
+            Task { @MainActor in
+                base.exchange_received.emit(gkPlayer, gkExchange, gkMatch)
+            }
+        }
+
+        func player(
+            _ player: GameKit.GKPlayer,
+            receivedExchangeCancellation exchange: GameKit.GKTurnBasedExchange,
+            for match: GameKit.GKTurnBasedMatch
+        ) {
+            guard let base = base else { return }
+            let gkPlayer = GKPlayer(player: player)
+            let gkExchange = GKTurnBasedExchange(exchange: exchange)
+            let gkMatch = GKTurnBasedMatch(match: match)
+            Task { @MainActor in
+                base.exchange_canceled.emit(gkPlayer, gkExchange, gkMatch)
+            }
+        }
+
+        func player(
+            _ player: GameKit.GKPlayer,
+            receivedExchangeReplies replies: [GameKit.GKTurnBasedExchangeReply],
+            forCompletedExchange exchange: GameKit.GKTurnBasedExchange,
+            for match: GameKit.GKTurnBasedMatch
+        ) {
+            guard let base = base else { return }
+            let gkPlayer = GKPlayer(player: player)
+            let gkMatch = GKTurnBasedMatch(match: match)
+            let wrappedReplies = VariantArray()
+            replies.forEach { wrappedReplies.append(Variant(GKTurnBasedExchangeReply(reply: $0))) }
+            Task { @MainActor in
+                base.exchange_completed.emit(gkPlayer, wrappedReplies, gkMatch)
+            }
+        }
+
+        func player(_ player: GameKit.GKPlayer, didRequestMatchWithRecipients recipientPlayers: [GameKit.GKPlayer]) {
+            guard let base = base else { return }
+            let gkPlayer = GKPlayer(player: player)
+            let recipients = VariantArray()
+            recipientPlayers.forEach { recipients.append(Variant(GKPlayer(player: $0))) }
+            Task { @MainActor in
+                base.match_requested_with_other_players.emit(gkPlayer, recipients)
+            }
+        }
+
+        func player(_ player: GameKit.GKPlayer, matchEnded match: GameKit.GKTurnBasedMatch) {
+            guard let base = base else { return }
+            let gkPlayer = GKPlayer(player: player)
+            let gkMatch = GKTurnBasedMatch(match: match)
+            Task { @MainActor in
+                base.turn_based_match_ended.emit(gkPlayer, gkMatch)
+            }
+        }
+
+        func player(
+            _ player: GameKit.GKPlayer,
+            receivedTurnEventFor match: GameKit.GKTurnBasedMatch,
+            didBecomeActive: Bool
+        ) {
+            guard let base = base else { return }
+            let gkPlayer = GKPlayer(player: player)
+            let gkMatch = GKTurnBasedMatch(match: match)
+            Task { @MainActor in
+                base.turn_event_received.emit(gkPlayer, gkMatch, didBecomeActive)
+            }
+        }
+
+        func player(_ player: GameKit.GKPlayer, wantsToQuitMatch match: GameKit.GKTurnBasedMatch) {
+            guard let base = base else { return }
+            let gkPlayer = GKPlayer(player: player)
+            let gkMatch = GKTurnBasedMatch(match: match)
+            Task { @MainActor in
+                base.player_wants_to_quit_match.emit(gkPlayer, gkMatch)
+            }
+        }
     }
 
     /// Emitted when there is a conflict between saved games.
@@ -75,6 +160,34 @@ class GKLocalPlayer: GKPlayer, @unchecked Sendable {
     /// The `invite` argument is the GKInvite wrapper.
     @Signal("player", "invite") var invite_accepted:
         SignalWithArguments<GKPlayer, GKInvite>
+
+    /// Emitted when the local player receives a turn-based exchange request.
+    @Signal("player", "exchange", "match") var exchange_received:
+        SignalWithArguments<GKPlayer, GKTurnBasedExchange, GKTurnBasedMatch>
+
+    /// Emitted when the local player receives a turn-based exchange cancellation.
+    @Signal("player", "exchange", "match") var exchange_canceled:
+        SignalWithArguments<GKPlayer, GKTurnBasedExchange, GKTurnBasedMatch>
+
+    /// Emitted when the local player receives replies for a completed exchange.
+    @Signal("player", "replies", "match") var exchange_completed:
+        SignalWithArguments<GKPlayer, VariantArray, GKTurnBasedMatch>
+
+    /// Emitted when turn-based matchmaking is requested with a set of recipients.
+    @Signal("player", "recipient_players") var match_requested_with_other_players:
+        SignalWithArguments<GKPlayer, VariantArray>
+
+    /// Emitted when a turn-based match ends.
+    @Signal("player", "match") var turn_based_match_ended:
+        SignalWithArguments<GKPlayer, GKTurnBasedMatch>
+
+    /// Emitted for turn-based events and indicates whether the app became active.
+    @Signal("player", "match", "did_become_active") var turn_event_received:
+        SignalWithArguments<GKPlayer, GKTurnBasedMatch, Bool>
+
+    /// Emitted when the local player wants to quit a turn-based match.
+    @Signal("player", "match") var player_wants_to_quit_match:
+        SignalWithArguments<GKPlayer, GKTurnBasedMatch>
 
     required init(_ context: InitContext) {
         local = GameKit.GKLocalPlayer.local
