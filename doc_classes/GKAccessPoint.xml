@@ -18,6 +18,33 @@
 				[param done] is called (with no arguments) when the dashboard presentation completes or is dismissed.
 			</description>
 		</method>
+		<method name="trigger_for_challenges">
+			<return type="void" />
+			<param index="0" name="done" type="Callable" />
+			<description>
+				Displays the Game Center dashboard in the Challenges context.
+				[param done] is called (with no arguments) when the dashboard presentation completes or is dismissed.
+				Available on iOS 26 and macOS 26. On older OS versions, tvOS, and visionOS, this method performs no action.
+			</description>
+		</method>
+		<method name="trigger_for_friending">
+			<return type="void" />
+			<param index="0" name="done" type="Callable" />
+			<description>
+				Displays the Game Center dashboard in the Friending context.
+				[param done] is called (with no arguments) when the dashboard presentation completes or is dismissed.
+				Available on iOS 26 and macOS 26. On older OS versions, tvOS, and visionOS, this method performs no action.
+			</description>
+		</method>
+		<method name="trigger_for_play_together">
+			<return type="void" />
+			<param index="0" name="done" type="Callable" />
+			<description>
+				Displays the Game Center dashboard in the Play Together context.
+				[param done] is called (with no arguments) when the dashboard presentation completes or is dismissed.
+				Available on iOS 26 and macOS 26. On older OS versions, tvOS, and visionOS, this method performs no action.
+			</description>
+		</method>
 		<method name="trigger_with_achievement">
 			<return type="void" />
 			<param index="0" name="achievementID" type="String" />
@@ -26,6 +53,36 @@
 				Displays the Game Center dashboard in a state that shows a specific achievement.
 				[param done] is called (with no arguments) when the dashboard presentation completes or is dismissed.
 				Only available on macOS 15, iOS 18, tvOS 14, and visionOS 1; earlier versions perform no action.
+			</description>
+		</method>
+		<method name="trigger_with_challenge_definition_id">
+			<return type="void" />
+			<param index="0" name="challengeDefinitionID" type="String" />
+			<param index="1" name="done" type="Callable" />
+			<description>
+				Displays the Game Center dashboard focused on the challenge definition with identifier [param challengeDefinitionID].
+				[param done] is called (with no arguments) when the dashboard presentation completes or is dismissed.
+				Available on iOS 26 and macOS 26. On older OS versions, tvOS, and visionOS, this method performs no action.
+			</description>
+		</method>
+		<method name="trigger_with_game_activity">
+			<return type="void" />
+			<param index="0" name="gameActivity" type="GKGameActivity" />
+			<param index="1" name="done" type="Callable" />
+			<description>
+				Displays the Game Center dashboard focused on [param gameActivity].
+				[param done] is called (with no arguments) when the dashboard presentation completes or is dismissed.
+				Available on iOS 26 and macOS 26. On older OS versions, tvOS, and visionOS, this method performs no action.
+			</description>
+		</method>
+		<method name="trigger_with_game_activity_definition_id">
+			<return type="void" />
+			<param index="0" name="gameActivityDefinitionID" type="String" />
+			<param index="1" name="done" type="Callable" />
+			<description>
+				Displays the Game Center dashboard focused on the game activity definition with identifier [param gameActivityDefinitionID].
+				[param done] is called (with no arguments) when the dashboard presentation completes or is dismissed.
+				Available on iOS 26 and macOS 26. On older OS versions, tvOS, and visionOS, this method performs no action.
 			</description>
 		</method>
 		<method name="trigger_with_leaderboard">
@@ -77,6 +134,10 @@
 		</member>
 		<member name="frame_in_screen_coordinates" type="Rect2" setter="" getter="get_frame_in_screen_coordinates" default="Rect2(0, 0, 0, 0)">
 			The frame of the access point in screen coordinates.
+		</member>
+		<member name="frame_in_unit_coordinates" type="Rect2" setter="" getter="get_frame_in_unit_coordinates" default="Rect2(0, 0, 0, 0)">
+			Read-only frame of the access point normalized to the main screen size (0.0 to 1.0 in each axis).
+			Returns [code]Rect2(0, 0, 0, 0)[/code] when the screen size is unavailable or on visionOS.
 		</member>
 		<member name="is_presenting_game_center" type="bool" setter="" getter="get_is_presenting_game_center" default="false">
 			A Boolean value that indicates whether the game is presenting the Game Center dashboard.

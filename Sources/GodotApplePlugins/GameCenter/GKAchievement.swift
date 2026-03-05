@@ -19,6 +19,15 @@ import SwiftUI
 class GKAchievement: RefCounted, @unchecked Sendable {
     var achievement: GameKit.GKAchievement = GameKit.GKAchievement()
 
+    private static func variantArrayToPlayers(_ values: VariantArray) -> [GameKit.GKPlayer] {
+        var players: [GameKit.GKPlayer] = []
+        for value in values {
+            guard let value, let wrapped = value.asObject(GKPlayer.self) else { continue }
+            players.append(wrapped.player)
+        }
+        return players
+    }
+
     convenience init(identifier: String, player: GKPlayer?) {
         self.init()
 
@@ -32,6 +41,16 @@ class GKAchievement: RefCounted, @unchecked Sendable {
     convenience init(achievement: GameKit.GKAchievement) {
         self.init()
         self.achievement = achievement
+    }
+
+    @Callable
+    static func make(identifier: String) -> GKAchievement {
+        GKAchievement(identifier: identifier, player: nil)
+    }
+
+    @Callable
+    static func make_for_player(identifier: String, player: GKPlayer) -> GKAchievement {
+        GKAchievement(identifier: identifier, player: player)
     }
 
     @Export var identifier: String {
@@ -91,6 +110,43 @@ class GKAchievement: RefCounted, @unchecked Sendable {
             _ = callback.call(Variant(res), GKError.from(error))
         }
     }
+
+    @Callable
+    func select_challengeable_players(players: VariantArray, callback: Callable) {
+        let sourcePlayers = Self.variantArrayToPlayers(players)
+        achievement.selectChallengeablePlayers(sourcePlayers) { challengeablePlayers, error in
+            let result = TypedArray<GKPlayer?>()
+            challengeablePlayers?.forEach { result.append(GKPlayer(player: $0)) }
+            _ = callback.call(Variant(result), GKError.from(error))
+        }
+    }
+
+    @Callable
+    func challenge_compose_controller(message: String, players: VariantArray) {
+        let sourcePlayers = Self.variantArrayToPlayers(players)
+
+        #if os(visionOS)
+        achievement.challengeComposeController(
+            withMessage: message,
+            players: sourcePlayers,
+            completion: nil
+        )
+        #else
+        if #available(iOS 17.0, macOS 14.0, tvOS 17.0, *) {
+            achievement.challengeComposeController(
+                withMessage: message,
+                players: sourcePlayers,
+                completion: nil
+            )
+        } else {
+            achievement.challengeComposeController(
+                withMessage: message,
+                players: sourcePlayers,
+                completionHandler: nil
+            )
+        }
+        #endif
+    }
 }
 
 @Godot
@@ -111,6 +167,29 @@ class GKAchievementDescription: RefCounted, @unchecked Sendable {
     @Export var isHidden: Bool { achievementDescription.isHidden }
     @Export var isReplayable: Bool { achievementDescription.isReplayable }
     @Export var groupIdentifier: String { achievementDescription.groupIdentifier ?? "" }
+    @Export var activityIdentifier: String {
+        if #available(iOS 26.0, macOS 26.0, tvOS 26.0, visionOS 26.0, *) {
+            return achievementDescription.activityIdentifier
+        } else {
+            return ""
+        }
+    }
+    @Export var activityProperties: TypedDictionary<String, String> {
+        var result = TypedDictionary<String, String>()
+        if #available(iOS 26.0, macOS 26.0, tvOS 26.0, visionOS 26.0, *) {
+            for (key, value) in achievementDescription.activityProperties {
+                result[key] = value
+            }
+        }
+        return result
+    }
+    @Export var releaseState: Int {
+        if #available(iOS 18.4, macOS 15.4, tvOS 18.4, visionOS 2.4, *) {
+            return Int(achievementDescription.releaseState.rawValue)
+        } else {
+            return 0
+        }
+    }
     /// A double with the valur or nil
     @Export var rarityPercent: Variant? {
         if let rp = achievementDescription.rarityPercent {
@@ -151,5 +230,15 @@ class GKAchievementDescription: RefCounted, @unchecked Sendable {
             }
             _ = callback.call(Variant(res), GKError.from(error))
         }
+    }
+
+    @Callable
+    static func incomplete_achievement_image() -> Variant? {
+        return GameKit.GKAchievementDescription.incompleteAchievementImage().asGodotImage()
+    }
+
+    @Callable
+    static func placeholder_completed_achievement_image() -> Variant? {
+        return GameKit.GKAchievementDescription.placeholderCompletedAchievementImage().asGodotImage()
     }
 }

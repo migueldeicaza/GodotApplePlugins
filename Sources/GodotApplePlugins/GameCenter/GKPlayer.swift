@@ -38,6 +38,7 @@ class GKPlayer: RefCounted, @unchecked Sendable {
     @Export var alias: String { player.alias }
     @Export var displayName: String { player.displayName }
     @Export var isInvitable: Bool { player.isInvitable }
+    @Export var guestIdentifier: String { player.guestIdentifier ?? "" }
 
     @Callable
     func scopedIDsArePersistent() -> Bool {
@@ -65,5 +66,11 @@ class GKPlayer: RefCounted, @unchecked Sendable {
                 }
             }
         }
+    }
+
+    @Callable
+    static func anonymous_guest_player(identifier: String) -> GKPlayer? {
+        let player = GameKit.GKPlayer.anonymousGuestPlayer(withIdentifier: identifier)
+        return GKPlayer(player: player)
     }
 }

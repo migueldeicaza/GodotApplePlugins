@@ -73,6 +73,21 @@ class GKMatchmaker: RefCounted, @unchecked Sendable {
     }
 
     @Callable
+    func find_matched_players(request: GKMatchRequest, callback: Callable) {
+        if #available(iOS 17.2, macOS 14.2, tvOS 17.2, visionOS 1.1, *) {
+            shared.findMatchedPlayers(request.request, withCompletionHandler: { matchedPlayers, error in
+                if let matchedPlayers {
+                    _ = callback.call(Variant(GKMatchedPlayers(matchedPlayers: matchedPlayers)), nil)
+                } else {
+                    _ = callback.call(nil, GKError.from(error))
+                }
+            })
+        } else {
+            _ = callback.call(nil, unsupportedError("find_matched_players"))
+        }
+    }
+
+    @Callable
     func add_players(match: GKMatch, request: GKMatchRequest, callback: Callable) {
         shared.addPlayers(to: match.gkmatch, matchRequest: request.request, completionHandler: { error in
             _ = callback.call(GKError.from(error))

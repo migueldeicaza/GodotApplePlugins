@@ -33,6 +33,16 @@
 			<description>
 			</description>
 		</method>
+		<method name="find_matched_players">
+			<return type="void" />
+			<param index="0" name="request" type="GKMatchRequest" />
+			<param index="1" name="callback" type="Callable" />
+			<description>
+				Searches for matched players and returns additional match properties provided by GameKit.
+				The callback receives [code](GKMatchedPlayers matched_players, Variant error)[/code]. On failure, [code]matched_players[/code] is [code]null[/code] and [code]error[/code] contains a [code skip-lint]GKError[/code].
+				Requires iOS 17.2, macOS 14.2, tvOS 17.2, or visionOS 1.1. Older versions return an [code skip-lint]apiNotAvailable[/code] error.
+			</description>
+		</method>
 		<method name="find_players">
 			<return type="void" />
 			<param index="0" name="request" type="GKMatchRequest" />

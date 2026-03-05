@@ -20,6 +20,15 @@ class GKLocalPlayer: GKPlayer, @unchecked Sendable {
     var local: GameKit.GKLocalPlayer
     private var proxy: Proxy?
 
+    private func unsupportedError(_ method: String) -> Variant? {
+        let error = NSError(
+            domain: GKErrorDomain,
+            code: GameKit.GKError.Code.apiNotAvailable.rawValue,
+            userInfo: [NSLocalizedDescriptionKey: "\(method) requires a newer OS version"]
+        )
+        return GKError.from(error)
+    }
+
     class Proxy: NSObject, GKLocalPlayerListener {
         weak var base: GKLocalPlayer?
 
@@ -291,6 +300,24 @@ class GKLocalPlayer: GKPlayer, @unchecked Sendable {
         }
     }
 
+    /// Loads the friends identified by a list of scoped player IDs.
+    @Callable func load_friends_with_identifiers(identifiers: PackedStringArray, callback: Callable) {
+        guard #available(iOS 14.5, macOS 11.3, tvOS 14.5, visionOS 1.0, *) else {
+            _ = callback.call(Variant(TypedArray<GKPlayer?>()), unsupportedError("load_friends_with_identifiers"))
+            return
+        }
+
+        var swiftIdentifiers: [String] = []
+        swiftIdentifiers.reserveCapacity(identifiers.count)
+        for index in 0..<identifiers.count {
+            swiftIdentifiers.append(identifiers[index])
+        }
+
+        local.loadFriends(identifiedBy: swiftIdentifiers) { friends, error in
+            self.friendDispatch(callback, friends, error)
+        }
+    }
+
     /// Loads the challengeable friends, the callback receives two arguments an array of GKPlayers and a String error
     /// either one can be null
     @Callable func load_challengeable_friends(callback: Callable) {
@@ -304,6 +331,32 @@ class GKLocalPlayer: GKPlayer, @unchecked Sendable {
     @Callable func load_recent_friends(callback: Callable) {
         local.loadRecentPlayers { friends, error in
             self.friendDispatch(callback, friends, error)
+        }
+    }
+
+    /// Loads the friend's authorization status for the local player.
+    @Callable func load_friends_authorization_status(callback: Callable) {
+        guard #available(iOS 14.5, macOS 11.3, tvOS 14.5, visionOS 1.0, *) else {
+            _ = callback.call(Variant(0), unsupportedError("load_friends_authorization_status"))
+            return
+        }
+
+        local.loadFriendsAuthorizationStatus { status, error in
+            _ = callback.call(Variant(status.rawValue), GKError.from(error))
+        }
+    }
+
+    @Callable
+    func load_default_leaderboard_identifier(callback: Callable) {
+        local.loadDefaultLeaderboardIdentifier { identifier, error in
+            _ = callback.call(identifier != nil ? Variant(identifier!) : nil, GKError.from(error))
+        }
+    }
+
+    @Callable
+    func set_default_leaderboard_identifier(identifier: String, callback: Callable) {
+        local.setDefaultLeaderboardIdentifier(identifier) { error in
+            _ = callback.call(GKError.from(error))
         }
     }
 
@@ -364,7 +417,7 @@ class GKLocalPlayer: GKPlayer, @unchecked Sendable {
     @Callable
     func delete_saved_games(named: String, callback: Callable) {
         local.deleteSavedGames(withName: named) { error in
-            _ = callback.call(GKError.from(nil))
+            _ = callback.call(GKError.from(error))
         }
     }
 

@@ -79,6 +79,14 @@
 				Loads leaderboard entries for the local player.  The callback receives [code](GKLeaderboardEntry local, Array[GKLeaderboardEntry] scores, Variant range, Variant error)[/code] where the first entry can be [code]null[/code] if the local player has not posted a score.   The value `range` is the number of total player count that matched the scope. Supply [enum PlayerScope] and [enum TimeScope] integers for the first two parameters. If [code]error[/code] is not null, it is a [code skip-lint]GKError[/code].
 			</description>
 		</method>
+		<method name="load_previous_occurrence">
+			<return type="void" />
+			<param index="0" name="callback" type="Callable" />
+			<description>
+				Loads the previous occurrence for a recurring leaderboard.
+				The callback receives [code](GKLeaderboard leaderboard, Variant error)[/code]. On failure [code]leaderboard[/code] is [code]null[/code] and [code]error[/code] contains a [code skip-lint]GKError[/code].
+			</description>
+		</method>
 		<method name="submit_score">
 			<return type="void" />
 			<param index="0" name="score" type="int" />
@@ -97,13 +105,28 @@
 		<member name="activity_properties" type="Dictionary" setter="" getter="get_activity_properties" default="{}">
 			Dictionary copy of Apple's [code]activityProperties[/code], containing keys such as [code]eventStartDate[/code] when available.
 		</member>
+		<member name="base_leaderboard_id" type="String" setter="" getter="get_base_leaderboard_id" default="&quot;&quot;">
+			Identifier of the base leaderboard that this recurring leaderboard belongs to.
+		</member>
 		<member name="duration" type="float" setter="" getter="get_duration" default="0.0">
 			Leaderboard duration in seconds for recurring leaderboards.
 		</member>
 		<member name="group_identifier" type="String" setter="" getter="get_group_identifier" default="&quot;&quot;">
 			Group identifier that you configured in App Store Connect, or an empty string if not grouped.
 		</member>
+		<member name="is_hidden" type="bool" setter="" getter="get_is_hidden" default="false">
+			True when Apple marks this leaderboard as hidden.
+			Available on iOS 26, macOS 26, tvOS 26, and visionOS 26. Returns [code]false[/code] on earlier versions.
+		</member>
+		<member name="leaderboard_description" type="String" setter="" getter="get_leaderboard_description" default="&quot;&quot;">
+			Localized long-form description text for the leaderboard.
+			Available on iOS 26, macOS 26, tvOS 26, and visionOS 26. Returns an empty string on earlier versions.
+		</member>
 		<member name="next_start_date" type="float" setter="" getter="get_next_start_date" default="0.0">
+		</member>
+		<member name="release_state" type="int" setter="" getter="get_release_state" default="0">
+			Raw integer value of Apple's release state for this leaderboard.
+			Available on iOS 26, macOS 26, tvOS 26, and visionOS 26. Returns [code]0[/code] on earlier versions.
 		</member>
 		<member name="start_date" type="float" setter="" getter="get_start_date" default="0.0">
 		</member>

@@ -35,6 +35,18 @@
 			<description>
 			</description>
 		</method>
+		<method name="exchange_timeout_default" qualifiers="static">
+			<return type="float" />
+			<description>
+				Returns Apple's default timeout constant for turn-based exchanges.
+			</description>
+		</method>
+		<method name="exchange_timeout_none" qualifiers="static">
+			<return type="float" />
+			<description>
+				Returns Apple's constant meaning "no timeout" for turn-based exchanges.
+			</description>
+		</method>
 		<method name="find" qualifiers="static">
 			<return type="void" />
 			<param index="0" name="request" type="GKMatchRequest" />
@@ -76,6 +88,14 @@
 			<param index="0" name="outcome" type="int" />
 			<param index="1" name="callback" type="Callable" />
 			<description>
+			</description>
+		</method>
+		<method name="rematch">
+			<return type="void" />
+			<param index="0" name="callback" type="Callable" />
+			<description>
+				Creates a rematch from the current turn-based match.
+				The callback receives [code](GKTurnBasedMatch rematched_match, Variant error)[/code]. On failure, [code]rematched_match[/code] is [code]null[/code] and [code]error[/code] contains a [code skip-lint]GKError[/code].
 			</description>
 		</method>
 		<method name="remove">
@@ -126,6 +146,18 @@
 			<description>
 			</description>
 		</method>
+		<method name="turn_timeout_default" qualifiers="static">
+			<return type="float" />
+			<description>
+				Returns Apple's default timeout constant for player turns.
+			</description>
+		</method>
+		<method name="turn_timeout_none" qualifiers="static">
+			<return type="float" />
+			<description>
+				Returns Apple's constant meaning "no timeout" for player turns.
+			</description>
+		</method>
 	</methods>
 	<members>
 		<member name="active_exchanges" type="Array" setter="" getter="get_active_exchanges" default="[]">
@@ -141,6 +173,9 @@
 		<member name="exchange_max_initiated_exchanges_per_player" type="int" setter="" getter="get_exchange_max_initiated_exchanges_per_player" default="0">
 		</member>
 		<member name="exchanges" type="Array" setter="" getter="get_exchanges" default="[]">
+		</member>
+		<member name="is_active_player" type="bool" setter="" getter="get_is_active_player" default="false">
+			True when the local player is the current participant whose turn is active.
 		</member>
 		<member name="match_data" type="PackedByteArray" setter="" getter="get_match_data" default="PackedByteArray()">
 		</member>

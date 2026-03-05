@@ -3,7 +3,7 @@
 //  GodotApplePlugins
 //
 
-import GameKit
+@preconcurrency import GameKit
 @preconcurrency import SwiftGodotRuntime
 
 @Godot
@@ -68,6 +68,16 @@ class GKTurnBasedMatch: RefCounted, @unchecked Sendable {
             return nil
         }
         return GKTurnBasedParticipant(participant: currentParticipant)
+    }
+
+    @Export var isActivePlayer: Bool {
+        guard
+            let currentParticipant = match?.currentParticipant,
+            let currentPlayer = currentParticipant.player
+        else {
+            return false
+        }
+        return currentPlayer.gamePlayerID == GameKit.GKLocalPlayer.local.gamePlayerID
     }
 
     @Export var matchData: PackedByteArray {
@@ -349,6 +359,42 @@ class GKTurnBasedMatch: RefCounted, @unchecked Sendable {
         match.declineInvite { error in
             _ = callback.call(GKError.from(error))
         }
+    }
+
+    @Callable
+    func rematch(callback: Callable) {
+        guard let match else {
+            _ = callback.call(nil, Variant("Invalid match object"))
+            return
+        }
+
+        match.rematch { rematched, error in
+            if let rematched {
+                _ = callback.call(Variant(GKTurnBasedMatch(match: rematched)), nil)
+            } else {
+                _ = callback.call(nil, GKError.from(error))
+            }
+        }
+    }
+
+    @Callable
+    static func exchange_timeout_default() -> Double {
+        GKExchangeTimeoutDefault
+    }
+
+    @Callable
+    static func exchange_timeout_none() -> Double {
+        GKExchangeTimeoutNone
+    }
+
+    @Callable
+    static func turn_timeout_default() -> Double {
+        GKTurnTimeoutDefault
+    }
+
+    @Callable
+    static func turn_timeout_none() -> Double {
+        GKTurnTimeoutNone
     }
 
     @Callable

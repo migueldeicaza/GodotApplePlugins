@@ -56,6 +56,7 @@ class GKLeaderboard: RefCounted, @unchecked Sendable {
     }
 
     @Export var title: String { board.title ?? "" }
+    @Export var baseLeaderboardID: String { board.baseLeaderboardID }
     @Export(.enum) var type: AppleLeaderboardType {
         switch board.type {
         case .classic: return .CLASSIC
@@ -87,15 +88,47 @@ class GKLeaderboard: RefCounted, @unchecked Sendable {
         board.startDate?.timeIntervalSince1970 ?? 0
     }
     @Export var nextStartDate: Double {
-        board.startDate?.timeIntervalSince1970 ?? 0
+        board.nextStartDate?.timeIntervalSince1970 ?? 0
     }
     @Export var duration: Double { board.duration }
+    @Export var isHidden: Bool {
+        if #available(iOS 26.0, macOS 26.0, tvOS 26.0, visionOS 26.0, *) {
+            return board.isHidden
+        } else {
+            return false
+        }
+    }
+    @Export var leaderboardDescription: String {
+        if #available(iOS 26.0, macOS 26.0, tvOS 26.0, visionOS 26.0, *) {
+            return board.leaderboardDescription
+        } else {
+            return ""
+        }
+    }
+    @Export var releaseState: Int {
+        if #available(iOS 26.0, macOS 26.0, tvOS 26.0, visionOS 26.0, *) {
+            return Int(board.releaseState.rawValue)
+        } else {
+            return 0
+        }
+    }
 
     @Callable
     /// Callback is invoked with nil on success, or a string on error
     func submit_score(score: Int, context: Int, player: GKPlayer, callback: Callable) {
         board.submitScore(score, context: context, player: player.player) { error in
             _ = callback.call(GKError.from(error))
+        }
+    }
+
+    @Callable
+    func load_previous_occurrence(callback: Callable) {
+        board.loadPreviousOccurrence { leaderboard, error in
+            if let leaderboard {
+                _ = callback.call(Variant(GKLeaderboard(board: leaderboard)), nil)
+            } else {
+                _ = callback.call(nil, GKError.from(error))
+            }
         }
     }
 
@@ -222,6 +255,7 @@ class GKLeaderboardEntry: RefCounted, @unchecked Sendable {
     @Export var context: Int { store?.context ?? 0 }
     @Export var rank: Int { store?.rank ?? 0 }
     @Export var score: Int { store?.score ?? 0 }
+    @Export var date: Double { store?.date.timeIntervalSince1970 ?? 0 }
     @Export var formattedScore: String { store?.formattedScore ?? "" }
     @Export var player: GKPlayer? {
         if let p = store?.player {

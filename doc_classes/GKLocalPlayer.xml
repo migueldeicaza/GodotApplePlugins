@@ -85,11 +85,38 @@
 				Loads players whom the local user can challenge. The callback receives [code](Array[GKPlayer] friends, Variant error)[/code] where either argument can be [code]null[/code]. If error is present, it is a [code skip-lint]GKError[/code].
 			</description>
 		</method>
+		<method name="load_default_leaderboard_identifier">
+			<return type="void" />
+			<param index="0" name="callback" type="Callable" />
+			<description>
+				Loads the local player's current default leaderboard identifier.
+				The callback receives [code](Variant identifier, Variant error)[/code], where [code]identifier[/code] is a [code skip-lint]String[/code] or [code]null[/code], and [code]error[/code] is [code]null[/code] or a [code skip-lint]GKError[/code].
+			</description>
+		</method>
 		<method name="load_friends">
 			<return type="void" />
 			<param index="0" name="callback" type="Callable" />
 			<description>
 				Fetches the friends list. The callback receives [code](Array[GKPlayer] friends, Variant error)[/code]; a non-null error [code skip-lint]Variant[/code] holds the [code skip-lint]GKError[/code].
+			</description>
+		</method>
+		<method name="load_friends_authorization_status">
+			<return type="void" />
+			<param index="0" name="callback" type="Callable" />
+			<description>
+				Loads the authorization status for friend access.
+				The callback receives [code](int status, Variant error)[/code], where [code]status[/code] is Apple's raw [code skip-lint]GKFriendsAuthorizationStatus[/code] value.
+				Requires iOS 14.5, macOS 11.3, tvOS 14.5, or visionOS 1.0. Older versions return [code]0[/code] plus an [code skip-lint]apiNotAvailable[/code] error.
+			</description>
+		</method>
+		<method name="load_friends_with_identifiers">
+			<return type="void" />
+			<param index="0" name="identifiers" type="PackedStringArray" />
+			<param index="1" name="callback" type="Callable" />
+			<description>
+				Loads friends that match the provided scoped player [param identifiers].
+				The callback receives [code](Array[GKPlayer] friends, Variant error)[/code], where [code]error[/code] is [code]null[/code] on success or a [code skip-lint]GKError[/code].
+				Requires iOS 14.5, macOS 11.3, tvOS 14.5, or visionOS 1.0. Older versions return an empty array plus an [code skip-lint]apiNotAvailable[/code] error.
 			</description>
 		</method>
 		<method name="load_recent_friends">
@@ -124,6 +151,15 @@
 				                completion the callback is invoked with both a GKSavedObject parameter and
 				                a Variant parameter for the error.   The GKSavedObject is not-nil on success,
 				                and on error, the second parameter is not-nil and contains the [code skip-lint]GKError[/code].
+			</description>
+		</method>
+		<method name="set_default_leaderboard_identifier">
+			<return type="void" />
+			<param index="0" name="identifier" type="String" />
+			<param index="1" name="callback" type="Callable" />
+			<description>
+				Sets the local player's default leaderboard identifier to [param identifier].
+				The callback receives one argument: [code]error[/code], which is [code]null[/code] on success or a [code skip-lint]GKError[/code] on failure.
 			</description>
 		</method>
 		<method name="unregister_listener">

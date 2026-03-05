@@ -7,6 +7,11 @@
 
 @preconcurrency import SwiftGodotRuntime
 import GameKit
+#if canImport(UIKit)
+import UIKit
+#elseif canImport(AppKit)
+import AppKit
+#endif
 
 @Godot
 public class GKAccessPoint: RefCounted, @unchecked Sendable {
@@ -79,6 +84,40 @@ public class GKAccessPoint: RefCounted, @unchecked Sendable {
             )
         }
     }
+
+    @Export
+    var frameInUnitCoordinates: Rect2 {
+        get {
+            #if os(visionOS)
+            return Rect2(x: 0, y: 0, width: 0, height: 0)
+            #else
+            let rect = shared.frameInScreenCoordinates
+
+            #if os(macOS)
+            guard let screenFrame = NSScreen.main?.frame else {
+                return Rect2(x: 0, y: 0, width: 0, height: 0)
+            }
+            let screenWidth = screenFrame.width
+            let screenHeight = screenFrame.height
+            #else
+            let screenBounds = UIScreen.main.bounds
+            let screenWidth = screenBounds.width
+            let screenHeight = screenBounds.height
+            #endif
+
+            guard screenWidth > 0, screenHeight > 0 else {
+                return Rect2(x: 0, y: 0, width: 0, height: 0)
+            }
+
+            return Rect2(
+                x: Float(rect.minX / screenWidth),
+                y: Float(rect.minY / screenHeight),
+                width: Float(rect.width / screenWidth),
+                height: Float(rect.height / screenHeight)
+            )
+            #endif
+        }
+    }
     
     #if os(tvOS)
     @Export
@@ -146,6 +185,74 @@ public class GKAccessPoint: RefCounted, @unchecked Sendable {
                 _ = done.call()
             })
         }
+    }
+
+    @Callable
+    func trigger_for_play_together(done: Callable) {
+        #if os(iOS) || os(macOS)
+        if #available(iOS 26.0, macOS 26.0, *) {
+            shared.triggerForPlayTogether(handler: {
+                _ = done.call()
+            })
+        }
+        #endif
+    }
+
+    @Callable
+    func trigger_for_challenges(done: Callable) {
+        #if os(iOS) || os(macOS)
+        if #available(iOS 26.0, macOS 26.0, *) {
+            shared.triggerForChallenges(handler: {
+                _ = done.call()
+            })
+        }
+        #endif
+    }
+
+    @Callable
+    func trigger_with_challenge_definition_id(challengeDefinitionID: String, done: Callable) {
+        #if os(iOS) || os(macOS)
+        if #available(iOS 26.0, macOS 26.0, *) {
+            shared.trigger(challengeDefinitionID: challengeDefinitionID, handler: {
+                _ = done.call()
+            })
+        }
+        #endif
+    }
+
+    @Callable
+    func trigger_with_game_activity(gameActivity: GKGameActivity, done: Callable) {
+        #if os(iOS) || os(macOS)
+        if #available(iOS 26.0, macOS 26.0, *),
+            let activity = gameActivity.rawActivity as? GameKit.GKGameActivity
+        {
+            shared.trigger(gameActivity: activity, handler: {
+                _ = done.call()
+            })
+        }
+        #endif
+    }
+
+    @Callable
+    func trigger_with_game_activity_definition_id(gameActivityDefinitionID: String, done: Callable) {
+        #if os(iOS) || os(macOS)
+        if #available(iOS 26.0, macOS 26.0, *) {
+            shared.trigger(gameActivityDefinitionID: gameActivityDefinitionID, handler: {
+                _ = done.call()
+            })
+        }
+        #endif
+    }
+
+    @Callable
+    func trigger_for_friending(done: Callable) {
+        #if os(iOS) || os(macOS)
+        if #available(iOS 26.0, macOS 26.0, *) {
+            shared.triggerForFriending(handler: {
+                _ = done.call()
+            })
+        }
+        #endif
     }
     
 }

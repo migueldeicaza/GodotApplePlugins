@@ -11,6 +11,9 @@
 		<member name="context" type="int" setter="" getter="get_context" default="0">
 			An integer value that your game uses.
 		</member>
+		<member name="date" type="float" setter="" getter="get_date" default="0.0">
+			Unix timestamp (seconds) when this score was recorded.
+		</member>
 		<member name="formatted_score" type="String" setter="" getter="get_formatted_score" default="&quot;&quot;">
 			The player’s score as a localized string.
 		</member>

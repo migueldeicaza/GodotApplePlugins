@@ -22,6 +22,13 @@
 	<tutorials>
 	</tutorials>
 	<methods>
+		<method name="anonymous_guest_player" qualifiers="static">
+			<return type="GKPlayer" />
+			<param index="0" name="identifier" type="String" />
+			<description>
+				Creates an anonymous guest player object for [param identifier] using Apple's guest-player API.
+			</description>
+		</method>
 		<method name="load_photo">
 			<return type="void" />
 			<param index="0" name="small" type="bool" />
@@ -46,6 +53,9 @@
 		</member>
 		<member name="game_player_id" type="String" setter="" getter="get_game_player_id" default="&quot;EA8228DD1F1786BB20C84CFE5A3934EB7AE8CD0CB561C60429BBFAC515310F12&quot;">
 			Stable, per-game identifier used by Apple to uniquely address the player.
+		</member>
+		<member name="guest_identifier" type="String" setter="" getter="get_guest_identifier" default="&quot;&quot;">
+			Guest identifier for anonymous players, or an empty string for signed-in Game Center accounts.
 		</member>
 		<member name="is_invitable" type="bool" setter="" getter="get_is_invitable" default="false">
 			True if the player allows Game Center invitations.

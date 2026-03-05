@@ -54,11 +54,35 @@
 	<tutorials>
 	</tutorials>
 	<methods>
+		<method name="challenge_compose_controller">
+			<return type="void" />
+			<param index="0" name="message" type="String" />
+			<param index="1" name="players" type="Array" />
+			<description>
+				Opens Apple's challenge compose UI for this achievement, prefilled with [param message] and the [param players] candidates.
+				[param players] should contain [code skip-lint]GKPlayer[/code] objects.
+			</description>
+		</method>
 		<method name="load_achievements" qualifiers="static">
 			<return type="void" />
 			<param index="0" name="callback" type="Callable" />
 			<description>
 				Loads the achievements that the local player has already reported. The callback is invoked with [code skip-lint]Array[GKAchievement][/code] and a [code skip-lint]Variant[/code] error argument ([code]null[/code] on success, or a localized error string).
+			</description>
+		</method>
+		<method name="make" qualifiers="static">
+			<return type="GKAchievement" />
+			<param index="0" name="identifier" type="String" />
+			<description>
+				Creates a new achievement instance for the local player using the App Store Connect achievement [param identifier].
+			</description>
+		</method>
+		<method name="make_for_player" qualifiers="static">
+			<return type="GKAchievement" />
+			<param index="0" name="identifier" type="String" />
+			<param index="1" name="player" type="GKPlayer" />
+			<description>
+				Creates a new achievement instance for [param player] using the App Store Connect achievement [param identifier].
 			</description>
 		</method>
 		<method name="report_achievement" qualifiers="static">
@@ -74,6 +98,15 @@
 			<param index="0" name="callback" type="Callable" />
 			<description>
 				Asks GameKit to clear every achievement for the local player. The callback receives [code]null[/code] on success or a [code skip-lint]Variant[/code] with the error description, matching Apple's [code]resetAchievements[/code] API.
+			</description>
+		</method>
+		<method name="select_challengeable_players">
+			<return type="void" />
+			<param index="0" name="players" type="Array" />
+			<param index="1" name="callback" type="Callable" />
+			<description>
+				Filters [param players] to the subset that can currently be challenged for this achievement.
+				The callback receives [code](Array[GKPlayer] challengeable_players, Variant error)[/code], where [code]error[/code] is [code]null[/code] on success or a [code skip-lint]GKError[/code].
 			</description>
 		</method>
 	</methods>
