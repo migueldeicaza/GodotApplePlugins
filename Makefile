@@ -94,9 +94,17 @@ check_no_runtime_symbols:
 			echo "SKIP: $$label (missing: $$bin)"; \
 			return 0; \
 		fi; \
-		count=$$(xcrun --sdk "$$sdk" nm -gU "$$bin" 2>/dev/null | grep -c 'SwiftGodotRuntime' || true); \
+		count=$$(xcrun --sdk "$$sdk" nm -gU "$$bin" 2>/dev/null \
+			| grep 'SwiftGodotRuntime' \
+			| xcrun swift demangle \
+			| grep -cv 'extension in' || true); \
 		if [ "$$count" -gt 0 ]; then \
 			echo "FAIL: $$label contains $$count SwiftGodotRuntime symbols (should be dynamically linked)"; \
+			xcrun --sdk "$$sdk" nm -gU "$$bin" 2>/dev/null \
+				| grep 'SwiftGodotRuntime' \
+				| xcrun swift demangle \
+				| grep -v 'extension in' \
+				| head -5; \
 			failed=1; \
 		else \
 			echo "OK:   $$label (0 embedded SwiftGodotRuntime symbols)"; \
