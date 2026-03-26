@@ -4,7 +4,94 @@ on:
   push:
 
 jobs:
+  build-stub-linux-x64:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Fetch GDExtension headers
+        run: |
+          mkdir -p .tmp/gdextension
+          curl -fsSL \
+            https://raw.githubusercontent.com/migueldeicaza/SwiftGodot/61f258c8a679ca8e2b637befb77daf1a640a5349/Sources/GDExtension/include/gdextension_interface.h \
+            -o .tmp/gdextension/gdextension_interface.h
+
+      - name: Build Linux x64 stub
+        run: |
+          mkdir -p dist
+          cc -std=c11 -Wall -Wextra -shared -fPIC \
+            -I .tmp/gdextension \
+            Generated/GodotApplePluginsStub/godot_apple_plugins_stub.c \
+            -o dist/godot_apple_plugins_stub.linux.x86_64.so
+
+      - name: Upload Linux x64 stub
+        uses: actions/upload-artifact@v4
+        with:
+          name: godot-apple-plugins-stub-linux-x64
+          path: dist/godot_apple_plugins_stub.linux.x86_64.so
+          if-no-files-found: error
+
+  build-stub-linux-arm64:
+    runs-on: ubuntu-24.04-arm
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Fetch GDExtension headers
+        run: |
+          mkdir -p .tmp/gdextension
+          curl -fsSL \
+            https://raw.githubusercontent.com/migueldeicaza/SwiftGodot/61f258c8a679ca8e2b637befb77daf1a640a5349/Sources/GDExtension/include/gdextension_interface.h \
+            -o .tmp/gdextension/gdextension_interface.h
+
+      - name: Build Linux ARM64 stub
+        run: |
+          mkdir -p dist
+          cc -std=c11 -Wall -Wextra -shared -fPIC \
+            -I .tmp/gdextension \
+            Generated/GodotApplePluginsStub/godot_apple_plugins_stub.c \
+            -o dist/godot_apple_plugins_stub.linux.arm64.so
+
+      - name: Upload Linux ARM64 stub
+        uses: actions/upload-artifact@v4
+        with:
+          name: godot-apple-plugins-stub-linux-arm64
+          path: dist/godot_apple_plugins_stub.linux.arm64.so
+          if-no-files-found: error
+
+  build-stub-windows-x64:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Fetch GDExtension headers
+        run: |
+          New-Item -ItemType Directory -Force -Path .tmp/gdextension | Out-Null
+          Invoke-WebRequest `
+            -Uri "https://raw.githubusercontent.com/migueldeicaza/SwiftGodot/61f258c8a679ca8e2b637befb77daf1a640a5349/Sources/GDExtension/include/gdextension_interface.h" `
+            -OutFile ".tmp/gdextension/gdextension_interface.h"
+
+      - name: Build Windows x64 stub
+        shell: cmd
+        run: |
+          if not exist dist mkdir dist
+          call "%ProgramFiles(x86)%\Microsoft Visual Studio\2022\Enterprise\Common7\Tools\VsDevCmd.bat" -arch=x64
+          cl /std:c11 /W4 /LD /I .tmp\gdextension Generated\GodotApplePluginsStub\godot_apple_plugins_stub.c /link /OUT:dist\godot_apple_plugins_stub.windows.x86_64.dll
+
+      - name: Upload Windows x64 stub
+        uses: actions/upload-artifact@v4
+        with:
+          name: godot-apple-plugins-stub-windows-x64
+          path: dist/godot_apple_plugins_stub.windows.x86_64.dll
+          if-no-files-found: error
+
   package:
+    needs:
+      - build-stub-linux-x64
+      - build-stub-linux-arm64
+      - build-stub-windows-x64
     runs-on:
       - self-hosted
       - macos
@@ -40,6 +127,24 @@ jobs:
 
       - name: Package for Distribution
         run: make dist
+
+      - name: Download Linux x64 stub
+        uses: actions/download-artifact@v4
+        with:
+          name: godot-apple-plugins-stub-linux-x64
+          path: addons/GodotApplePlugins/bin
+
+      - name: Download Linux ARM64 stub
+        uses: actions/download-artifact@v4
+        with:
+          name: godot-apple-plugins-stub-linux-arm64
+          path: addons/GodotApplePlugins/bin
+
+      - name: Download Windows x64 stub
+        uses: actions/download-artifact@v4
+        with:
+          name: godot-apple-plugins-stub-windows-x64
+          path: addons/GodotApplePlugins/bin
 
       - name: Sign macOS frameworks
         if: env.MACOS_CERTIFICATE != ''

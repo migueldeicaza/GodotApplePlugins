@@ -5,5 +5,8 @@ compatibility_minimum = 4.4
 
 [libraries]
 ios = "res://addons/GodotApplePlugins/bin/GodotApplePlugins.xcframework"
+linux.arm64 = "res://addons/GodotApplePlugins/bin/godot_apple_plugins_stub.linux.arm64.so"
+linux.x86_64 = "res://addons/GodotApplePlugins/bin/godot_apple_plugins_stub.linux.x86_64.so"
 macos.arm64 = "res://addons/GodotApplePlugins/bin/GodotApplePlugins.framework"
 macos.x86_64 = "res://addons/GodotApplePlugins/bin/GodotApplePlugins_x64.framework"
+windows.x86_64 = "res://addons/GodotApplePlugins/bin/godot_apple_plugins_stub.windows.x86_64.dll"
