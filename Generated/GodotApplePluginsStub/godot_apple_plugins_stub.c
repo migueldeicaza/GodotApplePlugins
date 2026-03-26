@@ -9,20 +9,13 @@
 #define GAP_PROPERTY_USAGE_DEFAULT 6u
 #define GAP_PROPERTY_USAGE_NIL_IS_VARIANT 131072u
 
-typedef union {
-    max_align_t _align;
-    unsigned char bytes[8];
+typedef struct {
+    uint64_t opaque[1];
 } GAPStubStringStorage;
 
-typedef union {
-    max_align_t _align;
-    unsigned char bytes[8];
+typedef struct {
+    uint64_t opaque[1];
 } GAPStubStringNameStorage;
-
-typedef union {
-    max_align_t _align;
-    unsigned char bytes[24];
-} GAPStubVariantStorage;
 
 typedef struct {
     GDExtensionVariantType variant_type;
