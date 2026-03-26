@@ -69,6 +69,14 @@ import SwiftGodotRuntime
         ASPasswordCredential.self,
         ASAuthorizationController.self,
         ASWebAuthenticationSession.self,
+
+        ARSession.self,
+        ARWorldTrackingConfiguration.self,
+        ARFrame.self,
+        ARCamera.self,
+        ARLightEstimate.self,
+        ARAnchor.self,
+        ARPlaneAnchor.self,
     ],
     enums: [
         AVAudioSession.CategoryOptions.self,
@@ -99,6 +107,16 @@ import SwiftGodotRuntime
 
         ASAuthorizationAppleIDCredential.UserDetectionStatus.self,
         ASAuthorizationAppleIDCredential.UserAgeRange.self,
+
+        ARSession.RunOption.self,
+        ARWorldTrackingConfiguration.WorldAlignment.self,
+        ARWorldTrackingConfiguration.EnvironmentTexturing.self,
+        ARWorldTrackingConfiguration.PlaneDetection.self,
+        ARFrame.WorldMappingStatus.self,
+        ARCamera.TrackingState.self,
+        ARCamera.TrackingStateReason.self,
+        ARPlaneAnchor.Alignment.self,
+        ARPlaneAnchor.Classification.self,
     ],
     registerDocs: true
 )

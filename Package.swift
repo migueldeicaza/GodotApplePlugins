@@ -27,6 +27,10 @@ let package = Package(
             type: .dynamic,
             targets: ["GodotApplePlugins"]
         ),
+        .executable(
+            name: "GodotApplePluginsStubGenerator",
+            targets: ["GodotApplePluginsStubGenerator"]
+        ),
     ],
     dependencies: [
         .package(url: "https://github.com/migueldeicaza/SwiftGodot", revision: "61f258c8a679ca8e2b637befb77daf1a640a5349")
@@ -41,6 +45,9 @@ let package = Package(
             ],
             swiftSettings: swiftSettings,
             linkerSettings: linkerSettings
+        ),
+        .executableTarget(
+            name: "GodotApplePluginsStubGenerator"
         ),
     ]
 )

@@ -1,4 +1,4 @@
-.PHONY: run xcframework check_swiftsyntax
+.PHONY: run xcframework check_swiftsyntax generate-stubs
 
 # Allow overriding common build knobs.
 CONFIG ?= Release
@@ -9,9 +9,36 @@ WORKSPACE ?= .swiftpm/xcode/package.xcworkspace
 SCHEME ?= GodotApplePlugins
 FRAMEWORK_NAMES ?= GodotApplePlugins
 XCODEBUILD ?= xcodebuild
+CC ?= cc
+
+STUB_BASE_DIR ?= $(CURDIR)
+STUB_OUTPUT_DIR ?= $(STUB_BASE_DIR)/Generated/GodotApplePluginsStub
+STUB_HEADERS_DIR ?= $(CURDIR)/.build/checkouts/SwiftGodot/Sources/GDExtension/include
+STUB_ENTRY_SYMBOL ?= godot_apple_plugins_stub_init
+STUB_LIBRARY_NAME ?= godot_apple_plugins_stub
+STUB_FILES ?=
+STUB_GENERATOR ?= swift run GodotApplePluginsStubGenerator
+
+ifeq ($(shell uname -s),Darwin)
+STUB_SHARED_EXT ?= dylib
+STUB_SHARED_FLAGS ?= -dynamiclib
+else
+STUB_SHARED_EXT ?= so
+STUB_SHARED_FLAGS ?= -shared -fPIC
+endif
+
+STUB_SHARED_LIB ?= $(STUB_OUTPUT_DIR)/$(STUB_LIBRARY_NAME).$(STUB_SHARED_EXT)
+STUB_FILE_ARGS = $(foreach file,$(STUB_FILES),--file $(file))
 
 run:
 	@echo -e "Run make xcframework to produce the binary payloads for all platforms"
+
+generate-stubs:
+	@set -e; \
+	echo "Generating stub sources from $(STUB_BASE_DIR)"; \
+	$(STUB_GENERATOR) "$(STUB_BASE_DIR)" --output "$(STUB_OUTPUT_DIR)" --entry-symbol "$(STUB_ENTRY_SYMBOL)" --library-name "$(STUB_LIBRARY_NAME)" $(STUB_FILE_ARGS); \
+	echo "Compiling stub library to $(STUB_SHARED_LIB)"; \
+	$(CC) -std=c11 -Wall -Wextra -I "$(STUB_HEADERS_DIR)" $(STUB_SHARED_FLAGS) "$(STUB_OUTPUT_DIR)/$(STUB_LIBRARY_NAME).c" -o "$(STUB_SHARED_LIB)"
 
 build:
 	set -e; \

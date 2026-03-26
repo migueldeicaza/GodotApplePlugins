@@ -32,6 +32,42 @@ megs at the time of this writing).
 
 iOS 17.0, MacOS Sonoma (14.0)
 
+# Stub Generator
+
+This repository also includes a stub generator for producing a C GDExtension library that mirrors the documented `GodotApplePlugins` API surface for non-Apple targets like Windows and Linux.
+
+You can point the generator at any checkout directory instead of changing into that directory first:
+
+```sh
+swift run GodotApplePluginsStubGenerator /path/to/GodotApplePlugins
+swift run GodotApplePluginsStubGenerator /path/to/GodotApplePlugins --output Generated/GodotApplePluginsStub
+swift run GodotApplePluginsStubGenerator --directory /path/to/GodotApplePlugins --docs doc_classes --output Generated/GodotApplePluginsStub
+```
+
+By default it reads `doc_classes/` under the directory you point it at and writes the generated stub package to `Generated/GodotApplePluginsStub/`.
+
+You can also generate a sliced stub surface by naming specific XML files or class names. The generator automatically includes documented parent classes required by inheritance:
+
+```sh
+swift run GodotApplePluginsStubGenerator /path/to/GodotApplePlugins --file GKPlayer.xml --file GKLocalPlayer.xml
+swift run GodotApplePluginsStubGenerator /path/to/GodotApplePlugins --files GKPlayer.xml,GKLocalPlayer.xml
+```
+
+There is also a Makefile entry point that generates the C stubs and compiles the generated C into a shared library for the current host:
+
+```sh
+make generate-stubs
+make generate-stubs STUB_BASE_DIR=/path/to/GodotApplePlugins
+make generate-stubs STUB_BASE_DIR=/path/to/GodotApplePlugins STUB_FILES="GKPlayer.xml GKLocalPlayer.xml"
+```
+
+Useful overrides:
+
+- `STUB_BASE_DIR`: directory containing `doc_classes/`
+- `STUB_OUTPUT_DIR`: where the generated C package and compiled library should go
+- `STUB_FILES`: optional space-separated list of XML files or class names to include
+- `STUB_HEADERS_DIR`: directory containing `gdextension_interface.h`
+
 # API Design
 
 The API surfaced by this add-ons is to be as close to possible to the Apple APIs (classes, methods names, enumerations) and to avoid attempting to provide an abstraction over them - as these tend to have impedance mismatches.  
