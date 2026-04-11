@@ -30,7 +30,7 @@ Properties
    :widths: auto
 
    +---------------------------------------+-----------------------------------------------------------------------+-----------------------------------------------------+
-   | :ref:`String<class_String>`           | :ref:`identifier<class_ARAnchor_property_identifier>`                 | ``"FF4B1614-C670-4C6F-A3E0-A5594EEB5C95"``          |
+   | :ref:`String<class_String>`           | :ref:`identifier<class_ARAnchor_property_identifier>`                 | ``"B0E76C0B-8037-4FC1-B7EC-12C174A10721"``          |
    +---------------------------------------+-----------------------------------------------------------------------+-----------------------------------------------------+
    | :ref:`String<class_String>`           | :ref:`name<class_ARAnchor_property_name>`                             | ``""``                                              |
    +---------------------------------------+-----------------------------------------------------------------------+-----------------------------------------------------+
@@ -68,7 +68,7 @@ Property Descriptions
 
 .. rst-class:: classref-property
 
-:ref:`String<class_String>` **identifier** = ``"FF4B1614-C670-4C6F-A3E0-A5594EEB5C95"`` :ref:`🔗<class_ARAnchor_property_identifier>`
+:ref:`String<class_String>` **identifier** = ``"B0E76C0B-8037-4FC1-B7EC-12C174A10721"`` :ref:`🔗<class_ARAnchor_property_identifier>`
 
 .. rst-class:: classref-property-setget
 
