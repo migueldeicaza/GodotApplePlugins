@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<class xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="ARGeoAnchor" inherits="RefCounted" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		A GPS-positioned anchor for geo-referenced AR content.
+	</brief_description>
+	<description>
+		Represents a world position defined by latitude, longitude, and altitude. Used with [method ARSession.run_geo_tracking]. [b]iOS 14+ only.[/b] On visionOS and macOS, this type exists for API consistency but is never populated with real tracking data.
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="create" qualifiers="static">
+			<return type="ARGeoAnchor" />
+			<param index="0" name="latitude" type="float" />
+			<param index="1" name="longitude" type="float" />
+			<param index="2" name="altitude" type="float" />
+			<description>Creates a geo anchor at the given latitude, longitude, and altitude.</description>
+		</method>
+		<method name="create_at_coordinate" qualifiers="static">
+			<return type="ARGeoAnchor" />
+			<param index="0" name="latitude" type="float" />
+			<param index="1" name="longitude" type="float" />
+			<description>Creates a geo anchor at the given latitude and longitude, letting ARKit determine the altitude when possible.</description>
+		</method>
+	</methods>
+	<members>
+		<member name="altitude" type="float" setter="set_altitude" getter="get_altitude" default="0.0">The anchor altitude in meters.</member>
+		<member name="altitude_source" type="int" setter="set_altitude_source" getter="get_altitude_source" default="0">How the altitude value was determined. See [enum AltitudeSource].</member>
+		<member name="coordinate" type="Vector2" setter="set_coordinate" getter="get_coordinate" default="Vector2(0, 0)">The geographic coordinate stored as [code]Vector2(latitude, longitude)[/code].</member>
+		<member name="identifier" type="String" setter="set_identifier" getter="get_identifier" default="&quot;&quot;">A unique identifier for this geo anchor.</member>
+		<member name="transform" type="Transform3D" setter="set_transform" getter="get_transform" default="Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)">The anchor transform in world space once geo tracking has localized it.</member>
+	</members>
+	<constants>
+		<constant name="UNKNOWN" value="0" enum="AltitudeSource">The altitude source is unknown.</constant>
+		<constant name="COARSE" value="1" enum="AltitudeSource">The altitude was estimated from a coarse data source.</constant>
+		<constant name="PRECISE" value="2" enum="AltitudeSource">The altitude was determined from a precise data source.</constant>
+		<constant name="USER_DEFINED" value="3" enum="AltitudeSource">The altitude value was provided explicitly by the user or app.</constant>
+	</constants>
+</class>

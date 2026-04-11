@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<class xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="ARPlaneAnchor" inherits="RefCounted" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>An anchor describing a detected planar surface.</brief_description>
+	<description>Represents a detected horizontal, vertical, or slanted plane. Plane anchors expose center, extent, polygon boundary vertices, triangulated geometry, and optional surface classification. Use them to place content on floors, walls, tables, and similar surfaces.</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="get_boundary_vertex">
+			<return type="Vector3" />
+			<param index="0" name="index" type="int" />
+			<description>Returns the polygon boundary vertex at [param index].</description>
+		</method>
+		<method name="get_geometry_vertex">
+			<return type="Vector3" />
+			<param index="0" name="index" type="int" />
+			<description>Returns the triangulated plane-geometry vertex at [param index].</description>
+		</method>
+		<method name="get_texture_coordinate">
+			<return type="Vector2" />
+			<param index="0" name="index" type="int" />
+			<description>Returns the texture coordinate at [param index] for the triangulated plane geometry.</description>
+		</method>
+		<method name="get_triangle_index">
+			<return type="int" />
+			<param index="0" name="index" type="int" />
+			<description>Returns the triangle index value at [param index] from [member triangle_indices].</description>
+		</method>
+		<method name="is_classification_supported" qualifiers="static">
+			<return type="bool" />
+			<description>Returns [code]true[/code] when the current device can classify detected planes.</description>
+		</method>
+	</methods>
+	<members>
+		<member name="alignment" type="int" setter="set_alignment" getter="get_alignment" default="0">The detected orientation of the plane. See [enum Alignment].</member>
+		<member name="boundary_vertices" type="PackedVector3Array" setter="set_boundary_vertices" getter="get_boundary_vertices" default="PackedVector3Array()">Vertices describing the polygon boundary of the detected plane.</member>
+		<member name="center" type="Vector3" setter="set_center" getter="get_center" default="Vector3(0, 0, 0)">The center of the plane in anchor-local space.</member>
+		<member name="classification" type="int" setter="set_classification" getter="get_classification" default="0">Semantic classification for the plane surface. See [enum Classification].</member>
+		<member name="classification_status" type="int" setter="set_classification_status" getter="get_classification_status" default="0">Whether plane classification is currently available and valid. See [enum ClassificationStatus].</member>
+		<member name="extent" type="Vector3" setter="set_extent" getter="get_extent" default="Vector3(0, 0, 0)">The approximate plane size in anchor-local space.</member>
+		<member name="geometry_vertices" type="PackedVector3Array" setter="set_geometry_vertices" getter="get_geometry_vertices" default="PackedVector3Array()">Vertices for the triangulated plane geometry.</member>
+		<member name="identifier" type="String" setter="set_identifier" getter="get_identifier" default="&quot;&quot;">A unique identifier for this plane anchor.</member>
+		<member name="plane_extent_height" type="float" setter="set_plane_extent_height" getter="get_plane_extent_height" default="0.0">Height of the rectangular plane extent in meters.</member>
+		<member name="plane_extent_rotation_on_y_axis" type="float" setter="set_plane_extent_rotation_on_y_axis" getter="get_plane_extent_rotation_on_y_axis" default="0.0">Rotation of the rectangular plane extent around the Y axis in radians.</member>
+		<member name="plane_extent_width" type="float" setter="set_plane_extent_width" getter="get_plane_extent_width" default="0.0">Width of the rectangular plane extent in meters.</member>
+		<member name="texture_coordinates" type="PackedVector2Array" setter="set_texture_coordinates" getter="get_texture_coordinates" default="PackedVector2Array()">Texture coordinates for the triangulated plane geometry.</member>
+		<member name="transform" type="Transform3D" setter="set_transform" getter="get_transform" default="Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)">The plane anchor transform in world space.</member>
+		<member name="triangle_indices" type="PackedInt32Array" setter="set_triangle_indices" getter="get_triangle_indices" default="PackedInt32Array()">Triangle index data for the triangulated plane geometry.</member>
+	</members>
+	<constants>
+		<constant name="HORIZONTAL" value="0" enum="Alignment">The plane is horizontally aligned.</constant>
+		<constant name="VERTICAL" value="1" enum="Alignment">The plane is vertically aligned.</constant>
+		<constant name="SLANTED" value="2" enum="Alignment">The plane is aligned to a slanted surface.</constant>
+		<constant name="NOT_AVAILABLE" value="0" enum="ClassificationStatus">Plane classification is not available on this device.</constant>
+		<constant name="UNDETERMINED" value="1" enum="ClassificationStatus">Plane classification support is present but no classification has been produced yet.</constant>
+		<constant name="UNKNOWN" value="2" enum="ClassificationStatus">The plane could not be classified.</constant>
+		<constant name="KNOWN" value="3" enum="ClassificationStatus">The plane has a valid semantic classification.</constant>
+		<constant name="NONE" value="0" enum="Classification">No semantic classification is available for this plane.</constant>
+		<constant name="WALL" value="1" enum="Classification">The plane is classified as a wall.</constant>
+		<constant name="FLOOR" value="2" enum="Classification">The plane is classified as a floor.</constant>
+		<constant name="CEILING" value="3" enum="Classification">The plane is classified as a ceiling.</constant>
+		<constant name="TABLE" value="4" enum="Classification">The plane is classified as a table.</constant>
+		<constant name="SEAT" value="5" enum="Classification">The plane is classified as a seat.</constant>
+		<constant name="WINDOW" value="6" enum="Classification">The plane is classified as a window.</constant>
+		<constant name="DOOR" value="7" enum="Classification">The plane is classified as a door.</constant>
+		<constant name="STAIRS" value="8" enum="Classification">The plane is classified as stairs.</constant>
+		<constant name="BED" value="9" enum="Classification">The plane is classified as a bed.</constant>
+		<constant name="CABINET" value="10" enum="Classification">The plane is classified as a cabinet.</constant>
+		<constant name="HOME_APPLIANCE" value="11" enum="Classification">The plane is classified as a home appliance.</constant>
+		<constant name="TV" value="12" enum="Classification">The plane is classified as a television.</constant>
+		<constant name="PLANT" value="13" enum="Classification">The plane is classified as a plant.</constant>
+	</constants>
+</class>

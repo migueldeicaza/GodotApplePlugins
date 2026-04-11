@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<class xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="ARWorldMap" inherits="RefCounted" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		A serializable snapshot of the AR world state for session persistence.
+	</brief_description>
+	<description>
+		Captures the spatial mapping, anchors, and feature points of an AR session so it can be saved and restored later. Use [method ARSession.get_current_world_map] to capture and [method ARSession.run_with_world_map] to restore. [b]iOS only.[/b] On visionOS, spatial anchors are persisted automatically by the system via WorldTrackingProvider. On macOS, world map persistence is not available through remote sessions. The type exists on all platforms for API consistency but serialize/deserialize are no-ops outside iOS.
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="deserialize" qualifiers="static">
+			<return type="ARWorldMap" />
+			<param index="0" name="data" type="PackedByteArray" />
+			<description>Creates an [ARWorldMap] instance from previously serialized data.</description>
+		</method>
+		<method name="serialize">
+			<return type="PackedByteArray" />
+			<description>Serializes the world map into a [PackedByteArray] for saving or network transfer.</description>
+		</method>
+	</methods>
+	<members>
+		<member name="anchors" type="Array" setter="set_anchors" getter="get_anchors" default="[]">Anchors stored in the world map.</member>
+		<member name="center" type="Vector3" setter="set_center" getter="get_center" default="Vector3(0, 0, 0)">The center of the mapped region.</member>
+		<member name="extent" type="Vector3" setter="set_extent" getter="get_extent" default="Vector3(0, 0, 0)">The size of the mapped region.</member>
+		<member name="raw_feature_points" type="ARPointCloud" setter="set_raw_feature_points" getter="get_raw_feature_points" default="null">The feature points captured in the world map, if available.</member>
+	</members>
+</class>

@@ -1,0 +1,194 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<class xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="ARSession" inherits="RefCounted" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Manages an AR session with world tracking, plane detection, and anchor management.
+	</brief_description>
+	<description>
+		The main entry point for ARKit functionality. Supports world tracking, plane detection, scene reconstruction, hand tracking, image tracking, and more depending on platform.
+		[b]Platform availability:[/b]
+		- [b]iOS:[/b] Full support for all features including raycasting, world map persistence, collaboration, body/face/geo tracking, and camera image capture.
+		- [b]visionOS:[/b] World tracking, plane detection, scene reconstruction, hand tracking, and image tracking via async providers. Raycasting, world maps, collaboration, body tracking, and camera images are not available (use RealityKit for spatial queries on visionOS).
+		- [b]macOS 26.0+:[/b] Remote-session bridge only. Connects to a remote iOS/visionOS device and relays camera pose via DeviceAnchor. Anchor CRUD, raycasting, world maps, collaboration, and all other features are not available through the remote API.
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="add_anchor">
+			<return type="void" />
+			<param index="0" name="anchor" type="ARAnchor" />
+			<description>Adds a custom anchor to the running session.</description>
+		</method>
+		<method name="capture_high_resolution_frame">
+			<return type="void" />
+			<param index="0" name="callback" type="Callable" />
+			<description>
+				Captures a high-resolution camera frame asynchronously. [b]iOS 16+ only.[/b] Reports unavailability on visionOS/macOS.
+			</description>
+		</method>
+		<method name="get_current_world_map">
+			<return type="void" />
+			<param index="0" name="callback" type="Callable" />
+			<description>
+				Asynchronously captures the current world map for session persistence. The callback receives an [ARWorldMap] and an optional error string. [b]iOS only.[/b] Reports unavailability on visionOS/macOS (visionOS persists anchors automatically via WorldTrackingProvider).
+			</description>
+		</method>
+		<method name="is_supported" qualifiers="static">
+			<return type="bool" />
+			<description>Returns [code]true[/code] when ARKit session support is available on the current platform and device.</description>
+		</method>
+		<method name="pause">
+			<return type="void" />
+			<description>Pauses the session and stops delivering new frame updates until it is run again.</description>
+		</method>
+		<method name="raycast">
+			<return type="Array" />
+			<param index="0" name="query" type="ARRaycastQuery" />
+			<description>
+				Performs a raycast against detected surfaces. Returns an array of [ARRaycastResult]. [b]iOS only.[/b] Returns empty on visionOS/macOS. On visionOS, use RealityKit scene queries instead.
+			</description>
+		</method>
+		<method name="remove_all_anchors">
+			<return type="void" />
+			<description>Removes every current anchor from the session.</description>
+		</method>
+		<method name="remove_anchor">
+			<return type="void" />
+			<param index="0" name="anchor" type="ARAnchor" />
+			<description>Removes the given anchor from the session.</description>
+		</method>
+		<method name="run">
+			<return type="void" />
+			<param index="0" name="configuration" type="ARWorldTrackingConfiguration" />
+			<param index="1" name="options" type="int" />
+			<description>Starts or reconfigures the session using [param configuration]. [param options] is a bitmask of [enum RunOption] flags.</description>
+		</method>
+		<method name="run_body_tracking">
+			<return type="void" />
+			<param index="0" name="configuration" type="ARBodyTrackingConfiguration" />
+			<param index="1" name="options" type="int" />
+			<description>
+				Starts the session with body tracking configuration. [b]iOS only.[/b] Reports unavailability on visionOS/macOS.
+			</description>
+		</method>
+		<method name="run_geo_tracking">
+			<return type="void" />
+			<param index="0" name="configuration" type="ARGeoTrackingConfiguration" />
+			<param index="1" name="options" type="int" />
+			<description>
+				Starts the session with geo tracking for GPS-anchored AR. [b]iOS 14+ only.[/b] Reports unavailability on visionOS/macOS.
+			</description>
+		</method>
+		<method name="run_face_tracking">
+			<return type="void" />
+			<param index="0" name="configuration" type="ARFaceTrackingConfiguration" />
+			<param index="1" name="options" type="int" />
+			<description>
+				Starts the session with front-camera face tracking. Delivers [ARFaceAnchor] results through anchor signals. [b]iOS only.[/b] Reports unavailability on visionOS/macOS.
+			</description>
+		</method>
+		<method name="run_image_tracking">
+			<return type="void" />
+			<param index="0" name="configuration" type="ARImageTrackingConfiguration" />
+			<param index="1" name="options" type="int" />
+			<description>
+				Starts the session with standalone image tracking (no world tracking). Delivers [ARImageAnchor] results through anchor signals. [b]iOS only.[/b] On visionOS, use [ARWorldTrackingConfiguration] with [code]detectionImageGroupName[/code] instead. Reports unavailability on macOS.
+			</description>
+		</method>
+		<method name="run_with_world_map">
+			<return type="void" />
+			<param index="0" name="configuration" type="ARWorldTrackingConfiguration" />
+			<param index="1" name="worldMap" type="ARWorldMap" />
+			<description>
+				Starts the session with a previously saved world map for relocalization. [b]iOS only.[/b] Reports unavailability on visionOS/macOS.
+			</description>
+		</method>
+		<method name="set_world_origin">
+			<return type="void" />
+			<param index="0" name="relativeTransform" type="Transform3D" />
+			<description>Resets the session's world origin relative to [param relativeTransform]. Use this to realign virtual content without recreating anchors.</description>
+		</method>
+		<method name="tracked_raycast">
+			<return type="ARTrackedRaycast" />
+			<param index="0" name="query" type="ARRaycastQuery" />
+			<param index="1" name="callback" type="Callable" />
+			<description>
+				Creates a continuously-tracked raycast that invokes the callback as results update. [b]iOS only.[/b] Returns null on visionOS/macOS.
+			</description>
+		</method>
+		<method name="update_with_collaboration_data">
+			<return type="void" />
+			<param index="0" name="data" type="ARCollaborationData" />
+			<description>
+				Feeds collaboration data received from a peer into the session for multi-user AR. [b]iOS 13+ only.[/b] No-op on visionOS/macOS.
+			</description>
+		</method>
+	</methods>
+	<members>
+		<member name="anchors" type="Array" setter="" getter="get_anchors" default="[]">The anchors currently known to the session.</member>
+		<member name="configuration" type="ARWorldTrackingConfiguration" setter="" getter="get_configuration" default="null">The last world-tracking configuration used with [method run] or [method run_with_world_map], if any.</member>
+		<member name="current_frame" type="ARFrame" setter="" getter="get_current_frame" default="null">The most recent frame produced by the session, if available.</member>
+		<member name="identifier" type="String" setter="" getter="get_identifier" default="&quot;F40F6F5C-3957-44A4-B585-386F2C54D346&quot;">A unique identifier for this session instance.</member>
+	</members>
+	<signals>
+		<signal name="anchors_added">
+			<param index="0" name="anchors" type="Array" />
+			<description>Emitted when new anchors are added to the session.</description>
+		</signal>
+		<signal name="anchors_removed">
+			<param index="0" name="anchors" type="Array" />
+			<description>Emitted when anchors are removed from the session.</description>
+		</signal>
+		<signal name="anchors_updated">
+			<param index="0" name="anchors" type="Array" />
+			<description>Emitted when existing anchors receive updated pose or geometry data.</description>
+		</signal>
+		<signal name="camera_tracking_changed">
+			<param index="0" name="camera" type="ARCamera" />
+			<description>Emitted when the camera tracking state changes.</description>
+		</signal>
+		<signal name="collaboration_data_received">
+			<param index="0" name="collaborationData" type="ARCollaborationData" />
+			<description>
+				Emitted when collaboration data is produced for multi-peer AR. [b]iOS 13+ only.[/b] Requires [code]isCollaborationEnabled[/code] on the configuration. Never emitted on visionOS/macOS.
+			</description>
+		</signal>
+		<signal name="frame_updated">
+			<param index="0" name="frame" type="ARFrame" />
+			<description>Emitted whenever the session produces a new frame.</description>
+		</signal>
+		<signal name="hand_anchor_updated">
+			<param index="0" name="hand" type="ARHandAnchor" />
+			<description>
+				Emitted when a hand anchor is added or updated. [b]visionOS only.[/b] Never emitted on iOS or macOS.
+			</description>
+		</signal>
+		<signal name="interruption_ended">
+			<description>Emitted after the session interruption has ended and tracking can resume.</description>
+		</signal>
+		<signal name="mesh_anchor_added">
+			<param index="0" name="mesh" type="ARMeshAnchor" />
+			<description>Emitted when scene reconstruction produces a new mesh anchor.</description>
+		</signal>
+		<signal name="mesh_anchor_removed">
+			<param index="0" name="mesh" type="ARMeshAnchor" />
+			<description>Emitted when a reconstructed mesh anchor is removed.</description>
+		</signal>
+		<signal name="mesh_anchor_updated">
+			<param index="0" name="mesh" type="ARMeshAnchor" />
+			<description>Emitted when a reconstructed mesh anchor changes geometry or pose.</description>
+		</signal>
+		<signal name="session_failed">
+			<param index="0" name="message" type="String" />
+			<description>Emitted when the session fails and provides a human-readable error message.</description>
+		</signal>
+		<signal name="session_interrupted">
+			<description>Emitted when the session is interrupted by the system.</description>
+		</signal>
+	</signals>
+	<constants>
+		<constant name="RESET_TRACKING" value="1" enum="RunOption">Reset session tracking when the configuration is run.</constant>
+		<constant name="REMOVE_EXISTING_ANCHORS" value="2" enum="RunOption">Remove existing anchors when the configuration is run.</constant>
+		<constant name="STOP_TRACKED_RAYCASTS" value="4" enum="RunOption">Stop existing tracked raycasts when the configuration is run.</constant>
+		<constant name="RESET_SCENE_RECONSTRUCTION" value="8" enum="RunOption">Reset accumulated scene-reconstruction data when the configuration is run.</constant>
+	</constants>
+</class>

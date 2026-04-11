@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<class xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="ARRaycastResult" inherits="RefCounted" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Contains the result of an AR raycast, including the hit transform and target surface.
+	</brief_description>
+	<description>
+		Returned by [method ARSession.raycast]. Contains the world transform of the hit point, the type of surface hit, and an optional anchor reference. [b]iOS only.[/b] On visionOS/macOS this type exists for API consistency but is never populated with real data.
+	</description>
+	<tutorials>
+	</tutorials>
+	<members>
+		<member name="anchor" type="ARAnchor" setter="set_anchor" getter="get_anchor" default="null">The anchor associated with the hit result, if any.</member>
+		<member name="target" type="int" setter="set_target" getter="get_target" default="1">The surface type that was hit. See [enum Target].</member>
+		<member name="target_alignment" type="int" setter="set_target_alignment" getter="get_target_alignment" default="2">The alignment of the matched surface. See [enum TargetAlignment].</member>
+		<member name="world_transform" type="Transform3D" setter="set_world_transform" getter="get_world_transform" default="Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)">The hit transform in world space.</member>
+	</members>
+	<constants>
+		<constant name="EXISTING_PLANE_GEOMETRY" value="1" enum="Target">The hit came from existing plane geometry.</constant>
+		<constant name="EXISTING_PLANE_INFINITE" value="2" enum="Target">The hit came from an infinite extension of an existing plane.</constant>
+		<constant name="ESTIMATED_PLANE" value="3" enum="Target">The hit came from an estimated plane.</constant>
+		<constant name="HORIZONTAL" value="0" enum="TargetAlignment">The hit surface is horizontally aligned.</constant>
+		<constant name="VERTICAL" value="1" enum="TargetAlignment">The hit surface is vertically aligned.</constant>
+		<constant name="ANY" value="2" enum="TargetAlignment">The hit surface alignment was not restricted.</constant>
+	</constants>
+</class>

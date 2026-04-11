@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<class xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="AREnvironmentProbeAnchor" inherits="RefCounted" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		An anchor that captures environment lighting for realistic reflections.
+	</brief_description>
+	<description>
+		Represents a captured environment texture probe at a specific location and extent. Generated automatically when [code]environmentTexturing[/code] is set to [code]AUTOMATIC[/code] on the configuration. [b]iOS only.[/b] On visionOS and macOS, this type exists for API consistency but is never populated with real data.
+	</description>
+	<tutorials>
+	</tutorials>
+	<members>
+		<member name="extent" type="Vector3" setter="set_extent" getter="get_extent" default="Vector3(0, 0, 0)">The size of the region covered by this environment probe.</member>
+		<member name="has_environment_texture" type="bool" setter="set_has_environment_texture" getter="get_has_environment_texture" default="false">Whether the probe currently contains a captured environment texture.</member>
+		<member name="identifier" type="String" setter="set_identifier" getter="get_identifier" default="&quot;&quot;">A unique identifier for this environment probe anchor.</member>
+		<member name="texture_height" type="int" setter="set_texture_height" getter="get_texture_height" default="0">The height of the captured environment texture in pixels.</member>
+		<member name="texture_width" type="int" setter="set_texture_width" getter="get_texture_width" default="0">The width of the captured environment texture in pixels.</member>
+		<member name="transform" type="Transform3D" setter="set_transform" getter="get_transform" default="Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)">The probe transform in world space.</member>
+	</members>
+</class>

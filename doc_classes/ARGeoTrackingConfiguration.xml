@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<class xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="ARGeoTrackingConfiguration" inherits="RefCounted" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Configuration for GPS-anchored geo tracking AR sessions.
+	</brief_description>
+	<description>
+		Configures a session for geo tracking, which combines visual localization with GPS to place content at real-world geographic coordinates. Use with [method ARSession.run_geo_tracking]. Call [method check_availability] to verify the current location supports geo tracking before starting. [b]iOS 14+ only.[/b] On visionOS and macOS, [method is_supported] returns false.
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="check_availability" qualifiers="static">
+			<return type="void" />
+			<param index="0" name="callback" type="Callable" />
+			<description>Checks whether geo tracking is currently available at the user's location. The callback receives a boolean result and an optional error message.</description>
+		</method>
+		<method name="is_supported" qualifiers="static">
+			<return type="bool" />
+			<description>Returns [code]true[/code] when the current device supports geo tracking.</description>
+		</method>
+		<method name="set_detection_image_group">
+			<return type="bool" />
+			<param index="0" name="groupName" type="String" />
+			<description>Loads a reference image group from the asset catalog and assigns it to [member detection_image_group_name]. Returns [code]true[/code] on success.</description>
+		</method>
+	</methods>
+	<members>
+		<member name="detection_image_group_name" type="String" setter="set_detection_image_group_name" getter="get_detection_image_group_name" default="&quot;&quot;">The asset-catalog image group used for reference-image detection during geo tracking.</member>
+		<member name="environment_texturing" type="int" setter="set_environment_texturing" getter="get_environment_texturing" default="0">Controls how environment probes are generated during geo tracking.</member>
+		<member name="is_light_estimation_enabled" type="bool" setter="set_is_light_estimation_enabled" getter="get_is_light_estimation_enabled" default="true">When enabled, ARKit produces [ARLightEstimate] data for geo-tracking frames.</member>
+		<member name="plane_detection_mask" type="int" setter="set_plane_detection_mask" getter="get_plane_detection_mask" default="0">Bitmask of [enum ARWorldTrackingConfiguration.PlaneDetection] values to detect while geo tracking.</member>
+		<member name="wants_hdr_environment_textures" type="bool" setter="set_wants_hdr_environment_textures" getter="get_wants_hdr_environment_textures" default="false">Requests HDR environment textures when environment texturing is enabled.</member>
+	</members>
+</class>

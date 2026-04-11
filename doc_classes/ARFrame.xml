@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<class xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="ARFrame" inherits="RefCounted" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Contains per-frame AR data including camera pose, anchors, and on iOS, captured images.
+	</brief_description>
+	<description>
+		Provides access to the current AR frame's camera, anchors, light estimate, and feature points. On iOS, also provides access to raw camera image planes, person segmentation buffers, and estimated depth data.
+		[b]Platform availability:[/b]
+		- [b]iOS:[/b] Full support including captured image data, segmentation, and depth.
+		- [b]visionOS/macOS:[/b] Camera, anchors, and world mapping status are available. Captured image, segmentation, and depth properties return empty values because the passthrough camera feed is composited by the OS and not accessible to applications.
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="display_transform">
+			<return type="PackedFloat32Array" />
+			<param index="0" name="orientation" type="int" />
+			<param index="1" name="viewportSize" type="Vector2" />
+			<description>Returns a transform that maps normalized image coordinates into display coordinates for the given interface orientation and viewport size.</description>
+		</method>
+		<method name="get_anchor">
+			<return type="RefCounted" />
+			<param index="0" name="index" type="int" />
+			<description>Returns the anchor at [param index] from [member anchors], or [code]null[/code] if the index is out of range.</description>
+		</method>
+		<method name="get_captured_image_plane_count">
+			<return type="int" />
+			<description>
+				Returns the number of planes in the captured camera image. [b]iOS only.[/b] Returns 0 on visionOS/macOS.
+			</description>
+		</method>
+		<method name="get_captured_image_plane_data">
+			<return type="PackedByteArray" />
+			<param index="0" name="plane" type="int" />
+			<description>
+				Returns the raw pixel data for the given image plane. [b]iOS only.[/b] Returns empty on visionOS/macOS.
+			</description>
+		</method>
+		<method name="get_captured_image_plane_size">
+			<return type="Vector2" />
+			<param index="0" name="plane" type="int" />
+			<description>
+				Returns the dimensions of the given image plane. [b]iOS only.[/b] Returns zero on visionOS/macOS.
+			</description>
+		</method>
+		<method name="get_captured_image_plane_stride">
+			<return type="int" />
+			<param index="0" name="plane" type="int" />
+			<description>
+				Returns the bytes-per-row stride for the given image plane. [b]iOS only.[/b] Returns 0 on visionOS/macOS.
+			</description>
+		</method>
+		<method name="get_estimated_depth_data">
+			<return type="PackedByteArray" />
+			<description>
+				Returns the estimated depth buffer for person segmentation. [b]iOS 13+ only.[/b] Requires [code]PERSON_SEGMENTATION_WITH_DEPTH[/code] frame semantics. Returns empty on visionOS/macOS.
+			</description>
+		</method>
+		<method name="get_segmentation_buffer">
+			<return type="PackedByteArray" />
+			<description>
+				Returns the person segmentation matte buffer. [b]iOS 13+ only.[/b] Requires [code]PERSON_SEGMENTATION[/code] frame semantics. Returns empty on visionOS/macOS.
+			</description>
+		</method>
+	</methods>
+	<members>
+		<member name="anchors" type="Array" setter="" getter="get_anchors" default="[]">The anchors associated with this frame.</member>
+		<member name="camera" type="ARCamera" setter="" getter="get_camera">The camera sample for this frame.</member>
+		<member name="captured_image_size" type="Vector2" setter="" getter="get_captured_image_size" default="Vector2(0, 0)">
+			Size of the captured camera image in pixels. [b]iOS only.[/b] Returns zero on visionOS/macOS.
+		</member>
+		<member name="estimated_depth_data_size" type="Vector2" setter="" getter="get_estimated_depth_data_size" default="Vector2(0, 0)">
+			Size of the estimated depth buffer. [b]iOS 13+ only.[/b] Requires [code]PERSON_SEGMENTATION_WITH_DEPTH[/code] frame semantics enabled. Returns zero on visionOS/macOS.
+		</member>
+		<member name="light_estimate" type="ARLightEstimate" setter="" getter="get_light_estimate" default="null">Estimated lighting information for this frame, if available.</member>
+		<member name="raw_feature_points" type="ARPointCloud" setter="" getter="get_raw_feature_points" default="null">The raw feature-point cloud tracked in this frame, if available.</member>
+		<member name="segmentation_buffer_size" type="Vector2" setter="" getter="get_segmentation_buffer_size" default="Vector2(0, 0)">
+			Size of the person segmentation buffer. [b]iOS 13+ only.[/b] Requires [code]PERSON_SEGMENTATION[/code] or [code]PERSON_SEGMENTATION_WITH_DEPTH[/code] frame semantics enabled. Returns zero on visionOS/macOS.
+		</member>
+		<member name="timestamp" type="float" setter="" getter="get_timestamp" default="0.0">The frame timestamp in seconds.</member>
+		<member name="world_mapping_status" type="int" setter="" getter="get_world_mapping_status" default="0">How complete the world map is for this frame. See [enum WorldMappingStatus].</member>
+	</members>
+	<constants>
+		<constant name="NOT_AVAILABLE" value="0" enum="WorldMappingStatus">No world mapping information is available yet.</constant>
+		<constant name="LIMITED" value="1" enum="WorldMappingStatus">World mapping has started but remains limited.</constant>
+		<constant name="EXTENDING" value="2" enum="WorldMappingStatus">ARKit is actively extending the mapped area.</constant>
+		<constant name="MAPPED" value="3" enum="WorldMappingStatus">The local environment is well mapped.</constant>
+	</constants>
+</class>

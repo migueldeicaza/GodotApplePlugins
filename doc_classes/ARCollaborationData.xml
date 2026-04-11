@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<class xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="ARCollaborationData" inherits="RefCounted" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Collaboration data for multi-peer AR sessions.
+	</brief_description>
+	<description>
+		Encapsulates spatial data that can be exchanged between devices for shared AR experiences. Received via the [signal ARSession.collaboration_data_received] signal and sent to peers via [method ARSession.update_with_collaboration_data]. Use [method serialize] and [method deserialize] to transmit over a network transport (e.g. MultipeerConnectivity). [b]iOS 13+ only.[/b] Requires [code]isCollaborationEnabled[/code] on the configuration. On visionOS/macOS, this type exists for API consistency but serialize/deserialize are no-ops.
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="deserialize" qualifiers="static">
+			<return type="ARCollaborationData" />
+			<param index="0" name="data" type="PackedByteArray" />
+			<description>Creates an [ARCollaborationData] instance from serialized network data.</description>
+		</method>
+		<method name="serialize">
+			<return type="PackedByteArray" />
+			<description>Serializes this collaboration packet into a [PackedByteArray] so it can be sent to another peer.</description>
+		</method>
+	</methods>
+	<members>
+		<member name="priority" type="int" setter="set_priority" getter="get_priority" default="1">Indicates whether this collaboration packet is optional or critical to session convergence.</member>
+	</members>
+	<constants>
+		<constant name="CRITICAL" value="0" enum="Priority">This packet is essential for accurate shared-session synchronization.</constant>
+		<constant name="OPTIONAL" value="1" enum="Priority">This packet improves shared-session quality but may be dropped if needed.</constant>
+	</constants>
+</class>

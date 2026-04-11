@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<class xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="ARHandSkeleton" inherits="RefCounted" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Provides joint transforms for a tracked hand skeleton.
+	</brief_description>
+	<description>
+		Contains 27 joint transforms (wrist through forearm) for a tracked hand. Access individual joints with [method get_joint_transform] or get all at once with [method get_all_joint_transforms]. [b]visionOS only.[/b] On iOS and macOS, this type exists for API consistency but returns empty/default values.
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="get_all_joint_transforms">
+			<return type="Array" />
+			<description>Returns every joint transform in enum order as an [Array] of [Transform3D] values.</description>
+		</method>
+		<method name="get_joint_is_tracked">
+			<return type="bool" />
+			<param index="0" name="joint" type="int" enum="JointName" />
+			<description>Returns whether the requested hand joint currently has reliable tracking data.</description>
+		</method>
+		<method name="get_joint_transform">
+			<return type="Transform3D" />
+			<param index="0" name="joint" type="int" enum="JointName" />
+			<description>Returns the transform for the requested hand joint, relative to the hand anchor.</description>
+		</method>
+	</methods>
+	<members>
+		<member name="joint_count" type="int" setter="set_joint_count" getter="get_joint_count" default="0">The number of joints available in this hand skeleton.</member>
+	</members>
+	<constants>
+		<constant name="WRIST" value="0" enum="JointName">Joint identifier for the wrist.</constant>
+		<constant name="THUMB_KNUCKLE" value="1" enum="JointName">Joint identifier for the thumb knuckle.</constant>
+		<constant name="THUMB_INTERMEDIATE_BASE" value="2" enum="JointName">Joint identifier for the thumb intermediate base.</constant>
+		<constant name="THUMB_INTERMEDIATE_TIP" value="3" enum="JointName">Joint identifier for the thumb intermediate tip.</constant>
+		<constant name="THUMB_TIP" value="4" enum="JointName">Joint identifier for the thumb tip.</constant>
+		<constant name="INDEX_FINGER_METACARPAL" value="5" enum="JointName">Joint identifier for the index finger metacarpal.</constant>
+		<constant name="INDEX_FINGER_KNUCKLE" value="6" enum="JointName">Joint identifier for the index finger knuckle.</constant>
+		<constant name="INDEX_FINGER_INTERMEDIATE_BASE" value="7" enum="JointName">Joint identifier for the index finger intermediate base.</constant>
+		<constant name="INDEX_FINGER_INTERMEDIATE_TIP" value="8" enum="JointName">Joint identifier for the index finger intermediate tip.</constant>
+		<constant name="INDEX_FINGER_TIP" value="9" enum="JointName">Joint identifier for the index finger tip.</constant>
+		<constant name="MIDDLE_FINGER_METACARPAL" value="10" enum="JointName">Joint identifier for the middle finger metacarpal.</constant>
+		<constant name="MIDDLE_FINGER_KNUCKLE" value="11" enum="JointName">Joint identifier for the middle finger knuckle.</constant>
+		<constant name="MIDDLE_FINGER_INTERMEDIATE_BASE" value="12" enum="JointName">Joint identifier for the middle finger intermediate base.</constant>
+		<constant name="MIDDLE_FINGER_INTERMEDIATE_TIP" value="13" enum="JointName">Joint identifier for the middle finger intermediate tip.</constant>
+		<constant name="MIDDLE_FINGER_TIP" value="14" enum="JointName">Joint identifier for the middle finger tip.</constant>
+		<constant name="RING_FINGER_METACARPAL" value="15" enum="JointName">Joint identifier for the ring finger metacarpal.</constant>
+		<constant name="RING_FINGER_KNUCKLE" value="16" enum="JointName">Joint identifier for the ring finger knuckle.</constant>
+		<constant name="RING_FINGER_INTERMEDIATE_BASE" value="17" enum="JointName">Joint identifier for the ring finger intermediate base.</constant>
+		<constant name="RING_FINGER_INTERMEDIATE_TIP" value="18" enum="JointName">Joint identifier for the ring finger intermediate tip.</constant>
+		<constant name="RING_FINGER_TIP" value="19" enum="JointName">Joint identifier for the ring finger tip.</constant>
+		<constant name="LITTLE_FINGER_METACARPAL" value="20" enum="JointName">Joint identifier for the little finger metacarpal.</constant>
+		<constant name="LITTLE_FINGER_KNUCKLE" value="21" enum="JointName">Joint identifier for the little finger knuckle.</constant>
+		<constant name="LITTLE_FINGER_INTERMEDIATE_BASE" value="22" enum="JointName">Joint identifier for the little finger intermediate base.</constant>
+		<constant name="LITTLE_FINGER_INTERMEDIATE_TIP" value="23" enum="JointName">Joint identifier for the little finger intermediate tip.</constant>
+		<constant name="LITTLE_FINGER_TIP" value="24" enum="JointName">Joint identifier for the little finger tip.</constant>
+		<constant name="FOREARM_WRIST" value="25" enum="JointName">Joint identifier for the forearm wrist.</constant>
+		<constant name="FOREARM_ARM" value="26" enum="JointName">Joint identifier for the forearm arm.</constant>
+	</constants>
+</class>

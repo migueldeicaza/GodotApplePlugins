@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<class xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="ARFaceAnchor" inherits="RefCounted" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>A tracked face anchor with mesh, eye, and expression data.</brief_description>
+	<description>Represents a tracked face mesh, eye transforms, gaze direction, and blend-shape coefficients. Use [method get_blend_shape_value] to drive facial animation or avatar rigs. [b]iOS only.[/b] Requires a TrueDepth-capable device. On visionOS and macOS, this type exists for API consistency but is never populated with live face-tracking data.</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="get_blend_shape_value">
+			<return type="float" />
+			<param index="0" name="location" type="int" enum="BlendShapeLocation" />
+			<description>Returns the current coefficient for the requested face blend shape. Values are typically in the range [code]0.0[/code] to [code]1.0[/code].</description>
+		</method>
+	</methods>
+	<members>
+		<member name="geometry_texture_coordinates" type="PackedVector2Array" setter="set_geometry_texture_coordinates" getter="get_geometry_texture_coordinates" default="PackedVector2Array()">Texture coordinates for the face mesh vertices.</member>
+		<member name="geometry_vertices" type="PackedVector3Array" setter="set_geometry_vertices" getter="get_geometry_vertices" default="PackedVector3Array()">Face mesh vertices in anchor-local space.</member>
+		<member name="identifier" type="String" setter="set_identifier" getter="get_identifier" default="&quot;&quot;">A unique identifier for this face anchor.</member>
+		<member name="is_tracked" type="bool" setter="set_is_tracked" getter="get_is_tracked" default="false">Whether the face is currently tracked with reliable data.</member>
+		<member name="left_eye_transform" type="Transform3D" setter="set_left_eye_transform" getter="get_left_eye_transform" default="Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)">The transform of the left eye relative to the face anchor.</member>
+		<member name="look_at_point" type="Vector3" setter="set_look_at_point" getter="get_look_at_point" default="Vector3(0, 0, 0)">A point in face space representing the user's gaze direction.</member>
+		<member name="right_eye_transform" type="Transform3D" setter="set_right_eye_transform" getter="get_right_eye_transform" default="Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)">The transform of the right eye relative to the face anchor.</member>
+		<member name="transform" type="Transform3D" setter="set_transform" getter="get_transform" default="Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)">The face anchor transform in world space.</member>
+		<member name="triangle_indices" type="PackedInt32Array" setter="set_triangle_indices" getter="get_triangle_indices" default="PackedInt32Array()">Triangle indices for the face mesh.</member>
+	</members>
+	<constants>
+		<constant name="EYE_BLINK_LEFT" value="0" enum="BlendShapeLocation">Blend shape coefficient for eye blink left.</constant>
+		<constant name="EYE_LOOK_DOWN_LEFT" value="1" enum="BlendShapeLocation">Blend shape coefficient for eye look down left.</constant>
+		<constant name="EYE_LOOK_IN_LEFT" value="2" enum="BlendShapeLocation">Blend shape coefficient for eye look in left.</constant>
+		<constant name="EYE_LOOK_OUT_LEFT" value="3" enum="BlendShapeLocation">Blend shape coefficient for eye look out left.</constant>
+		<constant name="EYE_LOOK_UP_LEFT" value="4" enum="BlendShapeLocation">Blend shape coefficient for eye look up left.</constant>
+		<constant name="EYE_SQUINT_LEFT" value="5" enum="BlendShapeLocation">Blend shape coefficient for eye squint left.</constant>
+		<constant name="EYE_WIDE_LEFT" value="6" enum="BlendShapeLocation">Blend shape coefficient for eye wide left.</constant>
+		<constant name="EYE_BLINK_RIGHT" value="7" enum="BlendShapeLocation">Blend shape coefficient for eye blink right.</constant>
+		<constant name="EYE_LOOK_DOWN_RIGHT" value="8" enum="BlendShapeLocation">Blend shape coefficient for eye look down right.</constant>
+		<constant name="EYE_LOOK_IN_RIGHT" value="9" enum="BlendShapeLocation">Blend shape coefficient for eye look in right.</constant>
+		<constant name="EYE_LOOK_OUT_RIGHT" value="10" enum="BlendShapeLocation">Blend shape coefficient for eye look out right.</constant>
+		<constant name="EYE_LOOK_UP_RIGHT" value="11" enum="BlendShapeLocation">Blend shape coefficient for eye look up right.</constant>
+		<constant name="EYE_SQUINT_RIGHT" value="12" enum="BlendShapeLocation">Blend shape coefficient for eye squint right.</constant>
+		<constant name="EYE_WIDE_RIGHT" value="13" enum="BlendShapeLocation">Blend shape coefficient for eye wide right.</constant>
+		<constant name="JAW_FORWARD" value="14" enum="BlendShapeLocation">Blend shape coefficient for jaw forward.</constant>
+		<constant name="JAW_LEFT" value="15" enum="BlendShapeLocation">Blend shape coefficient for jaw left.</constant>
+		<constant name="JAW_RIGHT" value="16" enum="BlendShapeLocation">Blend shape coefficient for jaw right.</constant>
+		<constant name="JAW_OPEN" value="17" enum="BlendShapeLocation">Blend shape coefficient for jaw open.</constant>
+		<constant name="MOUTH_CLOSE" value="18" enum="BlendShapeLocation">Blend shape coefficient for mouth close.</constant>
+		<constant name="MOUTH_FUNNEL" value="19" enum="BlendShapeLocation">Blend shape coefficient for mouth funnel.</constant>
+		<constant name="MOUTH_PUCKER" value="20" enum="BlendShapeLocation">Blend shape coefficient for mouth pucker.</constant>
+		<constant name="MOUTH_LEFT" value="21" enum="BlendShapeLocation">Blend shape coefficient for mouth left.</constant>
+		<constant name="MOUTH_RIGHT" value="22" enum="BlendShapeLocation">Blend shape coefficient for mouth right.</constant>
+		<constant name="MOUTH_SMILE_LEFT" value="23" enum="BlendShapeLocation">Blend shape coefficient for mouth smile left.</constant>
+		<constant name="MOUTH_SMILE_RIGHT" value="24" enum="BlendShapeLocation">Blend shape coefficient for mouth smile right.</constant>
+		<constant name="MOUTH_FROWN_LEFT" value="25" enum="BlendShapeLocation">Blend shape coefficient for mouth frown left.</constant>
+		<constant name="MOUTH_FROWN_RIGHT" value="26" enum="BlendShapeLocation">Blend shape coefficient for mouth frown right.</constant>
+		<constant name="MOUTH_DIMPLE_LEFT" value="27" enum="BlendShapeLocation">Blend shape coefficient for mouth dimple left.</constant>
+		<constant name="MOUTH_DIMPLE_RIGHT" value="28" enum="BlendShapeLocation">Blend shape coefficient for mouth dimple right.</constant>
+		<constant name="MOUTH_STRETCH_LEFT" value="29" enum="BlendShapeLocation">Blend shape coefficient for mouth stretch left.</constant>
+		<constant name="MOUTH_STRETCH_RIGHT" value="30" enum="BlendShapeLocation">Blend shape coefficient for mouth stretch right.</constant>
+		<constant name="MOUTH_ROLL_LOWER" value="31" enum="BlendShapeLocation">Blend shape coefficient for mouth roll lower.</constant>
+		<constant name="MOUTH_ROLL_UPPER" value="32" enum="BlendShapeLocation">Blend shape coefficient for mouth roll upper.</constant>
+		<constant name="MOUTH_SHRUG_LOWER" value="33" enum="BlendShapeLocation">Blend shape coefficient for mouth shrug lower.</constant>
+		<constant name="MOUTH_SHRUG_UPPER" value="34" enum="BlendShapeLocation">Blend shape coefficient for mouth shrug upper.</constant>
+		<constant name="MOUTH_PRESS_LEFT" value="35" enum="BlendShapeLocation">Blend shape coefficient for mouth press left.</constant>
+		<constant name="MOUTH_PRESS_RIGHT" value="36" enum="BlendShapeLocation">Blend shape coefficient for mouth press right.</constant>
+		<constant name="MOUTH_LOWER_DOWN_LEFT" value="37" enum="BlendShapeLocation">Blend shape coefficient for mouth lower down left.</constant>
+		<constant name="MOUTH_LOWER_DOWN_RIGHT" value="38" enum="BlendShapeLocation">Blend shape coefficient for mouth lower down right.</constant>
+		<constant name="MOUTH_UPPER_UP_LEFT" value="39" enum="BlendShapeLocation">Blend shape coefficient for mouth upper up left.</constant>
+		<constant name="MOUTH_UPPER_UP_RIGHT" value="40" enum="BlendShapeLocation">Blend shape coefficient for mouth upper up right.</constant>
+		<constant name="BROW_DOWN_LEFT" value="41" enum="BlendShapeLocation">Blend shape coefficient for brow down left.</constant>
+		<constant name="BROW_DOWN_RIGHT" value="42" enum="BlendShapeLocation">Blend shape coefficient for brow down right.</constant>
+		<constant name="BROW_INNER_UP" value="43" enum="BlendShapeLocation">Blend shape coefficient for brow inner up.</constant>
+		<constant name="BROW_OUTER_UP_LEFT" value="44" enum="BlendShapeLocation">Blend shape coefficient for brow outer up left.</constant>
+		<constant name="BROW_OUTER_UP_RIGHT" value="45" enum="BlendShapeLocation">Blend shape coefficient for brow outer up right.</constant>
+		<constant name="CHEEK_PUFF" value="46" enum="BlendShapeLocation">Blend shape coefficient for cheek puff.</constant>
+		<constant name="CHEEK_SQUINT_LEFT" value="47" enum="BlendShapeLocation">Blend shape coefficient for cheek squint left.</constant>
+		<constant name="CHEEK_SQUINT_RIGHT" value="48" enum="BlendShapeLocation">Blend shape coefficient for cheek squint right.</constant>
+		<constant name="NOSE_SNEER_LEFT" value="49" enum="BlendShapeLocation">Blend shape coefficient for nose sneer left.</constant>
+		<constant name="NOSE_SNEER_RIGHT" value="50" enum="BlendShapeLocation">Blend shape coefficient for nose sneer right.</constant>
+		<constant name="TONGUE_OUT" value="51" enum="BlendShapeLocation">Blend shape coefficient for tongue out.</constant>
+	</constants>
+</class>

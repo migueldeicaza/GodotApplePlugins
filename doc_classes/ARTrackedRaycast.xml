@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<class xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="ARTrackedRaycast" inherits="RefCounted" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		A continuously-tracked raycast that updates as the scene evolves.
+	</brief_description>
+	<description>
+		Created by [method ARSession.tracked_raycast]. Continuously refines raycast results as ARKit learns more about the environment. Call [method stop_tracking] to end. [b]iOS only.[/b] On visionOS/macOS, [method ARSession.tracked_raycast] always returns null.
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="stop_tracking">
+			<return type="void" />
+			<description>Stops the tracked raycast and prevents further callback updates.</description>
+		</method>
+	</methods>
+	<members>
+		<member name="is_tracking" type="bool" setter="set_is_tracking" getter="get_is_tracking" default="false">Whether the tracked raycast is still active and producing updates.</member>
+	</members>
+</class>

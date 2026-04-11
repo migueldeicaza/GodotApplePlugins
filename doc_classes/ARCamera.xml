@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<class xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="ARCamera" inherits="RefCounted" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Provides camera tracking state and pose information from an AR session.
+	</brief_description>
+	<description>
+		Wraps the AR camera data, including the device pose, tracking state, and on iOS, camera intrinsics and projection matrices.
+		[b]Platform availability:[/b]
+		- [b]iOS:[/b] Full support including intrinsics, projection matrices, exposure, and image resolution.
+		- [b]visionOS/macOS:[/b] Only [member transform], [member euler_angles], [member tracking_state], [member tracking_state_reason], and [member timestamp] are available. Camera intrinsics, projection matrices, exposure, and image resolution return empty/zero values because the system compositor owns the camera pipeline and Apple does not expose lens parameters to applications.
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="project_point">
+			<return type="Vector2" />
+			<param index="0" name="point" type="Vector3" />
+			<param index="1" name="orientation" type="int" />
+			<param index="2" name="viewportSize" type="Vector2" />
+			<description>
+				Projects a 3D point to 2D screen coordinates. [b]iOS only.[/b] Returns zero on visionOS/macOS because camera intrinsics are not available.
+			</description>
+		</method>
+		<method name="projection_matrix_for_orientation">
+			<return type="PackedFloat32Array" />
+			<param index="0" name="orientation" type="int" />
+			<param index="1" name="viewportSize" type="Vector2" />
+			<param index="2" name="zNear" type="float" />
+			<param index="3" name="zFar" type="float" />
+			<description>
+				Returns a projection matrix for the given orientation and viewport. [b]iOS only.[/b] Returns empty on visionOS/macOS.
+			</description>
+		</method>
+		<method name="unproject_point">
+			<return type="Vector3" />
+			<param index="0" name="point" type="Vector2" />
+			<param index="1" name="ontoPlaneWithTransform" type="Transform3D" />
+			<param index="2" name="orientation" type="int" />
+			<param index="3" name="viewportSize" type="Vector2" />
+			<description>
+				Unprojects a 2D point onto a plane in 3D space. [b]iOS only.[/b] Returns zero on visionOS/macOS.
+			</description>
+		</method>
+		<method name="view_matrix_for_orientation">
+			<return type="Transform3D" />
+			<param index="0" name="orientation" type="int" />
+			<description>Returns a view transform for the given interface orientation. [b]iOS only.[/b] Returns the default transform on visionOS/macOS.</description>
+		</method>
+	</methods>
+	<members>
+		<member name="euler_angles" type="Vector3" setter="" getter="get_euler_angles" default="Vector3(0, 0, 0)">The camera orientation expressed as Euler angles in radians.</member>
+		<member name="exposure_duration" type="float" setter="" getter="get_exposure_duration" default="0.0">
+			Exposure time in seconds. [b]iOS 13+ only.[/b] Returns zero on visionOS/macOS.
+		</member>
+		<member name="exposure_offset" type="float" setter="" getter="get_exposure_offset" default="0.0">
+			Exposure EV offset. [b]iOS 13+ only.[/b] Returns zero on visionOS/macOS.
+		</member>
+		<member name="image_resolution" type="Vector2" setter="" getter="get_image_resolution" default="Vector2(0, 0)">
+			The camera image resolution in pixels. [b]iOS only.[/b] Returns zero on visionOS/macOS.
+		</member>
+		<member name="intrinsics" type="PackedFloat32Array" setter="" getter="get_intrinsics" default="PackedFloat32Array()">
+			The camera intrinsic matrix (3x3). [b]iOS only.[/b] Returns empty on visionOS/macOS.
+		</member>
+		<member name="projection_matrix" type="PackedFloat32Array" setter="" getter="get_projection_matrix" default="PackedFloat32Array()">
+			The camera projection matrix (4x4). [b]iOS only.[/b] Returns empty on visionOS/macOS.
+		</member>
+		<member name="timestamp" type="float" setter="" getter="get_timestamp" default="0.0">The frame timestamp associated with this camera sample.</member>
+		<member name="tracking_state" type="int" setter="" getter="get_tracking_state" default="0">The current quality of camera tracking. See [enum TrackingState].</member>
+		<member name="tracking_state_reason" type="int" setter="" getter="get_tracking_state_reason" default="0">If tracking is limited, explains why. See [enum TrackingStateReason].</member>
+		<member name="transform" type="Transform3D" setter="" getter="get_transform" default="Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)">The camera transform in world space.</member>
+	</members>
+	<constants>
+		<constant name="NOT_AVAILABLE" value="0" enum="TrackingState">Camera tracking is not available.</constant>
+		<constant name="LIMITED" value="1" enum="TrackingState">Camera tracking is available but currently limited.</constant>
+		<constant name="NORMAL" value="2" enum="TrackingState">Camera tracking is operating normally.</constant>
+		<constant name="NONE" value="0" enum="TrackingStateReason">No specific reason is reported for limited tracking.</constant>
+		<constant name="INITIALIZING" value="1" enum="TrackingStateReason">Tracking is limited because the session is still initializing.</constant>
+		<constant name="EXCESSIVE_MOTION" value="2" enum="TrackingStateReason">Tracking is limited because the device is moving too quickly.</constant>
+		<constant name="INSUFFICIENT_FEATURES" value="3" enum="TrackingStateReason">Tracking is limited because the scene lacks enough visual features.</constant>
+		<constant name="RELOCALIZING" value="4" enum="TrackingStateReason">Tracking is limited because ARKit is attempting to relocalize in a known map.</constant>
+	</constants>
+</class>

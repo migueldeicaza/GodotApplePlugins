@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<class xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="ARPointCloud" inherits="RefCounted" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>A sparse set of feature points detected by ARKit.</brief_description>
+	<description>Stores a sparse cloud of visual feature points tracked by ARKit. Feature points are useful for debugging tracking quality, building visualization tools, or understanding the density of the mapped environment.</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="get_identifier">
+			<return type="int" />
+			<param index="0" name="index" type="int" />
+			<description>Returns the persistent identifier for the feature point at [param index].</description>
+		</method>
+		<method name="get_point">
+			<return type="Vector3" />
+			<param index="0" name="index" type="int" />
+			<description>Returns the feature-point position at [param index].</description>
+		</method>
+	</methods>
+	<members>
+		<member name="count" type="int" setter="set_count" getter="get_count" default="0">The number of feature points in this cloud.</member>
+		<member name="identifiers" type="PackedInt64Array" setter="set_identifiers" getter="get_identifiers" default="PackedInt64Array()">Stable identifiers for the feature points, matching the order of [member points].</member>
+		<member name="points" type="PackedVector3Array" setter="set_points" getter="get_points" default="PackedVector3Array()">Feature-point positions in world space.</member>
+	</members>
+</class>

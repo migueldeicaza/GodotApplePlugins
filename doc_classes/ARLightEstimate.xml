@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<class xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="ARLightEstimate" inherits="RefCounted" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>Lighting information estimated from the current AR frame.</brief_description>
+	<description>Provides ambient and directional lighting values extracted from the current frame. Use these values to better match virtual content to the real scene. Directional light data is only present when the platform exposes it; otherwise those fields remain zero or empty.</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="is_directional">
+			<return type="bool" />
+			<description>Returns [code]true[/code] when directional light information is available in addition to ambient lighting.</description>
+		</method>
+	</methods>
+	<members>
+		<member name="ambient_color_temperature" type="float" setter="set_ambient_color_temperature" getter="get_ambient_color_temperature" default="0.0">Estimated ambient color temperature in Kelvin.</member>
+		<member name="ambient_intensity" type="float" setter="set_ambient_intensity" getter="get_ambient_intensity" default="0.0">Estimated ambient light intensity.</member>
+		<member name="primary_light_direction" type="Vector3" setter="set_primary_light_direction" getter="get_primary_light_direction" default="Vector3(0, 0, 0)">Direction of the dominant light source when directional lighting is available.</member>
+		<member name="primary_light_intensity" type="float" setter="set_primary_light_intensity" getter="get_primary_light_intensity" default="0.0">Intensity of the dominant light source when directional lighting is available.</member>
+		<member name="spherical_harmonics_coefficients" type="PackedFloat32Array" setter="set_spherical_harmonics_coefficients" getter="get_spherical_harmonics_coefficients" default="PackedFloat32Array()">Spherical harmonics coefficients describing ambient scene lighting.</member>
+	</members>
+</class>

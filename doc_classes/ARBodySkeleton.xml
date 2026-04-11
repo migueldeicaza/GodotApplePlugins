@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<class xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="ARBodySkeleton" inherits="RefCounted" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Provides joint transforms for a tracked body skeleton.
+	</brief_description>
+	<description>
+		Contains the 3D joint transforms for a tracked body. Access joints by index using [method get_joint_transform] and [method get_joint_name]. [b]iOS only.[/b] On visionOS and macOS, this type exists for API consistency but returns empty/default values.
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="get_joint_is_tracked">
+			<return type="bool" />
+			<param index="0" name="index" type="int" />
+			<description>Returns whether the joint at [param index] is currently tracked with reliable data.</description>
+		</method>
+		<method name="get_joint_name">
+			<return type="String" />
+			<param index="0" name="index" type="int" />
+			<description>Returns the Apple-defined name for the joint at [param index].</description>
+		</method>
+		<method name="get_joint_transform">
+			<return type="Transform3D" />
+			<param index="0" name="index" type="int" />
+			<description>Returns the joint transform for the joint at [param index], relative to the body anchor.</description>
+		</method>
+	</methods>
+	<members>
+		<member name="joint_count" type="int" setter="set_joint_count" getter="get_joint_count" default="0">The number of joints available in this skeleton.</member>
+	</members>
+</class>

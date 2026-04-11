@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<class xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="ARBodyTrackingConfiguration" inherits="RefCounted" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Configuration for body tracking AR sessions.
+	</brief_description>
+	<description>
+		Configures a session for full-body skeletal tracking. Use with [method ARSession.run_body_tracking]. [b]iOS only.[/b] On visionOS and macOS, [method is_supported] returns false and the configuration is inert.
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="is_supported" qualifiers="static">
+			<return type="bool" />
+			<description>Returns [code]true[/code] when the current device supports ARKit body tracking.</description>
+		</method>
+	</methods>
+	<members>
+		<member name="automatic_skeleton_scale_estimation_enabled" type="bool" setter="set_automatic_skeleton_scale_estimation_enabled" getter="get_automatic_skeleton_scale_estimation_enabled" default="false">When enabled, ARKit automatically estimates the body's skeleton scale.</member>
+		<member name="is_auto_focus_enabled" type="bool" setter="set_is_auto_focus_enabled" getter="get_is_auto_focus_enabled" default="true">When enabled, the camera may adjust focus automatically during tracking.</member>
+		<member name="is_light_estimation_enabled" type="bool" setter="set_is_light_estimation_enabled" getter="get_is_light_estimation_enabled" default="true">When enabled, ARKit produces [ARLightEstimate] data for each frame.</member>
+	</members>
+</class>

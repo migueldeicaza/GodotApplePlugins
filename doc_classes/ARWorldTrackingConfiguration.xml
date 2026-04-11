@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<class xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="ARWorldTrackingConfiguration" inherits="RefCounted" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>Configuration for world-tracking AR sessions.</brief_description>
+	<description>Configures a world-tracking session for 6DoF device tracking plus optional features such as plane detection, scene reconstruction, image tracking, collaboration, and frame semantics. Use this configuration with [method ARSession.run]. Availability of individual features varies by platform and device.</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="is_supported" qualifiers="static">
+			<return type="bool" />
+			<description>Returns [code]true[/code] when the current device supports world tracking.</description>
+		</method>
+		<method name="set_detection_image_group">
+			<return type="bool" />
+			<param index="0" name="groupName" type="String" />
+			<description>Loads a reference image group from the asset catalog and assigns it to [member detection_image_group_name]. Returns [code]true[/code] on success.</description>
+		</method>
+		<method name="supports_app_clip_code_tracking" qualifiers="static">
+			<return type="bool" />
+			<description>Returns [code]true[/code] when App Clip code tracking is supported on the current device.</description>
+		</method>
+		<method name="supports_scene_reconstruction" qualifiers="static">
+			<return type="bool" />
+			<param index="0" name="scene_reconstruction" type="int" enum="SceneReconstruction" />
+			<description>Returns [code]true[/code] when the requested scene reconstruction mode is supported.</description>
+		</method>
+		<method name="supports_user_face_tracking" qualifiers="static">
+			<return type="bool" />
+			<description>Returns [code]true[/code] when simultaneous world and user face tracking is supported.</description>
+		</method>
+	</methods>
+	<members>
+		<member name="app_clip_code_tracking_enabled" type="bool" setter="set_app_clip_code_tracking_enabled" getter="get_app_clip_code_tracking_enabled" default="false">When enabled, the session attempts to detect App Clip codes.</member>
+		<member name="automatic_image_scale_estimation_enabled" type="bool" setter="set_automatic_image_scale_estimation_enabled" getter="get_automatic_image_scale_estimation_enabled" default="false">When enabled, ARKit refines the physical scale estimate of tracked reference images.</member>
+		<member name="detection_image_group_name" type="String" setter="set_detection_image_group_name" getter="get_detection_image_group_name" default="&quot;&quot;">The asset-catalog image group used for reference-image detection.</member>
+		<member name="environment_texturing" type="int" setter="set_environment_texturing" getter="get_environment_texturing" default="0">Controls how environment textures are generated. See [enum EnvironmentTexturing].</member>
+		<member name="frame_semantics_mask" type="int" setter="set_frame_semantics_mask" getter="get_frame_semantics_mask" default="0">Bitmask of [enum FrameSemantics] values enabled for the session.</member>
+		<member name="hand_tracking_enabled" type="bool" setter="set_hand_tracking_enabled" getter="get_hand_tracking_enabled" default="false">When enabled, visionOS hand-tracking data is included when supported.</member>
+		<member name="is_auto_focus_enabled" type="bool" setter="set_is_auto_focus_enabled" getter="get_is_auto_focus_enabled" default="true">When enabled, the camera may adjust focus automatically during tracking.</member>
+		<member name="is_collaboration_enabled" type="bool" setter="set_is_collaboration_enabled" getter="get_is_collaboration_enabled" default="false">When enabled, the session produces collaboration data for multi-user AR.</member>
+		<member name="is_light_estimation_enabled" type="bool" setter="set_is_light_estimation_enabled" getter="get_is_light_estimation_enabled" default="true">When enabled, ARKit produces [ARLightEstimate] data for each frame.</member>
+		<member name="maximum_number_of_tracked_images" type="int" setter="set_maximum_number_of_tracked_images" getter="get_maximum_number_of_tracked_images" default="0">Maximum number of reference images to track simultaneously.</member>
+		<member name="plane_detection_mask" type="int" setter="set_plane_detection_mask" getter="get_plane_detection_mask" default="0">Bitmask of [enum PlaneDetection] values that should be detected.</member>
+		<member name="provides_audio_data" type="bool" setter="set_provides_audio_data" getter="get_provides_audio_data" default="false">When enabled on supported platforms, captured audio data is included with the session.</member>
+		<member name="scene_reconstruction" type="int" setter="set_scene_reconstruction" getter="get_scene_reconstruction" default="0">The requested scene reconstruction mode. See [enum SceneReconstruction].</member>
+		<member name="user_face_tracking_enabled" type="bool" setter="set_user_face_tracking_enabled" getter="get_user_face_tracking_enabled" default="false">When enabled on supported iOS devices, ARKit also tracks the user's face during world tracking.</member>
+		<member name="wants_hdr_environment_textures" type="bool" setter="set_wants_hdr_environment_textures" getter="get_wants_hdr_environment_textures" default="false">Requests HDR environment textures when environment texturing is enabled.</member>
+		<member name="world_alignment" type="int" setter="set_world_alignment" getter="get_world_alignment" default="0">Defines how the world coordinate system is aligned. See [enum WorldAlignment].</member>
+	</members>
+	<constants>
+		<constant name="GRAVITY" value="0" enum="WorldAlignment">Align the world so the Y axis matches gravity.</constant>
+		<constant name="GRAVITY_AND_HEADING" value="1" enum="WorldAlignment">Align the world to gravity and the device heading.</constant>
+		<constant name="CAMERA" value="2" enum="WorldAlignment">Align the world relative to the camera orientation at session start.</constant>
+		<constant name="NONE" value="0" enum="EnvironmentTexturing">Disable environment texturing.</constant>
+		<constant name="MANUAL" value="1" enum="EnvironmentTexturing">Use manually provided environment probes only.</constant>
+		<constant name="AUTOMATIC" value="2" enum="EnvironmentTexturing">Allow ARKit to generate environment probes automatically.</constant>
+		<constant name="HORIZONTAL" value="1" enum="PlaneDetection">Detect horizontal planes.</constant>
+		<constant name="VERTICAL" value="2" enum="PlaneDetection">Detect vertical planes.</constant>
+		<constant name="SLANTED" value="4" enum="PlaneDetection">Detect slanted planes when supported.</constant>
+		<constant name="MESH" value="1" enum="SceneReconstruction">Reconstruct scene geometry as a mesh.</constant>
+		<constant name="MESH_WITH_CLASSIFICATION" value="3" enum="SceneReconstruction">Reconstruct scene geometry and classify mesh faces.</constant>
+		<constant name="PERSON_SEGMENTATION" value="1" enum="FrameSemantics">Enable person segmentation mattes.</constant>
+		<constant name="PERSON_SEGMENTATION_WITH_DEPTH" value="2" enum="FrameSemantics">Enable person segmentation mattes with estimated depth.</constant>
+		<constant name="BODY_DETECTION" value="4" enum="FrameSemantics">Enable body detection semantics.</constant>
+	</constants>
+</class>

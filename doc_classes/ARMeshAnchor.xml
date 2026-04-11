@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<class xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="ARMeshAnchor" inherits="RefCounted" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>A scene-reconstruction mesh anchored in world space.</brief_description>
+	<description>Represents a chunk of reconstructed scene geometry. Mesh anchors expose vertices, normals, triangle indices, and optional per-face classifications such as wall, floor, or table. These anchors are useful for occlusion, physics, spatial understanding, and procedural mesh generation.</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="get_face_classification">
+			<return type="int" />
+			<param index="0" name="faceIndex" type="int" />
+			<description>Returns the semantic classification for the triangle face at [param faceIndex].</description>
+		</method>
+		<method name="get_normal">
+			<return type="Vector3" />
+			<param index="0" name="index" type="int" />
+			<description>Returns the surface normal at vertex [param index].</description>
+		</method>
+		<method name="get_vertex">
+			<return type="Vector3" />
+			<param index="0" name="index" type="int" />
+			<description>Returns the mesh vertex at [param index].</description>
+		</method>
+	</methods>
+	<members>
+		<member name="classification_per_face" type="PackedInt32Array" setter="set_classification_per_face" getter="get_classification_per_face" default="PackedInt32Array()">Semantic classification value for each mesh face.</member>
+		<member name="geometry_normals" type="PackedVector3Array" setter="set_geometry_normals" getter="get_geometry_normals" default="PackedVector3Array()">Normal vectors for the mesh vertices.</member>
+		<member name="geometry_vertices" type="PackedVector3Array" setter="set_geometry_vertices" getter="get_geometry_vertices" default="PackedVector3Array()">Mesh vertices in anchor-local space.</member>
+		<member name="identifier" type="String" setter="set_identifier" getter="get_identifier" default="&quot;&quot;">A unique identifier for this mesh anchor.</member>
+		<member name="transform" type="Transform3D" setter="set_transform" getter="get_transform" default="Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)">The mesh anchor transform in world space.</member>
+		<member name="triangle_indices" type="PackedInt32Array" setter="set_triangle_indices" getter="get_triangle_indices" default="PackedInt32Array()">Triangle index data for the reconstructed mesh.</member>
+	</members>
+	<constants>
+		<constant name="NONE" value="0" enum="MeshClassification">No semantic classification is available for this face.</constant>
+		<constant name="WALL" value="1" enum="MeshClassification">The mesh face is classified as a wall.</constant>
+		<constant name="FLOOR" value="2" enum="MeshClassification">The mesh face is classified as a floor.</constant>
+		<constant name="CEILING" value="3" enum="MeshClassification">The mesh face is classified as a ceiling.</constant>
+		<constant name="TABLE" value="4" enum="MeshClassification">The mesh face is classified as a table-like surface.</constant>
+		<constant name="SEAT" value="5" enum="MeshClassification">The mesh face is classified as a seat.</constant>
+		<constant name="WINDOW" value="6" enum="MeshClassification">The mesh face is classified as a window.</constant>
+		<constant name="DOOR" value="7" enum="MeshClassification">The mesh face is classified as a door.</constant>
+	</constants>
+</class>

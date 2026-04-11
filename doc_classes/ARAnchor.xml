@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<class xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="ARAnchor" inherits="RefCounted" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>A positioned anchor in AR space.</brief_description>
+	<description>Base wrapper for ARKit anchors. Use it for generic anchor inspection or create anchors to place custom content in the session with [method ARSession.add_anchor]. More specific anchor types such as [ARPlaneAnchor], [ARImageAnchor], and [ARMeshAnchor] expose additional data.</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="copy_anchor">
+			<return type="ARAnchor" />
+			<description>Returns a copy of this anchor when the underlying platform supports cloning. Returns [code]null[/code] if the anchor cannot be copied.</description>
+		</method>
+		<method name="create" qualifiers="static">
+			<return type="ARAnchor" />
+			<param index="0" name="transform" type="Transform3D" />
+			<description>Creates a new unnamed anchor at [param transform]. Use the result with [method ARSession.add_anchor].</description>
+		</method>
+		<method name="create_named" qualifiers="static">
+			<return type="ARAnchor" />
+			<param index="0" name="name" type="String" />
+			<param index="1" name="transform" type="Transform3D" />
+			<description>Creates a new anchor with [param name] at [param transform]. The name is useful for identifying custom anchors when they are reported back through session signals.</description>
+		</method>
+	</methods>
+	<members>
+		<member name="identifier" type="String" setter="" getter="get_identifier" default="&quot;A98BDC8F-1028-4446-8B7F-F1227960CA6B&quot;">A unique identifier for this anchor instance.</member>
+		<member name="name" type="String" setter="" getter="get_name" default="&quot;&quot;">The optional name assigned to this anchor.</member>
+		<member name="session_identifier" type="String" setter="" getter="get_session_identifier" default="&quot;&quot;">The identifier of the AR session that produced this anchor, when available.</member>
+		<member name="transform" type="Transform3D" setter="" getter="get_transform" default="Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)">The anchor transform in world space.</member>
+	</members>
+</class>

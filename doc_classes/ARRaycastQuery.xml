@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<class xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="ARRaycastQuery" inherits="RefCounted" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Defines a raycast query against detected AR surfaces.
+	</brief_description>
+	<description>
+		Describes the origin, direction, target surface type, and alignment for a raycast. [b]iOS only.[/b] On visionOS and macOS, this type exists for API consistency but raycasting is not available through ARKit. On visionOS, use RealityKit scene queries (CollisionComponent) for spatial hit-testing instead.
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="create" qualifiers="static">
+			<return type="ARRaycastQuery" />
+			<param index="0" name="origin" type="Vector3" />
+			<param index="1" name="direction" type="Vector3" />
+			<param index="2" name="target" type="int" enum="Target" />
+			<param index="3" name="targetAlignment" type="int" enum="TargetAlignment" />
+			<description>Creates a raycast query from [param origin] along [param direction], using the requested target type and alignment.</description>
+		</method>
+	</methods>
+	<members>
+		<member name="direction" type="Vector3" setter="set_direction" getter="get_direction" default="Vector3(0, 0, 0)">The ray direction in world space.</member>
+		<member name="origin" type="Vector3" setter="set_origin" getter="get_origin" default="Vector3(0, 0, 0)">The ray origin in world space.</member>
+		<member name="target" type="int" setter="set_target" getter="get_target" default="1">The type of surface the raycast should test against. See [enum Target].</member>
+		<member name="target_alignment" type="int" setter="set_target_alignment" getter="get_target_alignment" default="2">The alignment constraint applied to matches. See [enum TargetAlignment].</member>
+	</members>
+	<constants>
+		<constant name="EXISTING_PLANE_GEOMETRY" value="1" enum="Target">Match against the actual geometry of detected planes.</constant>
+		<constant name="EXISTING_PLANE_INFINITE" value="2" enum="Target">Match against infinite extensions of detected planes.</constant>
+		<constant name="ESTIMATED_PLANE" value="3" enum="Target">Match against estimated planes inferred from feature points.</constant>
+		<constant name="HORIZONTAL" value="0" enum="TargetAlignment">Restrict matches to horizontal surfaces.</constant>
+		<constant name="VERTICAL" value="1" enum="TargetAlignment">Restrict matches to vertical surfaces.</constant>
+		<constant name="ANY" value="2" enum="TargetAlignment">Allow matches on surfaces of any supported alignment.</constant>
+	</constants>
+</class>

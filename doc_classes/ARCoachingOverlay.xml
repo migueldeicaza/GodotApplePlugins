@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<class xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="ARCoachingOverlay" inherits="RefCounted" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		A standard Apple onboarding overlay that guides users during AR session setup.
+	</brief_description>
+	<description>
+		Wraps ARCoachingOverlayView, which provides a system-standard UI that instructs users to move their device to initialize tracking. Attach to a session with [method attach_to_session] and configure the [member goal] to match your AR experience. [b]iOS only.[/b] On visionOS, the system provides its own spatial onboarding UX. On macOS, there is no equivalent. The type exists on all platforms for API consistency but is a no-op outside iOS.
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="attach_to_session">
+			<return type="void" />
+			<param index="0" name="session" type="ARSession" />
+			<description>Attaches the overlay to [param session] so the system can present coaching UI for that session.</description>
+		</method>
+		<method name="set_active">
+			<return type="void" />
+			<param index="0" name="active" type="bool" />
+			<param index="1" name="animated" type="bool" />
+			<description>Shows or hides the coaching overlay. When [param animated] is [code]true[/code], the transition uses the system animation.</description>
+		</method>
+	</methods>
+	<members>
+		<member name="activates_automatically" type="bool" setter="set_activates_automatically" getter="get_activates_automatically" default="true">When enabled, the overlay appears automatically whenever the session needs coaching.</member>
+		<member name="goal" type="int" setter="set_goal" getter="get_goal" default="0">The type of guidance the overlay should provide. See [enum Goal].</member>
+	</members>
+	<signals>
+		<signal name="coaching_did_deactivate">
+			<description>Emitted when the coaching overlay finishes and dismisses itself.</description>
+		</signal>
+	</signals>
+	<constants>
+		<constant name="TRACKING" value="0" enum="Goal">Guide the user until general tracking quality is sufficient.</constant>
+		<constant name="HORIZONTAL_PLANE" value="1" enum="Goal">Guide the user until a horizontal plane is found.</constant>
+		<constant name="VERTICAL_PLANE" value="2" enum="Goal">Guide the user until a vertical plane is found.</constant>
+		<constant name="ANY_PLANE" value="3" enum="Goal">Guide the user until any supported plane is found.</constant>
+		<constant name="GEO_TRACKING" value="4" enum="Goal">Guide the user until geo tracking becomes available.</constant>
+	</constants>
+</class>

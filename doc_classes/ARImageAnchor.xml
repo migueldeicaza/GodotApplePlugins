@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<class xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="ARImageAnchor" inherits="RefCounted" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>An anchor created when a reference image is detected in the scene.</brief_description>
+	<description>Represents a detected reference image in the real world. Image anchors are produced when the session is configured with a reference image group. The anchor exposes the image name, physical size, tracking state, and estimated scale factor.</description>
+	<tutorials>
+	</tutorials>
+	<members>
+		<member name="estimated_scale_factor" type="float" setter="set_estimated_scale_factor" getter="get_estimated_scale_factor" default="1.0">ARKit's current estimate of the detected image's scale relative to its reference size.</member>
+		<member name="identifier" type="String" setter="set_identifier" getter="get_identifier" default="&quot;&quot;">A unique identifier for this image anchor.</member>
+		<member name="is_tracked" type="bool" setter="set_is_tracked" getter="get_is_tracked" default="false">Whether the image is currently tracked with reliable pose updates.</member>
+		<member name="reference_image_name" type="String" setter="set_reference_image_name" getter="get_reference_image_name" default="&quot;&quot;">The name of the detected reference image from the asset catalog.</member>
+		<member name="reference_image_physical_size" type="Vector2" setter="set_reference_image_physical_size" getter="get_reference_image_physical_size" default="Vector2(0, 0)">The physical size of the reference image in meters.</member>
+		<member name="transform" type="Transform3D" setter="set_transform" getter="get_transform" default="Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)">The image anchor transform in world space.</member>
+	</members>
+</class>

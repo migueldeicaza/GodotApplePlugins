@@ -1,6 +1,6 @@
 ![banner](./doctools/GodotApplePlugins.webp)
 
-Godot Plugins for deep Apple platform integration, works on MacOS and iOS.
+Godot Plugins for deep Apple platform integration across macOS, iOS, and visionOS.
 
 <p align="center">
 <strong>
@@ -18,6 +18,21 @@ This add-on currently includes comprehensive support for:
 * StoreKit2 (https://migueldeicaza.github.io/GodotApplePlugins/class_storekitmanager.html)
 * Sign-in with Apple (AuthenticationServices)
 * AppleFilePicker: allow your application to invoke the file system picker.
+* ARKit: world tracking sessions, frames/camera data, anchors, raycasts, world maps, body and hand tracking, geo tracking, coaching overlays, environment probes, and collaboration data. See the API docs for platform-specific availability.
+
+## ARKit
+
+The ARKit binding is documented in `doc_classes/` and in the published API reference. The surface includes:
+
+* Core session types: `ARSession`, `ARWorldTrackingConfiguration`, `ARFrame`, `ARCamera`, `ARLightEstimate`, `ARPointCloud`
+* Anchors: `ARAnchor`, `ARPlaneAnchor`, `ARImageAnchor`, `ARMeshAnchor`, `ARFaceAnchor`, `ARBodyAnchor`, `ARHandAnchor`, `AREnvironmentProbeAnchor`, `ARGeoAnchor`
+* Session helpers: `ARRaycastQuery`, `ARRaycastResult`, `ARTrackedRaycast`, `ARWorldMap`, `ARCoachingOverlay`, `ARCollaborationData`
+
+Platform notes:
+
+* iOS provides the broadest ARKit coverage.
+* visionOS uses the provider-based `ARKitSession` backend.
+* macOS uses the remote-device ARKit session workflow exposed by Apple.
 
 The release contains both binaries for MacOS as dynamic libraries and
 an iOS xcframework compiled with the "Mergeable Library" feature.
@@ -30,7 +45,7 @@ megs at the time of this writing).
 
 # Requirements
 
-iOS 17.0, MacOS Sonoma (14.0)
+iOS 17.0, macOS 14.0, visionOS 1.0
 
 # Stub Generator
 
