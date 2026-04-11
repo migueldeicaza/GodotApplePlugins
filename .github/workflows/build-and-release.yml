@@ -254,7 +254,7 @@ jobs:
             --wait
 
       - name: Publish release
-        if: startsWith(github.ref, 'refs/heads/')
+        if: github.ref == 'refs/heads/main'
         uses: softprops/action-gh-release@v1
         with:
           tag_name: build-${{ github.sha }}

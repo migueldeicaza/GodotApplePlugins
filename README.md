@@ -68,6 +68,23 @@ Useful overrides:
 - `STUB_FILES`: optional space-separated list of XML files or class names to include
 - `STUB_HEADERS_DIR`: directory containing `gdextension_interface.h`
 
+# Documentation
+
+To build the API documentation locally, run:
+
+```sh
+make -C doctools html
+```
+
+The local docs tool defaults to `$(HOME)/cvs/master-godot/doc/classes` when that exists, and falls back to `$(HOME)/cvs/master-godot/editor/doc/classes` for older checkouts. You can override that path, or the HTML output directory, when needed:
+
+```sh
+make -C doctools html GODOT_DOCS_SOURCE=/path/to/godot/doc/classes
+make -C doctools html GODOT_DOCS_SOURCE=/path/to/godot/doc/classes HTML_OUTPUT=../site
+```
+
+GitHub Pages deployment is handled by the `Deploy Docs` workflow on pushes to `main`; the repository Pages source should be set to `GitHub Actions`.
+
 # API Design
 
 The API surfaced by this add-ons is to be as close to possible to the Apple APIs (classes, methods names, enumerations) and to avoid attempting to provide an abstraction over them - as these tend to have impedance mismatches.  
