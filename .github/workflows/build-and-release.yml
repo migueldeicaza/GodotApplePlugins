@@ -146,6 +146,10 @@ jobs:
 
           # Create temporary keychain
           KEYCHAIN_PATH="$RUNNER_TEMP/app-signing.keychain-db"
+          DEFAULT_KEYCHAIN_PATH=""
+          if security default-keychain -d user >/tmp/default-keychain-path 2>/dev/null; then
+            DEFAULT_KEYCHAIN_PATH=$(tr -d '"' </tmp/default-keychain-path)
+          fi
           ORIGINAL_KEYCHAINS=$(
             security list-keychains -d user |
             tr -d '"' |
@@ -154,7 +158,8 @@ jobs:
           security create-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
           security set-keychain-settings -lut 21600 "$KEYCHAIN_PATH"
           security unlock-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
-          security list-keychains -d user -s "$KEYCHAIN_PATH" $ORIGINAL_KEYCHAINS
+          security list-keychains -d user -s "$KEYCHAIN_PATH"
+          security default-keychain -d user -s "$KEYCHAIN_PATH"
 
           # Import certificate
           printf '%s' "$MACOS_CERTIFICATE" | base64 --decode > "$RUNNER_TEMP/certificate.p12"
@@ -165,6 +170,7 @@ jobs:
 
           {
             echo "KEYCHAIN_PATH=$KEYCHAIN_PATH"
+            echo "DEFAULT_KEYCHAIN_PATH=$DEFAULT_KEYCHAIN_PATH"
             echo "ORIGINAL_KEYCHAINS=$ORIGINAL_KEYCHAINS"
           } >> "$GITHUB_ENV"
 
@@ -260,6 +266,9 @@ jobs:
         if: always() && env.KEYCHAIN_PATH != ''
         run: |
           security delete-keychain "$KEYCHAIN_PATH" || true
+          if [ -n "${DEFAULT_KEYCHAIN_PATH:-}" ]; then
+            security default-keychain -d user -s "$DEFAULT_KEYCHAIN_PATH" || true
+          fi
           if [ -n "${ORIGINAL_KEYCHAINS:-}" ]; then
             security list-keychains -d user -s $ORIGINAL_KEYCHAINS || true
           fi
