@@ -1,0 +1,65 @@
+name: Deploy Docs
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/deploy-docs.yml
+      - README.md
+      - doc_classes/**
+      - doctools/**
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install documentation dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install sphinx sphinx-tabs
+
+      - name: Fetch Godot documentation sources
+        run: |
+          git clone --depth=1 --branch master https://github.com/godotengine/godot.git /tmp/godot
+
+      - name: Build documentation site
+        working-directory: doctools
+        run: |
+          make html \
+            GODOT_DOCS_SOURCE=/tmp/godot/doc/classes \
+            HTML_OUTPUT=../site
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
