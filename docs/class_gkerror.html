@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>GKError &#8212; GodotApplePlugins  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="GKGameActivity" href="class_gkgameactivity.html" />
+    <link rel="prev" title="GKChallengeDefinition" href="class_gkchallengedefinition.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="gkerror">
+<span id="class-gkerror"></span><h1>GKError<a class="headerlink" href="#gkerror" title="Link to this heading">¶</a></h1>
+<p><strong>Inherits:</strong> <span class="xref std std-ref">RefCounted</span> <strong>&lt;</strong> <span class="xref std std-ref">Object</span></p>
+<p>Represents an error returned by Game Center operations.</p>
+<section class="classref-introduction-group" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Link to this heading">¶</a></h2>
+<p>This class wraps <code class="docutils literal notranslate"><span class="pre">GKError</span></code> information, providing the error code, domain, and localized message.</p>
+<p>The <a class="reference internal" href="#class-gkerror-property-code"><span class="std std-ref">code</span></a> property corresponds to the <a class="reference internal" href="#enum-gkerror-code"><span class="std std-ref">Code</span></a> constants.</p>
+</section>
+<section class="classref-reftable-group" id="properties">
+<h2>Properties<a class="headerlink" href="#properties" title="Link to this heading">¶</a></h2>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><span class="xref std std-ref">int</span></p></td>
+<td><p><a class="reference internal" href="#class-gkerror-property-code"><span class="std std-ref">code</span></a></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><span class="xref std std-ref">String</span></p></td>
+<td><p><a class="reference internal" href="#class-gkerror-property-domain"><span class="std std-ref">domain</span></a></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="xref std std-ref">String</span></p></td>
+<td><p><a class="reference internal" href="#class-gkerror-property-message"><span class="std std-ref">message</span></a></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<hr class="classref-section-separator docutils" />
+<section class="classref-descriptions-group" id="enumerations">
+<h2>Enumerations<a class="headerlink" href="#enumerations" title="Link to this heading">¶</a></h2>
+<p class="classref-enumeration" id="enum-gkerror-code">enum <strong>Code</strong>: <a class="reference internal" href="#enum-gkerror-code"><span class="std std-ref">🔗</span></a></p>
+<p class="classref-enumeration-constant" id="class-gkerror-constant-game-unrecognized"><a class="reference internal" href="#enum-gkerror-code"><span class="std std-ref">Code</span></a> <strong>GAME_UNRECOGNIZED</strong> = <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<p>The system can’t complete the requested operation because Game Center doesn’t recognize the app.</p>
+<p class="classref-enumeration-constant" id="class-gkerror-constant-not-supported"><a class="reference internal" href="#enum-gkerror-code"><span class="std std-ref">Code</span></a> <strong>NOT_SUPPORTED</strong> = <code class="docutils literal notranslate"><span class="pre">1</span></code></p>
+<p>Game Center isn’t available for this app, device, or account.</p>
+<p class="classref-enumeration-constant" id="class-gkerror-constant-app-unlisted"><a class="reference internal" href="#enum-gkerror-code"><span class="std std-ref">Code</span></a> <strong>APP_UNLISTED</strong> = <code class="docutils literal notranslate"><span class="pre">2</span></code></p>
+<p>The system can’t complete the requested operation because the game isn’t available on the App Store.</p>
+<p class="classref-enumeration-constant" id="class-gkerror-constant-unknown"><a class="reference internal" href="#enum-gkerror-code"><span class="std std-ref">Code</span></a> <strong>UNKNOWN</strong> = <code class="docutils literal notranslate"><span class="pre">3</span></code></p>
+<p>The system can’t complete the requested operation due to an unknown error.</p>
+<p class="classref-enumeration-constant" id="class-gkerror-constant-cancelled"><a class="reference internal" href="#enum-gkerror-code"><span class="std std-ref">Code</span></a> <strong>CANCELLED</strong> = <code class="docutils literal notranslate"><span class="pre">4</span></code></p>
+<p>The operation was canceled by the user or by the system.</p>
+<p class="classref-enumeration-constant" id="class-gkerror-constant-communications-failure"><a class="reference internal" href="#enum-gkerror-code"><span class="std std-ref">Code</span></a> <strong>COMMUNICATIONS_FAILURE</strong> = <code class="docutils literal notranslate"><span class="pre">5</span></code></p>
+<p>The system can’t complete the requested operation due to an error communicating with the server.</p>
+<p class="classref-enumeration-constant" id="class-gkerror-constant-invalid-player"><a class="reference internal" href="#enum-gkerror-code"><span class="std std-ref">Code</span></a> <strong>INVALID_PLAYER</strong> = <code class="docutils literal notranslate"><span class="pre">6</span></code></p>
+<p>The system can’t complete the requested operation because the player is invalid.</p>
+<p class="classref-enumeration-constant" id="class-gkerror-constant-invalid-parameter"><a class="reference internal" href="#enum-gkerror-code"><span class="std std-ref">Code</span></a> <strong>INVALID_PARAMETER</strong> = <code class="docutils literal notranslate"><span class="pre">7</span></code></p>
+<p>The system can’t complete the requested operation because one or more parameters are invalid.</p>
+<p class="classref-enumeration-constant" id="class-gkerror-constant-game-session-request-invalid"><a class="reference internal" href="#enum-gkerror-code"><span class="std std-ref">Code</span></a> <strong>GAME_SESSION_REQUEST_INVALID</strong> = <code class="docutils literal notranslate"><span class="pre">8</span></code></p>
+<p>The properties of the game session request are impossible to fulfill.</p>
+<p class="classref-enumeration-constant" id="class-gkerror-constant-api-not-available"><a class="reference internal" href="#enum-gkerror-code"><span class="std std-ref">Code</span></a> <strong>API_NOT_AVAILABLE</strong> = <code class="docutils literal notranslate"><span class="pre">9</span></code></p>
+<p>The system can’t complete the requested operation because the API isn’t available.</p>
+<p class="classref-enumeration-constant" id="class-gkerror-constant-connection-timeout"><a class="reference internal" href="#enum-gkerror-code"><span class="std std-ref">Code</span></a> <strong>CONNECTION_TIMEOUT</strong> = <code class="docutils literal notranslate"><span class="pre">10</span></code></p>
+<p>The system can’t complete the requested operation because the connection timed out.</p>
+<p class="classref-enumeration-constant" id="class-gkerror-constant-api-obsolete"><a class="reference internal" href="#enum-gkerror-code"><span class="std std-ref">Code</span></a> <strong>API_OBSOLETE</strong> = <code class="docutils literal notranslate"><span class="pre">11</span></code></p>
+<p>The operation uses an obsolete Game Center API.</p>
+<p class="classref-enumeration-constant" id="class-gkerror-constant-user-denied"><a class="reference internal" href="#enum-gkerror-code"><span class="std std-ref">Code</span></a> <strong>USER_DENIED</strong> = <code class="docutils literal notranslate"><span class="pre">12</span></code></p>
+<p>The system can’t complete the requested operation because the user denied it.</p>
+<p class="classref-enumeration-constant" id="class-gkerror-constant-invalid-credentials"><a class="reference internal" href="#enum-gkerror-code"><span class="std std-ref">Code</span></a> <strong>INVALID_CREDENTIALS</strong> = <code class="docutils literal notranslate"><span class="pre">13</span></code></p>
+<p>The system can’t complete the requested operation because the user name or password are incorrect.</p>
+<p class="classref-enumeration-constant" id="class-gkerror-constant-not-authenticated"><a class="reference internal" href="#enum-gkerror-code"><span class="std std-ref">Code</span></a> <strong>NOT_AUTHENTICATED</strong> = <code class="docutils literal notranslate"><span class="pre">14</span></code></p>
+<p>The local player is not authenticated with Game Center.</p>
+<p class="classref-enumeration-constant" id="class-gkerror-constant-authentication-in-progress"><a class="reference internal" href="#enum-gkerror-code"><span class="std std-ref">Code</span></a> <strong>AUTHENTICATION_IN_PROGRESS</strong> = <code class="docutils literal notranslate"><span class="pre">15</span></code></p>
+<p>The system can’t complete the requested operation because the local player is already authenticating.</p>
+<p class="classref-enumeration-constant" id="class-gkerror-constant-parental-controls-blocked"><a class="reference internal" href="#enum-gkerror-code"><span class="std std-ref">Code</span></a> <strong>PARENTAL_CONTROLS_BLOCKED</strong> = <code class="docutils literal notranslate"><span class="pre">16</span></code></p>
+<p>The system can’t complete the requested operation because the user disabled this feature in Restrictions.</p>
+<p class="classref-enumeration-constant" id="class-gkerror-constant-player-status-exceeds-maximum-length"><a class="reference internal" href="#enum-gkerror-code"><span class="std std-ref">Code</span></a> <strong>PLAYER_STATUS_EXCEEDS_MAXIMUM_LENGTH</strong> = <code class="docutils literal notranslate"><span class="pre">17</span></code></p>
+<p>The player’s status exceeds the maximum length.</p>
+<p class="classref-enumeration-constant" id="class-gkerror-constant-player-status-invalid"><a class="reference internal" href="#enum-gkerror-code"><span class="std std-ref">Code</span></a> <strong>PLAYER_STATUS_INVALID</strong> = <code class="docutils literal notranslate"><span class="pre">18</span></code></p>
+<p>The player’s status is invalid.</p>
+<p class="classref-enumeration-constant" id="class-gkerror-constant-underage"><a class="reference internal" href="#enum-gkerror-code"><span class="std std-ref">Code</span></a> <strong>UNDERAGE</strong> = <code class="docutils literal notranslate"><span class="pre">19</span></code></p>
+<p>The system can’t complete the requested operation because this feature isn’t available to underage players.</p>
+<p class="classref-enumeration-constant" id="class-gkerror-constant-player-photo-failure"><a class="reference internal" href="#enum-gkerror-code"><span class="std std-ref">Code</span></a> <strong>PLAYER_PHOTO_FAILURE</strong> = <code class="docutils literal notranslate"><span class="pre">20</span></code></p>
+<p>The system can’t complete the requested operation to retrieve a player’s photo.</p>
+<p class="classref-enumeration-constant" id="class-gkerror-constant-ubiquity-container-unavailable"><a class="reference internal" href="#enum-gkerror-code"><span class="std std-ref">Code</span></a> <strong>UBIQUITY_CONTAINER_UNAVAILABLE</strong> = <code class="docutils literal notranslate"><span class="pre">21</span></code></p>
+<p>The system can’t complete the requested operation because the user hasn’t signed in to iCloud or hasn’t enabled iCloud Drive.</p>
+<p class="classref-enumeration-constant" id="class-gkerror-constant-not-authorized"><a class="reference internal" href="#enum-gkerror-code"><span class="std std-ref">Code</span></a> <strong>NOT_AUTHORIZED</strong> = <code class="docutils literal notranslate"><span class="pre">22</span></code></p>
+<p>The app or player is not authorized to perform this operation.</p>
+<p class="classref-enumeration-constant" id="class-gkerror-constant-icloud-unavailable"><a class="reference internal" href="#enum-gkerror-code"><span class="std std-ref">Code</span></a> <strong>ICLOUD_UNAVAILABLE</strong> = <code class="docutils literal notranslate"><span class="pre">23</span></code></p>
+<p>The system can’t complete the requested operation because it can’t access the player’s iCloud account.</p>
+<p class="classref-enumeration-constant" id="class-gkerror-constant-lockdown-mode"><a class="reference internal" href="#enum-gkerror-code"><span class="std std-ref">Code</span></a> <strong>LOCKDOWN_MODE</strong> = <code class="docutils literal notranslate"><span class="pre">24</span></code></p>
+<p>The system can’t complete the requested operation because the player enabled Lockdown Mode on the device.</p>
+<p class="classref-enumeration-constant" id="class-gkerror-constant-friend-list-description-missing"><a class="reference internal" href="#enum-gkerror-code"><span class="std std-ref">Code</span></a> <strong>FRIEND_LIST_DESCRIPTION_MISSING</strong> = <code class="docutils literal notranslate"><span class="pre">25</span></code></p>
+<p>Access to the friends list was denied because a required usage description is missing.</p>
+<p class="classref-enumeration-constant" id="class-gkerror-constant-friend-list-restricted"><a class="reference internal" href="#enum-gkerror-code"><span class="std std-ref">Code</span></a> <strong>FRIEND_LIST_RESTRICTED</strong> = <code class="docutils literal notranslate"><span class="pre">26</span></code></p>
+<p>Access to the local player’s friends list is restricted by system policy.</p>
+<p class="classref-enumeration-constant" id="class-gkerror-constant-friend-list-denied"><a class="reference internal" href="#enum-gkerror-code"><span class="std std-ref">Code</span></a> <strong>FRIEND_LIST_DENIED</strong> = <code class="docutils literal notranslate"><span class="pre">27</span></code></p>
+<p>Access to the local player’s friends list was denied by the user.</p>
+<p class="classref-enumeration-constant" id="class-gkerror-constant-friend-request-not-available"><a class="reference internal" href="#enum-gkerror-code"><span class="std std-ref">Code</span></a> <strong>FRIEND_REQUEST_NOT_AVAILABLE</strong> = <code class="docutils literal notranslate"><span class="pre">28</span></code></p>
+<p>The player can’t send a friend request at this time from this device.</p>
+<p class="classref-enumeration-constant" id="class-gkerror-constant-match-request-invalid"><a class="reference internal" href="#enum-gkerror-code"><span class="std std-ref">Code</span></a> <strong>MATCH_REQUEST_INVALID</strong> = <code class="docutils literal notranslate"><span class="pre">29</span></code></p>
+<p>The system can’t complete the requested operation because the match request is invalid.</p>
+<p class="classref-enumeration-constant" id="class-gkerror-constant-unexpected-connection"><a class="reference internal" href="#enum-gkerror-code"><span class="std std-ref">Code</span></a> <strong>UNEXPECTED_CONNECTION</strong> = <code class="docutils literal notranslate"><span class="pre">30</span></code></p>
+<p>An unexpected player has connected to a match.</p>
+<p class="classref-enumeration-constant" id="class-gkerror-constant-invitations-disabled"><a class="reference internal" href="#enum-gkerror-code"><span class="std std-ref">Code</span></a> <strong>INVITATIONS_DISABLED</strong> = <code class="docutils literal notranslate"><span class="pre">31</span></code></p>
+<p>The system can’t complete the requested operation because the receiving player has disabled invitations.</p>
+<p class="classref-enumeration-constant" id="class-gkerror-constant-match-not-connected"><a class="reference internal" href="#enum-gkerror-code"><span class="std std-ref">Code</span></a> <strong>MATCH_NOT_CONNECTED</strong> = <code class="docutils literal notranslate"><span class="pre">32</span></code></p>
+<p>The system can’t complete the requested operation because the match isn’t connected to other players.</p>
+<p class="classref-enumeration-constant" id="class-gkerror-constant-restricted-to-automatch"><a class="reference internal" href="#enum-gkerror-code"><span class="std std-ref">Code</span></a> <strong>RESTRICTED_TO_AUTOMATCH</strong> = <code class="docutils literal notranslate"><span class="pre">33</span></code></p>
+<p>The system can’t complete the requested operation because the player is using automatch.</p>
+<p class="classref-enumeration-constant" id="class-gkerror-constant-turn-based-match-data-too-large"><a class="reference internal" href="#enum-gkerror-code"><span class="std std-ref">Code</span></a> <strong>TURN_BASED_MATCH_DATA_TOO_LARGE</strong> = <code class="docutils literal notranslate"><span class="pre">34</span></code></p>
+<p>The system can’t complete the requested operation because the match data is too large.</p>
+<p class="classref-enumeration-constant" id="class-gkerror-constant-turn-based-too-many-sessions"><a class="reference internal" href="#enum-gkerror-code"><span class="std std-ref">Code</span></a> <strong>TURN_BASED_TOO_MANY_SESSIONS</strong> = <code class="docutils literal notranslate"><span class="pre">35</span></code></p>
+<p>The system can’t complete the requested operation because it exceeds the maximum number of sessions.</p>
+<p class="classref-enumeration-constant" id="class-gkerror-constant-turn-based-invalid-participant"><a class="reference internal" href="#enum-gkerror-code"><span class="std std-ref">Code</span></a> <strong>TURN_BASED_INVALID_PARTICIPANT</strong> = <code class="docutils literal notranslate"><span class="pre">36</span></code></p>
+<p>The system can’t complete the requested operation because the specified participant is invalid.</p>
+<p class="classref-enumeration-constant" id="class-gkerror-constant-turn-based-invalid-turn"><a class="reference internal" href="#enum-gkerror-code"><span class="std std-ref">Code</span></a> <strong>TURN_BASED_INVALID_TURN</strong> = <code class="docutils literal notranslate"><span class="pre">37</span></code></p>
+<p>The system can’t complete the requested operation because the participant doesn’t have the required turn state.</p>
+<p class="classref-enumeration-constant" id="class-gkerror-constant-turn-based-invalid-state"><a class="reference internal" href="#enum-gkerror-code"><span class="std std-ref">Code</span></a> <strong>TURN_BASED_INVALID_STATE</strong> = <code class="docutils literal notranslate"><span class="pre">38</span></code></p>
+<p>The system can’t complete the requested operation because the session is in an invalid state.</p>
+<p class="classref-enumeration-constant" id="class-gkerror-constant-score-not-set"><a class="reference internal" href="#enum-gkerror-code"><span class="std std-ref">Code</span></a> <strong>SCORE_NOT_SET</strong> = <code class="docutils literal notranslate"><span class="pre">39</span></code></p>
+<p>The system can’t complete the requested operation because the system hasn’t set the score.</p>
+<p class="classref-enumeration-constant" id="class-gkerror-constant-challenge-invalid"><a class="reference internal" href="#enum-gkerror-code"><span class="std std-ref">Code</span></a> <strong>CHALLENGE_INVALID</strong> = <code class="docutils literal notranslate"><span class="pre">40</span></code></p>
+<p>The challenge request failed due to invalid challenge data. (Deprecated)</p>
+<p class="classref-enumeration-constant" id="class-gkerror-constant-debug-mode"><a class="reference internal" href="#enum-gkerror-code"><span class="std std-ref">Code</span></a> <strong>DEBUG_MODE</strong> = <code class="docutils literal notranslate"><span class="pre">41</span></code></p>
+<p>The operation failed because Game Center is running in debug mode.</p>
+</section>
+<hr class="classref-section-separator docutils" />
+<section class="classref-descriptions-group" id="property-descriptions">
+<h2>Property Descriptions<a class="headerlink" href="#property-descriptions" title="Link to this heading">¶</a></h2>
+<p class="classref-property" id="class-gkerror-property-code"><span class="xref std std-ref">int</span> <strong>code</strong> = <code class="docutils literal notranslate"><span class="pre">0</span></code> <a class="reference internal" href="#class-gkerror-property-code"><span class="std std-ref">🔗</span></a></p>
+<ul class="classref-property-setget simple">
+<li><p><abbr title="No return value.">void</abbr> <strong>set_code</strong>(value: <span class="xref std std-ref">int</span>)</p></li>
+<li><p><span class="xref std std-ref">int</span> <strong>get_code</strong>()</p></li>
+</ul>
+<p>The mapped Game Center error code. See <a class="reference internal" href="#enum-gkerror-code"><span class="std std-ref">Code</span></a> for possible values.</p>
+<hr class="classref-item-separator docutils" />
+<p class="classref-property" id="class-gkerror-property-domain"><span class="xref std std-ref">String</span> <strong>domain</strong> = <code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code> <a class="reference internal" href="#class-gkerror-property-domain"><span class="std std-ref">🔗</span></a></p>
+<ul class="classref-property-setget simple">
+<li><p><abbr title="No return value.">void</abbr> <strong>set_domain</strong>(value: <span class="xref std std-ref">String</span>)</p></li>
+<li><p><span class="xref std std-ref">String</span> <strong>get_domain</strong>()</p></li>
+</ul>
+<p>The NSError domain for the failure, typically <code class="docutils literal notranslate"><span class="pre">GKErrorDomain</span></code>.</p>
+<hr class="classref-item-separator docutils" />
+<p class="classref-property" id="class-gkerror-property-message"><span class="xref std std-ref">String</span> <strong>message</strong> = <code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code> <a class="reference internal" href="#class-gkerror-property-message"><span class="std std-ref">🔗</span></a></p>
+<ul class="classref-property-setget simple">
+<li><p><abbr title="No return value.">void</abbr> <strong>set_message</strong>(value: <span class="xref std std-ref">String</span>)</p></li>
+<li><p><span class="xref std std-ref">String</span> <strong>get_message</strong>()</p></li>
+</ul>
+<p>A localized, user-readable description of the failure.</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">GodotApplePlugins</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="class_applefilepicker.html">AppleFilePicker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_appleurl.html">AppleURL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_aranchor.html">ARAnchor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arbodyanchor.html">ARBodyAnchor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arbodyskeleton.html">ARBodySkeleton</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arbodytrackingconfiguration.html">ARBodyTrackingConfiguration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arcamera.html">ARCamera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arcoachingoverlay.html">ARCoachingOverlay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arcollaborationdata.html">ARCollaborationData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arenvironmentprobeanchor.html">AREnvironmentProbeAnchor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arfaceanchor.html">ARFaceAnchor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arframe.html">ARFrame</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_argeoanchor.html">ARGeoAnchor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_argeotrackingconfiguration.html">ARGeoTrackingConfiguration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arhandanchor.html">ARHandAnchor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arhandskeleton.html">ARHandSkeleton</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arimageanchor.html">ARImageAnchor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arlightestimate.html">ARLightEstimate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_armeshanchor.html">ARMeshAnchor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arplaneanchor.html">ARPlaneAnchor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arpointcloud.html">ARPointCloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arraycastquery.html">ARRaycastQuery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arraycastresult.html">ARRaycastResult</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arsession.html">ARSession</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_artrackedraycast.html">ARTrackedRaycast</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arworldmap.html">ARWorldMap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arworldtrackingconfiguration.html">ARWorldTrackingConfiguration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_asauthorizationappleidcredential.html">ASAuthorizationAppleIDCredential</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_asauthorizationcontroller.html">ASAuthorizationController</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_aspasswordcredential.html">ASPasswordCredential</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_aswebauthenticationsession.html">ASWebAuthenticationSession</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_avaudiosession.html">AVAudioSession</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_foundation.html">Foundation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gamecentermanager.html">GameCenterManager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkaccesspoint.html">GKAccessPoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkachievement.html">GKAchievement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkachievementchallenge.html">GKAchievementChallenge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkachievementdescription.html">GKAchievementDescription</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkchallenge.html">GKChallenge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkchallengedefinition.html">GKChallengeDefinition</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">GKError</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkgameactivity.html">GKGameActivity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkgameactivitydefinition.html">GKGameActivityDefinition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkgamecenterviewcontroller.html">GKGameCenterViewController</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkinvite.html">GKInvite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkleaderboard.html">GKLeaderboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkleaderboardentry.html">GKLeaderboardEntry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkleaderboardscore.html">GKLeaderboardScore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkleaderboardset.html">GKLeaderboardSet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gklocalplayer.html">GKLocalPlayer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkmatch.html">GKMatch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkmatchmaker.html">GKMatchmaker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkmatchmakerviewcontroller.html">GKMatchmakerViewController</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkmatchrequest.html">GKMatchRequest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gknotificationbanner.html">GKNotificationBanner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkplayer.html">GKPlayer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gksavedgame.html">GKSavedGame</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkscorechallenge.html">GKScoreChallenge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkturnbasedexchange.html">GKTurnBasedExchange</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkturnbasedexchangereply.html">GKTurnBasedExchangeReply</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkturnbasedmatch.html">GKTurnBasedMatch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkturnbasedmatchmakerviewcontroller.html">GKTurnBasedMatchmakerViewController</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkturnbasedparticipant.html">GKTurnBasedParticipant</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkvoicechat.html">GKVoiceChat</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_productview.html">ProductView</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_signalproxy.html">SignalProxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_storekitmanager.html">StoreKitManager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_storeproduct.html">StoreProduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_storeproductpaymentmode.html">StoreProductPaymentMode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_storeproductpurchaseoption.html">StoreProductPurchaseOption</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_storeproductsubscriptionoffer.html">StoreProductSubscriptionOffer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_storeproductsubscriptionperiod.html">StoreProductSubscriptionPeriod</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_storesubscriptioninfo.html">StoreSubscriptionInfo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_storesubscriptioninforenewalinfo.html">StoreSubscriptionInfoRenewalInfo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_storesubscriptioninfostatus.html">StoreSubscriptionInfoStatus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_storetransaction.html">StoreTransaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_storeview.html">StoreView</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_subscriptionofferview.html">SubscriptionOfferView</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_subscriptionstoreview.html">SubscriptionStoreView</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="class_gkchallengedefinition.html" title="previous chapter">GKChallengeDefinition</a></li>
+      <li>Next: <a href="class_gkgameactivity.html" title="next chapter">GKGameActivity</a></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="_sources/class_gkerror.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

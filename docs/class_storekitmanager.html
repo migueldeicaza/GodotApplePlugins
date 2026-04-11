@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>StoreKitManager &#8212; GodotApplePlugins  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="StoreProduct" href="class_storeproduct.html" />
+    <link rel="prev" title="SignalProxy" href="class_signalproxy.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="storekitmanager">
+<span id="class-storekitmanager"></span><h1>StoreKitManager<a class="headerlink" href="#storekitmanager" title="Link to this heading">¶</a></h1>
+<p><strong>Inherits:</strong> <span class="xref std std-ref">RefCounted</span> <strong>&lt;</strong> <span class="xref std std-ref">Object</span></p>
+<p>Manages StoreKit interactions such as requesting products, purchasing, and restoring purchases.</p>
+<section class="classref-introduction-group" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Link to this heading">¶</a></h2>
+<p>This class handles the core StoreKit functionality. It provides methods to fetch product information from the App Store, initiate purchases,</p>
+<blockquote>
+<div><p>restore previous purchases and be notified of the current status of the purchase upon startup.</p>
+<blockquote>
+<div><p>Once you instantiate this class, connect to the the <a class="reference internal" href="#class-storekitmanager-signal-transaction-updated"><span class="std std-ref">transaction_updated</span></a> signal to</p>
+<p>get notification related to the status of your purchases - these are delivered to notify</p>
+<p>your application of what products your user is entitled to at startup.   If you are using</p>
+<p>Apple’s PurchaseIntent, you will also want to connect to the <a class="reference internal" href="#class-storekitmanager-signal-purchase-intent"><span class="std std-ref">purchase_intent</span></a>.</p>
+</div></blockquote>
+</div></blockquote>
+<p>The <a class="reference internal" href="#class-storekitmanager-signal-transaction-updated"><span class="std std-ref">transaction_updated</span></a> is only raised for verified transactions.</p>
+<p>Apple also supports unverified transactions, those are posted to the <a class="reference internal" href="#class-storekitmanager-signal-unverified-transaction-updated"><span class="std std-ref">unverified_transaction_updated</span></a> signal</p>
+<p>and in addition to the transaction they contains a status code from the <a class="reference internal" href="#enum-storekitmanager-verificationerror"><span class="std std-ref">VerificationError</span></a>.</p>
+<blockquote>
+<div><p>After you have set up your signals, you are ready to receive those events.</p>
+<p>In addition, when you call the <a class="reference internal" href="#class-storekitmanager-method-purchase"><span class="std std-ref">purchase()</span></a> or <a class="reference internal" href="#class-storekitmanager-method-purchase-with-options"><span class="std std-ref">purchase_with_options()</span></a> you will</p>
+<p>want to setup a handler for the <a class="reference internal" href="#class-storekitmanager-signal-purchase-completed"><span class="std std-ref">purchase_completed</span></a> signal which is raised in</p>
+<p>response to different events during the purchasing.</p>
+</div></blockquote>
+</section>
+<section class="classref-reftable-group" id="methods">
+<h2>Methods<a class="headerlink" href="#methods" title="Link to this heading">¶</a></h2>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><abbr title="No return value.">void</abbr></p></td>
+<td><p><a class="reference internal" href="#class-storekitmanager-method-fetch-current-entitlements"><span class="std std-ref">fetch_current_entitlements</span></a>()</p></td>
+</tr>
+<tr class="row-even"><td><p><abbr title="No return value.">void</abbr></p></td>
+<td><p><a class="reference internal" href="#class-storekitmanager-method-purchase"><span class="std std-ref">purchase</span></a>(product: <a class="reference internal" href="class_storeproduct.html#class-storeproduct"><span class="std std-ref">StoreProduct</span></a>)</p></td>
+</tr>
+<tr class="row-odd"><td><p><abbr title="No return value.">void</abbr></p></td>
+<td><p><a class="reference internal" href="#class-storekitmanager-method-purchase-with-options"><span class="std std-ref">purchase_with_options</span></a>(product: <a class="reference internal" href="class_storeproduct.html#class-storeproduct"><span class="std std-ref">StoreProduct</span></a>, options: <span class="xref std std-ref">Array</span>)</p></td>
+</tr>
+<tr class="row-even"><td><p><abbr title="No return value.">void</abbr></p></td>
+<td><p><a class="reference internal" href="#class-storekitmanager-method-request-products"><span class="std std-ref">request_products</span></a>(productIds: <span class="xref std std-ref">PackedStringArray</span>)</p></td>
+</tr>
+<tr class="row-odd"><td><p><abbr title="No return value.">void</abbr></p></td>
+<td><p><a class="reference internal" href="#class-storekitmanager-method-restore-purchases"><span class="std std-ref">restore_purchases</span></a>()</p></td>
+</tr>
+<tr class="row-even"><td><p><abbr title="No return value.">void</abbr></p></td>
+<td><p><a class="reference internal" href="#class-storekitmanager-method-start"><span class="std std-ref">start</span></a>()</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<hr class="classref-section-separator docutils" />
+<section class="classref-descriptions-group" id="signals">
+<h2>Signals<a class="headerlink" href="#signals" title="Link to this heading">¶</a></h2>
+<p class="classref-signal" id="class-storekitmanager-signal-products-request-completed"><strong>products_request_completed</strong>(products: <span class="xref std std-ref">Array</span>, status: <span class="xref std std-ref">int</span>) <a class="reference internal" href="#class-storekitmanager-signal-products-request-completed"><span class="std std-ref">🔗</span></a></p>
+<p>Emitted when a product request completes.</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">products</span></code> is an Array of <a class="reference internal" href="class_storeproduct.html#class-storeproduct"><span class="std std-ref">StoreProduct</span></a>s (or nulls).</p>
+<p><code class="docutils literal notranslate"><span class="pre">status</span></code> indicates success or failure.</p>
+</div></blockquote>
+<hr class="classref-item-separator docutils" />
+<p class="classref-signal" id="class-storekitmanager-signal-purchase-completed"><strong>purchase_completed</strong>(transaction: <a class="reference internal" href="class_storetransaction.html#class-storetransaction"><span class="std std-ref">StoreTransaction</span></a>, status: <span class="xref std std-ref">int</span>, error_message: <span class="xref std std-ref">String</span>) <a class="reference internal" href="#class-storekitmanager-signal-purchase-completed"><span class="std std-ref">🔗</span></a></p>
+<p>Emitted when a purchase completes.</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">transaction</span></code> is the <a class="reference internal" href="class_storetransaction.html#class-storetransaction"><span class="std std-ref">StoreTransaction</span></a> on success.</p>
+<p><code class="docutils literal notranslate"><span class="pre">status</span></code> indicates the result (OK, cancelled, invalid product, etc.).</p>
+<p><code class="docutils literal notranslate"><span class="pre">error_message</span></code> contains error details if failed.</p>
+</div></blockquote>
+<hr class="classref-item-separator docutils" />
+<p class="classref-signal" id="class-storekitmanager-signal-purchase-intent"><strong>purchase_intent</strong>(product: <a class="reference internal" href="class_storeproduct.html#class-storeproduct"><span class="std std-ref">StoreProduct</span></a>) <a class="reference internal" href="#class-storekitmanager-signal-purchase-intent"><span class="std std-ref">🔗</span></a></p>
+<div class="contribute docutils container">
+<p>There is currently no description for this signal. Please help us by <a class="reference external" href="https://contributing.godotengine.org/en/latest/documentation/class_reference.html">contributing one</a>!</p>
+</div>
+<hr class="classref-item-separator docutils" />
+<p class="classref-signal" id="class-storekitmanager-signal-restore-completed"><strong>restore_completed</strong>(status: <span class="xref std std-ref">int</span>, error_message: <span class="xref std std-ref">String</span>) <a class="reference internal" href="#class-storekitmanager-signal-restore-completed"><span class="std std-ref">🔗</span></a></p>
+<p>Emitted when the restore process completes. <cite>arg1</cite> is the <a class="reference internal" href="#enum-storekitmanager-storekitstatus"><span class="std std-ref">StoreKitStatus</span></a>, and <cite>arg2</cite> is an error message if applicable.</p>
+<hr class="classref-item-separator docutils" />
+<p class="classref-signal" id="class-storekitmanager-signal-supscription-update"><strong>supscription_update</strong>(status: <a class="reference internal" href="class_storesubscriptioninfostatus.html#class-storesubscriptioninfostatus"><span class="std std-ref">StoreSubscriptionInfoStatus</span></a>) <a class="reference internal" href="#class-storekitmanager-signal-supscription-update"><span class="std std-ref">🔗</span></a></p>
+<div class="contribute docutils container">
+<p>There is currently no description for this signal. Please help us by <a class="reference external" href="https://contributing.godotengine.org/en/latest/documentation/class_reference.html">contributing one</a>!</p>
+</div>
+<hr class="classref-item-separator docutils" />
+<p class="classref-signal" id="class-storekitmanager-signal-transaction-updated"><strong>transaction_updated</strong>(transaction: <a class="reference internal" href="class_storetransaction.html#class-storetransaction"><span class="std std-ref">StoreTransaction</span></a>) <a class="reference internal" href="#class-storekitmanager-signal-transaction-updated"><span class="std std-ref">🔗</span></a></p>
+<p>Emitted when a transaction is updated (e.g., a subscription renews or a purchase is approved externally). <cite>transaction</cite> is the updated <a class="reference internal" href="class_storetransaction.html#class-storetransaction"><span class="std std-ref">StoreTransaction</span></a>.</p>
+<p>You must call the finished method on the transaction once you have made sure that you have delivered the content to the user.</p>
+<hr class="classref-item-separator docutils" />
+<p class="classref-signal" id="class-storekitmanager-signal-unverified-transaction-updated"><strong>unverified_transaction_updated</strong>(transaction: <a class="reference internal" href="class_storetransaction.html#class-storetransaction"><span class="std std-ref">StoreTransaction</span></a>, verification_error: <span class="xref std std-ref">int</span>) <a class="reference internal" href="#class-storekitmanager-signal-unverified-transaction-updated"><span class="std std-ref">🔗</span></a></p>
+<div class="contribute docutils container">
+<p>There is currently no description for this signal. Please help us by <a class="reference external" href="https://contributing.godotengine.org/en/latest/documentation/class_reference.html">contributing one</a>!</p>
+</div>
+</section>
+<hr class="classref-section-separator docutils" />
+<section class="classref-descriptions-group" id="enumerations">
+<h2>Enumerations<a class="headerlink" href="#enumerations" title="Link to this heading">¶</a></h2>
+<p class="classref-enumeration" id="enum-storekitmanager-storekitstatus">enum <strong>StoreKitStatus</strong>: <a class="reference internal" href="#enum-storekitmanager-storekitstatus"><span class="std std-ref">🔗</span></a></p>
+<p class="classref-enumeration-constant" id="class-storekitmanager-constant-ok"><a class="reference internal" href="#enum-storekitmanager-storekitstatus"><span class="std std-ref">StoreKitStatus</span></a> <strong>OK</strong> = <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<p>The operation completed successfully.</p>
+<p class="classref-enumeration-constant" id="class-storekitmanager-constant-invalid-product"><a class="reference internal" href="#enum-storekitmanager-storekitstatus"><span class="std std-ref">StoreKitStatus</span></a> <strong>INVALID_PRODUCT</strong> = <code class="docutils literal notranslate"><span class="pre">1</span></code></p>
+<p>The product identifier is invalid.</p>
+<p class="classref-enumeration-constant" id="class-storekitmanager-constant-cancelled"><a class="reference internal" href="#enum-storekitmanager-storekitstatus"><span class="std std-ref">StoreKitStatus</span></a> <strong>CANCELLED</strong> = <code class="docutils literal notranslate"><span class="pre">2</span></code></p>
+<p>The operation was cancelled.</p>
+<p class="classref-enumeration-constant" id="class-storekitmanager-constant-unverified-transaction"><a class="reference internal" href="#enum-storekitmanager-storekitstatus"><span class="std std-ref">StoreKitStatus</span></a> <strong>UNVERIFIED_TRANSACTION</strong> = <code class="docutils literal notranslate"><span class="pre">3</span></code></p>
+<p>The transaction could not be verified.</p>
+<p class="classref-enumeration-constant" id="class-storekitmanager-constant-user-cancelled"><a class="reference internal" href="#enum-storekitmanager-storekitstatus"><span class="std std-ref">StoreKitStatus</span></a> <strong>USER_CANCELLED</strong> = <code class="docutils literal notranslate"><span class="pre">4</span></code></p>
+<p>The user cancelled the operation.</p>
+<p class="classref-enumeration-constant" id="class-storekitmanager-constant-purchase-pending"><a class="reference internal" href="#enum-storekitmanager-storekitstatus"><span class="std std-ref">StoreKitStatus</span></a> <strong>PURCHASE_PENDING</strong> = <code class="docutils literal notranslate"><span class="pre">5</span></code></p>
+<p>The purchase is pending (e.g., waiting for parental approval).</p>
+<p class="classref-enumeration-constant" id="class-storekitmanager-constant-unknown-status"><a class="reference internal" href="#enum-storekitmanager-storekitstatus"><span class="std std-ref">StoreKitStatus</span></a> <strong>UNKNOWN_STATUS</strong> = <code class="docutils literal notranslate"><span class="pre">6</span></code></p>
+<p>An unknown status occurred.</p>
+<hr class="classref-item-separator docutils" />
+<p class="classref-enumeration" id="enum-storekitmanager-verificationerror">enum <strong>VerificationError</strong>: <a class="reference internal" href="#enum-storekitmanager-verificationerror"><span class="std std-ref">🔗</span></a></p>
+<p class="classref-enumeration-constant" id="class-storekitmanager-constant-revoked-certificate"><a class="reference internal" href="#enum-storekitmanager-verificationerror"><span class="std std-ref">VerificationError</span></a> <strong>REVOKED_CERTIFICATE</strong> = <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<p>The certificate chain was parsable, but was invalid due to one or more revoked certificates.</p>
+<p class="classref-enumeration-constant" id="class-storekitmanager-constant-invalid-certificate-chain"><a class="reference internal" href="#enum-storekitmanager-verificationerror"><span class="std std-ref">VerificationError</span></a> <strong>INVALID_CERTIFICATE_CHAIN</strong> = <code class="docutils literal notranslate"><span class="pre">1</span></code></p>
+<p>The certificate chain was parsable, but it was invalid for signing this data.</p>
+<p class="classref-enumeration-constant" id="class-storekitmanager-constant-invalid-device-verification"><a class="reference internal" href="#enum-storekitmanager-verificationerror"><span class="std std-ref">VerificationError</span></a> <strong>INVALID_DEVICE_VERIFICATION</strong> = <code class="docutils literal notranslate"><span class="pre">2</span></code></p>
+<p>The device verification properties were invalid for this device.</p>
+<p class="classref-enumeration-constant" id="class-storekitmanager-constant-invalid-encoding"><a class="reference internal" href="#enum-storekitmanager-verificationerror"><span class="std std-ref">VerificationError</span></a> <strong>INVALID_ENCODING</strong> = <code class="docutils literal notranslate"><span class="pre">3</span></code></p>
+<p>Th JWS header and any data included in it or it’s certificate chain had an invalid encoding.</p>
+<p class="classref-enumeration-constant" id="class-storekitmanager-constant-invalid-signature"><a class="reference internal" href="#enum-storekitmanager-verificationerror"><span class="std std-ref">VerificationError</span></a> <strong>INVALID_SIGNATURE</strong> = <code class="docutils literal notranslate"><span class="pre">4</span></code></p>
+<p>The certificate chain was valid for signing this data, but the leaf’s public key was invalid for the JWS signature.</p>
+<p class="classref-enumeration-constant" id="class-storekitmanager-constant-missing-required-properties"><a class="reference internal" href="#enum-storekitmanager-verificationerror"><span class="std std-ref">VerificationError</span></a> <strong>MISSING_REQUIRED_PROPERTIES</strong> = <code class="docutils literal notranslate"><span class="pre">5</span></code></p>
+<p>Either the JWS header or any certificate in the chain was missing necessary properties for verification.</p>
+<p class="classref-enumeration-constant" id="class-storekitmanager-constant-other"><a class="reference internal" href="#enum-storekitmanager-verificationerror"><span class="std std-ref">VerificationError</span></a> <strong>OTHER</strong> = <code class="docutils literal notranslate"><span class="pre">6</span></code></p>
+<p>A new error code was introduced that was not previously handled.</p>
+</section>
+<hr class="classref-section-separator docutils" />
+<section class="classref-descriptions-group" id="method-descriptions">
+<h2>Method Descriptions<a class="headerlink" href="#method-descriptions" title="Link to this heading">¶</a></h2>
+<p class="classref-method" id="class-storekitmanager-method-fetch-current-entitlements"><abbr title="No return value.">void</abbr> <strong>fetch_current_entitlements</strong>() <a class="reference internal" href="#class-storekitmanager-method-fetch-current-entitlements"><span class="std std-ref">🔗</span></a></p>
+<p>The current entitlements sequence provides the most recent transaction for each product the customer is entitled to, use this</p>
+<p>to refresh the list of features the user is entitled to.</p>
+<p>Specifically, it includes:</p>
+<p>* One transaction for each non-consumable In-App Purchase</p>
+<p>* The latest transaction for each auto-renewable subscription whose Product.SubscriptionInfo.RenewalState is either subscribed or inGracePeriod</p>
+<p>* The latest transaction for each non-renewing subscription, including those that have ended</p>
+<p>* Products that have been refunded or revoked by the App Store are excluded from the current entitlements, as are consumable In-App Purchases. To retrieve transactions for unfinished consumables, use the unfinished or all transaction sequences instead.</p>
+<hr class="classref-item-separator docutils" />
+<p class="classref-method" id="class-storekitmanager-method-purchase"><abbr title="No return value.">void</abbr> <strong>purchase</strong>(product: <a class="reference internal" href="class_storeproduct.html#class-storeproduct"><span class="std std-ref">StoreProduct</span></a>) <a class="reference internal" href="#class-storekitmanager-method-purchase"><span class="std std-ref">🔗</span></a></p>
+<p>Initiates the purchase of a specific product, e.g. <code class="docutils literal notranslate"><span class="pre">purchase(product)</span></code>.   This will raise the</p>
+<blockquote>
+<div><p><a class="reference internal" href="#class-storekitmanager-signal-purchase-completed"><span class="std std-ref">purchase_completed</span></a> signal, either to indicate that an error took place, or the status of the</p>
+<p>purchase.</p>
+</div></blockquote>
+<hr class="classref-item-separator docutils" />
+<p class="classref-method" id="class-storekitmanager-method-purchase-with-options"><abbr title="No return value.">void</abbr> <strong>purchase_with_options</strong>(product: <a class="reference internal" href="class_storeproduct.html#class-storeproduct"><span class="std std-ref">StoreProduct</span></a>, options: <span class="xref std std-ref">Array</span>) <a class="reference internal" href="#class-storekitmanager-method-purchase-with-options"><span class="std std-ref">🔗</span></a></p>
+<p>Initiates the purchase of a specific product, e.g. <code class="docutils literal notranslate"><span class="pre">purchase(product)</span></code>, and allows you to provide additional purchase options.</p>
+<blockquote>
+<div><p>This will raise the</p>
+<p><a class="reference internal" href="#class-storekitmanager-signal-purchase-completed"><span class="std std-ref">purchase_completed</span></a> signal, either to indicate that an error took place, or the status of the</p>
+<p>purchase.</p>
+</div></blockquote>
+<hr class="classref-item-separator docutils" />
+<p class="classref-method" id="class-storekitmanager-method-request-products"><abbr title="No return value.">void</abbr> <strong>request_products</strong>(productIds: <span class="xref std std-ref">PackedStringArray</span>) <a class="reference internal" href="#class-storekitmanager-method-request-products"><span class="std std-ref">🔗</span></a></p>
+<p>Requests product information for a list of product identifiers, e.g. <code class="docutils literal notranslate"><span class="pre">request_products([&quot;com.example.product1&quot;,</span> <span class="pre">&quot;com.example.product2&quot;])</span></code>.</p>
+<blockquote>
+<div><p>This method will raise the <a class="reference internal" href="#class-storekitmanager-signal-products-request-completed"><span class="std std-ref">products_request_completed</span></a> signal when the information is retrieved.</p>
+</div></blockquote>
+<hr class="classref-item-separator docutils" />
+<p class="classref-method" id="class-storekitmanager-method-restore-purchases"><abbr title="No return value.">void</abbr> <strong>restore_purchases</strong>() <a class="reference internal" href="#class-storekitmanager-method-restore-purchases"><span class="std std-ref">🔗</span></a></p>
+<p>Restores previously purchased non-consumable products and auto-renewable subscriptions.   This will raise the</p>
+<blockquote>
+<div><p><a class="reference internal" href="#class-storekitmanager-signal-restore-completed"><span class="std std-ref">restore_completed</span></a> signal when the product purchased have been restored.</p>
+</div></blockquote>
+<hr class="classref-item-separator docutils" />
+<p class="classref-method" id="class-storekitmanager-method-start"><abbr title="No return value.">void</abbr> <strong>start</strong>() <a class="reference internal" href="#class-storekitmanager-method-start"><span class="std std-ref">🔗</span></a></p>
+<div class="contribute docutils container">
+<p>There is currently no description for this method. Please help us by <a class="reference external" href="https://contributing.godotengine.org/en/latest/documentation/class_reference.html">contributing one</a>!</p>
+</div>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">GodotApplePlugins</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="class_applefilepicker.html">AppleFilePicker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_appleurl.html">AppleURL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_aranchor.html">ARAnchor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arbodyanchor.html">ARBodyAnchor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arbodyskeleton.html">ARBodySkeleton</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arbodytrackingconfiguration.html">ARBodyTrackingConfiguration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arcamera.html">ARCamera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arcoachingoverlay.html">ARCoachingOverlay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arcollaborationdata.html">ARCollaborationData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arenvironmentprobeanchor.html">AREnvironmentProbeAnchor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arfaceanchor.html">ARFaceAnchor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arframe.html">ARFrame</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_argeoanchor.html">ARGeoAnchor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_argeotrackingconfiguration.html">ARGeoTrackingConfiguration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arhandanchor.html">ARHandAnchor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arhandskeleton.html">ARHandSkeleton</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arimageanchor.html">ARImageAnchor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arlightestimate.html">ARLightEstimate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_armeshanchor.html">ARMeshAnchor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arplaneanchor.html">ARPlaneAnchor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arpointcloud.html">ARPointCloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arraycastquery.html">ARRaycastQuery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arraycastresult.html">ARRaycastResult</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arsession.html">ARSession</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_artrackedraycast.html">ARTrackedRaycast</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arworldmap.html">ARWorldMap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arworldtrackingconfiguration.html">ARWorldTrackingConfiguration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_asauthorizationappleidcredential.html">ASAuthorizationAppleIDCredential</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_asauthorizationcontroller.html">ASAuthorizationController</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_aspasswordcredential.html">ASPasswordCredential</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_aswebauthenticationsession.html">ASWebAuthenticationSession</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_avaudiosession.html">AVAudioSession</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_foundation.html">Foundation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gamecentermanager.html">GameCenterManager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkaccesspoint.html">GKAccessPoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkachievement.html">GKAchievement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkachievementchallenge.html">GKAchievementChallenge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkachievementdescription.html">GKAchievementDescription</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkchallenge.html">GKChallenge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkchallengedefinition.html">GKChallengeDefinition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkerror.html">GKError</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkgameactivity.html">GKGameActivity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkgameactivitydefinition.html">GKGameActivityDefinition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkgamecenterviewcontroller.html">GKGameCenterViewController</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkinvite.html">GKInvite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkleaderboard.html">GKLeaderboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkleaderboardentry.html">GKLeaderboardEntry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkleaderboardscore.html">GKLeaderboardScore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkleaderboardset.html">GKLeaderboardSet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gklocalplayer.html">GKLocalPlayer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkmatch.html">GKMatch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkmatchmaker.html">GKMatchmaker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkmatchmakerviewcontroller.html">GKMatchmakerViewController</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkmatchrequest.html">GKMatchRequest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gknotificationbanner.html">GKNotificationBanner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkplayer.html">GKPlayer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gksavedgame.html">GKSavedGame</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkscorechallenge.html">GKScoreChallenge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkturnbasedexchange.html">GKTurnBasedExchange</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkturnbasedexchangereply.html">GKTurnBasedExchangeReply</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkturnbasedmatch.html">GKTurnBasedMatch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkturnbasedmatchmakerviewcontroller.html">GKTurnBasedMatchmakerViewController</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkturnbasedparticipant.html">GKTurnBasedParticipant</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkvoicechat.html">GKVoiceChat</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_productview.html">ProductView</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_signalproxy.html">SignalProxy</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">StoreKitManager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_storeproduct.html">StoreProduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_storeproductpaymentmode.html">StoreProductPaymentMode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_storeproductpurchaseoption.html">StoreProductPurchaseOption</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_storeproductsubscriptionoffer.html">StoreProductSubscriptionOffer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_storeproductsubscriptionperiod.html">StoreProductSubscriptionPeriod</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_storesubscriptioninfo.html">StoreSubscriptionInfo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_storesubscriptioninforenewalinfo.html">StoreSubscriptionInfoRenewalInfo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_storesubscriptioninfostatus.html">StoreSubscriptionInfoStatus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_storetransaction.html">StoreTransaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_storeview.html">StoreView</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_subscriptionofferview.html">SubscriptionOfferView</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_subscriptionstoreview.html">SubscriptionStoreView</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="class_signalproxy.html" title="previous chapter">SignalProxy</a></li>
+      <li>Next: <a href="class_storeproduct.html" title="next chapter">StoreProduct</a></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="_sources/class_storekitmanager.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

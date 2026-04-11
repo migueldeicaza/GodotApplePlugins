@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>ARSession &#8212; GodotApplePlugins  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="ARTrackedRaycast" href="class_artrackedraycast.html" />
+    <link rel="prev" title="ARRaycastResult" href="class_arraycastresult.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="arsession">
+<span id="class-arsession"></span><h1>ARSession<a class="headerlink" href="#arsession" title="Link to this heading">¶</a></h1>
+<p><strong>Inherits:</strong> <span class="xref std std-ref">RefCounted</span> <strong>&lt;</strong> <span class="xref std std-ref">Object</span></p>
+<p>Manages an AR session with world tracking, plane detection, and anchor management.</p>
+<section class="classref-introduction-group" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Link to this heading">¶</a></h2>
+<p>The main entry point for ARKit functionality. Supports world tracking, plane detection, scene reconstruction, hand tracking, image tracking, and more depending on platform.</p>
+<p><strong>Platform availability:</strong></p>
+<ul class="simple">
+<li><p><strong>iOS:</strong> Full support for all features including raycasting, world map persistence, collaboration, body/face/geo tracking, and camera image capture.</p></li>
+<li><p><strong>visionOS:</strong> World tracking, plane detection, scene reconstruction, hand tracking, and image tracking via async providers. Raycasting, world maps, collaboration, body tracking, and camera images are not available (use RealityKit for spatial queries on visionOS).</p></li>
+<li><p><strong>macOS 26.0+:</strong> Remote-session bridge only. Connects to a remote iOS/visionOS device and relays camera pose via DeviceAnchor. Anchor CRUD, raycasting, world maps, collaboration, and all other features are not available through the remote API.</p></li>
+</ul>
+</section>
+<section class="classref-reftable-group" id="properties">
+<h2>Properties<a class="headerlink" href="#properties" title="Link to this heading">¶</a></h2>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><span class="xref std std-ref">Array</span></p></td>
+<td><p><a class="reference internal" href="#class-arsession-property-anchors"><span class="std std-ref">anchors</span></a></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[]</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="class_arworldtrackingconfiguration.html#class-arworldtrackingconfiguration"><span class="std std-ref">ARWorldTrackingConfiguration</span></a></p></td>
+<td><p><a class="reference internal" href="#class-arsession-property-configuration"><span class="std std-ref">configuration</span></a></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">null</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="class_arframe.html#class-arframe"><span class="std std-ref">ARFrame</span></a></p></td>
+<td><p><a class="reference internal" href="#class-arsession-property-current-frame"><span class="std std-ref">current_frame</span></a></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">null</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><span class="xref std std-ref">String</span></p></td>
+<td><p><a class="reference internal" href="#class-arsession-property-identifier"><span class="std std-ref">identifier</span></a></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;54DFCEE3-D21A-4DC5-85C6-A29A0740CAF5&quot;</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="classref-reftable-group" id="methods">
+<h2>Methods<a class="headerlink" href="#methods" title="Link to this heading">¶</a></h2>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><abbr title="No return value.">void</abbr></p></td>
+<td><p><a class="reference internal" href="#class-arsession-method-add-anchor"><span class="std std-ref">add_anchor</span></a>(anchor: <a class="reference internal" href="class_aranchor.html#class-aranchor"><span class="std std-ref">ARAnchor</span></a>)</p></td>
+</tr>
+<tr class="row-even"><td><p><abbr title="No return value.">void</abbr></p></td>
+<td><p><a class="reference internal" href="#class-arsession-method-capture-high-resolution-frame"><span class="std std-ref">capture_high_resolution_frame</span></a>(callback: <span class="xref std std-ref">Callable</span>)</p></td>
+</tr>
+<tr class="row-odd"><td><p><abbr title="No return value.">void</abbr></p></td>
+<td><p><a class="reference internal" href="#class-arsession-method-get-current-world-map"><span class="std std-ref">get_current_world_map</span></a>(callback: <span class="xref std std-ref">Callable</span>)</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="xref std std-ref">bool</span></p></td>
+<td><p><a class="reference internal" href="#class-arsession-method-is-supported"><span class="std std-ref">is_supported</span></a>() <abbr title="This method doesn't need an instance to be called, so it can be called directly using the class name.">static</abbr></p></td>
+</tr>
+<tr class="row-odd"><td><p><abbr title="No return value.">void</abbr></p></td>
+<td><p><a class="reference internal" href="#class-arsession-method-pause"><span class="std std-ref">pause</span></a>()</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="xref std std-ref">Array</span></p></td>
+<td><p><a class="reference internal" href="#class-arsession-method-raycast"><span class="std std-ref">raycast</span></a>(query: <a class="reference internal" href="class_arraycastquery.html#class-arraycastquery"><span class="std std-ref">ARRaycastQuery</span></a>)</p></td>
+</tr>
+<tr class="row-odd"><td><p><abbr title="No return value.">void</abbr></p></td>
+<td><p><a class="reference internal" href="#class-arsession-method-remove-all-anchors"><span class="std std-ref">remove_all_anchors</span></a>()</p></td>
+</tr>
+<tr class="row-even"><td><p><abbr title="No return value.">void</abbr></p></td>
+<td><p><a class="reference internal" href="#class-arsession-method-remove-anchor"><span class="std std-ref">remove_anchor</span></a>(anchor: <a class="reference internal" href="class_aranchor.html#class-aranchor"><span class="std std-ref">ARAnchor</span></a>)</p></td>
+</tr>
+<tr class="row-odd"><td><p><abbr title="No return value.">void</abbr></p></td>
+<td><p><a class="reference internal" href="#class-arsession-method-run"><span class="std std-ref">run</span></a>(configuration: <a class="reference internal" href="class_arworldtrackingconfiguration.html#class-arworldtrackingconfiguration"><span class="std std-ref">ARWorldTrackingConfiguration</span></a>, options: <span class="xref std std-ref">int</span>)</p></td>
+</tr>
+<tr class="row-even"><td><p><abbr title="No return value.">void</abbr></p></td>
+<td><p><a class="reference internal" href="#class-arsession-method-run-body-tracking"><span class="std std-ref">run_body_tracking</span></a>(configuration: <a class="reference internal" href="class_arbodytrackingconfiguration.html#class-arbodytrackingconfiguration"><span class="std std-ref">ARBodyTrackingConfiguration</span></a>, options: <span class="xref std std-ref">int</span>)</p></td>
+</tr>
+<tr class="row-odd"><td><p><abbr title="No return value.">void</abbr></p></td>
+<td><p><a class="reference internal" href="#class-arsession-method-run-geo-tracking"><span class="std std-ref">run_geo_tracking</span></a>(configuration: <a class="reference internal" href="class_argeotrackingconfiguration.html#class-argeotrackingconfiguration"><span class="std std-ref">ARGeoTrackingConfiguration</span></a>, options: <span class="xref std std-ref">int</span>)</p></td>
+</tr>
+<tr class="row-even"><td><p><abbr title="No return value.">void</abbr></p></td>
+<td><p><a class="reference internal" href="#class-arsession-method-run-with-world-map"><span class="std std-ref">run_with_world_map</span></a>(configuration: <a class="reference internal" href="class_arworldtrackingconfiguration.html#class-arworldtrackingconfiguration"><span class="std std-ref">ARWorldTrackingConfiguration</span></a>, worldMap: <a class="reference internal" href="class_arworldmap.html#class-arworldmap"><span class="std std-ref">ARWorldMap</span></a>)</p></td>
+</tr>
+<tr class="row-odd"><td><p><abbr title="No return value.">void</abbr></p></td>
+<td><p><a class="reference internal" href="#class-arsession-method-set-world-origin"><span class="std std-ref">set_world_origin</span></a>(relativeTransform: <span class="xref std std-ref">Transform3D</span>)</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="class_artrackedraycast.html#class-artrackedraycast"><span class="std std-ref">ARTrackedRaycast</span></a></p></td>
+<td><p><a class="reference internal" href="#class-arsession-method-tracked-raycast"><span class="std std-ref">tracked_raycast</span></a>(query: <a class="reference internal" href="class_arraycastquery.html#class-arraycastquery"><span class="std std-ref">ARRaycastQuery</span></a>, callback: <span class="xref std std-ref">Callable</span>)</p></td>
+</tr>
+<tr class="row-odd"><td><p><abbr title="No return value.">void</abbr></p></td>
+<td><p><a class="reference internal" href="#class-arsession-method-update-with-collaboration-data"><span class="std std-ref">update_with_collaboration_data</span></a>(data: <a class="reference internal" href="class_arcollaborationdata.html#class-arcollaborationdata"><span class="std std-ref">ARCollaborationData</span></a>)</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<hr class="classref-section-separator docutils" />
+<section class="classref-descriptions-group" id="signals">
+<h2>Signals<a class="headerlink" href="#signals" title="Link to this heading">¶</a></h2>
+<p class="classref-signal" id="class-arsession-signal-anchors-added"><strong>anchors_added</strong>(anchors: <span class="xref std std-ref">Array</span>) <a class="reference internal" href="#class-arsession-signal-anchors-added"><span class="std std-ref">🔗</span></a></p>
+<p>Emitted when new anchors are added to the session.</p>
+<hr class="classref-item-separator docutils" />
+<p class="classref-signal" id="class-arsession-signal-anchors-removed"><strong>anchors_removed</strong>(anchors: <span class="xref std std-ref">Array</span>) <a class="reference internal" href="#class-arsession-signal-anchors-removed"><span class="std std-ref">🔗</span></a></p>
+<p>Emitted when anchors are removed from the session.</p>
+<hr class="classref-item-separator docutils" />
+<p class="classref-signal" id="class-arsession-signal-anchors-updated"><strong>anchors_updated</strong>(anchors: <span class="xref std std-ref">Array</span>) <a class="reference internal" href="#class-arsession-signal-anchors-updated"><span class="std std-ref">🔗</span></a></p>
+<p>Emitted when existing anchors receive updated pose or geometry data.</p>
+<hr class="classref-item-separator docutils" />
+<p class="classref-signal" id="class-arsession-signal-camera-tracking-changed"><strong>camera_tracking_changed</strong>(camera: <a class="reference internal" href="class_arcamera.html#class-arcamera"><span class="std std-ref">ARCamera</span></a>) <a class="reference internal" href="#class-arsession-signal-camera-tracking-changed"><span class="std std-ref">🔗</span></a></p>
+<p>Emitted when the camera tracking state changes.</p>
+<hr class="classref-item-separator docutils" />
+<p class="classref-signal" id="class-arsession-signal-collaboration-data-received"><strong>collaboration_data_received</strong>(collaborationData: <a class="reference internal" href="class_arcollaborationdata.html#class-arcollaborationdata"><span class="std std-ref">ARCollaborationData</span></a>) <a class="reference internal" href="#class-arsession-signal-collaboration-data-received"><span class="std std-ref">🔗</span></a></p>
+<p>Emitted when collaboration data is produced for multi-peer AR. <strong>iOS 13+ only.</strong> Requires <code class="docutils literal notranslate"><span class="pre">isCollaborationEnabled</span></code> on the configuration. Never emitted on visionOS/macOS.</p>
+<hr class="classref-item-separator docutils" />
+<p class="classref-signal" id="class-arsession-signal-frame-updated"><strong>frame_updated</strong>(frame: <a class="reference internal" href="class_arframe.html#class-arframe"><span class="std std-ref">ARFrame</span></a>) <a class="reference internal" href="#class-arsession-signal-frame-updated"><span class="std std-ref">🔗</span></a></p>
+<p>Emitted whenever the session produces a new frame.</p>
+<hr class="classref-item-separator docutils" />
+<p class="classref-signal" id="class-arsession-signal-hand-anchor-updated"><strong>hand_anchor_updated</strong>(hand: <a class="reference internal" href="class_arhandanchor.html#class-arhandanchor"><span class="std std-ref">ARHandAnchor</span></a>) <a class="reference internal" href="#class-arsession-signal-hand-anchor-updated"><span class="std std-ref">🔗</span></a></p>
+<p>Emitted when a hand anchor is added or updated. <strong>visionOS only.</strong> Never emitted on iOS or macOS.</p>
+<hr class="classref-item-separator docutils" />
+<p class="classref-signal" id="class-arsession-signal-interruption-ended"><strong>interruption_ended</strong>() <a class="reference internal" href="#class-arsession-signal-interruption-ended"><span class="std std-ref">🔗</span></a></p>
+<p>Emitted after the session interruption has ended and tracking can resume.</p>
+<hr class="classref-item-separator docutils" />
+<p class="classref-signal" id="class-arsession-signal-mesh-anchor-added"><strong>mesh_anchor_added</strong>(mesh: <a class="reference internal" href="class_armeshanchor.html#class-armeshanchor"><span class="std std-ref">ARMeshAnchor</span></a>) <a class="reference internal" href="#class-arsession-signal-mesh-anchor-added"><span class="std std-ref">🔗</span></a></p>
+<p>Emitted when scene reconstruction produces a new mesh anchor.</p>
+<hr class="classref-item-separator docutils" />
+<p class="classref-signal" id="class-arsession-signal-mesh-anchor-removed"><strong>mesh_anchor_removed</strong>(mesh: <a class="reference internal" href="class_armeshanchor.html#class-armeshanchor"><span class="std std-ref">ARMeshAnchor</span></a>) <a class="reference internal" href="#class-arsession-signal-mesh-anchor-removed"><span class="std std-ref">🔗</span></a></p>
+<p>Emitted when a reconstructed mesh anchor is removed.</p>
+<hr class="classref-item-separator docutils" />
+<p class="classref-signal" id="class-arsession-signal-mesh-anchor-updated"><strong>mesh_anchor_updated</strong>(mesh: <a class="reference internal" href="class_armeshanchor.html#class-armeshanchor"><span class="std std-ref">ARMeshAnchor</span></a>) <a class="reference internal" href="#class-arsession-signal-mesh-anchor-updated"><span class="std std-ref">🔗</span></a></p>
+<p>Emitted when a reconstructed mesh anchor changes geometry or pose.</p>
+<hr class="classref-item-separator docutils" />
+<p class="classref-signal" id="class-arsession-signal-session-failed"><strong>session_failed</strong>(message: <span class="xref std std-ref">String</span>) <a class="reference internal" href="#class-arsession-signal-session-failed"><span class="std std-ref">🔗</span></a></p>
+<p>Emitted when the session fails and provides a human-readable error message.</p>
+<hr class="classref-item-separator docutils" />
+<p class="classref-signal" id="class-arsession-signal-session-interrupted"><strong>session_interrupted</strong>() <a class="reference internal" href="#class-arsession-signal-session-interrupted"><span class="std std-ref">🔗</span></a></p>
+<p>Emitted when the session is interrupted by the system.</p>
+</section>
+<hr class="classref-section-separator docutils" />
+<section class="classref-descriptions-group" id="enumerations">
+<h2>Enumerations<a class="headerlink" href="#enumerations" title="Link to this heading">¶</a></h2>
+<p class="classref-enumeration" id="enum-arsession-runoption">enum <strong>RunOption</strong>: <a class="reference internal" href="#enum-arsession-runoption"><span class="std std-ref">🔗</span></a></p>
+<p class="classref-enumeration-constant" id="class-arsession-constant-reset-tracking"><a class="reference internal" href="#enum-arsession-runoption"><span class="std std-ref">RunOption</span></a> <strong>RESET_TRACKING</strong> = <code class="docutils literal notranslate"><span class="pre">1</span></code></p>
+<p>Reset session tracking when the configuration is run.</p>
+<p class="classref-enumeration-constant" id="class-arsession-constant-remove-existing-anchors"><a class="reference internal" href="#enum-arsession-runoption"><span class="std std-ref">RunOption</span></a> <strong>REMOVE_EXISTING_ANCHORS</strong> = <code class="docutils literal notranslate"><span class="pre">2</span></code></p>
+<p>Remove existing anchors when the configuration is run.</p>
+<p class="classref-enumeration-constant" id="class-arsession-constant-stop-tracked-raycasts"><a class="reference internal" href="#enum-arsession-runoption"><span class="std std-ref">RunOption</span></a> <strong>STOP_TRACKED_RAYCASTS</strong> = <code class="docutils literal notranslate"><span class="pre">4</span></code></p>
+<p>Stop existing tracked raycasts when the configuration is run.</p>
+<p class="classref-enumeration-constant" id="class-arsession-constant-reset-scene-reconstruction"><a class="reference internal" href="#enum-arsession-runoption"><span class="std std-ref">RunOption</span></a> <strong>RESET_SCENE_RECONSTRUCTION</strong> = <code class="docutils literal notranslate"><span class="pre">8</span></code></p>
+<p>Reset accumulated scene-reconstruction data when the configuration is run.</p>
+</section>
+<hr class="classref-section-separator docutils" />
+<section class="classref-descriptions-group" id="property-descriptions">
+<h2>Property Descriptions<a class="headerlink" href="#property-descriptions" title="Link to this heading">¶</a></h2>
+<p class="classref-property" id="class-arsession-property-anchors"><span class="xref std std-ref">Array</span> <strong>anchors</strong> = <code class="docutils literal notranslate"><span class="pre">[]</span></code> <a class="reference internal" href="#class-arsession-property-anchors"><span class="std std-ref">🔗</span></a></p>
+<ul class="classref-property-setget simple">
+<li><p><span class="xref std std-ref">Array</span> <strong>get_anchors</strong>()</p></li>
+</ul>
+<p>The anchors currently known to the session.</p>
+<hr class="classref-item-separator docutils" />
+<p class="classref-property" id="class-arsession-property-configuration"><a class="reference internal" href="class_arworldtrackingconfiguration.html#class-arworldtrackingconfiguration"><span class="std std-ref">ARWorldTrackingConfiguration</span></a> <strong>configuration</strong> = <code class="docutils literal notranslate"><span class="pre">null</span></code> <a class="reference internal" href="#class-arsession-property-configuration"><span class="std std-ref">🔗</span></a></p>
+<ul class="classref-property-setget simple">
+<li><p><a class="reference internal" href="class_arworldtrackingconfiguration.html#class-arworldtrackingconfiguration"><span class="std std-ref">ARWorldTrackingConfiguration</span></a> <strong>get_configuration</strong>()</p></li>
+</ul>
+<p>The last world-tracking configuration used with <a class="reference internal" href="#class-arsession-method-run"><span class="std std-ref">run()</span></a> or <a class="reference internal" href="#class-arsession-method-run-with-world-map"><span class="std std-ref">run_with_world_map()</span></a>, if any.</p>
+<hr class="classref-item-separator docutils" />
+<p class="classref-property" id="class-arsession-property-current-frame"><a class="reference internal" href="class_arframe.html#class-arframe"><span class="std std-ref">ARFrame</span></a> <strong>current_frame</strong> = <code class="docutils literal notranslate"><span class="pre">null</span></code> <a class="reference internal" href="#class-arsession-property-current-frame"><span class="std std-ref">🔗</span></a></p>
+<ul class="classref-property-setget simple">
+<li><p><a class="reference internal" href="class_arframe.html#class-arframe"><span class="std std-ref">ARFrame</span></a> <strong>get_current_frame</strong>()</p></li>
+</ul>
+<p>The most recent frame produced by the session, if available.</p>
+<hr class="classref-item-separator docutils" />
+<p class="classref-property" id="class-arsession-property-identifier"><span class="xref std std-ref">String</span> <strong>identifier</strong> = <code class="docutils literal notranslate"><span class="pre">&quot;54DFCEE3-D21A-4DC5-85C6-A29A0740CAF5&quot;</span></code> <a class="reference internal" href="#class-arsession-property-identifier"><span class="std std-ref">🔗</span></a></p>
+<ul class="classref-property-setget simple">
+<li><p><span class="xref std std-ref">String</span> <strong>get_identifier</strong>()</p></li>
+</ul>
+<p>A unique identifier for this session instance.</p>
+</section>
+<hr class="classref-section-separator docutils" />
+<section class="classref-descriptions-group" id="method-descriptions">
+<h2>Method Descriptions<a class="headerlink" href="#method-descriptions" title="Link to this heading">¶</a></h2>
+<p class="classref-method" id="class-arsession-method-add-anchor"><abbr title="No return value.">void</abbr> <strong>add_anchor</strong>(anchor: <a class="reference internal" href="class_aranchor.html#class-aranchor"><span class="std std-ref">ARAnchor</span></a>) <a class="reference internal" href="#class-arsession-method-add-anchor"><span class="std std-ref">🔗</span></a></p>
+<p>Adds a custom anchor to the running session.</p>
+<hr class="classref-item-separator docutils" />
+<p class="classref-method" id="class-arsession-method-capture-high-resolution-frame"><abbr title="No return value.">void</abbr> <strong>capture_high_resolution_frame</strong>(callback: <span class="xref std std-ref">Callable</span>) <a class="reference internal" href="#class-arsession-method-capture-high-resolution-frame"><span class="std std-ref">🔗</span></a></p>
+<p>Captures a high-resolution camera frame asynchronously. <strong>iOS 16+ only.</strong> Reports unavailability on visionOS/macOS.</p>
+<hr class="classref-item-separator docutils" />
+<p class="classref-method" id="class-arsession-method-get-current-world-map"><abbr title="No return value.">void</abbr> <strong>get_current_world_map</strong>(callback: <span class="xref std std-ref">Callable</span>) <a class="reference internal" href="#class-arsession-method-get-current-world-map"><span class="std std-ref">🔗</span></a></p>
+<p>Asynchronously captures the current world map for session persistence. The callback receives an <a class="reference internal" href="class_arworldmap.html#class-arworldmap"><span class="std std-ref">ARWorldMap</span></a> and an optional error string. <strong>iOS only.</strong> Reports unavailability on visionOS/macOS (visionOS persists anchors automatically via WorldTrackingProvider).</p>
+<hr class="classref-item-separator docutils" />
+<p class="classref-method" id="class-arsession-method-is-supported"><span class="xref std std-ref">bool</span> <strong>is_supported</strong>() <abbr title="This method doesn't need an instance to be called, so it can be called directly using the class name.">static</abbr> <a class="reference internal" href="#class-arsession-method-is-supported"><span class="std std-ref">🔗</span></a></p>
+<p>Returns <code class="docutils literal notranslate"><span class="pre">true</span></code> when ARKit session support is available on the current platform and device.</p>
+<hr class="classref-item-separator docutils" />
+<p class="classref-method" id="class-arsession-method-pause"><abbr title="No return value.">void</abbr> <strong>pause</strong>() <a class="reference internal" href="#class-arsession-method-pause"><span class="std std-ref">🔗</span></a></p>
+<p>Pauses the session and stops delivering new frame updates until it is run again.</p>
+<hr class="classref-item-separator docutils" />
+<p class="classref-method" id="class-arsession-method-raycast"><span class="xref std std-ref">Array</span> <strong>raycast</strong>(query: <a class="reference internal" href="class_arraycastquery.html#class-arraycastquery"><span class="std std-ref">ARRaycastQuery</span></a>) <a class="reference internal" href="#class-arsession-method-raycast"><span class="std std-ref">🔗</span></a></p>
+<p>Performs a raycast against detected surfaces. Returns an array of <a class="reference internal" href="class_arraycastresult.html#class-arraycastresult"><span class="std std-ref">ARRaycastResult</span></a>. <strong>iOS only.</strong> Returns empty on visionOS/macOS. On visionOS, use RealityKit scene queries instead.</p>
+<hr class="classref-item-separator docutils" />
+<p class="classref-method" id="class-arsession-method-remove-all-anchors"><abbr title="No return value.">void</abbr> <strong>remove_all_anchors</strong>() <a class="reference internal" href="#class-arsession-method-remove-all-anchors"><span class="std std-ref">🔗</span></a></p>
+<p>Removes every current anchor from the session.</p>
+<hr class="classref-item-separator docutils" />
+<p class="classref-method" id="class-arsession-method-remove-anchor"><abbr title="No return value.">void</abbr> <strong>remove_anchor</strong>(anchor: <a class="reference internal" href="class_aranchor.html#class-aranchor"><span class="std std-ref">ARAnchor</span></a>) <a class="reference internal" href="#class-arsession-method-remove-anchor"><span class="std std-ref">🔗</span></a></p>
+<p>Removes the given anchor from the session.</p>
+<hr class="classref-item-separator docutils" />
+<p class="classref-method" id="class-arsession-method-run"><abbr title="No return value.">void</abbr> <strong>run</strong>(configuration: <a class="reference internal" href="class_arworldtrackingconfiguration.html#class-arworldtrackingconfiguration"><span class="std std-ref">ARWorldTrackingConfiguration</span></a>, options: <span class="xref std std-ref">int</span>) <a class="reference internal" href="#class-arsession-method-run"><span class="std std-ref">🔗</span></a></p>
+<p>Starts or reconfigures the session using <code class="docutils literal notranslate"><span class="pre">configuration</span></code>. <code class="docutils literal notranslate"><span class="pre">options</span></code> is a bitmask of <a class="reference internal" href="#enum-arsession-runoption"><span class="std std-ref">RunOption</span></a> flags.</p>
+<hr class="classref-item-separator docutils" />
+<p class="classref-method" id="class-arsession-method-run-body-tracking"><abbr title="No return value.">void</abbr> <strong>run_body_tracking</strong>(configuration: <a class="reference internal" href="class_arbodytrackingconfiguration.html#class-arbodytrackingconfiguration"><span class="std std-ref">ARBodyTrackingConfiguration</span></a>, options: <span class="xref std std-ref">int</span>) <a class="reference internal" href="#class-arsession-method-run-body-tracking"><span class="std std-ref">🔗</span></a></p>
+<p>Starts the session with body tracking configuration. <strong>iOS only.</strong> Reports unavailability on visionOS/macOS.</p>
+<hr class="classref-item-separator docutils" />
+<p class="classref-method" id="class-arsession-method-run-geo-tracking"><abbr title="No return value.">void</abbr> <strong>run_geo_tracking</strong>(configuration: <a class="reference internal" href="class_argeotrackingconfiguration.html#class-argeotrackingconfiguration"><span class="std std-ref">ARGeoTrackingConfiguration</span></a>, options: <span class="xref std std-ref">int</span>) <a class="reference internal" href="#class-arsession-method-run-geo-tracking"><span class="std std-ref">🔗</span></a></p>
+<p>Starts the session with geo tracking for GPS-anchored AR. <strong>iOS 14+ only.</strong> Reports unavailability on visionOS/macOS.</p>
+<hr class="classref-item-separator docutils" />
+<p class="classref-method" id="class-arsession-method-run-with-world-map"><abbr title="No return value.">void</abbr> <strong>run_with_world_map</strong>(configuration: <a class="reference internal" href="class_arworldtrackingconfiguration.html#class-arworldtrackingconfiguration"><span class="std std-ref">ARWorldTrackingConfiguration</span></a>, worldMap: <a class="reference internal" href="class_arworldmap.html#class-arworldmap"><span class="std std-ref">ARWorldMap</span></a>) <a class="reference internal" href="#class-arsession-method-run-with-world-map"><span class="std std-ref">🔗</span></a></p>
+<p>Starts the session with a previously saved world map for relocalization. <strong>iOS only.</strong> Reports unavailability on visionOS/macOS.</p>
+<hr class="classref-item-separator docutils" />
+<p class="classref-method" id="class-arsession-method-set-world-origin"><abbr title="No return value.">void</abbr> <strong>set_world_origin</strong>(relativeTransform: <span class="xref std std-ref">Transform3D</span>) <a class="reference internal" href="#class-arsession-method-set-world-origin"><span class="std std-ref">🔗</span></a></p>
+<p>Resets the session’s world origin relative to <code class="docutils literal notranslate"><span class="pre">relativeTransform</span></code>. Use this to realign virtual content without recreating anchors.</p>
+<hr class="classref-item-separator docutils" />
+<p class="classref-method" id="class-arsession-method-tracked-raycast"><a class="reference internal" href="class_artrackedraycast.html#class-artrackedraycast"><span class="std std-ref">ARTrackedRaycast</span></a> <strong>tracked_raycast</strong>(query: <a class="reference internal" href="class_arraycastquery.html#class-arraycastquery"><span class="std std-ref">ARRaycastQuery</span></a>, callback: <span class="xref std std-ref">Callable</span>) <a class="reference internal" href="#class-arsession-method-tracked-raycast"><span class="std std-ref">🔗</span></a></p>
+<p>Creates a continuously-tracked raycast that invokes the callback as results update. <strong>iOS only.</strong> Returns null on visionOS/macOS.</p>
+<hr class="classref-item-separator docutils" />
+<p class="classref-method" id="class-arsession-method-update-with-collaboration-data"><abbr title="No return value.">void</abbr> <strong>update_with_collaboration_data</strong>(data: <a class="reference internal" href="class_arcollaborationdata.html#class-arcollaborationdata"><span class="std std-ref">ARCollaborationData</span></a>) <a class="reference internal" href="#class-arsession-method-update-with-collaboration-data"><span class="std std-ref">🔗</span></a></p>
+<p>Feeds collaboration data received from a peer into the session for multi-user AR. <strong>iOS 13+ only.</strong> No-op on visionOS/macOS.</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">GodotApplePlugins</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="class_applefilepicker.html">AppleFilePicker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_appleurl.html">AppleURL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_aranchor.html">ARAnchor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arbodyanchor.html">ARBodyAnchor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arbodyskeleton.html">ARBodySkeleton</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arbodytrackingconfiguration.html">ARBodyTrackingConfiguration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arcamera.html">ARCamera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arcoachingoverlay.html">ARCoachingOverlay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arcollaborationdata.html">ARCollaborationData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arenvironmentprobeanchor.html">AREnvironmentProbeAnchor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arfaceanchor.html">ARFaceAnchor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arframe.html">ARFrame</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_argeoanchor.html">ARGeoAnchor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_argeotrackingconfiguration.html">ARGeoTrackingConfiguration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arhandanchor.html">ARHandAnchor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arhandskeleton.html">ARHandSkeleton</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arimageanchor.html">ARImageAnchor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arlightestimate.html">ARLightEstimate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_armeshanchor.html">ARMeshAnchor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arplaneanchor.html">ARPlaneAnchor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arpointcloud.html">ARPointCloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arraycastquery.html">ARRaycastQuery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arraycastresult.html">ARRaycastResult</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">ARSession</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_artrackedraycast.html">ARTrackedRaycast</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arworldmap.html">ARWorldMap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arworldtrackingconfiguration.html">ARWorldTrackingConfiguration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_asauthorizationappleidcredential.html">ASAuthorizationAppleIDCredential</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_asauthorizationcontroller.html">ASAuthorizationController</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_aspasswordcredential.html">ASPasswordCredential</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_aswebauthenticationsession.html">ASWebAuthenticationSession</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_avaudiosession.html">AVAudioSession</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_foundation.html">Foundation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gamecentermanager.html">GameCenterManager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkaccesspoint.html">GKAccessPoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkachievement.html">GKAchievement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkachievementchallenge.html">GKAchievementChallenge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkachievementdescription.html">GKAchievementDescription</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkchallenge.html">GKChallenge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkchallengedefinition.html">GKChallengeDefinition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkerror.html">GKError</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkgameactivity.html">GKGameActivity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkgameactivitydefinition.html">GKGameActivityDefinition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkgamecenterviewcontroller.html">GKGameCenterViewController</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkinvite.html">GKInvite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkleaderboard.html">GKLeaderboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkleaderboardentry.html">GKLeaderboardEntry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkleaderboardscore.html">GKLeaderboardScore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkleaderboardset.html">GKLeaderboardSet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gklocalplayer.html">GKLocalPlayer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkmatch.html">GKMatch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkmatchmaker.html">GKMatchmaker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkmatchmakerviewcontroller.html">GKMatchmakerViewController</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkmatchrequest.html">GKMatchRequest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gknotificationbanner.html">GKNotificationBanner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkplayer.html">GKPlayer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gksavedgame.html">GKSavedGame</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkscorechallenge.html">GKScoreChallenge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkturnbasedexchange.html">GKTurnBasedExchange</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkturnbasedexchangereply.html">GKTurnBasedExchangeReply</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkturnbasedmatch.html">GKTurnBasedMatch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkturnbasedmatchmakerviewcontroller.html">GKTurnBasedMatchmakerViewController</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkturnbasedparticipant.html">GKTurnBasedParticipant</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkvoicechat.html">GKVoiceChat</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_productview.html">ProductView</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_signalproxy.html">SignalProxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_storekitmanager.html">StoreKitManager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_storeproduct.html">StoreProduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_storeproductpaymentmode.html">StoreProductPaymentMode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_storeproductpurchaseoption.html">StoreProductPurchaseOption</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_storeproductsubscriptionoffer.html">StoreProductSubscriptionOffer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_storeproductsubscriptionperiod.html">StoreProductSubscriptionPeriod</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_storesubscriptioninfo.html">StoreSubscriptionInfo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_storesubscriptioninforenewalinfo.html">StoreSubscriptionInfoRenewalInfo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_storesubscriptioninfostatus.html">StoreSubscriptionInfoStatus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_storetransaction.html">StoreTransaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_storeview.html">StoreView</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_subscriptionofferview.html">SubscriptionOfferView</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_subscriptionstoreview.html">SubscriptionStoreView</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="class_arraycastresult.html" title="previous chapter">ARRaycastResult</a></li>
+      <li>Next: <a href="class_artrackedraycast.html" title="next chapter">ARTrackedRaycast</a></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="_sources/class_arsession.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

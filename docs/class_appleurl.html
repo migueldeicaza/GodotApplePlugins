@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>AppleURL &#8212; GodotApplePlugins  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="ARAnchor" href="class_aranchor.html" />
+    <link rel="prev" title="AppleFilePicker" href="class_applefilepicker.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="appleurl">
+<span id="class-appleurl"></span><h1>AppleURL<a class="headerlink" href="#appleurl" title="Link to this heading">¶</a></h1>
+<p><strong>Inherits:</strong> <span class="xref std std-ref">RefCounted</span> <strong>&lt;</strong> <span class="xref std std-ref">Object</span></p>
+<p>Represents an Apple Foundation.URL type</p>
+<section class="classref-introduction-group" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Link to this heading">¶</a></h2>
+<p>When working with Apple APIs, some of those APIs either return URLs or expect URLs, in particular</p>
+<blockquote>
+<div><p>this type is being exposed because Apple can return a URL when accessing files outside of</p>
+<p>your application sandbox, and you must call the <a class="reference internal" href="#class-appleurl-method-start-accessing-security-scoped-resource"><span class="std std-ref">start_accessing_security_scoped_resource()</span></a> to</p>
+<p>begin accessing the resource and when you are done, you must call</p>
+<p><a class="reference internal" href="#class-appleurl-method-stop-accessing-security-scoped-resource"><span class="std std-ref">stop_accessing_security_scoped_resource()</span></a>.</p>
+</div></blockquote>
+</section>
+<section class="classref-reftable-group" id="methods">
+<h2>Methods<a class="headerlink" href="#methods" title="Link to this heading">¶</a></h2>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><span class="xref std std-ref">String</span></p></td>
+<td><p><a class="reference internal" href="#class-appleurl-method-get-absolute-string"><span class="std std-ref">get_absolute_string</span></a>()</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="xref std std-ref">PackedByteArray</span></p></td>
+<td><p><a class="reference internal" href="#class-appleurl-method-get-data"><span class="std std-ref">get_data</span></a>()</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="xref std std-ref">String</span></p></td>
+<td><p><a class="reference internal" href="#class-appleurl-method-get-path"><span class="std std-ref">get_path</span></a>()</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="xref std std-ref">String</span></p></td>
+<td><p><a class="reference internal" href="#class-appleurl-method-get-path-encoded"><span class="std std-ref">get_path_encoded</span></a>()</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="xref std std-ref">String</span></p></td>
+<td><p><a class="reference internal" href="#class-appleurl-method-get-string"><span class="std std-ref">get_string</span></a>()</p></td>
+</tr>
+<tr class="row-even"><td><p><abbr title="No return value.">void</abbr></p></td>
+<td><p><a class="reference internal" href="#class-appleurl-method-set-from-filepath"><span class="std std-ref">set_from_filepath</span></a>(path: <span class="xref std std-ref">String</span>)</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="xref std std-ref">bool</span></p></td>
+<td><p><a class="reference internal" href="#class-appleurl-method-set-value"><span class="std std-ref">set_value</span></a>(str: <span class="xref std std-ref">String</span>)</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="xref std std-ref">bool</span></p></td>
+<td><p><a class="reference internal" href="#class-appleurl-method-start-accessing-security-scoped-resource"><span class="std std-ref">start_accessing_security_scoped_resource</span></a>()</p></td>
+</tr>
+<tr class="row-odd"><td><p><abbr title="No return value.">void</abbr></p></td>
+<td><p><a class="reference internal" href="#class-appleurl-method-stop-accessing-security-scoped-resource"><span class="std std-ref">stop_accessing_security_scoped_resource</span></a>()</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<hr class="classref-section-separator docutils" />
+<section class="classref-descriptions-group" id="method-descriptions">
+<h2>Method Descriptions<a class="headerlink" href="#method-descriptions" title="Link to this heading">¶</a></h2>
+<p class="classref-method" id="class-appleurl-method-get-absolute-string"><span class="xref std std-ref">String</span> <strong>get_absolute_string</strong>() <a class="reference internal" href="#class-appleurl-method-get-absolute-string"><span class="std std-ref">🔗</span></a></p>
+<p>Returns the URL.absoluteString property</p>
+<hr class="classref-item-separator docutils" />
+<p class="classref-method" id="class-appleurl-method-get-data"><span class="xref std std-ref">PackedByteArray</span> <strong>get_data</strong>() <a class="reference internal" href="#class-appleurl-method-get-data"><span class="std std-ref">🔗</span></a></p>
+<p>Loads the contents of a file referenced by the URL and returns it as a PackedByteArray.</p>
+<hr class="classref-item-separator docutils" />
+<p class="classref-method" id="class-appleurl-method-get-path"><span class="xref std std-ref">String</span> <strong>get_path</strong>() <a class="reference internal" href="#class-appleurl-method-get-path"><span class="std std-ref">🔗</span></a></p>
+<p>Returns the URL contents, without percent-encoding.</p>
+<hr class="classref-item-separator docutils" />
+<p class="classref-method" id="class-appleurl-method-get-path-encoded"><span class="xref std std-ref">String</span> <strong>get_path_encoded</strong>() <a class="reference internal" href="#class-appleurl-method-get-path-encoded"><span class="std std-ref">🔗</span></a></p>
+<p>Returns the URL contents, with percent-encoding.</p>
+<hr class="classref-item-separator docutils" />
+<p class="classref-method" id="class-appleurl-method-get-string"><span class="xref std std-ref">String</span> <strong>get_string</strong>() <a class="reference internal" href="#class-appleurl-method-get-string"><span class="std std-ref">🔗</span></a></p>
+<p>Fetches the contents of a file URL and returns it as a string.</p>
+<hr class="classref-item-separator docutils" />
+<p class="classref-method" id="class-appleurl-method-set-from-filepath"><abbr title="No return value.">void</abbr> <strong>set_from_filepath</strong>(path: <span class="xref std std-ref">String</span>) <a class="reference internal" href="#class-appleurl-method-set-from-filepath"><span class="std std-ref">🔗</span></a></p>
+<p>Sets the content of the URL from a string that represents a file path.</p>
+<hr class="classref-item-separator docutils" />
+<p class="classref-method" id="class-appleurl-method-set-value"><span class="xref std std-ref">bool</span> <strong>set_value</strong>(str: <span class="xref std std-ref">String</span>) <a class="reference internal" href="#class-appleurl-method-set-value"><span class="std std-ref">🔗</span></a></p>
+<p>Sets the content of the URL from a string, it will return false if the URL can not be parsed.</p>
+<hr class="classref-item-separator docutils" />
+<p class="classref-method" id="class-appleurl-method-start-accessing-security-scoped-resource"><span class="xref std std-ref">bool</span> <strong>start_accessing_security_scoped_resource</strong>() <a class="reference internal" href="#class-appleurl-method-start-accessing-security-scoped-resource"><span class="std std-ref">🔗</span></a></p>
+<p>In an app that has adopted App Sandbox, makes the resource pointed to by a security-scoped URL available to the app.</p>
+<blockquote>
+<div><p>If this call succeeds, you can access the resource, and when you are done, you must call <a class="reference internal" href="#class-appleurl-method-stop-accessing-security-scoped-resource"><span class="std std-ref">stop_accessing_security_scoped_resource()</span></a>.</p>
+</div></blockquote>
+<hr class="classref-item-separator docutils" />
+<p class="classref-method" id="class-appleurl-method-stop-accessing-security-scoped-resource"><abbr title="No return value.">void</abbr> <strong>stop_accessing_security_scoped_resource</strong>() <a class="reference internal" href="#class-appleurl-method-stop-accessing-security-scoped-resource"><span class="std std-ref">🔗</span></a></p>
+<p>In an app that adopts App Sandbox, revokes access to the resource pointed to by a security-scoped URL.</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">GodotApplePlugins</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="class_applefilepicker.html">AppleFilePicker</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">AppleURL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_aranchor.html">ARAnchor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arbodyanchor.html">ARBodyAnchor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arbodyskeleton.html">ARBodySkeleton</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arbodytrackingconfiguration.html">ARBodyTrackingConfiguration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arcamera.html">ARCamera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arcoachingoverlay.html">ARCoachingOverlay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arcollaborationdata.html">ARCollaborationData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arenvironmentprobeanchor.html">AREnvironmentProbeAnchor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arfaceanchor.html">ARFaceAnchor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arframe.html">ARFrame</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_argeoanchor.html">ARGeoAnchor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_argeotrackingconfiguration.html">ARGeoTrackingConfiguration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arhandanchor.html">ARHandAnchor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arhandskeleton.html">ARHandSkeleton</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arimageanchor.html">ARImageAnchor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arlightestimate.html">ARLightEstimate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_armeshanchor.html">ARMeshAnchor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arplaneanchor.html">ARPlaneAnchor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arpointcloud.html">ARPointCloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arraycastquery.html">ARRaycastQuery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arraycastresult.html">ARRaycastResult</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arsession.html">ARSession</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_artrackedraycast.html">ARTrackedRaycast</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arworldmap.html">ARWorldMap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arworldtrackingconfiguration.html">ARWorldTrackingConfiguration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_asauthorizationappleidcredential.html">ASAuthorizationAppleIDCredential</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_asauthorizationcontroller.html">ASAuthorizationController</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_aspasswordcredential.html">ASPasswordCredential</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_aswebauthenticationsession.html">ASWebAuthenticationSession</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_avaudiosession.html">AVAudioSession</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_foundation.html">Foundation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gamecentermanager.html">GameCenterManager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkaccesspoint.html">GKAccessPoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkachievement.html">GKAchievement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkachievementchallenge.html">GKAchievementChallenge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkachievementdescription.html">GKAchievementDescription</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkchallenge.html">GKChallenge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkchallengedefinition.html">GKChallengeDefinition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkerror.html">GKError</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkgameactivity.html">GKGameActivity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkgameactivitydefinition.html">GKGameActivityDefinition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkgamecenterviewcontroller.html">GKGameCenterViewController</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkinvite.html">GKInvite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkleaderboard.html">GKLeaderboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkleaderboardentry.html">GKLeaderboardEntry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkleaderboardscore.html">GKLeaderboardScore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkleaderboardset.html">GKLeaderboardSet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gklocalplayer.html">GKLocalPlayer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkmatch.html">GKMatch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkmatchmaker.html">GKMatchmaker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkmatchmakerviewcontroller.html">GKMatchmakerViewController</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkmatchrequest.html">GKMatchRequest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gknotificationbanner.html">GKNotificationBanner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkplayer.html">GKPlayer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gksavedgame.html">GKSavedGame</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkscorechallenge.html">GKScoreChallenge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkturnbasedexchange.html">GKTurnBasedExchange</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkturnbasedexchangereply.html">GKTurnBasedExchangeReply</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkturnbasedmatch.html">GKTurnBasedMatch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkturnbasedmatchmakerviewcontroller.html">GKTurnBasedMatchmakerViewController</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkturnbasedparticipant.html">GKTurnBasedParticipant</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkvoicechat.html">GKVoiceChat</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_productview.html">ProductView</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_signalproxy.html">SignalProxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_storekitmanager.html">StoreKitManager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_storeproduct.html">StoreProduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_storeproductpaymentmode.html">StoreProductPaymentMode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_storeproductpurchaseoption.html">StoreProductPurchaseOption</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_storeproductsubscriptionoffer.html">StoreProductSubscriptionOffer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_storeproductsubscriptionperiod.html">StoreProductSubscriptionPeriod</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_storesubscriptioninfo.html">StoreSubscriptionInfo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_storesubscriptioninforenewalinfo.html">StoreSubscriptionInfoRenewalInfo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_storesubscriptioninfostatus.html">StoreSubscriptionInfoStatus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_storetransaction.html">StoreTransaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_storeview.html">StoreView</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_subscriptionofferview.html">SubscriptionOfferView</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_subscriptionstoreview.html">SubscriptionStoreView</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="class_applefilepicker.html" title="previous chapter">AppleFilePicker</a></li>
+      <li>Next: <a href="class_aranchor.html" title="next chapter">ARAnchor</a></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="_sources/class_appleurl.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>AVAudioSession &#8212; GodotApplePlugins  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Foundation" href="class_foundation.html" />
+    <link rel="prev" title="ASWebAuthenticationSession" href="class_aswebauthenticationsession.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="avaudiosession">
+<span id="class-avaudiosession"></span><h1>AVAudioSession<a class="headerlink" href="#avaudiosession" title="Link to this heading">¶</a></h1>
+<p><strong>Inherits:</strong> <span class="xref std std-ref">RefCounted</span> <strong>&lt;</strong> <span class="xref std std-ref">Object</span></p>
+<p>Controls the shared iOS/tvOS audio session from GDScript.</p>
+<section class="classref-introduction-group" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Link to this heading">¶</a></h2>
+<p>Use this helper to select one of Apple’s predefined <code class="docutils literal notranslate"><span class="pre">AVAudioSession</span></code> categories so your Godot project can mix or duck audio according to platform expectations. It is most useful on mobile builds where the engine needs to share the audio device with the system music player or with voice chat as described in <code class="docutils literal notranslate"><span class="pre">GameCenterGuide.md</span></code>. See Apple’s audio session overview at <a class="reference external" href="https://developer.apple.com/documentation/avfaudio/avaudiosession">Apple’s AVAudioSession reference</a>.</p>
+<p>You can either use the <a class="reference internal" href="#class-avaudiosession-property-current-category"><span class="std std-ref">current_category</span></a> property or the <a class="reference internal" href="#class-avaudiosession-method-set-category"><span class="std std-ref">set_category()</span></a> method for more control.</p>
+</section>
+<section class="classref-reftable-group" id="properties">
+<h2>Properties<a class="headerlink" href="#properties" title="Link to this heading">¶</a></h2>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><span class="xref std std-ref">int</span></p></td>
+<td><p><a class="reference internal" href="#class-avaudiosession-property-current-category"><span class="std std-ref">current_category</span></a></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">6</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="classref-reftable-group" id="methods">
+<h2>Methods<a class="headerlink" href="#methods" title="Link to this heading">¶</a></h2>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><span class="xref std std-ref">int</span></p></td>
+<td><p><a class="reference internal" href="#class-avaudiosession-method-set-category"><span class="std std-ref">set_category</span></a>(category: <a class="reference internal" href="#enum-avaudiosession-sessioncategory"><span class="std std-ref">SessionCategory</span></a>, mode: <a class="reference internal" href="#enum-avaudiosession-sessionmode"><span class="std std-ref">SessionMode</span></a>, policy: <a class="reference internal" href="#enum-avaudiosession-routesharingpolicy"><span class="std std-ref">RouteSharingPolicy</span></a>, options: <span class="xref std std-ref">int</span>)</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<hr class="classref-section-separator docutils" />
+<section class="classref-descriptions-group" id="enumerations">
+<h2>Enumerations<a class="headerlink" href="#enumerations" title="Link to this heading">¶</a></h2>
+<p class="classref-enumeration" id="enum-avaudiosession-categoryoptions">enum <strong>CategoryOptions</strong>: <a class="reference internal" href="#enum-avaudiosession-categoryoptions"><span class="std std-ref">🔗</span></a></p>
+<p class="classref-enumeration-constant" id="class-avaudiosession-constant-mix-with-others"><a class="reference internal" href="#enum-avaudiosession-categoryoptions"><span class="std std-ref">CategoryOptions</span></a> <strong>MIX_WITH_OTHERS</strong> = <code class="docutils literal notranslate"><span class="pre">1</span></code></p>
+<p>Option to mix audio with other apps.</p>
+<p class="classref-enumeration-constant" id="class-avaudiosession-constant-duck-others"><a class="reference internal" href="#enum-avaudiosession-categoryoptions"><span class="std std-ref">CategoryOptions</span></a> <strong>DUCK_OTHERS</strong> = <code class="docutils literal notranslate"><span class="pre">2</span></code></p>
+<p>Option to duck other apps’ audio.</p>
+<p class="classref-enumeration-constant" id="class-avaudiosession-constant-allow-bluetooth"><a class="reference internal" href="#enum-avaudiosession-categoryoptions"><span class="std std-ref">CategoryOptions</span></a> <strong>ALLOW_BLUETOOTH</strong> = <code class="docutils literal notranslate"><span class="pre">4</span></code></p>
+<p>Option to allow Bluetooth output.</p>
+<p class="classref-enumeration-constant" id="class-avaudiosession-constant-default-to-speaker"><a class="reference internal" href="#enum-avaudiosession-categoryoptions"><span class="std std-ref">CategoryOptions</span></a> <strong>DEFAULT_TO_SPEAKER</strong> = <code class="docutils literal notranslate"><span class="pre">8</span></code></p>
+<p>Option to default audio to speaker.</p>
+<p class="classref-enumeration-constant" id="class-avaudiosession-constant-interrupt-spoken-audio-and-mix-with-others"><a class="reference internal" href="#enum-avaudiosession-categoryoptions"><span class="std std-ref">CategoryOptions</span></a> <strong>INTERRUPT_SPOKEN_AUDIO_AND_MIX_WITH_OTHERS</strong> = <code class="docutils literal notranslate"><span class="pre">17</span></code></p>
+<p>Option to interrupt spoken audio and mix with others.</p>
+<p class="classref-enumeration-constant" id="class-avaudiosession-constant-allow-bluetooth-a2dp"><a class="reference internal" href="#enum-avaudiosession-categoryoptions"><span class="std std-ref">CategoryOptions</span></a> <strong>ALLOW_BLUETOOTH_A2DP</strong> = <code class="docutils literal notranslate"><span class="pre">32</span></code></p>
+<p>Option to allow Bluetooth A2DP.</p>
+<p class="classref-enumeration-constant" id="class-avaudiosession-constant-allow-airplay"><a class="reference internal" href="#enum-avaudiosession-categoryoptions"><span class="std std-ref">CategoryOptions</span></a> <strong>ALLOW_AIRPLAY</strong> = <code class="docutils literal notranslate"><span class="pre">64</span></code></p>
+<p>Option to allow AirPlay.</p>
+<p class="classref-enumeration-constant" id="class-avaudiosession-constant-override-muted-microphone-interruption"><a class="reference internal" href="#enum-avaudiosession-categoryoptions"><span class="std std-ref">CategoryOptions</span></a> <strong>OVERRIDE_MUTED_MICROPHONE_INTERRUPTION</strong> = <code class="docutils literal notranslate"><span class="pre">128</span></code></p>
+<p>Option to override muted microphone interruption.</p>
+<hr class="classref-item-separator docutils" />
+<p class="classref-enumeration" id="enum-avaudiosession-routesharingpolicy">enum <strong>RouteSharingPolicy</strong>: <a class="reference internal" href="#enum-avaudiosession-routesharingpolicy"><span class="std std-ref">🔗</span></a></p>
+<p class="classref-enumeration-constant" id="class-avaudiosession-constant-route-sharing-default"><a class="reference internal" href="#enum-avaudiosession-routesharingpolicy"><span class="std std-ref">RouteSharingPolicy</span></a> <strong>ROUTE_SHARING_DEFAULT</strong> = <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<div class="contribute docutils container">
+<p>There is currently no description for this enum. Please help us by <a class="reference external" href="https://contributing.godotengine.org/en/latest/documentation/class_reference.html">contributing one</a>!</p>
+</div>
+<p class="classref-enumeration-constant" id="class-avaudiosession-constant-long-form-audio"><a class="reference internal" href="#enum-avaudiosession-routesharingpolicy"><span class="std std-ref">RouteSharingPolicy</span></a> <strong>LONG_FORM_AUDIO</strong> = <code class="docutils literal notranslate"><span class="pre">1</span></code></p>
+<p>Route sharing policy for long-form audio.</p>
+<p class="classref-enumeration-constant" id="class-avaudiosession-constant-independent"><a class="reference internal" href="#enum-avaudiosession-routesharingpolicy"><span class="std std-ref">RouteSharingPolicy</span></a> <strong>INDEPENDENT</strong> = <code class="docutils literal notranslate"><span class="pre">2</span></code></p>
+<p>Independent route sharing policy.</p>
+<p class="classref-enumeration-constant" id="class-avaudiosession-constant-long-form"><a class="reference internal" href="#enum-avaudiosession-routesharingpolicy"><span class="std std-ref">RouteSharingPolicy</span></a> <strong>LONG_FORM</strong> = <code class="docutils literal notranslate"><span class="pre">3</span></code></p>
+<p>Alias for <a class="reference internal" href="#class-avaudiosession-constant-long-form-audio"><span class="std std-ref">LONG_FORM_AUDIO</span></a>.</p>
+<hr class="classref-item-separator docutils" />
+<p class="classref-enumeration" id="enum-avaudiosession-sessioncategory">enum <strong>SessionCategory</strong>: <a class="reference internal" href="#enum-avaudiosession-sessioncategory"><span class="std std-ref">🔗</span></a></p>
+<p class="classref-enumeration-constant" id="class-avaudiosession-constant-ambient"><a class="reference internal" href="#enum-avaudiosession-sessioncategory"><span class="std std-ref">SessionCategory</span></a> <strong>AMBIENT</strong> = <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<p>Plays audio quietly and mixes with other apps, ideal for games that should respect background music.</p>
+<p class="classref-enumeration-constant" id="class-avaudiosession-constant-multi-route"><a class="reference internal" href="#enum-avaudiosession-sessioncategory"><span class="std std-ref">SessionCategory</span></a> <strong>MULTI_ROUTE</strong> = <code class="docutils literal notranslate"><span class="pre">1</span></code></p>
+<p>Allows simultaneous input and output on multiple ports such as iPad USB headsets and speakers.</p>
+<p class="classref-enumeration-constant" id="class-avaudiosession-constant-play-and-record"><a class="reference internal" href="#enum-avaudiosession-sessioncategory"><span class="std std-ref">SessionCategory</span></a> <strong>PLAY_AND_RECORD</strong> = <code class="docutils literal notranslate"><span class="pre">2</span></code></p>
+<p>Enables full duplex audio for gameplay that records the microphone while playing effects.</p>
+<p class="classref-enumeration-constant" id="class-avaudiosession-constant-playback"><a class="reference internal" href="#enum-avaudiosession-sessioncategory"><span class="std std-ref">SessionCategory</span></a> <strong>PLAYBACK</strong> = <code class="docutils literal notranslate"><span class="pre">3</span></code></p>
+<p>Optimised for playback only and silences system music while your game is active.</p>
+<p class="classref-enumeration-constant" id="class-avaudiosession-constant-record"><a class="reference internal" href="#enum-avaudiosession-sessioncategory"><span class="std std-ref">SessionCategory</span></a> <strong>RECORD</strong> = <code class="docutils literal notranslate"><span class="pre">4</span></code></p>
+<p>Recording-only mode for utilities that only capture audio.</p>
+<p class="classref-enumeration-constant" id="class-avaudiosession-constant-solo-ambient"><a class="reference internal" href="#enum-avaudiosession-sessioncategory"><span class="std std-ref">SessionCategory</span></a> <strong>SOLO_AMBIENT</strong> = <code class="docutils literal notranslate"><span class="pre">5</span></code></p>
+<p>Similar to <a class="reference internal" href="#class-avaudiosession-constant-ambient"><span class="std std-ref">AMBIENT</span></a> but pauses other audio sessions when your project starts.</p>
+<p class="classref-enumeration-constant" id="class-avaudiosession-constant-unknown"><a class="reference internal" href="#enum-avaudiosession-sessioncategory"><span class="std std-ref">SessionCategory</span></a> <strong>UNKNOWN</strong> = <code class="docutils literal notranslate"><span class="pre">6</span></code></p>
+<p>Default fallback when the platform does not expose audio sessions (macOS desktop).</p>
+<hr class="classref-item-separator docutils" />
+<p class="classref-enumeration" id="enum-avaudiosession-sessionmode">enum <strong>SessionMode</strong>: <a class="reference internal" href="#enum-avaudiosession-sessionmode"><span class="std std-ref">🔗</span></a></p>
+<p class="classref-enumeration-constant" id="class-avaudiosession-constant-default"><a class="reference internal" href="#enum-avaudiosession-sessionmode"><span class="std std-ref">SessionMode</span></a> <strong>DEFAULT</strong> = <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+<p>The default audio session mode.</p>
+<p class="classref-enumeration-constant" id="class-avaudiosession-constant-game-chat"><a class="reference internal" href="#enum-avaudiosession-sessionmode"><span class="std std-ref">SessionMode</span></a> <strong>GAME_CHAT</strong> = <code class="docutils literal notranslate"><span class="pre">1</span></code></p>
+<p>Mode for game chat, optimizing for voice processing.</p>
+<p class="classref-enumeration-constant" id="class-avaudiosession-constant-measurement"><a class="reference internal" href="#enum-avaudiosession-sessionmode"><span class="std std-ref">SessionMode</span></a> <strong>MEASUREMENT</strong> = <code class="docutils literal notranslate"><span class="pre">2</span></code></p>
+<p>Mode for audio measurement.</p>
+<p class="classref-enumeration-constant" id="class-avaudiosession-constant-movie-playback"><a class="reference internal" href="#enum-avaudiosession-sessionmode"><span class="std std-ref">SessionMode</span></a> <strong>MOVIE_PLAYBACK</strong> = <code class="docutils literal notranslate"><span class="pre">3</span></code></p>
+<p>Mode for movie playback.</p>
+<p class="classref-enumeration-constant" id="class-avaudiosession-constant-spoken-audio"><a class="reference internal" href="#enum-avaudiosession-sessionmode"><span class="std std-ref">SessionMode</span></a> <strong>SPOKEN_AUDIO</strong> = <code class="docutils literal notranslate"><span class="pre">4</span></code></p>
+<p>Mode for spoken audio.</p>
+<p class="classref-enumeration-constant" id="class-avaudiosession-constant-video-chat"><a class="reference internal" href="#enum-avaudiosession-sessionmode"><span class="std std-ref">SessionMode</span></a> <strong>VIDEO_CHAT</strong> = <code class="docutils literal notranslate"><span class="pre">5</span></code></p>
+<p>Mode for video chat.</p>
+<p class="classref-enumeration-constant" id="class-avaudiosession-constant-voice-chat"><a class="reference internal" href="#enum-avaudiosession-sessionmode"><span class="std std-ref">SessionMode</span></a> <strong>VOICE_CHAT</strong> = <code class="docutils literal notranslate"><span class="pre">6</span></code></p>
+<p>Mode for voice chat.</p>
+<p class="classref-enumeration-constant" id="class-avaudiosession-constant-voice-prompt"><a class="reference internal" href="#enum-avaudiosession-sessionmode"><span class="std std-ref">SessionMode</span></a> <strong>VOICE_PROMPT</strong> = <code class="docutils literal notranslate"><span class="pre">7</span></code></p>
+<p>Mode for voice prompts.</p>
+</section>
+<hr class="classref-section-separator docutils" />
+<section class="classref-descriptions-group" id="property-descriptions">
+<h2>Property Descriptions<a class="headerlink" href="#property-descriptions" title="Link to this heading">¶</a></h2>
+<p class="classref-property" id="class-avaudiosession-property-current-category"><span class="xref std std-ref">int</span> <strong>current_category</strong> = <code class="docutils literal notranslate"><span class="pre">6</span></code> <a class="reference internal" href="#class-avaudiosession-property-current-category"><span class="std std-ref">🔗</span></a></p>
+<ul class="classref-property-setget simple">
+<li><p><abbr title="No return value.">void</abbr> <strong>set_current_category</strong>(value: <span class="xref std std-ref">int</span>)</p></li>
+<li><p><span class="xref std std-ref">int</span> <strong>get_current_category</strong>()</p></li>
+</ul>
+<p>The current audio session category.</p>
+</section>
+<hr class="classref-section-separator docutils" />
+<section class="classref-descriptions-group" id="method-descriptions">
+<h2>Method Descriptions<a class="headerlink" href="#method-descriptions" title="Link to this heading">¶</a></h2>
+<p class="classref-method" id="class-avaudiosession-method-set-category"><span class="xref std std-ref">int</span> <strong>set_category</strong>(category: <a class="reference internal" href="#enum-avaudiosession-sessioncategory"><span class="std std-ref">SessionCategory</span></a>, mode: <a class="reference internal" href="#enum-avaudiosession-sessionmode"><span class="std std-ref">SessionMode</span></a>, policy: <a class="reference internal" href="#enum-avaudiosession-routesharingpolicy"><span class="std std-ref">RouteSharingPolicy</span></a>, options: <span class="xref std std-ref">int</span>) <a class="reference internal" href="#class-avaudiosession-method-set-category"><span class="std std-ref">🔗</span></a></p>
+<p>Sets the shared audio session category, mode, route sharing policy, and options.</p>
+<p><code class="docutils literal notranslate"><span class="pre">category</span></code>: The audio session category to set (e.g., <a class="reference internal" href="#class-avaudiosession-constant-playback"><span class="std std-ref">PLAYBACK</span></a>, <a class="reference internal" href="#class-avaudiosession-constant-record"><span class="std std-ref">RECORD</span></a>).</p>
+<p><code class="docutils literal notranslate"><span class="pre">mode</span></code>: The audio session mode (e.g., <a class="reference internal" href="#class-avaudiosession-constant-default"><span class="std std-ref">DEFAULT</span></a>, <a class="reference internal" href="#class-avaudiosession-constant-game-chat"><span class="std std-ref">GAME_CHAT</span></a>).</p>
+<p><code class="docutils literal notranslate"><span class="pre">policy</span></code>: The route sharing policy (e.g., <a class="reference internal" href="#class-avaudiosession-constant-route-sharing-default"><span class="std std-ref">ROUTE_SHARING_DEFAULT</span></a>, <a class="reference internal" href="#class-avaudiosession-constant-long-form-audio"><span class="std std-ref">LONG_FORM_AUDIO</span></a>).</p>
+<p><code class="docutils literal notranslate"><span class="pre">options</span></code>: A bitmask of <a class="reference internal" href="#enum-avaudiosession-categoryoptions"><span class="std std-ref">CategoryOptions</span></a> values (e.g., <code class="docutils literal notranslate"><span class="pre">AVAudioSession.MIX_WITH_OTHERS</span> <span class="pre">|</span> <span class="pre">AVAudioSession.DUCK_OTHERS</span></code>).</p>
+<p>Returns <span class="xref std std-ref">&#64;GlobalScope.OK</span> on success, or <span class="xref std std-ref">&#64;GlobalScope.FAILED</span> if the setting could not be applied (e.g. on macOS where this is not supported, or if an error occurs).</p>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">GodotApplePlugins</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="class_applefilepicker.html">AppleFilePicker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_appleurl.html">AppleURL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_aranchor.html">ARAnchor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arbodyanchor.html">ARBodyAnchor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arbodyskeleton.html">ARBodySkeleton</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arbodytrackingconfiguration.html">ARBodyTrackingConfiguration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arcamera.html">ARCamera</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arcoachingoverlay.html">ARCoachingOverlay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arcollaborationdata.html">ARCollaborationData</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arenvironmentprobeanchor.html">AREnvironmentProbeAnchor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arfaceanchor.html">ARFaceAnchor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arframe.html">ARFrame</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_argeoanchor.html">ARGeoAnchor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_argeotrackingconfiguration.html">ARGeoTrackingConfiguration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arhandanchor.html">ARHandAnchor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arhandskeleton.html">ARHandSkeleton</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arimageanchor.html">ARImageAnchor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arlightestimate.html">ARLightEstimate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_armeshanchor.html">ARMeshAnchor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arplaneanchor.html">ARPlaneAnchor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arpointcloud.html">ARPointCloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arraycastquery.html">ARRaycastQuery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arraycastresult.html">ARRaycastResult</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arsession.html">ARSession</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_artrackedraycast.html">ARTrackedRaycast</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arworldmap.html">ARWorldMap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_arworldtrackingconfiguration.html">ARWorldTrackingConfiguration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_asauthorizationappleidcredential.html">ASAuthorizationAppleIDCredential</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_asauthorizationcontroller.html">ASAuthorizationController</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_aspasswordcredential.html">ASPasswordCredential</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_aswebauthenticationsession.html">ASWebAuthenticationSession</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">AVAudioSession</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_foundation.html">Foundation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gamecentermanager.html">GameCenterManager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkaccesspoint.html">GKAccessPoint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkachievement.html">GKAchievement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkachievementchallenge.html">GKAchievementChallenge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkachievementdescription.html">GKAchievementDescription</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkchallenge.html">GKChallenge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkchallengedefinition.html">GKChallengeDefinition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkerror.html">GKError</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkgameactivity.html">GKGameActivity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkgameactivitydefinition.html">GKGameActivityDefinition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkgamecenterviewcontroller.html">GKGameCenterViewController</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkinvite.html">GKInvite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkleaderboard.html">GKLeaderboard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkleaderboardentry.html">GKLeaderboardEntry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkleaderboardscore.html">GKLeaderboardScore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkleaderboardset.html">GKLeaderboardSet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gklocalplayer.html">GKLocalPlayer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkmatch.html">GKMatch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkmatchmaker.html">GKMatchmaker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkmatchmakerviewcontroller.html">GKMatchmakerViewController</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkmatchrequest.html">GKMatchRequest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gknotificationbanner.html">GKNotificationBanner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkplayer.html">GKPlayer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gksavedgame.html">GKSavedGame</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkscorechallenge.html">GKScoreChallenge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkturnbasedexchange.html">GKTurnBasedExchange</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkturnbasedexchangereply.html">GKTurnBasedExchangeReply</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkturnbasedmatch.html">GKTurnBasedMatch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkturnbasedmatchmakerviewcontroller.html">GKTurnBasedMatchmakerViewController</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkturnbasedparticipant.html">GKTurnBasedParticipant</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_gkvoicechat.html">GKVoiceChat</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_productview.html">ProductView</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_signalproxy.html">SignalProxy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_storekitmanager.html">StoreKitManager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_storeproduct.html">StoreProduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_storeproductpaymentmode.html">StoreProductPaymentMode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_storeproductpurchaseoption.html">StoreProductPurchaseOption</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_storeproductsubscriptionoffer.html">StoreProductSubscriptionOffer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_storeproductsubscriptionperiod.html">StoreProductSubscriptionPeriod</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_storesubscriptioninfo.html">StoreSubscriptionInfo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_storesubscriptioninforenewalinfo.html">StoreSubscriptionInfoRenewalInfo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_storesubscriptioninfostatus.html">StoreSubscriptionInfoStatus</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_storetransaction.html">StoreTransaction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_storeview.html">StoreView</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_subscriptionofferview.html">SubscriptionOfferView</a></li>
+<li class="toctree-l1"><a class="reference internal" href="class_subscriptionstoreview.html">SubscriptionStoreView</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="class_aswebauthenticationsession.html" title="previous chapter">ASWebAuthenticationSession</a></li>
+      <li>Next: <a href="class_foundation.html" title="next chapter">Foundation</a></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="_sources/class_avaudiosession.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
