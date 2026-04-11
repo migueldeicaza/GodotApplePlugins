@@ -10,15 +10,44 @@ import xml.etree.ElementTree as ET
 from collections import OrderedDict
 from typing import Any, Dict, List, Optional, TextIO, Tuple, Union
 
+def _existing_misc_root(candidate: str) -> Optional[str]:
+    if os.path.isdir(os.path.join(candidate, "misc")):
+        return candidate
+    return None
+
+
 def _detect_root_directory() -> str:
     """Return the Godot source root that provides misc.utility.color."""
     script_root = os.path.dirname(os.path.abspath(__file__))
     default_root = os.path.join(script_root, "../../")
     alternate_root = os.path.expanduser("~/cvs/master-godot/editor")
+    env_root = os.environ.get("GODOT_SOURCE_ROOT", "")
+
+    if env_root:
+        resolved = _existing_misc_root(env_root)
+        if resolved:
+            return resolved
+
+    # The script is typically invoked with the upstream Godot XML path as the
+    # penultimate positional argument. Support both current (`.../doc/classes`)
+    # and older (`.../editor/doc/classes`) layouts.
+    for arg in sys.argv[1:]:
+        normalized = os.path.abspath(arg)
+        for suffix in (
+            os.path.join("editor", "doc", "classes"),
+            os.path.join("doc", "classes"),
+        ):
+            marker = os.sep + suffix
+            if normalized.endswith(marker):
+                candidate = normalized[: -len(marker)]
+                resolved = _existing_misc_root(candidate)
+                if resolved:
+                    return resolved
 
     for candidate in (default_root, alternate_root):
-        if os.path.isdir(os.path.join(candidate, "misc")):
-            return candidate
+        resolved = _existing_misc_root(candidate)
+        if resolved:
+            return resolved
 
     return default_root
 
