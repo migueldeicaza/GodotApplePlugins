@@ -8,9 +8,9 @@ This run used the full `doc_classes/*.xml` set.
 
 ## Generated Surface
 
-- Classes: 81
-- Methods: 792
-- Members: 368
+- Classes: 79
+- Methods: 772
+- Members: 360
 - Signals: 63
 - Integer constants: 318
 
@@ -37,11 +37,11 @@ make GODOT_HEADERS_DIR=/path/to/godot-cpp/gdextension
 You can point the generator at another checkout directory instead of changing directories first.
 
 ```sh
-swift run GodotApplePluginsStubGenerator /Users/miguel/cvs/GodotApplePlugins --output /Users/miguel/cvs/GodotApplePlugins/Generated/GodotApplePluginsStub
+swift run GodotApplePluginsStubGenerator . --output Generated/GodotApplePluginsStub
 ```
 
 To generate a subset:
 
 ```sh
-swift run GodotApplePluginsStubGenerator /Users/miguel/cvs/GodotApplePlugins --file GKPlayer.xml --file GKLocalPlayer.xml --output /Users/miguel/cvs/GodotApplePlugins/Generated/GodotApplePluginsStub
+swift run GodotApplePluginsStubGenerator . --file GKPlayer.xml --file GKLocalPlayer.xml --output Generated/GodotApplePluginsStub
 ```

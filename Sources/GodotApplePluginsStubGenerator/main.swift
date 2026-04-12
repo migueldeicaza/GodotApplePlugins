@@ -412,10 +412,26 @@ enum GeneratorModel {
             return GodotTypeInfo(variantType: "GDEXTENSION_VARIANT_TYPE_ARRAY", className: "", usageExpression: "GAP_PROPERTY_USAGE_DEFAULT")
         case "PackedByteArray":
             return GodotTypeInfo(variantType: "GDEXTENSION_VARIANT_TYPE_PACKED_BYTE_ARRAY", className: "", usageExpression: "GAP_PROPERTY_USAGE_DEFAULT")
+        case "PackedInt32Array":
+            return GodotTypeInfo(variantType: "GDEXTENSION_VARIANT_TYPE_PACKED_INT32_ARRAY", className: "", usageExpression: "GAP_PROPERTY_USAGE_DEFAULT")
+        case "PackedInt64Array":
+            return GodotTypeInfo(variantType: "GDEXTENSION_VARIANT_TYPE_PACKED_INT64_ARRAY", className: "", usageExpression: "GAP_PROPERTY_USAGE_DEFAULT")
+        case "PackedFloat32Array":
+            return GodotTypeInfo(variantType: "GDEXTENSION_VARIANT_TYPE_PACKED_FLOAT32_ARRAY", className: "", usageExpression: "GAP_PROPERTY_USAGE_DEFAULT")
+        case "PackedVector2Array":
+            return GodotTypeInfo(variantType: "GDEXTENSION_VARIANT_TYPE_PACKED_VECTOR2_ARRAY", className: "", usageExpression: "GAP_PROPERTY_USAGE_DEFAULT")
+        case "PackedVector3Array":
+            return GodotTypeInfo(variantType: "GDEXTENSION_VARIANT_TYPE_PACKED_VECTOR3_ARRAY", className: "", usageExpression: "GAP_PROPERTY_USAGE_DEFAULT")
         case "PackedStringArray":
             return GodotTypeInfo(variantType: "GDEXTENSION_VARIANT_TYPE_PACKED_STRING_ARRAY", className: "", usageExpression: "GAP_PROPERTY_USAGE_DEFAULT")
+        case "Vector2":
+            return GodotTypeInfo(variantType: "GDEXTENSION_VARIANT_TYPE_VECTOR2", className: "", usageExpression: "GAP_PROPERTY_USAGE_DEFAULT")
+        case "Vector3":
+            return GodotTypeInfo(variantType: "GDEXTENSION_VARIANT_TYPE_VECTOR3", className: "", usageExpression: "GAP_PROPERTY_USAGE_DEFAULT")
         case "Rect2":
             return GodotTypeInfo(variantType: "GDEXTENSION_VARIANT_TYPE_RECT2", className: "", usageExpression: "GAP_PROPERTY_USAGE_DEFAULT")
+        case "Transform3D":
+            return GodotTypeInfo(variantType: "GDEXTENSION_VARIANT_TYPE_TRANSFORM3D", className: "", usageExpression: "GAP_PROPERTY_USAGE_DEFAULT")
         case "Variant":
             return GodotTypeInfo(
                 variantType: "GDEXTENSION_VARIANT_TYPE_NIL",
@@ -474,11 +490,11 @@ enum CEmitter {
         #define GAP_PROPERTY_USAGE_NIL_IS_VARIANT 131072u
 
         typedef struct {
-            uint64_t opaque[1];
+            uintptr_t opaque[3];
         } GAPStubStringStorage;
 
         typedef struct {
-            uint64_t opaque[1];
+            uintptr_t opaque[3];
         } GAPStubStringNameStorage;
 
         typedef struct {
@@ -538,10 +554,6 @@ enum CEmitter {
         } GAPStubClassDescriptor;
 
         typedef struct {
-            const GAPStubClassDescriptor *descriptor;
-        } GAPStubInstance;
-
-        typedef struct {
             GAPStubStringNameStorage name;
             GAPStubStringNameStorage class_name;
             GAPStubStringStorage hint_string;
@@ -564,14 +576,12 @@ enum CEmitter {
             GDExtensionInterfaceStringNameNewWithLatin1Chars string_name_new_with_latin1_chars;
             GDExtensionInterfaceVariantGetPtrDestructor variant_get_ptr_destructor;
             GDExtensionInterfaceVariantNewNil variant_new_nil;
-            GDExtensionInterfaceClassdbConstructObject classdb_construct_object;
             GDExtensionInterfaceClassdbRegisterExtensionClass2 classdb_register_extension_class2;
             GDExtensionInterfaceClassdbRegisterExtensionClassMethod classdb_register_extension_class_method;
             GDExtensionInterfaceClassdbRegisterExtensionClassProperty classdb_register_extension_class_property;
             GDExtensionInterfaceClassdbRegisterExtensionClassSignal classdb_register_extension_class_signal;
             GDExtensionInterfaceClassdbRegisterExtensionClassIntegerConstant classdb_register_extension_class_integer_constant;
             GDExtensionInterfaceClassdbUnregisterExtensionClass classdb_unregister_extension_class;
-            GDExtensionInterfaceObjectSetInstance object_set_instance;
             GDExtensionPtrDestructor string_destructor;
             GDExtensionPtrDestructor string_name_destructor;
         } GAPStubAPI;
@@ -727,30 +737,13 @@ enum CEmitter {
 
         static GDExtensionObjectPtr gap_stub_create_instance(void *class_userdata) {
             const GAPStubClassDescriptor *descriptor = (const GAPStubClassDescriptor *)class_userdata;
-            GAPStubStringNameStorage class_name;
-            GAPStubInstance *instance;
-            GDExtensionObjectPtr object;
-
-            gap_string_name_init(&class_name, descriptor->name);
-            object = gap_api.classdb_construct_object((GDExtensionConstStringNamePtr)&class_name);
-
-            if (object != NULL) {
-                instance = (GAPStubInstance *)gap_api.mem_alloc(sizeof(GAPStubInstance));
-                if (instance != NULL) {
-                    instance->descriptor = descriptor;
-                    gap_api.object_set_instance(object, (GDExtensionConstStringNamePtr)&class_name, instance);
-                }
-            }
-
-            gap_string_name_destroy(&class_name);
-            return object;
+            gap_report_unimplemented(descriptor->name);
+            return NULL;
         }
 
         static void gap_stub_free_instance(void *class_userdata, GDExtensionClassInstancePtr p_instance) {
             (void)class_userdata;
-            if (p_instance != NULL) {
-                gap_api.mem_free(p_instance);
-            }
+            (void)p_instance;
         }
 
         """)
@@ -1150,13 +1143,11 @@ enum CEmitter {
             GAP_LOAD_REQUIRED(string_name_new_with_latin1_chars, "string_name_new_with_latin1_chars", GDExtensionInterfaceStringNameNewWithLatin1Chars);
             GAP_LOAD_REQUIRED(variant_get_ptr_destructor, "variant_get_ptr_destructor", GDExtensionInterfaceVariantGetPtrDestructor);
             GAP_LOAD_REQUIRED(variant_new_nil, "variant_new_nil", GDExtensionInterfaceVariantNewNil);
-            GAP_LOAD_REQUIRED(classdb_construct_object, "classdb_construct_object", GDExtensionInterfaceClassdbConstructObject);
             GAP_LOAD_REQUIRED(classdb_register_extension_class2, "classdb_register_extension_class2", GDExtensionInterfaceClassdbRegisterExtensionClass2);
             GAP_LOAD_REQUIRED(classdb_register_extension_class_method, "classdb_register_extension_class_method", GDExtensionInterfaceClassdbRegisterExtensionClassMethod);
             GAP_LOAD_REQUIRED(classdb_register_extension_class_property, "classdb_register_extension_class_property", GDExtensionInterfaceClassdbRegisterExtensionClassProperty);
             GAP_LOAD_REQUIRED(classdb_register_extension_class_signal, "classdb_register_extension_class_signal", GDExtensionInterfaceClassdbRegisterExtensionClassSignal);
             GAP_LOAD_REQUIRED(classdb_register_extension_class_integer_constant, "classdb_register_extension_class_integer_constant", GDExtensionInterfaceClassdbRegisterExtensionClassIntegerConstant);
-            GAP_LOAD_REQUIRED(object_set_instance, "object_set_instance", GDExtensionInterfaceObjectSetInstance);
             GAP_LOAD_OPTIONAL(classdb_unregister_extension_class, "classdb_unregister_extension_class", GDExtensionInterfaceClassdbUnregisterExtensionClass);
 
             gap_api.string_destructor = gap_api.variant_get_ptr_destructor(GDEXTENSION_VARIANT_TYPE_STRING);
