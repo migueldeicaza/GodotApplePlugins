@@ -55,13 +55,13 @@ Properties
    +-----------------------------+-------------------------------------------------------------------+------------------------------------------------------------------------+
    | :ref:`String<class_String>` | :ref:`display_name<class_GKPlayer_property_display_name>`         | ``""``                                                                 |
    +-----------------------------+-------------------------------------------------------------------+------------------------------------------------------------------------+
-   | :ref:`String<class_String>` | :ref:`game_player_id<class_GKPlayer_property_game_player_id>`     | ``"120D5E1D4F9253F7A0B9F19903B8FEA7CEBA08072326DDB72026AD1ACE21DB4B"`` |
+   | :ref:`String<class_String>` | :ref:`game_player_id<class_GKPlayer_property_game_player_id>`     | ``"C74543D3A8C6B8698F666FB1FD3786780D0135B1B7595501F862CCA30CC8E64D"`` |
    +-----------------------------+-------------------------------------------------------------------+------------------------------------------------------------------------+
    | :ref:`String<class_String>` | :ref:`guest_identifier<class_GKPlayer_property_guest_identifier>` | ``""``                                                                 |
    +-----------------------------+-------------------------------------------------------------------+------------------------------------------------------------------------+
    | :ref:`bool<class_bool>`     | :ref:`is_invitable<class_GKPlayer_property_is_invitable>`         | ``false``                                                              |
    +-----------------------------+-------------------------------------------------------------------+------------------------------------------------------------------------+
-   | :ref:`String<class_String>` | :ref:`team_player_id<class_GKPlayer_property_team_player_id>`     | ``"6BA82EB44C497D97202F42A436D2E385FB8057B2DE108FA45FE0EEAD920BCF4A"`` |
+   | :ref:`String<class_String>` | :ref:`team_player_id<class_GKPlayer_property_team_player_id>`     | ``"B50AC878FDC5F2C6F19F845D38B0F4682E7FAE50C7050455B5E28FD12F8D2C36"`` |
    +-----------------------------+-------------------------------------------------------------------+------------------------------------------------------------------------+
 
 .. rst-class:: classref-reftable-group
@@ -125,7 +125,7 @@ Localized display name suited for UI.
 
 .. rst-class:: classref-property
 
-:ref:`String<class_String>` **game_player_id** = ``"120D5E1D4F9253F7A0B9F19903B8FEA7CEBA08072326DDB72026AD1ACE21DB4B"`` :ref:`🔗<class_GKPlayer_property_game_player_id>`
+:ref:`String<class_String>` **game_player_id** = ``"C74543D3A8C6B8698F666FB1FD3786780D0135B1B7595501F862CCA30CC8E64D"`` :ref:`🔗<class_GKPlayer_property_game_player_id>`
 
 .. rst-class:: classref-property-setget
 
@@ -173,7 +173,7 @@ True if the player allows Game Center invitations.
 
 .. rst-class:: classref-property
 
-:ref:`String<class_String>` **team_player_id** = ``"6BA82EB44C497D97202F42A436D2E385FB8057B2DE108FA45FE0EEAD920BCF4A"`` :ref:`🔗<class_GKPlayer_property_team_player_id>`
+:ref:`String<class_String>` **team_player_id** = ``"B50AC878FDC5F2C6F19F845D38B0F4682E7FAE50C7050455B5E28FD12F8D2C36"`` :ref:`🔗<class_GKPlayer_property_team_player_id>`
 
 .. rst-class:: classref-property-setget
 

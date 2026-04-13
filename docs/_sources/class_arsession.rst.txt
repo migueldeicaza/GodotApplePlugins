@@ -44,7 +44,7 @@ Properties
    +-------------------------------------------------------------------------+--------------------------------------------------------------+--------------------------------------------+
    | :ref:`ARFrame<class_ARFrame>`                                           | :ref:`current_frame<class_ARSession_property_current_frame>` | ``null``                                   |
    +-------------------------------------------------------------------------+--------------------------------------------------------------+--------------------------------------------+
-   | :ref:`String<class_String>`                                             | :ref:`identifier<class_ARSession_property_identifier>`       | ``"8615A5C0-5DED-4EA8-8054-E85E79CC3091"`` |
+   | :ref:`String<class_String>`                                             | :ref:`identifier<class_ARSession_property_identifier>`       | ``"EA88294E-E4D0-4C66-B294-70D196F3B677"`` |
    +-------------------------------------------------------------------------+--------------------------------------------------------------+--------------------------------------------+
 
 .. rst-class:: classref-reftable-group
@@ -356,7 +356,7 @@ The most recent frame produced by the session, if available.
 
 .. rst-class:: classref-property
 
-:ref:`String<class_String>` **identifier** = ``"8615A5C0-5DED-4EA8-8054-E85E79CC3091"`` :ref:`🔗<class_ARSession_property_identifier>`
+:ref:`String<class_String>` **identifier** = ``"EA88294E-E4D0-4C66-B294-70D196F3B677"`` :ref:`🔗<class_ARSession_property_identifier>`
 
 .. rst-class:: classref-property-setget
 

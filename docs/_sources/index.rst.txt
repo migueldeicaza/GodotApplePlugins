@@ -5,6 +5,22 @@
 .. Generated automatically from Godot engine sources.
 .. Generator: https://github.com/godotengine/godot/tree/master/doc/tools/make_rst.py.
 
+Guides
+======
+
+.. toctree::
+    :maxdepth: 1
+    :name: toc-guides
+
+    arkit_arkitguide
+    authenticationservices_authenticationservicesguide
+    gamecenter_gamecenterguide
+
+.. toctree::
+    :hidden:
+
+    gamecenter_entitlements
+
 .. _doc_class_reference:
 
 All classes
