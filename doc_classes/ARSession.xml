@@ -131,7 +131,7 @@
 		<member name="current_frame" type="ARFrame" setter="" getter="get_current_frame" default="null">
 			The most recent frame produced by the session, if available.
 		</member>
-		<member name="identifier" type="String" setter="" getter="get_identifier" default="&quot;8615A5C0-5DED-4EA8-8054-E85E79CC3091&quot;">
+		<member name="identifier" type="String" setter="" getter="get_identifier" default="&quot;EA88294E-E4D0-4C66-B294-70D196F3B677&quot;">
 			A unique identifier for this session instance.
 		</member>
 	</members>
