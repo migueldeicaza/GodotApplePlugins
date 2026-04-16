@@ -40,11 +40,19 @@ stubs for other targets.
 
 # API Design
 
-The API surfaced by this add-ons is to be as close to possible to the Apple APIs (classes, methods names, enumerations) and to avoid attempting to provide an abstraction over them - as these tend to have impedance mismatches.  
+The API surfaced by this add-ons is to be as close to possible to the Apple APIs
+(classes, methods names, enumerations) and to avoid attempting to provide an
+abstraction over them - as these tend to have impedance mismatches.  
 
-In place of Apple delegate's pattern, I use Godot's callbacks - and I surfaced properties and methods use snake-case instead of Apple's camelCase, but beyond that, the mapping should be almost identical.
+In place of Apple delegate's pattern, I use Godot's callbacks - and I surfaced
+properties and methods use snake-case instead of Apple's camelCase, but beyond
+that, the mapping should be almost identical.
 
-Both GameCenter and AuthenticationServices APIs use class names that are 1:1 mappings to Apple's APIs as they use 2-letter namespaces (GK, AS) and they are not likely to conflicth with your code.   For the StoreKit API, I chose to change the names as these APIs use terms that are too general (Store, Product) and could clash with your own code.
+Both GameCenter and AuthenticationServices APIs use class names that are 1:1
+mappings to Apple's APIs as they use 2-letter namespaces (GK, AS) and they are
+not likely to conflicth with your code.   For the StoreKit API, I chose to
+change the names as these APIs use terms that are too general (Store, Product)
+and could clash with your own code.
 
 # Size
 
