@@ -545,7 +545,7 @@ GKChallenge.load_received_challenges(func(challenges: Array, error: Variant) -> 
 ## Report Score
 
 ```gdscript
-GKLeaderboard.load_leaderboards(["MyLeaderboard"], func(leaderboards: Array [GKLeaderboard], error: Variant)->void:
+GKLeaderboard.load_leaderboards(PackedStringArray(["MyLeaderboard"]), func(leaderboards: Array [GKLeaderboard], error: Variant)->void:
     var score = 100
     var context = 0
 
@@ -563,7 +563,7 @@ GKLeaderboard.load_leaderboards(["MyLeaderboard"], func(leaderboards: Array [GKL
 
 ```
 # Loads all leaderboards
-GKLeaderboard.load_leaderboards([], func(leaderboards: Array [GKLeaderboard], error: Variant)->void:
+GKLeaderboard.load_leaderboards(PackedStringArray(), func(leaderboards: Array [GKLeaderboard], error: Variant)->void:
     if error:
         print("Error loading leaderboards %s" % error)
     else:
@@ -571,7 +571,7 @@ GKLeaderboard.load_leaderboards([], func(leaderboards: Array [GKLeaderboard], er
 )
 
 # Load specific ones
-GKLeaderboard.load_leaderboards(["My leaderboard"], func(leaderboards: Array [GKLeaderboard], error: Variant)->void:
+GKLeaderboard.load_leaderboards(PackedStringArray(["My leaderboard"]), func(leaderboards: Array [GKLeaderboard], error: Variant)->void:
     if error:
         print("Error loading leaderboard %s" % error)
     else:

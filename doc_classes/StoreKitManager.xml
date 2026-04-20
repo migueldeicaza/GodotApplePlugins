@@ -63,7 +63,7 @@
 			<return type="void" />
 			<param index="0" name="productIds" type="PackedStringArray" />
 			<description>
-				Requests product information for a list of product identifiers, e.g. [code]request_products(["com.example.product1", "com.example.product2"])[/code].
+				Requests product information for a list of product identifiers, e.g. [code]request_products(PackedStringArray(["com.example.product1", "com.example.product2"]))[/code].
 				                This method will raise the [signal products_request_completed] signal when the information is retrieved.
 			</description>
 		</method>

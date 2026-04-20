@@ -114,7 +114,7 @@
 			<param index="0" name="identifiers" type="PackedStringArray" />
 			<param index="1" name="callback" type="Callable" />
 			<description>
-				Loads friends that match the provided scoped player [param identifiers].
+				Loads friends that match the provided scoped player [param identifiers]. Pass them as [code]PackedStringArray(["player_id_1", "player_id_2"])[/code].
 				The callback receives [code](Array[GKPlayer] friends, Variant error)[/code], where [code]error[/code] is [code]null[/code] on success or a [code skip-lint]GKError[/code].
 				Requires iOS 14.5, macOS 11.3, tvOS 14.5, or visionOS 1.0. Older versions return an empty array plus an [code skip-lint]apiNotAvailable[/code] error.
 			</description>

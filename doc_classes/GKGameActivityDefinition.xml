@@ -28,7 +28,7 @@
 			<param index="0" name="ids" type="PackedStringArray" />
 			<param index="1" name="callback" type="Callable" />
 			<description>
-				Loads game activity definitions matching [param ids].
+				Loads game activity definitions matching [param ids]. Pass them as [code]PackedStringArray(["activity_id_1", "activity_id_2"])[/code].
 			</description>
 		</method>
 		<method name="load_image">

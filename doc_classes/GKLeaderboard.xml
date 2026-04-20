@@ -11,7 +11,7 @@
 		[gdscript]
 		var local_player := GameCenterManager.new().local_player
 
-		GKLeaderboard.load_leaderboards(["MyLeaderboard"], func(leaderboards: Array[GKLeaderboard], error: Variant) -&gt; void:
+		GKLeaderboard.load_leaderboards(PackedStringArray(["MyLeaderboard"]), func(leaderboards: Array[GKLeaderboard], error: Variant) -&gt; void:
 		    if error:
 		        print("Load leaderboard error %s" % error)
 		        return
@@ -30,12 +30,12 @@
 		[codeblocks]
 		[gdscript]
 		# Loads all leaderboards configured for the app.
-		GKLeaderboard.load_leaderboards([], func(all_leaderboards: Array[GKLeaderboard], error: Variant) -&gt; void:
+		GKLeaderboard.load_leaderboards(PackedStringArray(), func(all_leaderboards: Array[GKLeaderboard], error: Variant) -&gt; void:
 		    print("Received %d leaderboards" % all_leaderboards.size())
 		)
 
 		# Loads only the identifiers you pass in.
-		GKLeaderboard.load_leaderboards(["My leaderboard"], func(named_leaderboards: Array[GKLeaderboard], error: Variant) -&gt; void:
+		GKLeaderboard.load_leaderboards(PackedStringArray(["My leaderboard"]), func(named_leaderboards: Array[GKLeaderboard], error: Variant) -&gt; void:
 		    print("Received %d specific leaderboards" % named_leaderboards.size())
 		)
 		[/gdscript]
@@ -65,7 +65,7 @@
 			<param index="0" name="ids" type="PackedStringArray" />
 			<param index="1" name="callback" type="Callable" />
 			<description>
-				Fetches leaderboard metadata. Pass an empty array to load every leaderboard configured for the app, or provide specific identifiers. The callback receives [code skip-lint]Array[GKLeaderboard][/code] and a [code skip-lint]Variant[/code] error string ([code]null[/code] on success).
+				Fetches leaderboard metadata. Pass a [code skip-lint]PackedStringArray[/code]. Use [code]PackedStringArray()[/code] to load every leaderboard configured for the app, or [code]PackedStringArray(["leaderboard_id"])[/code] to request specific identifiers. The callback receives [code skip-lint]Array[GKLeaderboard][/code] and a [code skip-lint]Variant[/code] error string ([code]null[/code] on success).
 			</description>
 		</method>
 		<method name="load_local_player_entries">

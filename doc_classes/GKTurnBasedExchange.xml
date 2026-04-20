@@ -13,6 +13,7 @@
 			<param index="1" name="arguments" type="PackedStringArray" />
 			<param index="2" name="callback" type="Callable" />
 			<description>
+				Cancels the exchange using the provided localized message key. Pass [param arguments] as [code]PackedStringArray(["arg1", "arg2"])[/code], or [code]PackedStringArray()[/code] if the message has no substitutions.
 			</description>
 		</method>
 		<method name="reply">
@@ -22,6 +23,7 @@
 			<param index="2" name="data" type="PackedByteArray" />
 			<param index="3" name="callback" type="Callable" />
 			<description>
+				Replies to the exchange. Pass [param arguments] as [code]PackedStringArray(["arg1", "arg2"])[/code], or [code]PackedStringArray()[/code] if the localized string has no substitutions.
 			</description>
 		</method>
 	</methods>
