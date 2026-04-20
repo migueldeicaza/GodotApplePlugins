@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<class name="GKTurnBasedMatch" inherits="RefCounted" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+<class name="GKTurnBasedMatch" inherits="RefCounted" api_type="extension" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
 	<brief_description>
 	</brief_description>
 	<description>
@@ -128,7 +128,7 @@
 			<param index="4" name="timeout" type="float" />
 			<param index="5" name="callback" type="Callable" />
 			<description>
-				Sends an exchange to the selected participants. Pass [param arguments] as [code]PackedStringArray(["arg1", "arg2"])[/code], or [code]PackedStringArray()[/code] when the localized message does not need substitution values.
+				Sends an exchange to the selected participants. Pass [param arguments] as [code]PackedStringArray(["arg1", "arg2"])[/code], or [code skip-lint]PackedStringArray()[/code] when the localized message does not need substitution values.
 			</description>
 		</method>
 		<method name="send_reminder">
@@ -138,7 +138,7 @@
 			<param index="2" name="arguments" type="PackedStringArray" />
 			<param index="3" name="callback" type="Callable" />
 			<description>
-				Sends a reminder to the selected participants. Pass [param arguments] as [code]PackedStringArray(["arg1", "arg2"])[/code], or [code]PackedStringArray()[/code] if the localized string has no substitutions.
+				Sends a reminder to the selected participants. Pass [param arguments] as [code]PackedStringArray(["arg1", "arg2"])[/code], or [code skip-lint]PackedStringArray()[/code] if the localized string has no substitutions.
 			</description>
 		</method>
 		<method name="set_localizable_message_with_key">
@@ -146,7 +146,7 @@
 			<param index="0" name="key" type="String" />
 			<param index="1" name="arguments" type="PackedStringArray" />
 			<description>
-				Sets the localized message for the match using [param key]. Pass [param arguments] as [code]PackedStringArray(["arg1", "arg2"])[/code], or [code]PackedStringArray()[/code] if no substitutions are required.
+				Sets the localized message for the match using [param key]. Pass [param arguments] as [code]PackedStringArray(["arg1", "arg2"])[/code], or [code skip-lint]PackedStringArray()[/code] if no substitutions are required.
 			</description>
 		</method>
 		<method name="turn_timeout_default" qualifiers="static">

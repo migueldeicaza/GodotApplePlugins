@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<class name="GKLeaderboard" inherits="RefCounted" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+<class name="GKLeaderboard" inherits="RefCounted" api_type="extension" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
 	<brief_description>
 		Accesses Apple Game Center leaderboards and their entries.
 	</brief_description>
@@ -65,7 +65,7 @@
 			<param index="0" name="ids" type="PackedStringArray" />
 			<param index="1" name="callback" type="Callable" />
 			<description>
-				Fetches leaderboard metadata. Pass a [code skip-lint]PackedStringArray[/code]. Use [code]PackedStringArray()[/code] to load every leaderboard configured for the app, or [code]PackedStringArray(["leaderboard_id"])[/code] to request specific identifiers. The callback receives [code skip-lint]Array[GKLeaderboard][/code] and a [code skip-lint]Variant[/code] error string ([code]null[/code] on success).
+				Fetches leaderboard metadata. Pass a [code skip-lint]PackedStringArray[/code]. Use [code skip-lint]PackedStringArray()[/code] to load every leaderboard configured for the app, or [code]PackedStringArray(["leaderboard_id"])[/code] to request specific identifiers. The callback receives [code skip-lint]Array[GKLeaderboard][/code] and a [code skip-lint]Variant[/code] error string ([code]null[/code] on success).
 			</description>
 		</method>
 		<method name="load_local_player_entries">

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<class name="GKPlayer" inherits="RefCounted" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+<class name="GKPlayer" inherits="RefCounted" api_type="extension" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
 	<brief_description>
 		Represents any Game Center player (local or remote).
 	</brief_description>
@@ -51,7 +51,7 @@
 		<member name="display_name" type="String" setter="" getter="get_display_name" default="&quot;&quot;">
 			Localized display name suited for UI.
 		</member>
-		<member name="game_player_id" type="String" setter="" getter="get_game_player_id" default="&quot;C74543D3A8C6B8698F666FB1FD3786780D0135B1B7595501F862CCA30CC8E64D&quot;">
+		<member name="game_player_id" type="String" setter="" getter="get_game_player_id" default="&quot;19F693964FA5E7CF4DFE2B10A3D7BAAD546324E606C675CA4A6D409BB2FB962D&quot;">
 			Stable, per-game identifier used by Apple to uniquely address the player.
 		</member>
 		<member name="guest_identifier" type="String" setter="" getter="get_guest_identifier" default="&quot;&quot;">
@@ -60,7 +60,7 @@
 		<member name="is_invitable" type="bool" setter="" getter="get_is_invitable" default="false">
 			True if the player allows Game Center invitations.
 		</member>
-		<member name="team_player_id" type="String" setter="" getter="get_team_player_id" default="&quot;B50AC878FDC5F2C6F19F845D38B0F4682E7FAE50C7050455B5E28FD12F8D2C36&quot;">
+		<member name="team_player_id" type="String" setter="" getter="get_team_player_id" default="&quot;20D575AFF852729358327FDDC3E5DE0AF469B6D2010171A2A999DD0767D00DC6&quot;">
 			Team-scoped identifier shared with other games from the same developer account.
 		</member>
 	</members>
