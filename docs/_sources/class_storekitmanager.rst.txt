@@ -398,7 +398,7 @@ Initiates the purchase of a specific product, e.g. ``purchase(product)``, and al
 
 |void| **request_products**\ (\ productIds\: :ref:`PackedStringArray<class_PackedStringArray>`\ ) :ref:`🔗<class_StoreKitManager_method_request_products>`
 
-Requests product information for a list of product identifiers, e.g. ``request_products(["com.example.product1", "com.example.product2"])``.
+Requests product information for a list of product identifiers, e.g. ``request_products(PackedStringArray(["com.example.product1", "com.example.product2"]))``.
 
                 This method will raise the :ref:`products_request_completed<class_StoreKitManager_signal_products_request_completed>` signal when the information is retrieved.
 

@@ -91,7 +91,7 @@ Properties
    +---------------------------------+--------------------------------------------------------------------------------------+----------------------------------------------+
    | :ref:`bool<class_bool>`         | :ref:`is_completed<class_GKAchievement_property_is_completed>`                       | ``false``                                    |
    +---------------------------------+--------------------------------------------------------------------------------------+----------------------------------------------+
-   | :ref:`float<class_float>`       | :ref:`last_reported_date<class_GKAchievement_property_last_reported_date>`           | ``1776093000.0``                             |
+   | :ref:`float<class_float>`       | :ref:`last_reported_date<class_GKAchievement_property_last_reported_date>`           | ``1776695700.0``                             |
    +---------------------------------+--------------------------------------------------------------------------------------+----------------------------------------------+
    | :ref:`float<class_float>`       | :ref:`percent_complete<class_GKAchievement_property_percent_complete>`               | ``0.0``                                      |
    +---------------------------------+--------------------------------------------------------------------------------------+----------------------------------------------+
@@ -170,7 +170,7 @@ Read-only flag that mirrors GameKit's ``isCompleted`` property.
 
 .. rst-class:: classref-property
 
-:ref:`float<class_float>` **last_reported_date** = ``1776093000.0`` :ref:`🔗<class_GKAchievement_property_last_reported_date>`
+:ref:`float<class_float>` **last_reported_date** = ``1776695700.0`` :ref:`🔗<class_GKAchievement_property_last_reported_date>`
 
 .. rst-class:: classref-property-setget
 

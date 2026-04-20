@@ -365,19 +365,13 @@
 </div>
 <hr class="classref-item-separator docutils" />
 <p class="classref-method" id="class-gkturnbasedmatch-method-send-exchange"><abbr title="No return value.">void</abbr> <strong>send_exchange</strong>(participants: <span class="xref std std-ref">Array</span>, data: <span class="xref std std-ref">PackedByteArray</span>, localizableMessageKey: <span class="xref std std-ref">String</span>, arguments: <span class="xref std std-ref">PackedStringArray</span>, timeout: <span class="xref std std-ref">float</span>, callback: <span class="xref std std-ref">Callable</span>) <a class="reference internal" href="#class-gkturnbasedmatch-method-send-exchange"><span class="std std-ref">🔗</span></a></p>
-<div class="contribute docutils container">
-<p>There is currently no description for this method. Please help us by <a class="reference external" href="https://contributing.godotengine.org/en/latest/documentation/class_reference.html">contributing one</a>!</p>
-</div>
+<p>Sends an exchange to the selected participants. Pass <code class="docutils literal notranslate"><span class="pre">arguments</span></code> as <code class="docutils literal notranslate"><span class="pre">PackedStringArray([&quot;arg1&quot;,</span> <span class="pre">&quot;arg2&quot;])</span></code>, or <code class="docutils literal notranslate"><span class="pre">PackedStringArray()</span></code> when the localized message does not need substitution values.</p>
 <hr class="classref-item-separator docutils" />
 <p class="classref-method" id="class-gkturnbasedmatch-method-send-reminder"><abbr title="No return value.">void</abbr> <strong>send_reminder</strong>(participants: <span class="xref std std-ref">Array</span>, localizableMessageKey: <span class="xref std std-ref">String</span>, arguments: <span class="xref std std-ref">PackedStringArray</span>, callback: <span class="xref std std-ref">Callable</span>) <a class="reference internal" href="#class-gkturnbasedmatch-method-send-reminder"><span class="std std-ref">🔗</span></a></p>
-<div class="contribute docutils container">
-<p>There is currently no description for this method. Please help us by <a class="reference external" href="https://contributing.godotengine.org/en/latest/documentation/class_reference.html">contributing one</a>!</p>
-</div>
+<p>Sends a reminder to the selected participants. Pass <code class="docutils literal notranslate"><span class="pre">arguments</span></code> as <code class="docutils literal notranslate"><span class="pre">PackedStringArray([&quot;arg1&quot;,</span> <span class="pre">&quot;arg2&quot;])</span></code>, or <code class="docutils literal notranslate"><span class="pre">PackedStringArray()</span></code> if the localized string has no substitutions.</p>
 <hr class="classref-item-separator docutils" />
 <p class="classref-method" id="class-gkturnbasedmatch-method-set-localizable-message-with-key"><abbr title="No return value.">void</abbr> <strong>set_localizable_message_with_key</strong>(key: <span class="xref std std-ref">String</span>, arguments: <span class="xref std std-ref">PackedStringArray</span>) <a class="reference internal" href="#class-gkturnbasedmatch-method-set-localizable-message-with-key"><span class="std std-ref">🔗</span></a></p>
-<div class="contribute docutils container">
-<p>There is currently no description for this method. Please help us by <a class="reference external" href="https://contributing.godotengine.org/en/latest/documentation/class_reference.html">contributing one</a>!</p>
-</div>
+<p>Sets the localized message for the match using <code class="docutils literal notranslate"><span class="pre">key</span></code>. Pass <code class="docutils literal notranslate"><span class="pre">arguments</span></code> as <code class="docutils literal notranslate"><span class="pre">PackedStringArray([&quot;arg1&quot;,</span> <span class="pre">&quot;arg2&quot;])</span></code>, or <code class="docutils literal notranslate"><span class="pre">PackedStringArray()</span></code> if no substitutions are required.</p>
 <hr class="classref-item-separator docutils" />
 <p class="classref-method" id="class-gkturnbasedmatch-method-turn-timeout-default"><span class="xref std std-ref">float</span> <strong>turn_timeout_default</strong>() <abbr title="This method doesn't need an instance to be called, so it can be called directly using the class name.">static</abbr> <a class="reference internal" href="#class-gkturnbasedmatch-method-turn-timeout-default"><span class="std std-ref">🔗</span></a></p>
 <p>Returns Apple’s default timeout constant for player turns.</p>

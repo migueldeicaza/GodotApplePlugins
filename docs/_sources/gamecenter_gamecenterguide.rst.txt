@@ -717,7 +717,7 @@ Report Score
 
 .. code-block:: gdscript
 
-    GKLeaderboard.load_leaderboards(["MyLeaderboard"], func(leaderboards: Array [GKLeaderboard], error: Variant)->void:
+    GKLeaderboard.load_leaderboards(PackedStringArray(["MyLeaderboard"]), func(leaderboards: Array [GKLeaderboard], error: Variant)->void:
         var score = 100
         var context = 0
     
@@ -740,7 +740,7 @@ Load Leaderboards
 .. code-block:: text
 
     # Loads all leaderboards
-    GKLeaderboard.load_leaderboards([], func(leaderboards: Array [GKLeaderboard], error: Variant)->void:
+    GKLeaderboard.load_leaderboards(PackedStringArray(), func(leaderboards: Array [GKLeaderboard], error: Variant)->void:
         if error:
             print("Error loading leaderboards %s" % error)
         else:
@@ -748,7 +748,7 @@ Load Leaderboards
     )
     
     # Load specific ones
-    GKLeaderboard.load_leaderboards(["My leaderboard"], func(leaderboards: Array [GKLeaderboard], error: Variant)->void:
+    GKLeaderboard.load_leaderboards(PackedStringArray(["My leaderboard"]), func(leaderboards: Array [GKLeaderboard], error: Variant)->void:
         if error:
             print("Error loading leaderboard %s" % error)
         else:

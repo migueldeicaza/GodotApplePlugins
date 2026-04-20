@@ -311,7 +311,7 @@ Loads available game activity definitions.
 
 |void| **load_game_activity_definitions_with_ids**\ (\ ids\: :ref:`PackedStringArray<class_PackedStringArray>`, callback\: :ref:`Callable<class_Callable>`\ ) |static| :ref:`🔗<class_GKGameActivityDefinition_method_load_game_activity_definitions_with_ids>`
 
-Loads game activity definitions matching ``ids``.
+Loads game activity definitions matching ``ids``. Pass them as ``PackedStringArray(["activity_id_1", "activity_id_2"])``.
 
 .. rst-class:: classref-item-separator
 

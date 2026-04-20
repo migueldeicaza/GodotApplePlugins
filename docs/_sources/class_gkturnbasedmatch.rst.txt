@@ -598,9 +598,7 @@ The callback receives ``(GKTurnBasedMatch rematched_match, Variant error)``. On 
 
 |void| **send_exchange**\ (\ participants\: :ref:`Array<class_Array>`, data\: :ref:`PackedByteArray<class_PackedByteArray>`, localizableMessageKey\: :ref:`String<class_String>`, arguments\: :ref:`PackedStringArray<class_PackedStringArray>`, timeout\: :ref:`float<class_float>`, callback\: :ref:`Callable<class_Callable>`\ ) :ref:`🔗<class_GKTurnBasedMatch_method_send_exchange>`
 
-.. container:: contribute
-
-	There is currently no description for this method. Please help us by `contributing one <https://contributing.godotengine.org/en/latest/documentation/class_reference.html>`__!
+Sends an exchange to the selected participants. Pass ``arguments`` as ``PackedStringArray(["arg1", "arg2"])``, or ``PackedStringArray()`` when the localized message does not need substitution values.
 
 .. rst-class:: classref-item-separator
 
@@ -612,9 +610,7 @@ The callback receives ``(GKTurnBasedMatch rematched_match, Variant error)``. On 
 
 |void| **send_reminder**\ (\ participants\: :ref:`Array<class_Array>`, localizableMessageKey\: :ref:`String<class_String>`, arguments\: :ref:`PackedStringArray<class_PackedStringArray>`, callback\: :ref:`Callable<class_Callable>`\ ) :ref:`🔗<class_GKTurnBasedMatch_method_send_reminder>`
 
-.. container:: contribute
-
-	There is currently no description for this method. Please help us by `contributing one <https://contributing.godotengine.org/en/latest/documentation/class_reference.html>`__!
+Sends a reminder to the selected participants. Pass ``arguments`` as ``PackedStringArray(["arg1", "arg2"])``, or ``PackedStringArray()`` if the localized string has no substitutions.
 
 .. rst-class:: classref-item-separator
 
@@ -626,9 +622,7 @@ The callback receives ``(GKTurnBasedMatch rematched_match, Variant error)``. On 
 
 |void| **set_localizable_message_with_key**\ (\ key\: :ref:`String<class_String>`, arguments\: :ref:`PackedStringArray<class_PackedStringArray>`\ ) :ref:`🔗<class_GKTurnBasedMatch_method_set_localizable_message_with_key>`
 
-.. container:: contribute
-
-	There is currently no description for this method. Please help us by `contributing one <https://contributing.godotengine.org/en/latest/documentation/class_reference.html>`__!
+Sets the localized message for the match using ``key``. Pass ``arguments`` as ``PackedStringArray(["arg1", "arg2"])``, or ``PackedStringArray()`` if no substitutions are required.
 
 .. rst-class:: classref-item-separator
 

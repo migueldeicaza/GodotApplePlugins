@@ -32,7 +32,7 @@ Submitting a score (guide sample):
 
     var local_player := GameCenterManager.new().local_player
 
-    GKLeaderboard.load_leaderboards(["MyLeaderboard"], func(leaderboards: Array[GKLeaderboard], error: Variant) -> void:
+    GKLeaderboard.load_leaderboards(PackedStringArray(["MyLeaderboard"]), func(leaderboards: Array[GKLeaderboard], error: Variant) -> void:
         if error:
             print("Load leaderboard error %s" % error)
             return
@@ -57,12 +57,12 @@ Loading all versus specific leaderboards:
  .. code-tab:: gdscript
 
     # Loads all leaderboards configured for the app.
-    GKLeaderboard.load_leaderboards([], func(all_leaderboards: Array[GKLeaderboard], error: Variant) -> void:
+    GKLeaderboard.load_leaderboards(PackedStringArray(), func(all_leaderboards: Array[GKLeaderboard], error: Variant) -> void:
         print("Received %d leaderboards" % all_leaderboards.size())
     )
 
     # Loads only the identifiers you pass in.
-    GKLeaderboard.load_leaderboards(["My leaderboard"], func(named_leaderboards: Array[GKLeaderboard], error: Variant) -> void:
+    GKLeaderboard.load_leaderboards(PackedStringArray(["My leaderboard"]), func(named_leaderboards: Array[GKLeaderboard], error: Variant) -> void:
         print("Received %d specific leaderboards" % named_leaderboards.size())
     )
 
@@ -473,7 +473,7 @@ Downloads the leaderboard icon. The callback arguments are ``(Image image, Varia
 
 |void| **load_leaderboards**\ (\ ids\: :ref:`PackedStringArray<class_PackedStringArray>`, callback\: :ref:`Callable<class_Callable>`\ ) |static| :ref:`🔗<class_GKLeaderboard_method_load_leaderboards>`
 
-Fetches leaderboard metadata. Pass an empty array to load every leaderboard configured for the app, or provide specific identifiers. The callback receives ``Array[GKLeaderboard]`` and a ``Variant`` error string (``null`` on success).
+Fetches leaderboard metadata. Pass a ``PackedStringArray``. Use ``PackedStringArray()`` to load every leaderboard configured for the app, or ``PackedStringArray(["leaderboard_id"])`` to request specific identifiers. The callback receives ``Array[GKLeaderboard]`` and a ``Variant`` error string (``null`` on success).
 
 .. rst-class:: classref-item-separator
 

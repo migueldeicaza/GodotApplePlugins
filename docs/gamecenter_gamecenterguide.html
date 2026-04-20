@@ -567,7 +567,7 @@ delegate callbacks through signals.</p>
 <span id="gamecenter-gamecenterguide-leaderboards"></span><h1>Leaderboards<a class="headerlink" href="#leaderboards" title="Link to this heading">¶</a></h1>
 <section id="report-score">
 <span id="gamecenter-gamecenterguide-report-score"></span><h2>Report Score<a class="headerlink" href="#report-score" title="Link to this heading">¶</a></h2>
-<div class="highlight-gdscript notranslate"><div class="highlight"><pre><span></span><span class="n">GKLeaderboard</span><span class="o">.</span><span class="n">load_leaderboards</span><span class="p">([</span><span class="s2">&quot;MyLeaderboard&quot;</span><span class="p">],</span><span class="w"> </span><span class="k">func</span><span class="p">(</span><span class="n">leaderboards</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">Array</span><span class="w"> </span><span class="p">[</span><span class="n">GKLeaderboard</span><span class="p">],</span><span class="w"> </span><span class="n">error</span><span class="p">:</span><span class="w"> </span><span class="n">Variant</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb nb-Type">void</span><span class="p">:</span>
+<div class="highlight-gdscript notranslate"><div class="highlight"><pre><span></span><span class="n">GKLeaderboard</span><span class="o">.</span><span class="n">load_leaderboards</span><span class="p">(</span><span class="nb nb-Type">PackedStringArray</span><span class="p">([</span><span class="s2">&quot;MyLeaderboard&quot;</span><span class="p">]),</span><span class="w"> </span><span class="k">func</span><span class="p">(</span><span class="n">leaderboards</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">Array</span><span class="w"> </span><span class="p">[</span><span class="n">GKLeaderboard</span><span class="p">],</span><span class="w"> </span><span class="n">error</span><span class="p">:</span><span class="w"> </span><span class="n">Variant</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb nb-Type">void</span><span class="p">:</span>
 <span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="n">score</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span>
 <span class="w">    </span><span class="k">var</span><span class="w"> </span><span class="n">context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
 
@@ -585,7 +585,7 @@ delegate callbacks through signals.</p>
 <section id="load-leaderboards">
 <span id="gamecenter-gamecenterguide-load-leaderboards"></span><h2>Load Leaderboards<a class="headerlink" href="#load-leaderboards" title="Link to this heading">¶</a></h2>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span># Loads all leaderboards
-GKLeaderboard.load_leaderboards([], func(leaderboards: Array [GKLeaderboard], error: Variant)-&gt;void:
+GKLeaderboard.load_leaderboards(PackedStringArray(), func(leaderboards: Array [GKLeaderboard], error: Variant)-&gt;void:
     if error:
         print(&quot;Error loading leaderboards %s&quot; % error)
     else:
@@ -593,7 +593,7 @@ GKLeaderboard.load_leaderboards([], func(leaderboards: Array [GKLeaderboard], er
 )
 
 # Load specific ones
-GKLeaderboard.load_leaderboards([&quot;My leaderboard&quot;], func(leaderboards: Array [GKLeaderboard], error: Variant)-&gt;void:
+GKLeaderboard.load_leaderboards(PackedStringArray([&quot;My leaderboard&quot;]), func(leaderboards: Array [GKLeaderboard], error: Variant)-&gt;void:
     if error:
         print(&quot;Error loading leaderboard %s&quot; % error)
     else:

@@ -504,7 +504,7 @@ Requires iOS 14.5, macOS 11.3, tvOS 14.5, or visionOS 1.0. Older versions return
 
 |void| **load_friends_with_identifiers**\ (\ identifiers\: :ref:`PackedStringArray<class_PackedStringArray>`, callback\: :ref:`Callable<class_Callable>`\ ) :ref:`🔗<class_GKLocalPlayer_method_load_friends_with_identifiers>`
 
-Loads friends that match the provided scoped player ``identifiers``.
+Loads friends that match the provided scoped player ``identifiers``. Pass them as ``PackedStringArray(["player_id_1", "player_id_2"])``.
 
 The callback receives ``(Array[GKPlayer] friends, Variant error)``, where ``error`` is ``null`` on success or a ``GKError``.
 
