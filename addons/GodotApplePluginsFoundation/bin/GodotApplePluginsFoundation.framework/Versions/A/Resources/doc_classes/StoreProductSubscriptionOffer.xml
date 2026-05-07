@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="StoreProductSubscriptionOffer" inherits="RefCounted" api_type="extension" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Represents a subscription offer for a [StoreProduct].
+	</brief_description>
+	<description>
+		You configure these in AppStore Connect.   See [url=https://developer.apple.com/documentation/storekit/product/subscriptionoffer]Apple's documentation[/url] for additional information
+	</description>
+	<tutorials>
+	</tutorials>
+	<constants>
+		<constant name="INTRODUCTORY" value="0" enum="OfferType">
+			An introductory offer for new subscribers.
+		</constant>
+		<constant name="PROMOTIONAL" value="1" enum="OfferType">
+			A promotional offer for existing or lapsed subscribers.
+		</constant>
+		<constant name="WIN_BACK" value="2" enum="OfferType">
+			A win-back offer for lapsed subscribers.
+		</constant>
+		<constant name="UNKNOWN" value="3" enum="OfferType">
+			An unknown offer type.
+		</constant>
+	</constants>
+</class>

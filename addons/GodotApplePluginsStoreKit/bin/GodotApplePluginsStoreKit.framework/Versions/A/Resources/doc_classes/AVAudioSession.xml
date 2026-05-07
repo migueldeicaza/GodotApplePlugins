@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="AVAudioSession" inherits="RefCounted" api_type="extension" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Controls the shared iOS/tvOS audio session from GDScript.
+	</brief_description>
+	<description>
+		Use this helper to select one of Apple's predefined [code skip-lint]AVAudioSession[/code] categories so your Godot project can mix or duck audio according to platform expectations. It is most useful on mobile builds where the engine needs to share the audio device with the system music player or with voice chat as described in [code skip-lint]GameCenterGuide.md[/code]. See Apple's audio session overview at [url=https://developer.apple.com/documentation/avfaudio/avaudiosession]Apple's AVAudioSession reference[/url].
+
+		You can either use the [member current_category] property or the [method set_category] method for more control.
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="set_category">
+			<return type="int" />
+			<param index="0" name="category" type="int" enum="SessionCategory" />
+			<param index="1" name="mode" type="int" enum="SessionMode" />
+			<param index="2" name="policy" type="int" enum="RouteSharingPolicy" />
+			<param index="3" name="options" type="int" />
+			<description>
+				Sets the shared audio session category, mode, route sharing policy, and options.
+				[param category]: The audio session category to set (e.g., [constant PLAYBACK], [constant RECORD]).
+				[param mode]: The audio session mode (e.g., [constant DEFAULT], [constant GAME_CHAT]).
+				[param policy]: The route sharing policy (e.g., [constant ROUTE_SHARING_DEFAULT], [constant LONG_FORM_AUDIO]).
+				[param options]: A bitmask of [enum CategoryOptions] values (e.g., [code]AVAudioSession.MIX_WITH_OTHERS | AVAudioSession.DUCK_OTHERS[/code]).
+
+				Returns [constant OK] on success, or [constant FAILED] if the setting could not be applied (e.g. on macOS where this is not supported, or if an error occurs).
+			</description>
+		</method>
+	</methods>
+	<members>
+		<member name="current_category" type="int" setter="set_current_category" getter="get_current_category" default="6">
+			The current audio session category.
+		</member>
+	</members>
+	<constants>
+		<constant name="MIX_WITH_OTHERS" value="1" enum="CategoryOptions">
+			Option to mix audio with other apps.
+		</constant>
+		<constant name="DUCK_OTHERS" value="2" enum="CategoryOptions">
+			Option to duck other apps' audio.
+		</constant>
+		<constant name="ALLOW_BLUETOOTH" value="4" enum="CategoryOptions">
+			Option to allow Bluetooth output.
+		</constant>
+		<constant name="DEFAULT_TO_SPEAKER" value="8" enum="CategoryOptions">
+			Option to default audio to speaker.
+		</constant>
+		<constant name="INTERRUPT_SPOKEN_AUDIO_AND_MIX_WITH_OTHERS" value="17" enum="CategoryOptions">
+			Option to interrupt spoken audio and mix with others.
+		</constant>
+		<constant name="ALLOW_BLUETOOTH_A2DP" value="32" enum="CategoryOptions">
+			Option to allow Bluetooth A2DP.
+		</constant>
+		<constant name="ALLOW_AIRPLAY" value="64" enum="CategoryOptions">
+			Option to allow AirPlay.
+		</constant>
+		<constant name="OVERRIDE_MUTED_MICROPHONE_INTERRUPTION" value="128" enum="CategoryOptions">
+			Option to override muted microphone interruption.
+		</constant>
+		<constant name="ROUTE_SHARING_DEFAULT" value="0" enum="RouteSharingPolicy">
+		</constant>
+		<constant name="LONG_FORM_AUDIO" value="1" enum="RouteSharingPolicy">
+			Route sharing policy for long-form audio.
+		</constant>
+		<constant name="INDEPENDENT" value="2" enum="RouteSharingPolicy">
+			Independent route sharing policy.
+		</constant>
+		<constant name="LONG_FORM" value="3" enum="RouteSharingPolicy">
+			Alias for [constant LONG_FORM_AUDIO].
+		</constant>
+		<constant name="AMBIENT" value="0" enum="SessionCategory">
+			Plays audio quietly and mixes with other apps, ideal for games that should respect background music.
+		</constant>
+		<constant name="MULTI_ROUTE" value="1" enum="SessionCategory">
+			Allows simultaneous input and output on multiple ports such as iPad USB headsets and speakers.
+		</constant>
+		<constant name="PLAY_AND_RECORD" value="2" enum="SessionCategory">
+			Enables full duplex audio for gameplay that records the microphone while playing effects.
+		</constant>
+		<constant name="PLAYBACK" value="3" enum="SessionCategory">
+			Optimised for playback only and silences system music while your game is active.
+		</constant>
+		<constant name="RECORD" value="4" enum="SessionCategory">
+			Recording-only mode for utilities that only capture audio.
+		</constant>
+		<constant name="SOLO_AMBIENT" value="5" enum="SessionCategory">
+			Similar to [constant AMBIENT] but pauses other audio sessions when your project starts.
+		</constant>
+		<constant name="UNKNOWN" value="6" enum="SessionCategory">
+			Default fallback when the platform does not expose audio sessions (macOS desktop).
+		</constant>
+		<constant name="DEFAULT" value="0" enum="SessionMode">
+			The default audio session mode.
+		</constant>
+		<constant name="GAME_CHAT" value="1" enum="SessionMode">
+			Mode for game chat, optimizing for voice processing.
+		</constant>
+		<constant name="MEASUREMENT" value="2" enum="SessionMode">
+			Mode for audio measurement.
+		</constant>
+		<constant name="MOVIE_PLAYBACK" value="3" enum="SessionMode">
+			Mode for movie playback.
+		</constant>
+		<constant name="SPOKEN_AUDIO" value="4" enum="SessionMode">
+			Mode for spoken audio.
+		</constant>
+		<constant name="VIDEO_CHAT" value="5" enum="SessionMode">
+			Mode for video chat.
+		</constant>
+		<constant name="VOICE_CHAT" value="6" enum="SessionMode">
+			Mode for voice chat.
+		</constant>
+		<constant name="VOICE_PROMPT" value="7" enum="SessionMode">
+			Mode for voice prompts.
+		</constant>
+	</constants>
+</class>

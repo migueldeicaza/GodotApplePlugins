@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="GKAchievementChallenge" inherits="GKChallenge" api_type="extension" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Represents an achievement-based Game Center challenge.
+	</brief_description>
+	<description>
+		Subclass of [GKChallenge] for challenges tied to a specific [GKAchievement].
+	</description>
+	<tutorials>
+	</tutorials>
+	<members>
+		<member name="achievement" type="GKAchievement" setter="" getter="get_achievement" default="null">
+			The challenged achievement, or [code]null[/code] when unavailable.
+		</member>
+	</members>
+</class>

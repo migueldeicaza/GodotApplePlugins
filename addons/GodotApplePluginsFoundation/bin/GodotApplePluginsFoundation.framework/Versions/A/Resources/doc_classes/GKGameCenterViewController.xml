@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="GKGameCenterViewController" inherits="RefCounted" api_type="extension" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		This class is used to present the different Game Center dashboards and the way to use it is by calling one of the different static show_* methods in this class in a fire-and-forget mode.
+	</brief_description>
+	<description>
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="show_achievement" qualifiers="static">
+			<return type="void" />
+			<param index="0" name="id" type="String" />
+			<description>
+				Presents an achievement to the user, the id is the identifier of the achievement.
+			</description>
+		</method>
+		<method name="show_leaderboard" qualifiers="static">
+			<return type="void" />
+			<param index="0" name="leaderboard" type="GKLeaderboard" />
+			<param index="1" name="scope" type="int" />
+			<description>
+				Shows a leaderboard with the players on the specified scope. Use one of the [enum GKLeaderboard.PlayerScope] values.
+			</description>
+		</method>
+		<method name="show_leaderboard_time_period" qualifiers="static">
+			<return type="void" />
+			<param index="0" name="id" type="String" />
+			<param index="1" name="scope" type="int" />
+			<param index="2" name="timeScope" type="int" />
+			<description>
+				Shows a leaderboard with the players on the specified scope and the time period. The scope should match [enum GKLeaderboard.PlayerScope] and the time scope should match [enum GKLeaderboard.TimeScope].
+			</description>
+		</method>
+		<method name="show_leaderboardset" qualifiers="static">
+			<return type="void" />
+			<param index="0" name="id" type="String" />
+			<description>
+				Shows a specific leaderboard set.
+			</description>
+		</method>
+		<method name="show_player" qualifiers="static">
+			<return type="void" />
+			<param index="0" name="player" type="GKPlayer" />
+			<description>
+				Shows the specified player's GameCenter profile.
+			</description>
+		</method>
+		<method name="show_type" qualifiers="static">
+			<return type="void" />
+			<param index="0" name="type" type="int" enum="State" />
+			<description>
+				Used to present one of the different Game Center dashboards specified by the type parameter.
+			</description>
+		</method>
+	</methods>
+	<constants>
+		<constant name="DEFAULT_SCREEN" value="0" enum="State">
+			The default screen.
+		</constant>
+		<constant name="LEADERBOARDS" value="1" enum="State">
+			The leaderboard sets or leaderboards if there are no sets.
+		</constant>
+		<constant name="ACHIEVEMENTS" value="2" enum="State">
+			The list of achievement.
+		</constant>
+		<constant name="LOCAL_PLAYER_PROFILE" value="3" enum="State">
+			The local player
+		</constant>
+		<constant name="DASHBOARD" value="4" enum="State">
+			The dashboard.
+		</constant>
+		<constant name="LOCAL_PLAYER_FRIENDS_LIST" value="5" enum="State">
+			The friends list.
+		</constant>
+	</constants>
+</class>

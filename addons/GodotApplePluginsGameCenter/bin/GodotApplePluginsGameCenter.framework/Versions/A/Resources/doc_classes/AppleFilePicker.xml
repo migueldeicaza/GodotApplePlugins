@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="AppleFilePicker" inherits="RefCounted" api_type="extension" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Provides access to the operating system file picker, on iOS, this provides access to sandboxed content.
+	</brief_description>
+	<description>
+		This class provides access to the system's native file picker (`UIDocumentPickerViewController` on iOS, `NSOpenPanel` on macOS).
+		It allows selecting files based on UTTypes (passed as file extensions) and supports both single and multiple file selection.
+
+		If your application is running in a sandbox (always the case on iOS, sometimes on MacOS), you need to call the AppleURL methods for starting and stopping access to them.
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="pick_document">
+			<return type="void" />
+			<param index="0" name="allowed_types" type="Array" />
+			<param index="1" name="allow_multiple" type="bool" />
+			<description>
+				Opens the file picker.
+				[param allowed_types] should be an array of strings representing the file extensions or UTTypes you want to allow (e.g. [code]["txt", "png"][/code] or [code]["public.plain-text"][/code]).
+				[param allow_multiple] if true, allows selecting multiple files. Results will be emitted via the [signal files_selected] signal. If false (default), results are emitted via [signal file_selected].
+			</description>
+		</method>
+	</methods>
+	<signals>
+		<signal name="canceled">
+			<description>
+				Emitted when the picker is canceled by the user.
+			</description>
+		</signal>
+		<signal name="file_selected">
+			<param index="0" name="url" type="AppleURL" />
+			<param index="1" name="path" type="String" />
+			<description>
+				Emitted when a single file is selected (when [code]allow_multiple[/code] is false).
+			</description>
+		</signal>
+		<signal name="files_selected">
+			<param index="0" name="urls" type="Array" />
+			<param index="1" name="paths" type="PackedStringArray" />
+			<description>
+				Emitted when multiple files are selected (when [code]allow_multiple[/code] is true).
+			</description>
+		</signal>
+	</signals>
+</class>

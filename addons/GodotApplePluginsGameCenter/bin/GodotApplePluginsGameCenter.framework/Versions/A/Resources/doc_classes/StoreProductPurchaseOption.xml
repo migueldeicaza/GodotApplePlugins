@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="StoreProductPurchaseOption" inherits="RefCounted" api_type="extension" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Represents an option that can be supplied when purchasing a [StoreProduct].
+	</brief_description>
+	<description>
+		You create instances of this class and you can pass those to [method StoreKitManager.purchase_with_options].
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="app_account_token" qualifiers="static">
+			<return type="StoreProductPurchaseOption" />
+			<param index="0" name="stringUuidToken" type="String" />
+			<description>
+				Creates a purchase option with an app account token. This token should be a UUID string that associates the transaction with a user account on your service.
+			</description>
+		</method>
+		<method name="introductory_offer_elligibility" qualifiers="static">
+			<return type="StoreProductPurchaseOption" />
+			<param index="0" name="jws" type="String" />
+			<description>
+				Creates a purchase option with a specific introductory offer eligibility. This requires the signed JWS string from the App Store.
+			</description>
+		</method>
+		<method name="quantity" qualifiers="static">
+			<return type="StoreProductPurchaseOption" />
+			<param index="0" name="value" type="int" />
+			<description>
+				Creates a purchase option specifying the quantity of the product to purchase.
+			</description>
+		</method>
+		<method name="simulate_ask_to_buy_in_sandbox" qualifiers="static">
+			<return type="StoreProductPurchaseOption" />
+			<param index="0" name="enabled" type="bool" />
+			<description>
+				Creates a purchase option to simulate the "Ask to Buy" flow in the sandbox environment.
+			</description>
+		</method>
+		<method name="win_back_offer" qualifiers="static">
+			<return type="StoreProductPurchaseOption" />
+			<param index="0" name="offer" type="StoreProductSubscriptionOffer" />
+			<description>
+				Creates a purchase option for a win-back offer.
+			</description>
+		</method>
+	</methods>
+</class>

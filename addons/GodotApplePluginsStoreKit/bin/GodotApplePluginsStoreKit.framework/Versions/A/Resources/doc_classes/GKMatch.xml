@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="GKMatch" inherits="RefCounted" api_type="extension" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Represents an active real-time Game Center match.
+	</brief_description>
+	<description>
+		[code skip-lint]GKMatch[/code] wraps Apple's realtime networking object. After starting matchmaking with [code skip-lint]GKMatchmakerViewController[/code] (see the "Realtime Matchmaking" section of [code skip-lint]GameCenterGuide.md[/code]) you will receive a [code skip-lint]GKMatch[/code] instance and can send data, monitor players, and respond to disconnections via Godot signals. For platform specifics see [url=https://developer.apple.com/documentation/gamekit/gkmatch]Apple's GKMatch reference[/url].
+
+		Guide sample showing matchmaking and signal hookups:
+		[codeblocks]
+		[gdscript]
+		var request := GKMatchRequest.new()
+		request.max_players = 2
+		request.min_players = 1
+		request.invite_message = "Join me in a quest to fun"
+
+		GKMatchmakerViewController.request_match(request, func(game_match: GKMatch, error: Variant) -&gt; void:
+		    if error:
+		        print("Could not request a match %s" % error)
+		        return
+
+		    print("Got a match!")
+		    game_match.data_received.connect(func(data: PackedByteArray, from_player: GKPlayer) -&gt; void:
+		        print("Received data from %s" % from_player.display_name)
+		    )
+		    game_match.data_received_for_recipient_from_player.connect(func(data: PackedByteArray, for_recipient: GKPlayer, from_remote_player: GKPlayer) -&gt; void:
+		        print("Forwarded data for %s from %s" % [for_recipient.display_name, from_remote_player.display_name])
+		    )
+		    game_match.did_fail_with_error.connect(func(match_error: String) -&gt; void:
+		        print("Match failed with %s" % match_error)
+		    )
+		    game_match.should_reinvite_disconnected_player = func(player: GKPlayer) -&gt; bool:
+		        return true
+		    game_match.player_changed.connect(func(player: GKPlayer, connected: bool) -&gt; void:
+		        print("Player %s changed to %s" % [player.display_name, connected])
+		    )
+		)
+		[/gdscript]
+		[/codeblocks]
+
+		Broadcast helper from the guide (assuming you keep the reference as [code]game_match[/code]):
+		[codeblocks]
+		[gdscript]
+		var data := "How do you do fellow kids".to_utf8_buffer()
+		game_match.send_data_to_all_players(data, GKMatch.SendDataMode.reliable)
+		[/gdscript]
+		[/codeblocks]
+
+		Send to a subset of players (still using the [code]game_match[/code] variable):
+		[codeblocks]
+		[gdscript]
+		var payload := PackedByteArray([1, 2, 3])
+		var recipients := [first_player, second_player]
+		game_match.send(payload, recipients, GKMatch.SendDataMode.reliable)
+		[/gdscript]
+		[/codeblocks]
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="choose_best_hosting_player">
+			<return type="void" />
+			<param index="0" name="callback" type="Callable" />
+			<description>
+				Asks GameKit to choose the best host candidate for this peer-to-peer match. The callback receives [code](GKPlayer player, Variant error)[/code], where both values can be [code]null[/code] if no candidate is available.
+			</description>
+		</method>
+		<method name="disconnect">
+			<return type="void" />
+			<description>
+				Calls [code skip-lint]GKMatch.disconnect()[/code] to leave the match immediately.
+			</description>
+		</method>
+		<method name="rematch">
+			<return type="void" />
+			<param index="0" name="callback" type="Callable" />
+			<description>
+				Requests a rematch with the same players. The callback receives [code](GKMatch match, Variant error)[/code].
+			</description>
+		</method>
+		<method name="send">
+			<return type="int" />
+			<param index="0" name="data" type="PackedByteArray" />
+			<param index="1" name="toPlayers" type="Array" />
+			<param index="2" name="dataMode" type="int" enum="SendDataMode" />
+			<description>
+				Sends a payload to the specified [code skip-lint]Array[GKPlayer][/code]. Returns a [enum @GlobalScope.Error] value ([code skip-lint]OK[/code] on success, [code skip-lint]FAILED[/code] when the payload could not be converted or Apple reported an error). Choose a [enum SendDataMode] constant for [param dataMode].
+			</description>
+		</method>
+		<method name="send_data_to_all_players">
+			<return type="int" />
+			<param index="0" name="data" type="PackedByteArray" />
+			<param index="1" name="dataMode" type="int" enum="SendDataMode" />
+			<description>
+				Broadcasts the packed bytes to everyone in the match. Return value matches [method send]. Use the [enum SendDataMode] constants.
+			</description>
+		</method>
+		<method name="voice_chat">
+			<return type="GKVoiceChat" />
+			<param index="0" name="channel" type="String" />
+			<description>
+				Returns a [code skip-lint]GKVoiceChat[/code] object for the named [param channel], or [code]null[/code] if voice chat is unavailable.
+			</description>
+		</method>
+	</methods>
+	<members>
+		<member name="expected_player_count" type="int" setter="" getter="get_expected_player_count" default="0">
+			The number of additional players that GameKit is recruiting before the match can begin.
+		</member>
+		<member name="player_properties" type="Dictionary" setter="" getter="get_player_properties" default="{}">
+			Player-specific properties reported by GameKit for this match.
+		</member>
+		<member name="players" type="Array" setter="" getter="get_players" default="[]">
+			Array of [code skip-lint]GKPlayer[/code] instances that are currently connected.
+		</member>
+		<member name="properties" type="Dictionary" setter="" getter="get_properties" default="{}">
+			Match-level custom properties provided by GameKit.
+		</member>
+		<member name="should_reinvite_disconnected_player" type="Variant" setter="set_should_reinvite_disconnected_player" getter="get_should_reinvite_disconnected_player">
+			Optional [code skip-lint]Callable[/code] that receives a [code skip-lint]GKPlayer[/code] and returns [code]true[/code] if the player should be reinvited after disconnecting (see the sample in [code skip-lint]GameCenterGuide.md[/code]).
+		</member>
+	</members>
+	<signals>
+		<signal name="data_received">
+			<param index="0" name="data" type="PackedByteArray" />
+			<param index="1" name="player" type="GKPlayer" />
+			<description>
+				Emitted when another player sends data to the local device. Provides the raw bytes and the sender.
+			</description>
+		</signal>
+		<signal name="data_received_for_recipient_from_player">
+			<param index="0" name="data" type="PackedByteArray" />
+			<param index="1" name="recipient" type="GKPlayer" />
+			<param index="2" name="from_remote_player" type="GKPlayer" />
+			<description>
+				Emitted when the local player receives data that was addressed to a specific recipient. Arguments provide the payload, the intended recipient, and the sender.
+			</description>
+		</signal>
+		<signal name="did_fail_with_error">
+			<param index="0" name="message" type="String" />
+			<description>
+				Fires when Apple reports a networking error. The [code skip-lint]String[/code] argument contains the localized description.
+			</description>
+		</signal>
+		<signal name="player_changed">
+			<param index="0" name="player" type="GKPlayer" />
+			<param index="1" name="connected" type="bool" />
+			<description>
+				Notifies you when a player connects or disconnects. The boolean is [code]true[/code] for connected players and [code]false[/code] otherwise.
+			</description>
+		</signal>
+	</signals>
+	<constants>
+		<constant name="RELIABLE" value="0" enum="SendDataMode">
+			Uses GameKit's reliable data channel (ordered delivery with retries).
+		</constant>
+		<constant name="UNRELIABLE" value="1" enum="SendDataMode">
+			Uses GameKit's unreliable channel, useful for latency-sensitive updates.
+		</constant>
+	</constants>
+</class>

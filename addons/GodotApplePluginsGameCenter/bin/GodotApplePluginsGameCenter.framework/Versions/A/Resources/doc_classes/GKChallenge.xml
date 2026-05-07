@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="GKChallenge" inherits="RefCounted" api_type="extension" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Represents a Game Center challenge sent between players.
+	</brief_description>
+	<description>
+		Base wrapper for challenge objects delivered by Game Center. Use [method load_received_challenges] to fetch outstanding challenges for the local player, inspect [member state] and [member challenge_type], and cast to [GKScoreChallenge] or [GKAchievementChallenge] when you need type-specific data.
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="decline">
+			<return type="void" />
+			<description>
+				Declines this challenge.
+			</description>
+		</method>
+		<method name="load_received_challenges" qualifiers="static">
+			<return type="void" />
+			<param index="0" name="callback" type="Callable" />
+			<description>
+				Loads the challenges currently received by the local player. The callback receives [code](Array[GKChallenge] challenges, Variant error)[/code]. If [code]error[/code] is not null, it contains a [code skip-lint]GKError[/code].
+			</description>
+		</method>
+	</methods>
+	<members>
+		<member name="challenge_type" type="int" setter="" getter="get_challenge_type" default="2">
+			The challenge payload type. See [enum ChallengeType].
+		</member>
+		<member name="completion_date" type="float" setter="" getter="get_completion_date" default="0.0">
+			Unix timestamp (seconds) when the challenge was completed, or [code]0[/code] if incomplete.
+		</member>
+		<member name="issue_date" type="float" setter="" getter="get_issue_date" default="0.0">
+			Unix timestamp (seconds) when the challenge was issued.
+		</member>
+		<member name="issuing_player" type="GKPlayer" setter="" getter="get_issuing_player" default="null">
+			The player who issued this challenge.
+		</member>
+		<member name="message" type="String" setter="" getter="get_message" default="&quot;&quot;">
+			Optional challenge message from the issuing player.
+		</member>
+		<member name="receiving_player" type="GKPlayer" setter="" getter="get_receiving_player" default="null">
+			The player who received this challenge.
+		</member>
+		<member name="state" type="int" setter="" getter="get_state" default="0">
+			The current lifecycle state. See [enum ChallengeState].
+		</member>
+	</members>
+	<constants>
+		<constant name="INVALID" value="0" enum="ChallengeState">
+			The challenge is invalid or no longer available.
+		</constant>
+		<constant name="PENDING" value="1" enum="ChallengeState">
+			The challenge has been issued and is waiting for completion.
+		</constant>
+		<constant name="COMPLETED" value="2" enum="ChallengeState">
+			The receiving player completed the challenge.
+		</constant>
+		<constant name="DECLINED" value="3" enum="ChallengeState">
+			The receiving player declined the challenge.
+		</constant>
+		<constant name="SCORE" value="0" enum="ChallengeType">
+			A score-based challenge backed by [code skip-lint]GKScoreChallenge[/code].
+		</constant>
+		<constant name="ACHIEVEMENT" value="1" enum="ChallengeType">
+			An achievement-based challenge backed by [code skip-lint]GKAchievementChallenge[/code].
+		</constant>
+		<constant name="UNKNOWN" value="2" enum="ChallengeType">
+			A challenge payload type that this wrapper does not recognize.
+		</constant>
+	</constants>
+</class>

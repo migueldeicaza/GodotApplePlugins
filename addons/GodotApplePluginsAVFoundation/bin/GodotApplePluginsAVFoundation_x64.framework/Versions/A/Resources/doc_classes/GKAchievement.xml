@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="GKAchievement" inherits="RefCounted" api_type="extension" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Represents an Apple Game Center achievement and provides helper methods to manage progress.
+	</brief_description>
+	<description>
+		Use [code skip-lint]GKAchievement[/code] to mirror the player's progress that you configured on App Store Connect. The static helpers expose the same workflows mentioned in the Achievements section of [code skip-lint]GameCenterGuide.md[/code]: listing the player's reported achievements, resetting them during testing, and sending new completion percentages. Apple's API reference is available at [url=https://developer.apple.com/documentation/gamekit/gkachievement]Apple's GKAchievement reference[/url].
+
+		List all achievements (straight from the guide):
+		[codeblocks]
+		[gdscript]
+		GKAchievement.load_achievements(func(achievements: Array[GKAchievement], error: Variant) -&gt; void:
+		    if error:
+		        print("Load achievement error %s" % error)
+		    else:
+		        for achievement in achievements:
+		            print("Achievement: %s" % achievement.identifier)
+		)
+		[/gdscript]
+		[/codeblocks]
+
+		Report progress and reset utilities:
+		[codeblocks]
+		[gdscript]
+		var id := "a001"
+		var percentage := 100.0
+
+		GKAchievement.load_achievements(func(achievements: Array[GKAchievement], error: Variant) -&gt; void:
+		    if error:
+		        print("Load achievement error %s" % error)
+		        return
+
+		    for achievement in achievements:
+		        if achievement.identifier == id and not achievement.is_completed:
+		            achievement.percent_complete = percentage
+		            achievement.shows_completion_banner = true
+		            GKAchievement.report_achievement([achievement], func(submit_error: Variant) -&gt; void:
+		                if submit_error:
+		                    print("Error submitting achievement %s" % submit_error)
+		                else:
+		                    print("Success!")
+		            )
+		)
+
+		GKAchievement.reset_achievements(func(error: Variant) -&gt; void:
+		    if error:
+		        print("Error resetting achievements %s" % error)
+		    else:
+		        print("Reset complete")
+		)
+		[/gdscript]
+		[/codeblocks]
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="challenge_compose_controller">
+			<return type="void" />
+			<param index="0" name="message" type="String" />
+			<param index="1" name="players" type="Array" />
+			<description>
+				Opens Apple's challenge compose UI for this achievement, prefilled with [param message] and the [param players] candidates.
+				[param players] should contain [code skip-lint]GKPlayer[/code] objects.
+			</description>
+		</method>
+		<method name="load_achievements" qualifiers="static">
+			<return type="void" />
+			<param index="0" name="callback" type="Callable" />
+			<description>
+				Loads the achievements that the local player has already reported. The callback is invoked with [code skip-lint]Array[GKAchievement][/code] and a [code skip-lint]Variant[/code] error argument ([code]null[/code] on success, or a localized error string).
+			</description>
+		</method>
+		<method name="make" qualifiers="static">
+			<return type="GKAchievement" />
+			<param index="0" name="identifier" type="String" />
+			<description>
+				Creates a new achievement instance for the local player using the App Store Connect achievement [param identifier].
+			</description>
+		</method>
+		<method name="make_for_player" qualifiers="static">
+			<return type="GKAchievement" />
+			<param index="0" name="identifier" type="String" />
+			<param index="1" name="player" type="GKPlayer" />
+			<description>
+				Creates a new achievement instance for [param player] using the App Store Connect achievement [param identifier].
+			</description>
+		</method>
+		<method name="report_achievement" qualifiers="static">
+			<return type="void" />
+			<param index="0" name="achievements" type="Array" />
+			<param index="1" name="callback" type="Callable" />
+			<description>
+				Submits the new state for the provided achievements. The callback receives a single [code skip-lint]Variant[/code] that is [code]null[/code] on success or contains an error string reported by GameKit. This is the method used in the "Report Progress" snippet inside [code skip-lint]GameCenterGuide.md[/code].
+			</description>
+		</method>
+		<method name="reset_achievements" qualifiers="static">
+			<return type="void" />
+			<param index="0" name="callback" type="Callable" />
+			<description>
+				Asks GameKit to clear every achievement for the local player. The callback receives [code]null[/code] on success or a [code skip-lint]Variant[/code] with the error description, matching Apple's [code]resetAchievements[/code] API.
+			</description>
+		</method>
+		<method name="select_challengeable_players">
+			<return type="void" />
+			<param index="0" name="players" type="Array" />
+			<param index="1" name="callback" type="Callable" />
+			<description>
+				Filters [param players] to the subset that can currently be challenged for this achievement.
+				The callback receives [code](Array[GKPlayer] challengeable_players, Variant error)[/code], where [code]error[/code] is [code]null[/code] on success or a [code skip-lint]GKError[/code].
+			</description>
+		</method>
+	</methods>
+	<members>
+		<member name="identifier" type="String" setter="set_identifier" getter="get_identifier" default="&quot;*uninitialized achievement identifier*&quot;">
+			The achievement identifier configured on App Store Connect.
+		</member>
+		<member name="is_completed" type="bool" setter="" getter="get_is_completed" default="false">
+			Read-only flag that mirrors GameKit's [code]isCompleted[/code] property.
+		</member>
+		<member name="last_reported_date" type="float" setter="" getter="get_last_reported_date" default="1776695700.0">
+		</member>
+		<member name="percent_complete" type="float" setter="set_percent_complete" getter="get_percent_complete" default="0.0">
+			The player's reported completion percentage (0-100). Update this and then call [method report_achievement] to submit it.
+		</member>
+		<member name="player" type="GKPlayer" setter="" getter="get_player">
+			The [code skip-lint]GKPlayer[/code] owner of this achievement, if GameKit was able to resolve it.
+		</member>
+		<member name="shows_completion_banner" type="bool" setter="set_shows_completion_banner" getter="get_shows_completion_banner" default="true">
+			Matches Apple's [code]showsCompletionBanner[/code] flag. Set it to true when you want the system to display the stock achievement toast when the progress hits 100%.
+		</member>
+	</members>
+</class>

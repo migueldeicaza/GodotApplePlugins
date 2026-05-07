@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="GKTurnBasedExchangeReply" inherits="RefCounted" api_type="extension" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+	</brief_description>
+	<description>
+	</description>
+	<tutorials>
+	</tutorials>
+	<members>
+		<member name="data" type="PackedByteArray" setter="" getter="get_data" default="PackedByteArray()">
+		</member>
+		<member name="message" type="String" setter="" getter="get_message" default="&quot;&quot;">
+		</member>
+		<member name="recipient" type="GKTurnBasedParticipant" setter="" getter="get_recipient" default="null">
+		</member>
+		<member name="reply_date" type="float" setter="" getter="get_reply_date" default="0.0">
+		</member>
+	</members>
+</class>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="AppleURL" inherits="RefCounted" api_type="extension" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Represents an Apple Foundation.URL type
+	</brief_description>
+	<description>
+		When working with Apple APIs, some of those APIs either return URLs or expect URLs, in particular
+		        this type is being exposed because Apple can return a URL when accessing files outside of
+		        your application sandbox, and you must call the [method start_accessing_security_scoped_resource] to
+		        begin accessing the resource and when you are done, you must call
+		        [method stop_accessing_security_scoped_resource].
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="get_absolute_string">
+			<return type="String" />
+			<description>
+				Returns the URL.absoluteString property
+			</description>
+		</method>
+		<method name="get_data">
+			<return type="PackedByteArray" />
+			<description>
+				Loads the contents of a file referenced by the URL and returns it as a PackedByteArray.
+			</description>
+		</method>
+		<method name="get_path">
+			<return type="String" />
+			<description>
+				Returns the URL contents, without percent-encoding.
+			</description>
+		</method>
+		<method name="get_path_encoded">
+			<return type="String" />
+			<description>
+				Returns the URL contents, with percent-encoding.
+			</description>
+		</method>
+		<method name="get_string">
+			<return type="String" />
+			<description>
+				Fetches the contents of a file URL and returns it as a string.
+			</description>
+		</method>
+		<method name="set_from_filepath">
+			<return type="void" />
+			<param index="0" name="path" type="String" />
+			<description>
+				Sets the content of the URL from a string that represents a file path.
+			</description>
+		</method>
+		<method name="set_value">
+			<return type="bool" />
+			<param index="0" name="str" type="String" />
+			<description>
+				Sets the content of the URL from a string, it will return false if the URL can not be parsed.
+			</description>
+		</method>
+		<method name="start_accessing_security_scoped_resource">
+			<return type="bool" />
+			<description>
+				In an app that has adopted App Sandbox, makes the resource pointed to by a security-scoped URL available to the app.
+
+				                If this call succeeds, you can access the resource, and when you are done, you must call [method stop_accessing_security_scoped_resource].
+			</description>
+		</method>
+		<method name="stop_accessing_security_scoped_resource">
+			<return type="void" />
+			<description>
+				In an app that adopts App Sandbox, revokes access to the resource pointed to by a security-scoped URL.
+			</description>
+		</method>
+	</methods>
+</class>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="GKTurnBasedExchange" inherits="RefCounted" api_type="extension" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+	</brief_description>
+	<description>
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="cancel">
+			<return type="void" />
+			<param index="0" name="localizableMessageKey" type="String" />
+			<param index="1" name="arguments" type="PackedStringArray" />
+			<param index="2" name="callback" type="Callable" />
+			<description>
+				Cancels the exchange using the provided localized message key. Pass [param arguments] as [code]PackedStringArray(["arg1", "arg2"])[/code], or [code skip-lint]PackedStringArray()[/code] if the message has no substitutions.
+			</description>
+		</method>
+		<method name="reply">
+			<return type="void" />
+			<param index="0" name="localizableMessageKey" type="String" />
+			<param index="1" name="arguments" type="PackedStringArray" />
+			<param index="2" name="data" type="PackedByteArray" />
+			<param index="3" name="callback" type="Callable" />
+			<description>
+				Replies to the exchange. Pass [param arguments] as [code]PackedStringArray(["arg1", "arg2"])[/code], or [code skip-lint]PackedStringArray()[/code] if the localized string has no substitutions.
+			</description>
+		</method>
+	</methods>
+	<members>
+		<member name="completion_date" type="float" setter="" getter="get_completion_date" default="0.0">
+		</member>
+		<member name="data" type="PackedByteArray" setter="" getter="get_data" default="PackedByteArray()">
+		</member>
+		<member name="exchange_id" type="String" setter="" getter="get_exchange_id" default="&quot;&quot;">
+		</member>
+		<member name="message" type="String" setter="" getter="get_message" default="&quot;&quot;">
+		</member>
+		<member name="recipients" type="Array" setter="" getter="get_recipients" default="[]">
+		</member>
+		<member name="replies" type="Array" setter="" getter="get_replies" default="[]">
+		</member>
+		<member name="send_date" type="float" setter="" getter="get_send_date" default="0.0">
+		</member>
+		<member name="sender" type="GKTurnBasedParticipant" setter="" getter="get_sender" default="null">
+		</member>
+		<member name="status" type="int" setter="" getter="get_status" default="0">
+		</member>
+		<member name="timeout_date" type="float" setter="" getter="get_timeout_date" default="0.0">
+		</member>
+	</members>
+</class>

@@ -1,0 +1,13 @@
+[configuration]
+
+entry_symbol = "godot_apple_plugins_storekit_start"
+compatibility_minimum = 4.2
+
+[libraries]
+ios = "res://addons/GodotApplePluginsStoreKit/bin/GodotApplePluginsStoreKit.xcframework"
+linux.arm64 = "res://addons/GodotApplePluginsStoreKit/bin/godot_apple_plugins_storekit_stub.linux.arm64.so"
+linux.x86_64 = "res://addons/GodotApplePluginsStoreKit/bin/godot_apple_plugins_storekit_stub.linux.x86_64.so"
+macos.arm64 = "res://addons/GodotApplePluginsStoreKit/bin/GodotApplePluginsStoreKit.framework"
+macos.x86_64 = "res://addons/GodotApplePluginsStoreKit/bin/GodotApplePluginsStoreKit_x64.framework"
+windows.arm64 = "res://addons/GodotApplePluginsStoreKit/bin/godot_apple_plugins_storekit_stub.windows.arm64.dll"
+windows.x86_64 = "res://addons/GodotApplePluginsStoreKit/bin/godot_apple_plugins_storekit_stub.windows.x86_64.dll"

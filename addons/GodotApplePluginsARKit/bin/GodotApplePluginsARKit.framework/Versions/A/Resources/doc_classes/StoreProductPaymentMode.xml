@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="StoreProductPaymentMode" inherits="RefCounted" api_type="extension" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		The payment modes for subscription offers that apply to a transaction.
+	</brief_description>
+	<description>
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="get_free_trial" qualifiers="static">
+			<return type="StoreProductPaymentMode" />
+			<description>
+				Returns a payment mode representing a free trial.
+			</description>
+		</method>
+		<method name="get_pay_as_you_go" qualifiers="static">
+			<return type="StoreProductPaymentMode" />
+			<description>
+				Returns a payment mode where the user pays as they go (e.g. monthly for 3 months).
+			</description>
+		</method>
+		<method name="pay_up_front" qualifiers="static">
+			<return type="StoreProductPaymentMode" />
+			<description>
+				Returns a payment mode where the user pays the entire amount up front.
+			</description>
+		</method>
+	</methods>
+	<members>
+		<member name="localized_description" type="String" setter="" getter="get_localized_description" default="&quot;&quot;">
+			The localized description of the payment mode.
+		</member>
+	</members>
+</class>

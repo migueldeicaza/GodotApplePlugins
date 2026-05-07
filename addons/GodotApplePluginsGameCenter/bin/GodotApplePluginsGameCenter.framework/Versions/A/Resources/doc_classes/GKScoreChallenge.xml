@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="GKScoreChallenge" inherits="GKChallenge" api_type="extension" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Represents a score-based Game Center challenge.
+	</brief_description>
+	<description>
+		Subclass of [GKChallenge] for leaderboard score challenges. It exposes the challenged score, rank, context, and related leaderboard/player metadata.
+	</description>
+	<tutorials>
+	</tutorials>
+	<members>
+		<member name="context" type="int" setter="" getter="get_context" default="0">
+			Developer-defined context associated with the challenged score.
+		</member>
+		<member name="formatted_score" type="String" setter="" getter="get_formatted_score" default="&quot;&quot;">
+			Localizable, formatted representation of [member score].
+		</member>
+		<member name="leaderboard_entry" type="GKLeaderboardEntry" setter="" getter="get_leaderboard_entry" default="null">
+			Leaderboard entry for this challenge on newer Apple platforms. May be [code]null[/code] when unavailable.
+		</member>
+		<member name="leaderboard_identifier" type="String" setter="" getter="get_leaderboard_identifier" default="&quot;&quot;">
+			Legacy leaderboard identifier for older platform versions.
+		</member>
+		<member name="player" type="GKPlayer" setter="" getter="get_player" default="null">
+			Player associated with the challenged score entry.
+		</member>
+		<member name="rank" type="int" setter="" getter="get_rank" default="0">
+			Leaderboard rank of the challenged score.
+		</member>
+		<member name="score" type="int" setter="" getter="get_score" default="0">
+			Numeric score value in this challenge.
+		</member>
+	</members>
+</class>

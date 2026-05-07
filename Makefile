@@ -1,4 +1,4 @@
-.PHONY: run xcframework check_swiftsyntax generate-stubs gendocs docs-html deploy-docs
+.PHONY: run xcframework check_swiftsyntax generate-stubs split-generate-stubs gendocs docs-html deploy-docs split-build split-dist split-package split-smoke split-validate split-validate-built split-validate-matrix
 
 # Allow overriding common build knobs.
 CONFIG ?= Release
@@ -8,10 +8,13 @@ DERIVED_DATA ?= $(CURDIR)/.xcodebuild
 WORKSPACE ?= .swiftpm/xcode/package.xcworkspace
 SCHEME ?= GodotApplePlugins
 FRAMEWORK_NAMES ?= GodotApplePlugins
+SPLIT_FRAMEWORK_NAMES ?= GodotApplePluginsAVFoundation GodotApplePluginsFoundation GodotApplePluginsGameCenter GodotApplePluginsStoreKit GodotApplePluginsAuthenticationServices GodotApplePluginsARKit
+SPLIT_RUNTIME_FRAMEWORK ?= SwiftGodotRuntime
 XCODEBUILD ?= xcodebuild
 XCODEBUILD_LOG_ON_ERROR ?=
 XCODEBUILD_LOG_DIR ?=
 CC ?= cc
+GODOT ?= ~/cvs/master-godot/editor/bin/godot.macos.editor.dev.arm64
 
 STUB_BASE_DIR ?= $(CURDIR)
 STUB_OUTPUT_DIR ?= $(STUB_BASE_DIR)/Generated/GodotApplePluginsStub
@@ -20,6 +23,12 @@ STUB_ENTRY_SYMBOL ?= godot_apple_plugins_start
 STUB_LIBRARY_NAME ?= godot_apple_plugins_stub
 STUB_FILES ?=
 STUB_GENERATOR ?= swift run GodotApplePluginsStubGenerator
+SPLIT_SELECTED_FRAMEWORK_NAMES ?= $(SPLIT_FRAMEWORK_NAMES)
+
+empty :=
+space := $(empty) $(empty)
+comma := ,
+SPLIT_SELECTED_FRAMEWORKS_ARG = $(subst $(space),$(comma),$(strip $(SPLIT_SELECTED_FRAMEWORK_NAMES)))
 
 ifeq ($(shell uname -s),Darwin)
 STUB_SHARED_EXT ?= dylib
@@ -50,7 +59,7 @@ build build2:
 			if [ -n "$$log_dir" ]; then \
 				mkdir -p "$$log_dir"; \
 			fi; \
-			log_file=$$(mktemp "$${log_dir:-$${TMPDIR:-/tmp}}/xcodebuild.XXXXXX.log"); \
+			log_file=$$(mktemp "$${log_dir:-$${TMPDIR:-/tmp}}/xcodebuild.XXXXXX"); \
 			if ! "$$@" >"$$log_file" 2>&1; then \
 				echo "xcodebuild failed; dumping $$log_file"; \
 				cat "$$log_file"; \
@@ -133,18 +142,134 @@ check_swiftsyntax:
 
 package: build dist
 
+split-generate-stubs:
+	@set -e; \
+	for framework in $(SPLIT_FRAMEWORK_NAMES); do \
+		case "$$framework" in \
+			GodotApplePluginsAVFoundation) \
+				entry_symbol="godot_apple_plugins_avfoundation_start"; \
+				library_name="godot_apple_plugins_avfoundation_stub"; \
+				files="AVAudioSession"; \
+				;; \
+			GodotApplePluginsFoundation) \
+				entry_symbol="godot_apple_plugins_foundation_start"; \
+				library_name="godot_apple_plugins_foundation_stub"; \
+				files="Foundation AppleURL AppleFilePicker"; \
+				;; \
+			GodotApplePluginsGameCenter) \
+				entry_symbol="godot_apple_plugins_game_center_start"; \
+				library_name="godot_apple_plugins_game_center_stub"; \
+				files="GameCenterManager GKAccessPoint GKAchievement GKAchievementChallenge GKAchievementDescription GKChallenge GKChallengeDefinition GKGameCenterViewController GKGameActivity GKGameActivityDefinition GKLocalPlayer GKLeaderboard GKLeaderboardEntry GKLeaderboardScore GKLeaderboardSet GKInvite GKMatch GKMatchmaker GKMatchmakerViewController GKMatchRequest GKNotificationBanner GKScoreChallenge GKTurnBasedExchange GKTurnBasedExchangeReply GKTurnBasedMatch GKTurnBasedMatchmakerViewController GKTurnBasedParticipant GKVoiceChat GKPlayer GKSavedGame GKError"; \
+				;; \
+			GodotApplePluginsStoreKit) \
+				entry_symbol="godot_apple_plugins_storekit_start"; \
+				library_name="godot_apple_plugins_storekit_stub"; \
+				files="ProductView StoreProduct StoreProductPurchaseOption StoreProductSubscriptionOffer StoreProductPaymentMode StoreProductSubscriptionPeriod StoreSubscriptionInfo StoreSubscriptionInfoStatus StoreSubscriptionInfoRenewalInfo StoreTransaction StoreKitManager StoreView SubscriptionOfferView SubscriptionStoreView"; \
+				;; \
+			GodotApplePluginsAuthenticationServices) \
+				entry_symbol="godot_apple_plugins_authentication_services_start"; \
+				library_name="godot_apple_plugins_authentication_services_stub"; \
+				files="ASAuthorizationAppleIDCredential ASPasswordCredential ASAuthorizationController ASWebAuthenticationSession"; \
+				;; \
+			GodotApplePluginsARKit) \
+				entry_symbol="godot_apple_plugins_arkit_start"; \
+				library_name="godot_apple_plugins_arkit_stub"; \
+				files="ARSession ARWorldTrackingConfiguration ARFrame ARCamera ARLightEstimate ARPointCloud ARAnchor ARPlaneAnchor ARRaycastQuery ARRaycastResult ARTrackedRaycast ARImageAnchor ARMeshAnchor ARFaceAnchor ARWorldMap ARBodyTrackingConfiguration ARBodyAnchor ARBodySkeleton ARHandAnchor ARHandSkeleton ARCoachingOverlay AREnvironmentProbeAnchor ARGeoTrackingConfiguration ARGeoAnchor ARCollaborationData"; \
+				;; \
+			*) \
+				echo "Unknown split framework $$framework" >&2; \
+				exit 1; \
+				;; \
+		esac; \
+		output_dir="$(CURDIR)/Generated/$${framework}Stub"; \
+		echo "Generating stub sources for $$framework into $$output_dir"; \
+		args=""; \
+		for file in $$files; do \
+			args="$$args --file $$file"; \
+		done; \
+		eval $(STUB_GENERATOR) '"$(CURDIR)"' --output '"$$output_dir"' --entry-symbol '"$$entry_symbol"' --library-name '"$$library_name"' $$args; \
+	done
+
+split-build:
+	$(MAKE) build FRAMEWORK_NAMES="$(SPLIT_FRAMEWORK_NAMES)"
+
+split-dist:
+	$(MAKE) split-generate-stubs
+	$(MAKE) dist FRAMEWORK_NAMES="$(SPLIT_FRAMEWORK_NAMES)"
+	rm -rf $(CURDIR)/addons/GodotApplePluginsRuntime/bin/$(SPLIT_RUNTIME_FRAMEWORK).xcframework; \
+	rm -rf $(CURDIR)/addons/GodotApplePluginsRuntime/bin/$(SPLIT_RUNTIME_FRAMEWORK).framework; \
+	rm -rf $(CURDIR)/addons/GodotApplePluginsRuntime/bin/$(SPLIT_RUNTIME_FRAMEWORK)_x64.framework; \
+	mkdir -p $(CURDIR)/addons/GodotApplePluginsRuntime/bin; \
+	if [ -d "$(DERIVED_DATA)/Build/Products/$(CONFIG)-iphoneos/PackageFrameworks/$(SPLIT_RUNTIME_FRAMEWORK).framework" ] && [ -d "$(DERIVED_DATA)simulator/Build/Products/$(CONFIG)-iphonesimulator/PackageFrameworks/$(SPLIT_RUNTIME_FRAMEWORK).framework" ]; then \
+		$(XCODEBUILD) -create-xcframework \
+			-framework $(DERIVED_DATA)/Build/Products/$(CONFIG)-iphoneos/PackageFrameworks/$(SPLIT_RUNTIME_FRAMEWORK).framework \
+			-framework $(DERIVED_DATA)simulator/Build/Products/$(CONFIG)-iphonesimulator/PackageFrameworks/$(SPLIT_RUNTIME_FRAMEWORK).framework \
+			-output $(CURDIR)/addons/GodotApplePluginsRuntime/bin/$(SPLIT_RUNTIME_FRAMEWORK).xcframework; \
+	fi; \
+	if [ -d "$(DERIVED_DATA)x86_64/Build/Products/$(CONFIG)/PackageFrameworks/$(SPLIT_RUNTIME_FRAMEWORK).framework" ]; then \
+		rsync -a $(DERIVED_DATA)x86_64/Build/Products/$(CONFIG)/PackageFrameworks/$(SPLIT_RUNTIME_FRAMEWORK).framework/ $(CURDIR)/addons/GodotApplePluginsRuntime/bin/$(SPLIT_RUNTIME_FRAMEWORK)_x64.framework; \
+	fi; \
+	if [ -d "$(DERIVED_DATA)arm64/Build/Products/$(CONFIG)/PackageFrameworks/$(SPLIT_RUNTIME_FRAMEWORK).framework" ]; then \
+		rsync -a $(DERIVED_DATA)arm64/Build/Products/$(CONFIG)/PackageFrameworks/$(SPLIT_RUNTIME_FRAMEWORK).framework/ $(CURDIR)/addons/GodotApplePluginsRuntime/bin/$(SPLIT_RUNTIME_FRAMEWORK).framework; \
+	fi; \
+	for framework in $(SPLIT_FRAMEWORK_NAMES); do \
+		binary_arm="$(CURDIR)/addons/$$framework/bin/$$framework.framework/Versions/A/$$framework"; \
+		binary_x64="$(CURDIR)/addons/$$framework/bin/$${framework}_x64.framework/Versions/A/$$framework"; \
+		if [ -f "$$binary_arm" ]; then \
+			install_name_tool -delete_rpath "$(DERIVED_DATA)arm64/Build/Products/$(CONFIG)/PackageFrameworks" "$$binary_arm" 2>/dev/null || true; \
+			install_name_tool -add_rpath "@loader_path/../../../../../GodotApplePluginsRuntime/bin" "$$binary_arm"; \
+		fi; \
+		if [ -f "$$binary_x64" ]; then \
+			install_name_tool -delete_rpath "$(DERIVED_DATA)x86_64/Build/Products/$(CONFIG)/PackageFrameworks" "$$binary_x64" 2>/dev/null || true; \
+			install_name_tool -add_rpath "@loader_path/../../../../../GodotApplePluginsRuntime/bin" "$$binary_x64"; \
+		fi; \
+	done
+
+split-package: split-build split-dist
+
+split-validate-built:
+	@set -e; \
+	project_dir=$$(mktemp -d "$${TMPDIR:-/tmp}/godot-split-validate.XXXXXX"); \
+	trap 'rm -rf "$$project_dir"' EXIT INT TERM; \
+	rsync -a --delete --exclude addons test-apple-godot-api/ "$$project_dir"/; \
+	mkdir -p "$$project_dir/addons"; \
+	ln -sfn "$(CURDIR)/addons/GodotApplePluginsRuntime" "$$project_dir/addons/GodotApplePluginsRuntime"; \
+	for addon in $(SPLIT_SELECTED_FRAMEWORK_NAMES); do \
+		ln -sfn "$(CURDIR)/addons/$$addon" "$$project_dir/addons/$$addon"; \
+	done; \
+	$(GODOT) --headless --path "$$project_dir" --scene res://split_validation.tscn -- --frameworks=$(SPLIT_SELECTED_FRAMEWORKS_ARG)
+
+split-validate: split-package split-validate-built
+
+split-validate-matrix: split-package
+	$(MAKE) split-validate-built SPLIT_SELECTED_FRAMEWORK_NAMES="GodotApplePluginsAVFoundation"
+	$(MAKE) split-validate-built SPLIT_SELECTED_FRAMEWORK_NAMES="GodotApplePluginsFoundation"
+	$(MAKE) split-validate-built SPLIT_SELECTED_FRAMEWORK_NAMES="GodotApplePluginsGameCenter"
+	$(MAKE) split-validate-built SPLIT_SELECTED_FRAMEWORK_NAMES="GodotApplePluginsStoreKit"
+	$(MAKE) split-validate-built SPLIT_SELECTED_FRAMEWORK_NAMES="GodotApplePluginsAuthenticationServices"
+	$(MAKE) split-validate-built SPLIT_SELECTED_FRAMEWORK_NAMES="GodotApplePluginsARKit"
+	$(MAKE) split-validate-built SPLIT_SELECTED_FRAMEWORK_NAMES="$(SPLIT_FRAMEWORK_NAMES)"
+
+split-smoke: split-validate
+
 dist:
 	for framework in $(FRAMEWORK_NAMES); do \
 		rm -rf $(CURDIR)/addons/$$framework/bin/$$framework.xcframework; \
 		rm -rf $(CURDIR)/addons/$$framework/bin/$$framework*.framework; \
-		$(XCODEBUILD) -create-xcframework \
-			-framework $(DERIVED_DATA)/Build/Products/$(CONFIG)-iphoneos/PackageFrameworks/$$framework.framework \
-			-framework $(DERIVED_DATA)simulator/Build/Products/$(CONFIG)-iphonesimulator/PackageFrameworks/$$framework.framework \
-			-output $(CURDIR)/addons/$$framework/bin/$${framework}.xcframework; \
-		rsync -a $(DERIVED_DATA)x86_64/Build/Products/$(CONFIG)/PackageFrameworks/$${framework}.framework/ $(CURDIR)/addons/$$framework/bin/$${framework}_x64.framework; \
-		rsync -a $(DERIVED_DATA)arm64/Build/Products/$(CONFIG)/PackageFrameworks/$${framework}.framework/ $(CURDIR)/addons/$$framework/bin/$${framework}.framework; \
-		rsync -a doc_classes/ $(CURDIR)/addons/$$framework/bin/$${framework}_x64.framework/Resources/doc_classes/; \
-		rsync -a doc_classes/ $(CURDIR)/addons/$$framework/bin/$${framework}.framework/Resources/doc_classes/; \
+		if [ -d "$(DERIVED_DATA)/Build/Products/$(CONFIG)-iphoneos/PackageFrameworks/$$framework.framework" ] && [ -d "$(DERIVED_DATA)simulator/Build/Products/$(CONFIG)-iphonesimulator/PackageFrameworks/$$framework.framework" ]; then \
+			$(XCODEBUILD) -create-xcframework \
+				-framework $(DERIVED_DATA)/Build/Products/$(CONFIG)-iphoneos/PackageFrameworks/$$framework.framework \
+				-framework $(DERIVED_DATA)simulator/Build/Products/$(CONFIG)-iphonesimulator/PackageFrameworks/$$framework.framework \
+				-output $(CURDIR)/addons/$$framework/bin/$${framework}.xcframework; \
+		fi; \
+		if [ -d "$(DERIVED_DATA)x86_64/Build/Products/$(CONFIG)/PackageFrameworks/$${framework}.framework" ]; then \
+			rsync -a $(DERIVED_DATA)x86_64/Build/Products/$(CONFIG)/PackageFrameworks/$${framework}.framework/ $(CURDIR)/addons/$$framework/bin/$${framework}_x64.framework; \
+			rsync -a doc_classes/ $(CURDIR)/addons/$$framework/bin/$${framework}_x64.framework/Resources/doc_classes/; \
+		fi; \
+		if [ -d "$(DERIVED_DATA)arm64/Build/Products/$(CONFIG)/PackageFrameworks/$${framework}.framework" ]; then \
+			rsync -a $(DERIVED_DATA)arm64/Build/Products/$(CONFIG)/PackageFrameworks/$${framework}.framework/ $(CURDIR)/addons/$$framework/bin/$${framework}.framework; \
+			rsync -a doc_classes/ $(CURDIR)/addons/$$framework/bin/$${framework}.framework/Resources/doc_classes/; \
+		fi; \
 	done
 
 XCFRAMEWORK_GODOTAPPLEPLUGINS ?= $(CURDIR)/addons/GodotApplePlugins/bin/GodotApplePlugins.xcframework

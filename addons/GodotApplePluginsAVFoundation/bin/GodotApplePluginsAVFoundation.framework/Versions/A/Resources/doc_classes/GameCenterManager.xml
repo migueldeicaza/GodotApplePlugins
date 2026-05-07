@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="GameCenterManager" inherits="RefCounted" api_type="extension" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Entry point for authenticating the Apple Game Center local player.
+	</brief_description>
+	<description>
+		Create a [code skip-lint]GameCenterManager[/code] when your game starts to present Apple's authentication UI and track whether the player is signed in, as described in [code skip-lint]GameCenterGuide.md[/code]. Once authenticated you can fetch the [member local_player] to access achievements, leaderboards, friends, and matchmaking helpers. See Apple's documentation for [url=https://developer.apple.com/documentation/gamekit/gklocalplayer]Apple's GKLocalPlayer reference[/url] to learn more about the underlying authentication flow.
+
+		Authentication example from the guide:
+		[codeblocks]
+		[gdscript]
+		var game_center: GameCenterManager
+
+		func _ready() -&gt; void:
+		    game_center = GameCenterManager.new()
+
+		    game_center.authentication_error.connect(func(error: String) -&gt; void:
+		        print("Received error %s" % error)
+		    )
+		    game_center.authentication_result.connect(func(status: bool) -&gt; void:
+		        print("Authentication updated, status: %s" % status)
+		    )
+		[/gdscript]
+		[/codeblocks]
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="authenticate">
+			<return type="void" />
+			<description>
+				Triggers [code skip-lint]GKLocalPlayer.authenticateHandler[/code], presenting Apple's login sheet when needed. Emits [signal authentication_result] with the new status and [signal authentication_error] if GameKit reports a failure.
+			</description>
+		</method>
+	</methods>
+	<members>
+		<member name="access_point" type="GKAccessPoint" setter="" getter="get_access_point">
+			Access the shared [GKAccessPoint] object to manage the visibility and state of the Game Center access point.
+		</member>
+		<member name="local_player" type="GKLocalPlayer" setter="set_local_player" getter="get_local_player">
+			Returns the wrapper for [code skip-lint]GKLocalPlayer.local[/code]. Use this after successful authentication to call methods such as [code]load_friends()[/code] or [code]fetch_items_for_identity_verification_signature()[/code].
+		</member>
+	</members>
+	<signals>
+		<signal name="authentication_error">
+			<param index="0" name="message" type="String" />
+			<description>
+				Emitted whenever GameKit authentication fails. The argument is the localized error string provided by Apple.
+			</description>
+		</signal>
+		<signal name="authentication_result">
+			<param index="0" name="status" type="bool" />
+			<description>
+				Emitted after [code skip-lint]authenticate()[/code] finishes. The boolean is [code]true[/code] when [code skip-lint]GKLocalPlayer.local.isAuthenticated[/code] reports success.
+			</description>
+		</signal>
+	</signals>
+</class>

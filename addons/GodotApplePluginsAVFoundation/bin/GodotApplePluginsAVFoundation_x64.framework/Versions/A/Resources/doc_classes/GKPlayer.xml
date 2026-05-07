@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="GKPlayer" inherits="RefCounted" api_type="extension" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Represents any Game Center player (local or remote).
+	</brief_description>
+	<description>
+		[code skip-lint]GKPlayer[/code] is the shared base type for friends, opponents, and the local user. Use it to access Apple-provided identifiers plus helper methods such as [method load_photo], as referenced in the "Players" section of [code skip-lint]GameCenterGuide.md[/code]. Apple's reference lives at [url=https://developer.apple.com/documentation/gamekit/gkplayer]Apple's GKPlayer documentation[/url].
+
+		Loading a player photo (guide sample):
+		[codeblocks]
+		[gdscript]
+		# Put the downloaded image inside a TextureRect named $texture_rect.
+		local_player.load_photo(true, func(image: Image, error: Variant) -&gt; void:
+		    if error == null:
+		        $texture_rect.texture = ImageTexture.create_from_image(image)
+		    else:
+		        print("Could not load photo %s" % error)
+		)
+		[/gdscript]
+		[/codeblocks]
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="anonymous_guest_player" qualifiers="static">
+			<return type="GKPlayer" />
+			<param index="0" name="identifier" type="String" />
+			<description>
+				Creates an anonymous guest player object for [param identifier] using Apple's guest-player API.
+			</description>
+		</method>
+		<method name="load_photo">
+			<return type="void" />
+			<param index="0" name="small" type="bool" />
+			<param index="1" name="callback" type="Callable" />
+			<description>
+				Downloads the player's avatar. Pass [code]true[/code] for a small image or [code]false[/code] for the normal size. The callback receives [code](Image image, Variant error)[/code] and exactly one argument is [code]null[/code], mirroring the Swift inline documentation.
+			</description>
+		</method>
+		<method name="scopedIDsArePersistent">
+			<return type="bool" />
+			<description>
+				Returns the result of Apple's [code skip-lint]scopedIDsArePersistent()[/code] method, letting you detect whether scoped identifiers stay stable for the current device/account combination.
+			</description>
+		</method>
+	</methods>
+	<members>
+		<member name="alias" type="String" setter="" getter="get_alias" default="&quot;Unknown&quot;">
+			Player-specified nickname.
+		</member>
+		<member name="display_name" type="String" setter="" getter="get_display_name" default="&quot;&quot;">
+			Localized display name suited for UI.
+		</member>
+		<member name="game_player_id" type="String" setter="" getter="get_game_player_id" default="&quot;19F693964FA5E7CF4DFE2B10A3D7BAAD546324E606C675CA4A6D409BB2FB962D&quot;">
+			Stable, per-game identifier used by Apple to uniquely address the player.
+		</member>
+		<member name="guest_identifier" type="String" setter="" getter="get_guest_identifier" default="&quot;&quot;">
+			Guest identifier for anonymous players, or an empty string for signed-in Game Center accounts.
+		</member>
+		<member name="is_invitable" type="bool" setter="" getter="get_is_invitable" default="false">
+			True if the player allows Game Center invitations.
+		</member>
+		<member name="team_player_id" type="String" setter="" getter="get_team_player_id" default="&quot;20D575AFF852729358327FDDC3E5DE0AF469B6D2010171A2A999DD0767D00DC6&quot;">
+			Team-scoped identifier shared with other games from the same developer account.
+		</member>
+	</members>
+</class>

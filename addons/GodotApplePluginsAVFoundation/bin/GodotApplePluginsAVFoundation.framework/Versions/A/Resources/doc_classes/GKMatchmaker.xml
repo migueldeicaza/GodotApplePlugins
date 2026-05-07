@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="GKMatchmaker" inherits="RefCounted" api_type="extension" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+	</brief_description>
+	<description>
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="add_players">
+			<return type="void" />
+			<param index="0" name="match" type="GKMatch" />
+			<param index="1" name="request" type="GKMatchRequest" />
+			<param index="2" name="callback" type="Callable" />
+			<description>
+			</description>
+		</method>
+		<method name="cancel">
+			<return type="void" />
+			<description>
+			</description>
+		</method>
+		<method name="cancel_pending_invite">
+			<return type="void" />
+			<param index="0" name="player" type="GKPlayer" />
+			<description>
+			</description>
+		</method>
+		<method name="find_match">
+			<return type="void" />
+			<param index="0" name="request" type="GKMatchRequest" />
+			<param index="1" name="callback" type="Callable" />
+			<description>
+			</description>
+		</method>
+		<method name="find_matched_players">
+			<return type="void" />
+			<param index="0" name="request" type="GKMatchRequest" />
+			<param index="1" name="callback" type="Callable" />
+			<description>
+				Searches for matched players and returns additional match properties provided by GameKit.
+				The callback receives [code](GKMatchedPlayers matched_players, Variant error)[/code]. On failure, [code]matched_players[/code] is [code]null[/code] and [code]error[/code] contains a [code skip-lint]GKError[/code].
+				Requires iOS 17.2, macOS 14.2, tvOS 17.2, or visionOS 1.1. Older versions return an [code skip-lint]apiNotAvailable[/code] error.
+			</description>
+		</method>
+		<method name="find_players">
+			<return type="void" />
+			<param index="0" name="request" type="GKMatchRequest" />
+			<param index="1" name="callback" type="Callable" />
+			<description>
+			</description>
+		</method>
+		<method name="finish_matchmaking">
+			<return type="void" />
+			<param index="0" name="match" type="GKMatch" />
+			<description>
+			</description>
+		</method>
+		<method name="match_for_invite">
+			<return type="void" />
+			<param index="0" name="invite" type="GKInvite" />
+			<param index="1" name="callback" type="Callable" />
+			<description>
+			</description>
+		</method>
+		<method name="query_activity">
+			<return type="void" />
+			<param index="0" name="callback" type="Callable" />
+			<description>
+			</description>
+		</method>
+		<method name="query_player_group_activity">
+			<return type="void" />
+			<param index="0" name="groupID" type="int" />
+			<param index="1" name="callback" type="Callable" />
+			<description>
+			</description>
+		</method>
+		<method name="query_queue_activity">
+			<return type="void" />
+			<param index="0" name="queueName" type="String" />
+			<param index="1" name="callback" type="Callable" />
+			<description>
+			</description>
+		</method>
+		<method name="start_browsing_for_nearby_players">
+			<return type="void" />
+			<description>
+			</description>
+		</method>
+		<method name="start_group_activity">
+			<return type="void" />
+			<description>
+			</description>
+		</method>
+		<method name="stop_browsing_for_nearby_players">
+			<return type="void" />
+			<description>
+			</description>
+		</method>
+		<method name="stop_group_activity">
+			<return type="void" />
+			<description>
+			</description>
+		</method>
+	</methods>
+	<signals>
+		<signal name="nearby_player_reachable">
+			<param index="0" name="player" type="GKPlayer" />
+			<param index="1" name="is_reachable" type="bool" />
+			<description>
+			</description>
+		</signal>
+		<signal name="player_joining_group_activity">
+			<param index="0" name="player" type="GKPlayer" />
+			<description>
+			</description>
+		</signal>
+	</signals>
+</class>

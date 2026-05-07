@@ -1,0 +1,13 @@
+[configuration]
+
+entry_symbol = "godot_apple_plugins_authentication_services_start"
+compatibility_minimum = 4.2
+
+[libraries]
+ios = "res://addons/GodotApplePluginsAuthenticationServices/bin/GodotApplePluginsAuthenticationServices.xcframework"
+linux.arm64 = "res://addons/GodotApplePluginsAuthenticationServices/bin/godot_apple_plugins_authentication_services_stub.linux.arm64.so"
+linux.x86_64 = "res://addons/GodotApplePluginsAuthenticationServices/bin/godot_apple_plugins_authentication_services_stub.linux.x86_64.so"
+macos.arm64 = "res://addons/GodotApplePluginsAuthenticationServices/bin/GodotApplePluginsAuthenticationServices.framework"
+macos.x86_64 = "res://addons/GodotApplePluginsAuthenticationServices/bin/GodotApplePluginsAuthenticationServices_x64.framework"
+windows.arm64 = "res://addons/GodotApplePluginsAuthenticationServices/bin/godot_apple_plugins_authentication_services_stub.windows.arm64.dll"
+windows.x86_64 = "res://addons/GodotApplePluginsAuthenticationServices/bin/godot_apple_plugins_authentication_services_stub.windows.x86_64.dll"

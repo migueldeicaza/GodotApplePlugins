@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="GKTurnBasedMatch" inherits="RefCounted" api_type="extension" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+	</brief_description>
+	<description>
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="accept_invite">
+			<return type="void" />
+			<param index="0" name="callback" type="Callable" />
+			<description>
+			</description>
+		</method>
+		<method name="decline_invite">
+			<return type="void" />
+			<param index="0" name="callback" type="Callable" />
+			<description>
+			</description>
+		</method>
+		<method name="end_match_in_turn">
+			<return type="void" />
+			<param index="0" name="data" type="PackedByteArray" />
+			<param index="1" name="callback" type="Callable" />
+			<description>
+			</description>
+		</method>
+		<method name="end_turn">
+			<return type="void" />
+			<param index="0" name="nextParticipants" type="Array" />
+			<param index="1" name="timeout" type="float" />
+			<param index="2" name="data" type="PackedByteArray" />
+			<param index="3" name="callback" type="Callable" />
+			<description>
+			</description>
+		</method>
+		<method name="exchange_timeout_default" qualifiers="static">
+			<return type="float" />
+			<description>
+				Returns Apple's default timeout constant for turn-based exchanges.
+			</description>
+		</method>
+		<method name="exchange_timeout_none" qualifiers="static">
+			<return type="float" />
+			<description>
+				Returns Apple's constant meaning "no timeout" for turn-based exchanges.
+			</description>
+		</method>
+		<method name="find" qualifiers="static">
+			<return type="void" />
+			<param index="0" name="request" type="GKMatchRequest" />
+			<param index="1" name="callback" type="Callable" />
+			<description>
+			</description>
+		</method>
+		<method name="load" qualifiers="static">
+			<return type="void" />
+			<param index="0" name="matchID" type="String" />
+			<param index="1" name="callback" type="Callable" />
+			<description>
+			</description>
+		</method>
+		<method name="load_match_data">
+			<return type="void" />
+			<param index="0" name="callback" type="Callable" />
+			<description>
+			</description>
+		</method>
+		<method name="load_matches" qualifiers="static">
+			<return type="void" />
+			<param index="0" name="callback" type="Callable" />
+			<description>
+			</description>
+		</method>
+		<method name="participant_quit_in_turn">
+			<return type="void" />
+			<param index="0" name="outcome" type="int" />
+			<param index="1" name="nextParticipants" type="Array" />
+			<param index="2" name="timeout" type="float" />
+			<param index="3" name="data" type="PackedByteArray" />
+			<param index="4" name="callback" type="Callable" />
+			<description>
+			</description>
+		</method>
+		<method name="participant_quit_out_of_turn">
+			<return type="void" />
+			<param index="0" name="outcome" type="int" />
+			<param index="1" name="callback" type="Callable" />
+			<description>
+			</description>
+		</method>
+		<method name="rematch">
+			<return type="void" />
+			<param index="0" name="callback" type="Callable" />
+			<description>
+				Creates a rematch from the current turn-based match.
+				The callback receives [code](GKTurnBasedMatch rematched_match, Variant error)[/code]. On failure, [code]rematched_match[/code] is [code]null[/code] and [code]error[/code] contains a [code skip-lint]GKError[/code].
+			</description>
+		</method>
+		<method name="remove">
+			<return type="void" />
+			<param index="0" name="callback" type="Callable" />
+			<description>
+			</description>
+		</method>
+		<method name="save_current_turn">
+			<return type="void" />
+			<param index="0" name="data" type="PackedByteArray" />
+			<param index="1" name="callback" type="Callable" />
+			<description>
+			</description>
+		</method>
+		<method name="save_merged_match">
+			<return type="void" />
+			<param index="0" name="data" type="PackedByteArray" />
+			<param index="1" name="resolvedExchanges" type="Array" />
+			<param index="2" name="callback" type="Callable" />
+			<description>
+			</description>
+		</method>
+		<method name="send_exchange">
+			<return type="void" />
+			<param index="0" name="participants" type="Array" />
+			<param index="1" name="data" type="PackedByteArray" />
+			<param index="2" name="localizableMessageKey" type="String" />
+			<param index="3" name="arguments" type="PackedStringArray" />
+			<param index="4" name="timeout" type="float" />
+			<param index="5" name="callback" type="Callable" />
+			<description>
+				Sends an exchange to the selected participants. Pass [param arguments] as [code]PackedStringArray(["arg1", "arg2"])[/code], or [code skip-lint]PackedStringArray()[/code] when the localized message does not need substitution values.
+			</description>
+		</method>
+		<method name="send_reminder">
+			<return type="void" />
+			<param index="0" name="participants" type="Array" />
+			<param index="1" name="localizableMessageKey" type="String" />
+			<param index="2" name="arguments" type="PackedStringArray" />
+			<param index="3" name="callback" type="Callable" />
+			<description>
+				Sends a reminder to the selected participants. Pass [param arguments] as [code]PackedStringArray(["arg1", "arg2"])[/code], or [code skip-lint]PackedStringArray()[/code] if the localized string has no substitutions.
+			</description>
+		</method>
+		<method name="set_localizable_message_with_key">
+			<return type="void" />
+			<param index="0" name="key" type="String" />
+			<param index="1" name="arguments" type="PackedStringArray" />
+			<description>
+				Sets the localized message for the match using [param key]. Pass [param arguments] as [code]PackedStringArray(["arg1", "arg2"])[/code], or [code skip-lint]PackedStringArray()[/code] if no substitutions are required.
+			</description>
+		</method>
+		<method name="turn_timeout_default" qualifiers="static">
+			<return type="float" />
+			<description>
+				Returns Apple's default timeout constant for player turns.
+			</description>
+		</method>
+		<method name="turn_timeout_none" qualifiers="static">
+			<return type="float" />
+			<description>
+				Returns Apple's constant meaning "no timeout" for player turns.
+			</description>
+		</method>
+	</methods>
+	<members>
+		<member name="active_exchanges" type="Array" setter="" getter="get_active_exchanges" default="[]">
+		</member>
+		<member name="completed_exchanges" type="Array" setter="" getter="get_completed_exchanges" default="[]">
+		</member>
+		<member name="creation_date" type="float" setter="" getter="get_creation_date" default="0.0">
+		</member>
+		<member name="current_participant" type="GKTurnBasedParticipant" setter="" getter="get_current_participant" default="null">
+		</member>
+		<member name="exchange_data_maximum_size" type="int" setter="" getter="get_exchange_data_maximum_size" default="0">
+		</member>
+		<member name="exchange_max_initiated_exchanges_per_player" type="int" setter="" getter="get_exchange_max_initiated_exchanges_per_player" default="0">
+		</member>
+		<member name="exchanges" type="Array" setter="" getter="get_exchanges" default="[]">
+		</member>
+		<member name="is_active_player" type="bool" setter="" getter="get_is_active_player" default="false">
+			True when the local player is the current participant whose turn is active.
+		</member>
+		<member name="match_data" type="PackedByteArray" setter="" getter="get_match_data" default="PackedByteArray()">
+		</member>
+		<member name="match_data_maximum_size" type="int" setter="" getter="get_match_data_maximum_size" default="0">
+		</member>
+		<member name="match_id" type="String" setter="" getter="get_match_id" default="&quot;&quot;">
+		</member>
+		<member name="message" type="String" setter="" getter="get_message" default="&quot;&quot;">
+		</member>
+		<member name="participants" type="Array" setter="" getter="get_participants" default="[]">
+		</member>
+		<member name="status" type="int" setter="" getter="get_status" default="0">
+		</member>
+	</members>
+</class>

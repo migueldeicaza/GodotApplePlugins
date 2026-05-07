@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="GKAchievementDescription" inherits="RefCounted" api_type="extension" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Metadata for every achievement that is defined in App Store Connect.
+	</brief_description>
+	<description>
+		[code skip-lint]GKAchievementDescription[/code] exposes the localized text, group assignments, and icon that you configure for each achievement. Use [method load_achievement_descriptions] as shown in [code skip-lint]GameCenterGuide.md[/code] to list everything the player can unlock, even before they have reported progress. Apple's documentation lives at [url=https://developer.apple.com/documentation/gamekit/gkachievementdescription]Apple's GKAchievementDescription reference[/url].
+
+		Listing descriptions (guide sample):
+		[codeblocks]
+		[gdscript]
+		GKAchievementDescription.load_achievement_descriptions(func(descriptions: Array[GKAchievementDescription], error: Variant) -&gt; void:
+		    if error:
+		        print("Load achievement description error %s" % error)
+		    else:
+		        for description in descriptions:
+		            print("Achievement Description ID: %s" % description.identifier)
+		            print("    Unachieved: %s" % description.unachieved_description)
+		            print("    Achieved: %s" % description.achieved_description)
+		)
+		[/gdscript]
+		[/codeblocks]
+
+		Loading an image sample (assuming [code]description[/code] is one of the loaded entries):
+		[codeblocks]
+		[gdscript]
+		description.load_image(func(image: Image, error: Variant) -&gt; void:
+		    if error == null:
+		        $texture_rect.texture = ImageTexture.create_from_image(image)
+		    else:
+		        print("Error loading achievement image %s" % error)
+		)
+		[/gdscript]
+		[/codeblocks]
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="incomplete_achievement_image" qualifiers="static">
+			<return type="Variant" />
+			<description>
+				Returns Apple's shared image for an incomplete achievement as an [code skip-lint]Image[/code] [code skip-lint]Variant[/code].
+			</description>
+		</method>
+		<method name="load_achievement_descriptions" qualifiers="static">
+			<return type="void" />
+			<param index="0" name="callback" type="Callable" />
+			<description>
+				Loads the entire catalog of achievement descriptions and calls the callback with [code skip-lint]Array[GKAchievementDescription][/code] and a [code skip-lint]Variant[/code] error ([code]null[/code] on success, or a [code skip-lint]GKError[/code] from GameKit).
+			</description>
+		</method>
+		<method name="load_image">
+			<return type="void" />
+			<param index="0" name="callback" type="Callable" />
+			<description>
+				Downloads the image for this description. The callback receives [code](Image image, Variant error)[/code] where exactly one argument is [code]null[/code]. If an error occurs, it is returned as a [code skip-lint]GKError[/code].
+			</description>
+		</method>
+		<method name="placeholder_completed_achievement_image" qualifiers="static">
+			<return type="Variant" />
+			<description>
+				Returns Apple's shared placeholder image for a completed achievement as an [code skip-lint]Image[/code] [code skip-lint]Variant[/code].
+			</description>
+		</method>
+	</methods>
+	<members>
+		<member name="achieved_description" type="String" setter="" getter="get_achieved_description" default="&quot;&quot;">
+			Text shown after the player completes the achievement.
+		</member>
+		<member name="activity_identifier" type="String" setter="" getter="get_activity_identifier" default="&quot;&quot;">
+			Game activity identifier attached to this achievement description.
+			Available on iOS 26, macOS 26, tvOS 26, and visionOS 26. Returns an empty string on earlier versions.
+		</member>
+		<member name="activity_properties" type="Dictionary[String, String]" setter="" getter="get_activity_properties" default="{}">
+			String key/value properties for the activity associated with this achievement description.
+			Available on iOS 26, macOS 26, tvOS 26, and visionOS 26. Returns an empty dictionary on earlier versions.
+		</member>
+		<member name="group_identifier" type="String" setter="" getter="get_group_identifier" default="&quot;&quot;">
+			The optional group identifier configured on App Store Connect.
+		</member>
+		<member name="identifier" type="String" setter="" getter="get_identifier" default="&quot;&quot;">
+			Unique identifier string for this description.
+		</member>
+		<member name="is_hidden" type="bool" setter="" getter="get_is_hidden" default="false">
+			Indicates whether the achievement is currently hidden from the user.
+		</member>
+		<member name="is_replayable" type="bool" setter="" getter="get_is_replayable" default="false">
+			True when the achievement can be earned more than once.
+		</member>
+		<member name="maximum_points" type="int" setter="" getter="get_maximum_points" default="0">
+			The point value that Apple shows when this achievement is completed.
+		</member>
+		<member name="rarity_percent" type="Variant" setter="" getter="get_rarity_percent">
+			Either a double with Apple's reported rarity or [code]null[/code] on platforms that do not expose this data.
+		</member>
+		<member name="release_state" type="int" setter="" getter="get_release_state" default="0">
+			Raw integer value of Apple's release state for this achievement description.
+			Available on iOS 18.4, macOS 15.4, tvOS 18.4, and visionOS 2.4. Returns [code]0[/code] on earlier versions.
+		</member>
+		<member name="title" type="String" setter="" getter="get_title" default="&quot;&quot;">
+			Display title, localized according to the player's language.
+		</member>
+		<member name="unachieved_description" type="String" setter="" getter="get_unachieved_description" default="&quot;&quot;">
+			Text shown before the player meets the completion criteria.
+		</member>
+	</members>
+</class>

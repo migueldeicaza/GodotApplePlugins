@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="GKTurnBasedParticipant" inherits="RefCounted" api_type="extension" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+	</brief_description>
+	<description>
+	</description>
+	<tutorials>
+	</tutorials>
+	<members>
+		<member name="last_turn_date" type="float" setter="" getter="get_last_turn_date" default="0.0">
+		</member>
+		<member name="match_outcome" type="int" setter="set_match_outcome" getter="get_match_outcome" default="0">
+		</member>
+		<member name="player" type="GKPlayer" setter="" getter="get_player" default="null">
+		</member>
+		<member name="status" type="int" setter="" getter="get_status" default="0">
+		</member>
+		<member name="timeout_date" type="float" setter="" getter="get_timeout_date" default="0.0">
+		</member>
+	</members>
+</class>

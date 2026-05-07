@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="GKMatchRequest" inherits="RefCounted" api_type="extension" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Configures how many players Game Center should recruit for a realtime match.
+	</brief_description>
+	<description>
+		Instantiate [code skip-lint]GKMatchRequest[/code], set the minimum/maximum player counts and invite message, then either create a [code skip-lint]GKMatchmakerViewController[/code] (for full UI control) or call [method GKMatchmakerViewController.request_match] as shown in [code skip-lint]GameCenterGuide.md[/code]. The optional [code skip-lint]MatchType[/code] argument lets you switch between peer-to-peer, hosted, or turn-based matchmaking. Apple's guide is at [url=https://developer.apple.com/documentation/gamekit/gkmatchrequest]Apple's GKMatchRequest reference[/url].
+
+		Configuration snippet from the guide:
+		[codeblocks]
+		[gdscript]
+		var request := GKMatchRequest.new()
+		request.max_players = 2
+		request.min_players = 1
+		request.invite_message = "Join me in a quest to fun"
+
+		var max_supported := GKMatchRequest.max_players_allowed_for_match(GKMatchRequest.MatchType.peerToPeer)
+		print("Peer-to-peer supports up to %d players" % max_supported)
+		[/gdscript]
+		[/codeblocks]
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="max_players_allowed_for_match" qualifiers="static">
+			<return type="int" />
+			<param index="0" name="forType" type="int" enum="MatchType" />
+			<description>
+				Returns Apple's maximum supported player count for the supplied match type ([code]peer_to_peer[/code], [code skip-lint]hosted[/code], or [code]turn_based[/code]).
+			</description>
+		</method>
+	</methods>
+	<members>
+		<member name="default_number_of_players" type="int" setter="set_default_number_of_players" getter="get_default_number_of_players" default="0">
+			Default number of players your UI suggests when presenting the matchmaking sheet.
+		</member>
+		<member name="invite_message" type="String" setter="set_invite_message" getter="get_invite_message" default="&quot;&quot;">
+			Optional text Apple shows when the player sends invitations (see the [code skip-lint]invite_message[/code] example in the guide).
+		</member>
+		<member name="max_players" type="int" setter="set_max_players" getter="get_max_players" default="2">
+			Maximum desired players in the match.
+		</member>
+		<member name="min_players" type="int" setter="set_min_players" getter="get_min_players" default="2">
+			Minimum player count required before the match can start.
+		</member>
+		<member name="player_attributes" type="int" setter="set_player_attributes" getter="get_player_attributes" default="4294967295">
+		</member>
+		<member name="player_group" type="int" setter="set_player_group" getter="get_player_group" default="1">
+		</member>
+		<member name="properties" type="Dictionary" setter="set_properties" getter="get_properties" default="{}">
+		</member>
+		<member name="queue_name" type="String" setter="set_queue_name" getter="get_queue_name" default="&quot;&quot;">
+		</member>
+		<member name="recipient_properties" type="Dictionary" setter="set_recipient_properties" getter="get_recipient_properties" default="{}">
+		</member>
+		<member name="recipient_response" type="Variant" setter="set_recipient_response" getter="get_recipient_response">
+		</member>
+		<member name="recipients" type="Array" setter="set_recipients" getter="get_recipients" default="[]">
+		</member>
+	</members>
+	<constants>
+		<constant name="PEER_TO_PEER" value="0" enum="MatchType">
+		</constant>
+		<constant name="HOSTED" value="1" enum="MatchType">
+		</constant>
+		<constant name="TURN_BASED" value="2" enum="MatchType">
+		</constant>
+		<constant name="ACCEPTED" value="0" enum="InviteRecipientResponse">
+		</constant>
+		<constant name="DECLINED" value="1" enum="InviteRecipientResponse">
+		</constant>
+		<constant name="FAILED" value="2" enum="InviteRecipientResponse">
+		</constant>
+		<constant name="INCOMPATIBLE" value="3" enum="InviteRecipientResponse">
+		</constant>
+		<constant name="UNABLE_TO_CONNECT" value="4" enum="InviteRecipientResponse">
+		</constant>
+		<constant name="NO_ANSWER" value="5" enum="InviteRecipientResponse">
+		</constant>
+		<constant name="UNKNOWN" value="6" enum="InviteRecipientResponse">
+		</constant>
+	</constants>
+</class>

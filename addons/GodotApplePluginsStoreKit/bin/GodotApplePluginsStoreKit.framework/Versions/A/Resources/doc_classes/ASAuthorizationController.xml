@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="ASAuthorizationController" inherits="RefCounted" api_type="extension" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Manages authorization requests for Apple ID and other services.
+	</brief_description>
+	<description>
+		This class handles the presentation and management of authorization flows, such as Sign in with Apple. It interacts with the [ASAuthorizationAppleIDCredential] and [ASPasswordCredential] classes to return the result of an authorization request.
+
+		You can use [method signin_with_scopes] to request specific scopes (e.g., full name and email) or [method signin] for a default sign-in flow.
+
+		[codeblocks]
+		[gdscript]
+		var auth_controller = ASAuthorizationController.new()
+
+		func _ready():
+		    auth_controller.authorization_completed.connect(_on_authorization_completed)
+		    auth_controller.authorization_failed.connect(_on_authorization_failed)
+
+		func _on_sign_in_button_pressed():
+		    # Request full name and email
+		    auth_controller.signin_with_scopes(["full_name", "email"])
+
+		func _on_authorization_completed(credential):
+		    if credential is ASAuthorizationAppleIDCredential:
+		        print("User ID: ", credential.user)
+		        print("Email: ", credential.email)
+		        print("Full Name: ", credential.fullName)
+		    elif credential is ASPasswordCredential:
+		        print("User: ", credential.user)
+		        print("Password: ", credential.password)
+
+		func _on_authorization_failed(error_message):
+		    print("Authorization failed: ", error_message)
+		[/gdscript]
+		[/codeblocks]
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="signin">
+			<return type="void" />
+			<description>
+				Call this method to initiate the signin with Apple workflow with the default scopes ([code]email[/code], [code]full_name[/code]),
+				this will raise the signal [signal authorization_completed] upon success, or the [signal authorization_failed] on failure.
+			</description>
+		</method>
+		<method name="signin_with_scopes">
+			<return type="void" />
+			<param index="0" name="scopeStrings" type="Array" />
+			<description>
+				Call this method to initiate the signin with Apple workflow with a specific set of scopes, currently they can be any of [code]email[/code]
+				                and [code]full_name[/code].  This will raise the event [signal authorization_completed] upon
+				                success, or the [signal authorization_failed] on failure.
+			</description>
+		</method>
+	</methods>
+	<signals>
+		<signal name="authorization_completed">
+			<param index="0" name="credential" type="RefCounted" />
+			<description>
+				Emitted when the authorization request completes successfully.
+				[param credential] is usually an [ASAuthorizationAppleIDCredential] or [ASPasswordCredential]. It can be null if the credential type is unsupported.
+			</description>
+		</signal>
+		<signal name="authorization_failed">
+			<param index="0" name="error" type="String" />
+			<description>
+				Emitted when the authorization request fails.
+				[param error] contains the localized description of the error.
+			</description>
+		</signal>
+	</signals>
+</class>

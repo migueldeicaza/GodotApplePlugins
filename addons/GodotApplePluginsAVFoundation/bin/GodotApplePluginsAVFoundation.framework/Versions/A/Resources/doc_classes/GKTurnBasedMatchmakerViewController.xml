@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="GKTurnBasedMatchmakerViewController" inherits="RefCounted" api_type="extension" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Presents Apple's turn-based matchmaking UI.
+	</brief_description>
+	<description>
+		Wrapper around [code skip-lint]GKTurnBasedMatchmakerViewController[/code]. Use [method create_controller] when you want to keep the controller instance and listen to its signals, or [method request_match] for a one-shot request/callback flow.
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="create_controller" qualifiers="static">
+			<return type="GKTurnBasedMatchmakerViewController" />
+			<param index="0" name="request" type="GKMatchRequest" />
+			<description>
+				Creates a controller for the provided [GKMatchRequest]. Call [method present] to show it and connect to signals such as [signal did_find_match] and [signal failed_with_error].
+			</description>
+		</method>
+		<method name="present">
+			<return type="void" />
+			<description>
+				Presents this controller's matchmaking UI.
+			</description>
+		</method>
+		<method name="request_match" qualifiers="static">
+			<return type="void" />
+			<param index="0" name="request" type="GKMatchRequest" />
+			<param index="1" name="callback" type="Callable" />
+			<description>
+				Shows turn-based matchmaking UI and returns the result through [code skip-lint]callback[/code]. The callback receives [code](GKTurnBasedMatch match, Variant error)[/code]. On failure or cancel, [code]match[/code] is [code]null[/code] and [code]error[/code] contains a [code skip-lint]GKError[/code].
+			</description>
+		</method>
+	</methods>
+	<members>
+		<member name="matchmaking_mode" type="int" setter="set_matchmaking_mode" getter="get_matchmaking_mode" default="0">
+			Controls how players are matched. See [enum MatchmakingMode].
+		</member>
+		<member name="show_existing_matches" type="bool" setter="set_show_existing_matches" getter="get_show_existing_matches" default="true">
+			If [code]true[/code], the UI can show the player's existing turn-based matches.
+		</member>
+	</members>
+	<signals>
+		<signal name="cancelled">
+			<param index="0" name="detail" type="String" />
+			<description>
+				Emitted when the matchmaking UI is canceled.
+			</description>
+		</signal>
+		<signal name="did_find_match">
+			<param index="0" name="match" type="GKTurnBasedMatch" />
+			<description>
+				Emitted when a turn-based match is found.
+			</description>
+		</signal>
+		<signal name="failed_with_error">
+			<param index="0" name="message" type="String" />
+			<description>
+				Emitted when matchmaking fails with an error message.
+			</description>
+		</signal>
+		<signal name="player_quit_for_match">
+			<param index="0" name="match" type="GKTurnBasedMatch" />
+			<description>
+				Emitted when a player quits the specified turn-based match from the matchmaking UI flow.
+			</description>
+		</signal>
+	</signals>
+	<constants>
+		<constant name="DEFAULT" value="0" enum="MatchmakingMode">
+			Use Apple's default turn-based matchmaking behavior.
+		</constant>
+		<constant name="NEARBY_ONLY" value="1" enum="MatchmakingMode">
+			Restrict matchmaking to nearby players.
+		</constant>
+		<constant name="AUTOMATCH_ONLY" value="2" enum="MatchmakingMode">
+			Restrict to automatch players only.
+		</constant>
+		<constant name="INVITE_ONLY" value="3" enum="MatchmakingMode">
+			Restrict to invited players only.
+		</constant>
+	</constants>
+</class>

@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="GKLocalPlayer" inherits="GKPlayer" api_type="extension" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Represents the signed-in Game Center player and exposes local-only APIs.
+	</brief_description>
+	<description>
+		Use [code skip-lint]GKLocalPlayer[/code] to inspect authentication flags and to fetch the local player's friends as shown in the "Players" section of [code skip-lint]GameCenterGuide.md[/code]. Every asynchronous call mirrors Apple's API and invokes your [code skip-lint]Callable[/code] with the requested data plus an optional error [code skip-lint]Variant[/code] (which contains a [code skip-lint]GKError[/code] on failure). Refer to Apple's documentation at [url=https://developer.apple.com/documentation/gamekit/gklocalplayer]Apple's GKLocalPlayer reference[/url] for platform-specific behavior.
+
+		Sample from the guide that fetches the local player when your scene loads:
+		[codeblocks]
+		[gdscript]
+		var game_center: GameCenterManager
+		var local: GKLocalPlayer
+
+		func _ready() -&gt; void:
+		    game_center = GameCenterManager.new()
+		    local = game_center.local_player
+		    print("ONREADY: local, is auth: %s" % local.is_authenticated)
+		    print("ONREADY: local, player ID: %s" % local.game_player_id)
+		[/gdscript]
+		[/codeblocks]
+
+		Friends-related helpers mirror the snippets in the guide (assuming you stored the player reference in [code]local[/code]):
+		[codeblocks]
+		[gdscript]
+		# Loads the local player's friends list if access is granted.
+		local.load_friends(func(friends: Array[GKPlayer], error: Variant) -&gt; void:
+		    if error:
+		        print(error)
+		    else:
+		        for friend in friends:
+		            print(friend.display_name)
+		)
+
+		# Loads players the local user can challenge.
+		local.load_challengeable_friends(func(friends: Array[GKPlayer], error: Variant) -&gt; void:
+		    if error:
+		        print(error)
+		    else:
+		        for friend in friends:
+		            print(friend.display_name)
+		)
+
+		# Loads the friends or recent players list.
+		local.load_recent_friends(func(friends: Array[GKPlayer], error: Variant) -&gt; void:
+		    if error:
+		        print(error)
+		    else:
+		        for friend in friends:
+		            print(friend.display_name)
+		)
+		[/gdscript]
+		[/codeblocks]
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="delete_saved_games">
+			<return type="void" />
+			<param index="0" name="named" type="String" />
+			<param index="1" name="callback" type="Callable" />
+			<description>
+			</description>
+		</method>
+		<method name="fetch_items_for_identity_verification_signature">
+			<return type="void" />
+			<param index="0" name="callback" type="Callable" />
+			<description>
+				Calls Apple's [code]fetchItems[/code] helper for server-side authentication. The callback receives [code](Dictionary data, Variant error)[/code]. The dictionary contains the [code]url[/code], [code]data[/code], [code]salt[/code], and [code]timestamp[/code] keys described in the inline Swift documentation, letting your backend verify the player's identity. If not null, [code]error[/code] contains a [code skip-lint]GKError[/code].
+			</description>
+		</method>
+		<method name="fetch_saved_games">
+			<return type="void" />
+			<param index="0" name="callback" type="Callable" />
+			<description>
+				Use this API to retrieve the list of saved games, upon completion, this
+				                method invokes the provided callback with both an array of GKSavedGame objects
+				                and a variant error, if not nil it contains a [code skip-lint]GKError[/code] describing the problem.
+			</description>
+		</method>
+		<method name="load_challengeable_friends">
+			<return type="void" />
+			<param index="0" name="callback" type="Callable" />
+			<description>
+				Loads players whom the local user can challenge. The callback receives [code](Array[GKPlayer] friends, Variant error)[/code] where either argument can be [code]null[/code]. If error is present, it is a [code skip-lint]GKError[/code].
+			</description>
+		</method>
+		<method name="load_default_leaderboard_identifier">
+			<return type="void" />
+			<param index="0" name="callback" type="Callable" />
+			<description>
+				Loads the local player's current default leaderboard identifier.
+				The callback receives [code](Variant identifier, Variant error)[/code], where [code]identifier[/code] is a [code skip-lint]String[/code] or [code]null[/code], and [code]error[/code] is [code]null[/code] or a [code skip-lint]GKError[/code].
+			</description>
+		</method>
+		<method name="load_friends">
+			<return type="void" />
+			<param index="0" name="callback" type="Callable" />
+			<description>
+				Fetches the friends list. The callback receives [code](Array[GKPlayer] friends, Variant error)[/code]; a non-null error [code skip-lint]Variant[/code] holds the [code skip-lint]GKError[/code].
+			</description>
+		</method>
+		<method name="load_friends_authorization_status">
+			<return type="void" />
+			<param index="0" name="callback" type="Callable" />
+			<description>
+				Loads the authorization status for friend access.
+				The callback receives [code](int status, Variant error)[/code], where [code]status[/code] is Apple's raw [code skip-lint]GKFriendsAuthorizationStatus[/code] value.
+				Requires iOS 14.5, macOS 11.3, tvOS 14.5, or visionOS 1.0. Older versions return [code]0[/code] plus an [code skip-lint]apiNotAvailable[/code] error.
+			</description>
+		</method>
+		<method name="load_friends_with_identifiers">
+			<return type="void" />
+			<param index="0" name="identifiers" type="PackedStringArray" />
+			<param index="1" name="callback" type="Callable" />
+			<description>
+				Loads friends that match the provided scoped player [param identifiers]. Pass them as [code]PackedStringArray(["player_id_1", "player_id_2"])[/code].
+				The callback receives [code](Array[GKPlayer] friends, Variant error)[/code], where [code]error[/code] is [code]null[/code] on success or a [code skip-lint]GKError[/code].
+				Requires iOS 14.5, macOS 11.3, tvOS 14.5, or visionOS 1.0. Older versions return an empty array plus an [code skip-lint]apiNotAvailable[/code] error.
+			</description>
+		</method>
+		<method name="load_recent_friends">
+			<return type="void" />
+			<param index="0" name="callback" type="Callable" />
+			<description>
+				Loads friends that recently played together with the local player. The callback signature matches [method load_challengeable_friends].
+			</description>
+		</method>
+		<method name="register_listener">
+			<return type="void" />
+			<description>
+				Registers the local player listener to receive events like saved game conflicts. You typically call this in your [code]_ready()[/code] function.
+			</description>
+		</method>
+		<method name="resolve_conflicting_saved_games">
+			<return type="void" />
+			<param index="0" name="conflicts" type="Array" />
+			<param index="1" name="data" type="PackedByteArray" />
+			<param index="2" name="callback" type="Callable" />
+			<description>
+				Resolves conflicting saved games using the provided data. The [code skip-lint]conflicts[/code] array should contain the [GKSavedGame] objects that are in conflict (received from the [signal conflicting_saved_games]). The [code skip-lint]data[/code] is the correct game data to save. The callback receives [code](Array[GKSavedGame] saved_games, Variant error)[/code]. [code]error[/code] is a [code skip-lint]GKError[/code] if not null.
+			</description>
+		</method>
+		<method name="save_game_data">
+			<return type="void" />
+			<param index="0" name="data" type="PackedByteArray" />
+			<param index="1" name="withName" type="String" />
+			<param index="2" name="callback" type="Callable" />
+			<description>
+				Saves the packed byte array as the game data with the specified name, upon
+				                completion the callback is invoked with both a GKSavedObject parameter and
+				                a Variant parameter for the error.   The GKSavedObject is not-nil on success,
+				                and on error, the second parameter is not-nil and contains the [code skip-lint]GKError[/code].
+			</description>
+		</method>
+		<method name="set_default_leaderboard_identifier">
+			<return type="void" />
+			<param index="0" name="identifier" type="String" />
+			<param index="1" name="callback" type="Callable" />
+			<description>
+				Sets the local player's default leaderboard identifier to [param identifier].
+				The callback receives one argument: [code]error[/code], which is [code]null[/code] on success or a [code skip-lint]GKError[/code] on failure.
+			</description>
+		</method>
+		<method name="unregister_listener">
+			<return type="void" />
+			<description>
+				Unregisters the local player listener.
+			</description>
+		</method>
+	</methods>
+	<members>
+		<member name="is_authenticated" type="bool" setter="" getter="get_is_authenticated" default="false">
+			Reflects [code skip-lint]GKLocalPlayer.local.isAuthenticated[/code].
+		</member>
+		<member name="is_multiplayer_gaming_restricted" type="bool" setter="" getter="get_is_multiplayer_gaming_restricted" default="true">
+			True when multiplayer is disabled by parental controls.
+		</member>
+		<member name="is_personalized_communication_restricted" type="bool" setter="" getter="get_is_personalized_communication_restricted" default="true">
+			Indicates whether personalized communication is blocked for this account.
+		</member>
+		<member name="is_underage" type="bool" setter="" getter="get_is_underage" default="false">
+			Apple's [code]isUnderage[/code] flag for COPPA-compliant flows.
+		</member>
+	</members>
+	<signals>
+		<signal name="challenge_completed">
+			<param index="0" name="player" type="GKPlayer" />
+			<param index="1" name="challenge" type="GKChallenge" />
+			<param index="2" name="friend_player" type="GKPlayer" />
+			<description>
+				Emitted when the local player completes a challenge issued by [code skip-lint]friend_player[/code].
+			</description>
+		</signal>
+		<signal name="challenge_other_player_accepted">
+			<param index="0" name="player" type="GKPlayer" />
+			<param index="1" name="challenge" type="GKChallenge" />
+			<description>
+				Emitted when another player accepts a challenge that the local player issued.
+			</description>
+		</signal>
+		<signal name="challenge_other_player_completed">
+			<param index="0" name="player" type="GKPlayer" />
+			<param index="1" name="challenge" type="GKChallenge" />
+			<param index="2" name="friend_player" type="GKPlayer" />
+			<description>
+				Emitted when [code skip-lint]friend_player[/code] completes a challenge issued by the local player.
+			</description>
+		</signal>
+		<signal name="challenge_received">
+			<param index="0" name="player" type="GKPlayer" />
+			<param index="1" name="challenge" type="GKChallenge" />
+			<description>
+				Emitted when the local player receives a new challenge.
+			</description>
+		</signal>
+		<signal name="conflicting_saved_games">
+			<param index="0" name="player" type="GKPlayer" />
+			<param index="1" name="conflicting_saved_games" type="Array" />
+			<description>
+				Emitted when there is a conflict between saved games. You should listen to this signal and then call [method resolve_conflicting_saved_games] with the chosen data.
+			</description>
+		</signal>
+		<signal name="exchange_canceled">
+			<param index="0" name="player" type="GKPlayer" />
+			<param index="1" name="exchange" type="GKTurnBasedExchange" />
+			<param index="2" name="match" type="GKTurnBasedMatch" />
+			<description>
+			</description>
+		</signal>
+		<signal name="exchange_completed">
+			<param index="0" name="player" type="GKPlayer" />
+			<param index="1" name="replies" type="Array" />
+			<param index="2" name="match" type="GKTurnBasedMatch" />
+			<description>
+			</description>
+		</signal>
+		<signal name="exchange_received">
+			<param index="0" name="player" type="GKPlayer" />
+			<param index="1" name="exchange" type="GKTurnBasedExchange" />
+			<param index="2" name="match" type="GKTurnBasedMatch" />
+			<description>
+			</description>
+		</signal>
+		<signal name="invite_accepted">
+			<param index="0" name="player" type="GKPlayer" />
+			<param index="1" name="invite" type="GKInvite" />
+			<description>
+			</description>
+		</signal>
+		<signal name="match_requested_with_other_players">
+			<param index="0" name="player" type="GKPlayer" />
+			<param index="1" name="recipient_players" type="Array" />
+			<description>
+			</description>
+		</signal>
+		<signal name="player_wants_to_quit_match">
+			<param index="0" name="player" type="GKPlayer" />
+			<param index="1" name="match" type="GKTurnBasedMatch" />
+			<description>
+			</description>
+		</signal>
+		<signal name="saved_game_modified">
+			<param index="0" name="player" type="GKPlayer" />
+			<param index="1" name="saved_game" type="GKSavedGame" />
+			<description>
+				Emitted when a saved game is modified.
+			</description>
+		</signal>
+		<signal name="turn_based_match_ended">
+			<param index="0" name="player" type="GKPlayer" />
+			<param index="1" name="match" type="GKTurnBasedMatch" />
+			<description>
+			</description>
+		</signal>
+		<signal name="turn_event_received">
+			<param index="0" name="player" type="GKPlayer" />
+			<param index="1" name="match" type="GKTurnBasedMatch" />
+			<param index="2" name="did_become_active" type="bool" />
+			<description>
+			</description>
+		</signal>
+	</signals>
+</class>
