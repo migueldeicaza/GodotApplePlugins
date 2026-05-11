@@ -20,13 +20,12 @@ let runtimeDependency: Target.Dependency = .product(
     package: "SwiftGodot"
 )
 
-func pluginTarget(name: String, sources: [String], exclude: [String] = []) -> Target {
+func pluginTarget(name: String, path: String, exclude: [String] = []) -> Target {
     .target(
         name: name,
         dependencies: [runtimeDependency],
-        path: "Sources",
+        path: path,
         exclude: exclude,
-        sources: sources,
         swiftSettings: swiftSettings,
         linkerSettings: linkerSettings
     )
@@ -97,63 +96,39 @@ let package = Package(
                 "GodotApplePluginsAuthenticationServices",
                 "GodotApplePluginsARKit",
             ],
-            path: "Sources/GodotApplePluginsRegistration",
-            sources: ["GodotApplePlugins.swift"],
+            path: "Sources/GodotApplePlugins",
             swiftSettings: swiftSettings,
             linkerSettings: linkerSettings
         ),
         pluginTarget(
             name: "GodotApplePluginsAVFoundation",
-            sources: [
-                "GodotApplePlugins/AVFoundation",
-                "GodotApplePluginsRegistration/GodotApplePluginsAVFoundation.swift",
-            ]
+            path: "Sources/GodotAVFoundation"
         ),
         pluginTarget(
             name: "GodotApplePluginsFoundation",
-            sources: [
-                "GodotApplePlugins/Foundation",
-                "GodotApplePlugins/Shared",
-                "GodotApplePlugins/UI",
-                "GodotApplePluginsRegistration/GodotApplePluginsFoundation.swift",
-            ]
+            path: "Sources/GodotFoundation"
         ),
         pluginTarget(
             name: "GodotApplePluginsGameCenter",
-            sources: [
-                "GodotApplePlugins/GameCenter",
-                "GodotApplePluginsGameCenterSupport",
-                "GodotApplePluginsRegistration/GodotApplePluginsGameCenter.swift",
-            ],
+            path: "Sources/GodotGameCenter",
             exclude: [
-                "GodotApplePlugins/GameCenter/Entitlements.md",
-                "GodotApplePlugins/GameCenter/GameCenterGuide.md",
+                "Entitlements.md",
+                "GameCenterGuide.md",
             ]
         ),
         pluginTarget(
             name: "GodotApplePluginsStoreKit",
-            sources: [
-                "GodotApplePlugins/StoreKit",
-                "GodotApplePluginsStoreKitSupport",
-                "GodotApplePluginsRegistration/GodotApplePluginsStoreKit.swift",
-            ]
+            path: "Sources/GodotStoreKit"
         ),
         pluginTarget(
             name: "GodotApplePluginsAuthenticationServices",
-            sources: [
-                "GodotApplePlugins/AuthenticationServices",
-                "GodotApplePluginsRegistration/GodotApplePluginsAuthenticationServices.swift",
-            ],
-            exclude: ["GodotApplePlugins/AuthenticationServices/AuthenticationServicesGuide.md"]
+            path: "Sources/GodotAuthenticationServices",
+            exclude: ["AuthenticationServicesGuide.md"]
         ),
         pluginTarget(
             name: "GodotApplePluginsARKit",
-            sources: [
-                "GodotApplePlugins/ARKit",
-                "GodotApplePluginsARKitSupport",
-                "GodotApplePluginsRegistration/GodotApplePluginsARKit.swift",
-            ],
-            exclude: ["GodotApplePlugins/ARKit/ARKitGuide.md"]
+            path: "Sources/GodotARKit",
+            exclude: ["ARKitGuide.md"]
         ),
         .executableTarget(
             name: "GodotApplePluginsStubGenerator"
