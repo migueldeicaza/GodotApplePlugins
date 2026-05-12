@@ -26,7 +26,7 @@ jobs:
 
           make split-generate-stubs
 
-          tar -czf split-stub-sources.tar.gz \
+          COPYFILE_DISABLE=1 tar -czf split-stub-sources.tar.gz \
             Generated/GodotApplePluginsAVFoundationStub \
             Generated/GodotApplePluginsFoundationStub \
             Generated/GodotApplePluginsGameCenterStub \
@@ -70,6 +70,7 @@ jobs:
         run: |
           mkdir -p dist
           for src in Generated/GodotApplePlugins*Stub/*_stub.c; do
+            case "$(basename "$src")" in ._*) continue ;; esac
             base="$(basename "${src%.c}")"
             cc -std=c11 -Wall -Wextra -shared -fPIC \
               -I .tmp/gdextension \
@@ -113,6 +114,7 @@ jobs:
         run: |
           mkdir -p dist
           for src in Generated/GodotApplePlugins*Stub/*_stub.c; do
+            case "$(basename "$src")" in ._*) continue ;; esac
             base="$(basename "${src%.c}")"
             cc -std=c11 -Wall -Wextra -shared -fPIC \
               -I .tmp/gdextension \
@@ -161,7 +163,13 @@ jobs:
           for /f "usebackq delims=" %%i in (`"%VSWHERE%" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -find Common7\Tools\VsDevCmd.bat`) do set "VSDEVCMD=%%i"
           if not defined VSDEVCMD exit /b 1
           call "%VSDEVCMD%" -arch=x64
-          for /r Generated %%s in (*_stub.c) do cl /std:c11 /W4 /LD /I .tmp\gdextension "%%s" /link /OUT:"dist\%%~ns.windows.x86_64.dll"
+          for /r Generated %%s in (*_stub.c) do (
+            echo %%~nxs | findstr /b /c:"._" >nul
+            if errorlevel 1 (
+              cl /std:c11 /W4 /LD /I .tmp\gdextension "%%s" /link /OUT:"dist\%%~ns.windows.x86_64.dll"
+              if errorlevel 1 exit /b 1
+            )
+          )
 
       - name: Upload Windows x64 stubs
         uses: actions/upload-artifact@v4
@@ -204,7 +212,13 @@ jobs:
           for /f "usebackq delims=" %%i in (`"%VSWHERE%" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.ARM64 -find Common7\Tools\VsDevCmd.bat`) do set "VSDEVCMD=%%i"
           if not defined VSDEVCMD exit /b 1
           call "%VSDEVCMD%" -arch=arm64 -host_arch=x64
-          for /r Generated %%s in (*_stub.c) do cl /std:c11 /W4 /LD /I .tmp\gdextension "%%s" /link /OUT:"dist\%%~ns.windows.arm64.dll"
+          for /r Generated %%s in (*_stub.c) do (
+            echo %%~nxs | findstr /b /c:"._" >nul
+            if errorlevel 1 (
+              cl /std:c11 /W4 /LD /I .tmp\gdextension "%%s" /link /OUT:"dist\%%~ns.windows.arm64.dll"
+              if errorlevel 1 exit /b 1
+            )
+          )
 
       - name: Upload Windows ARM64 stubs
         uses: actions/upload-artifact@v4
@@ -274,7 +288,21 @@ jobs:
         env:
           XCODEBUILD_LOG_ON_ERROR: 1
           XCODEBUILD_LOG_DIR: ${{ runner.temp }}
-        run: make split-build
+        run: |
+          set -euo pipefail
+
+          make split-build DESTINATIONS="generic/platform=iOS generic/platform=iOS\ Simulator platform=macOS,arch=arm64"
+
+          x86_xcodebuild="xcodebuild"
+          if [ "$(uname -m)" = "arm64" ]; then
+            if ! arch -x86_64 /usr/bin/true 2>/dev/null; then
+              echo "Rosetta is required to build macOS x86_64 frameworks on this arm64 runner" >&2
+              exit 1
+            fi
+            x86_xcodebuild="arch -x86_64 xcodebuild"
+          fi
+
+          make split-build DESTINATIONS="platform=macOS,arch=x86_64" XCODEBUILD="$x86_xcodebuild"
 
       - name: Package split addons for Distribution
         run: make split-dist
