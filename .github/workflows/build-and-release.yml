@@ -4,12 +4,61 @@ on:
   push:
 
 jobs:
+  generate-split-stub-sources:
+    runs-on:
+      - self-hosted
+      - macos
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Generate split stub sources
+        run: |
+          set -euo pipefail
+
+          rm -rf \
+            Generated/GodotApplePluginsAVFoundationStub \
+            Generated/GodotApplePluginsFoundationStub \
+            Generated/GodotApplePluginsGameCenterStub \
+            Generated/GodotApplePluginsStoreKitStub \
+            Generated/GodotApplePluginsAuthenticationServicesStub \
+            Generated/GodotApplePluginsARKitStub
+
+          make split-generate-stubs
+
+          tar -czf split-stub-sources.tar.gz \
+            Generated/GodotApplePluginsAVFoundationStub \
+            Generated/GodotApplePluginsFoundationStub \
+            Generated/GodotApplePluginsGameCenterStub \
+            Generated/GodotApplePluginsStoreKitStub \
+            Generated/GodotApplePluginsAuthenticationServicesStub \
+            Generated/GodotApplePluginsARKitStub
+
+      - name: Upload split stub sources
+        uses: actions/upload-artifact@v4
+        with:
+          name: godot-apple-plugins-split-stub-sources
+          path: split-stub-sources.tar.gz
+          if-no-files-found: error
+
   build-stub-linux-x64:
+    needs: generate-split-stub-sources
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Download split stub sources
+        uses: actions/download-artifact@v4
+        with:
+          name: godot-apple-plugins-split-stub-sources
+          path: .
+
+      - name: Extract split stub sources
+        run: |
+          tar -xzf split-stub-sources.tar.gz
+          rm -rf Generated/GodotApplePluginsStub
+
       - name: Fetch GDExtension headers
         run: |
           mkdir -p .tmp/gdextension
@@ -17,27 +66,42 @@ jobs:
             https://raw.githubusercontent.com/migueldeicaza/SwiftGodot/61f258c8a679ca8e2b637befb77daf1a640a5349/Sources/GDExtension/include/gdextension_interface.h \
             -o .tmp/gdextension/gdextension_interface.h
 
-      - name: Build Linux x64 stub
+      - name: Build Linux x64 stubs
         run: |
           mkdir -p dist
-          cc -std=c11 -Wall -Wextra -shared -fPIC \
-            -I .tmp/gdextension \
-            Generated/GodotApplePluginsStub/godot_apple_plugins_stub.c \
-            -o dist/godot_apple_plugins_stub.linux.x86_64.so
+          for src in Generated/GodotApplePlugins*Stub/*_stub.c; do
+            base="$(basename "${src%.c}")"
+            cc -std=c11 -Wall -Wextra -shared -fPIC \
+              -I .tmp/gdextension \
+              "$src" \
+              -o "dist/${base}.linux.x86_64.so"
+          done
 
-      - name: Upload Linux x64 stub
+      - name: Upload Linux x64 stubs
         uses: actions/upload-artifact@v4
         with:
-          name: godot-apple-plugins-stub-linux-x64
-          path: dist/godot_apple_plugins_stub.linux.x86_64.so
+          name: godot-apple-plugins-split-stubs-linux-x64
+          path: dist/*.so
           if-no-files-found: error
 
   build-stub-linux-arm64:
+    needs: generate-split-stub-sources
     runs-on: ubuntu-24.04-arm
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Download split stub sources
+        uses: actions/download-artifact@v4
+        with:
+          name: godot-apple-plugins-split-stub-sources
+          path: .
+
+      - name: Extract split stub sources
+        run: |
+          tar -xzf split-stub-sources.tar.gz
+          rm -rf Generated/GodotApplePluginsStub
+
       - name: Fetch GDExtension headers
         run: |
           mkdir -p .tmp/gdextension
@@ -45,26 +109,42 @@ jobs:
             https://raw.githubusercontent.com/migueldeicaza/SwiftGodot/61f258c8a679ca8e2b637befb77daf1a640a5349/Sources/GDExtension/include/gdextension_interface.h \
             -o .tmp/gdextension/gdextension_interface.h
 
-      - name: Build Linux ARM64 stub
+      - name: Build Linux ARM64 stubs
         run: |
           mkdir -p dist
-          cc -std=c11 -Wall -Wextra -shared -fPIC \
-            -I .tmp/gdextension \
-            Generated/GodotApplePluginsStub/godot_apple_plugins_stub.c \
-            -o dist/godot_apple_plugins_stub.linux.arm64.so
+          for src in Generated/GodotApplePlugins*Stub/*_stub.c; do
+            base="$(basename "${src%.c}")"
+            cc -std=c11 -Wall -Wextra -shared -fPIC \
+              -I .tmp/gdextension \
+              "$src" \
+              -o "dist/${base}.linux.arm64.so"
+          done
 
-      - name: Upload Linux ARM64 stub
+      - name: Upload Linux ARM64 stubs
         uses: actions/upload-artifact@v4
         with:
-          name: godot-apple-plugins-stub-linux-arm64
-          path: dist/godot_apple_plugins_stub.linux.arm64.so
+          name: godot-apple-plugins-split-stubs-linux-arm64
+          path: dist/*.so
           if-no-files-found: error
 
   build-stub-windows-x64:
+    needs: generate-split-stub-sources
     runs-on: windows-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Download split stub sources
+        uses: actions/download-artifact@v4
+        with:
+          name: godot-apple-plugins-split-stub-sources
+          path: .
+
+      - name: Extract split stub sources
+        shell: bash
+        run: |
+          tar -xzf split-stub-sources.tar.gz
+          rm -rf Generated/GodotApplePluginsStub
 
       - name: Fetch GDExtension headers
         run: |
@@ -73,7 +153,7 @@ jobs:
             -Uri "https://raw.githubusercontent.com/migueldeicaza/SwiftGodot/61f258c8a679ca8e2b637befb77daf1a640a5349/Sources/GDExtension/include/gdextension_interface.h" `
             -OutFile ".tmp/gdextension/gdextension_interface.h"
 
-      - name: Build Windows x64 stub
+      - name: Build Windows x64 stubs
         shell: cmd
         run: |
           if not exist dist mkdir dist
@@ -81,20 +161,33 @@ jobs:
           for /f "usebackq delims=" %%i in (`"%VSWHERE%" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -find Common7\Tools\VsDevCmd.bat`) do set "VSDEVCMD=%%i"
           if not defined VSDEVCMD exit /b 1
           call "%VSDEVCMD%" -arch=x64
-          cl /std:c11 /W4 /LD /I .tmp\gdextension Generated\GodotApplePluginsStub\godot_apple_plugins_stub.c /link /OUT:dist\godot_apple_plugins_stub.windows.x86_64.dll
+          for /r Generated %%s in (*_stub.c) do cl /std:c11 /W4 /LD /I .tmp\gdextension "%%s" /link /OUT:"dist\%%~ns.windows.x86_64.dll"
 
-      - name: Upload Windows x64 stub
+      - name: Upload Windows x64 stubs
         uses: actions/upload-artifact@v4
         with:
-          name: godot-apple-plugins-stub-windows-x64
-          path: dist/godot_apple_plugins_stub.windows.x86_64.dll
+          name: godot-apple-plugins-split-stubs-windows-x64
+          path: dist/*.dll
           if-no-files-found: error
 
   build-stub-windows-arm64:
+    needs: generate-split-stub-sources
     runs-on: windows-11-arm
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Download split stub sources
+        uses: actions/download-artifact@v4
+        with:
+          name: godot-apple-plugins-split-stub-sources
+          path: .
+
+      - name: Extract split stub sources
+        shell: bash
+        run: |
+          tar -xzf split-stub-sources.tar.gz
+          rm -rf Generated/GodotApplePluginsStub
 
       - name: Fetch GDExtension headers
         run: |
@@ -103,7 +196,7 @@ jobs:
             -Uri "https://raw.githubusercontent.com/migueldeicaza/SwiftGodot/61f258c8a679ca8e2b637befb77daf1a640a5349/Sources/GDExtension/include/gdextension_interface.h" `
             -OutFile ".tmp/gdextension/gdextension_interface.h"
 
-      - name: Build Windows ARM64 stub
+      - name: Build Windows ARM64 stubs
         shell: cmd
         run: |
           if not exist dist mkdir dist
@@ -111,13 +204,13 @@ jobs:
           for /f "usebackq delims=" %%i in (`"%VSWHERE%" -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.ARM64 -find Common7\Tools\VsDevCmd.bat`) do set "VSDEVCMD=%%i"
           if not defined VSDEVCMD exit /b 1
           call "%VSDEVCMD%" -arch=arm64 -host_arch=x64
-          cl /std:c11 /W4 /LD /I .tmp\gdextension Generated\GodotApplePluginsStub\godot_apple_plugins_stub.c /link /OUT:dist\godot_apple_plugins_stub.windows.arm64.dll
+          for /r Generated %%s in (*_stub.c) do cl /std:c11 /W4 /LD /I .tmp\gdextension "%%s" /link /OUT:"dist\%%~ns.windows.arm64.dll"
 
-      - name: Upload Windows ARM64 stub
+      - name: Upload Windows ARM64 stubs
         uses: actions/upload-artifact@v4
         with:
-          name: godot-apple-plugins-stub-windows-arm64
-          path: dist/godot_apple_plugins_stub.windows.arm64.dll
+          name: godot-apple-plugins-split-stubs-windows-arm64
+          path: dist/*.dll
           if-no-files-found: error
 
   package:
@@ -177,38 +270,100 @@ jobs:
             echo "ORIGINAL_KEYCHAINS=$ORIGINAL_KEYCHAINS"
           } >> "$GITHUB_ENV"
 
-      - name: Build xcframework package
+      - name: Build split xcframework package
         env:
           XCODEBUILD_LOG_ON_ERROR: 1
           XCODEBUILD_LOG_DIR: ${{ runner.temp }}
-        run: make build
+        run: make split-build
 
-      - name: Package for Distribution
-        run: make dist
+      - name: Package split addons for Distribution
+        run: make split-dist
 
-      - name: Download Linux x64 stub
+      - name: Download Linux x64 split stubs
         uses: actions/download-artifact@v4
         with:
-          name: godot-apple-plugins-stub-linux-x64
-          path: addons/GodotApplePlugins/bin
+          name: godot-apple-plugins-split-stubs-linux-x64
+          path: ${{ runner.temp }}/split-stubs/linux-x64
 
-      - name: Download Linux ARM64 stub
+      - name: Download Linux ARM64 split stubs
         uses: actions/download-artifact@v4
         with:
-          name: godot-apple-plugins-stub-linux-arm64
-          path: addons/GodotApplePlugins/bin
+          name: godot-apple-plugins-split-stubs-linux-arm64
+          path: ${{ runner.temp }}/split-stubs/linux-arm64
 
-      - name: Download Windows x64 stub
+      - name: Download Windows x64 split stubs
         uses: actions/download-artifact@v4
         with:
-          name: godot-apple-plugins-stub-windows-x64
-          path: addons/GodotApplePlugins/bin
+          name: godot-apple-plugins-split-stubs-windows-x64
+          path: ${{ runner.temp }}/split-stubs/windows-x64
 
-      - name: Download Windows ARM64 stub
+      - name: Download Windows ARM64 split stubs
         uses: actions/download-artifact@v4
         with:
-          name: godot-apple-plugins-stub-windows-arm64
-          path: addons/GodotApplePlugins/bin
+          name: godot-apple-plugins-split-stubs-windows-arm64
+          path: ${{ runner.temp }}/split-stubs/windows-arm64
+
+      - name: Install split stubs
+        run: |
+          set -euo pipefail
+
+          install_stub() {
+            local stub="$1"
+            local file
+            local addon
+
+            file="$(basename "$stub")"
+            case "$file" in
+              godot_apple_plugins_avfoundation_stub.*)
+                addon="GodotApplePluginsAVFoundation"
+                ;;
+              godot_apple_plugins_foundation_stub.*)
+                addon="GodotApplePluginsFoundation"
+                ;;
+              godot_apple_plugins_game_center_stub.*)
+                addon="GodotApplePluginsGameCenter"
+                ;;
+              godot_apple_plugins_storekit_stub.*)
+                addon="GodotApplePluginsStoreKit"
+                ;;
+              godot_apple_plugins_authentication_services_stub.*)
+                addon="GodotApplePluginsAuthenticationServices"
+                ;;
+              godot_apple_plugins_arkit_stub.*)
+                addon="GodotApplePluginsARKit"
+                ;;
+              *)
+                echo "Unknown split stub: $file" >&2
+                return 1
+                ;;
+            esac
+
+            mkdir -p "addons/$addon/bin"
+            cp "$stub" "addons/$addon/bin/$file"
+          }
+
+          find "$RUNNER_TEMP/split-stubs" -type f \( -name '*.so' -o -name '*.dll' \) -print0 |
+            while IFS= read -r -d '' stub; do
+              install_stub "$stub"
+            done
+
+          for addon_prefix in \
+            GodotApplePluginsAVFoundation:godot_apple_plugins_avfoundation_stub \
+            GodotApplePluginsFoundation:godot_apple_plugins_foundation_stub \
+            GodotApplePluginsGameCenter:godot_apple_plugins_game_center_stub \
+            GodotApplePluginsStoreKit:godot_apple_plugins_storekit_stub \
+            GodotApplePluginsAuthenticationServices:godot_apple_plugins_authentication_services_stub \
+            GodotApplePluginsARKit:godot_apple_plugins_arkit_stub; do
+            addon="${addon_prefix%%:*}"
+            prefix="${addon_prefix#*:}"
+            for stub in \
+              "$prefix.linux.x86_64.so" \
+              "$prefix.linux.arm64.so" \
+              "$prefix.windows.x86_64.dll" \
+              "$prefix.windows.arm64.dll"; do
+              test -f "addons/$addon/bin/$stub"
+            done
+          done
 
       - name: Sign macOS frameworks
         if: env.MACOS_CERTIFICATE != ''
@@ -224,24 +379,39 @@ jobs:
           )
           test -n "$SIGNING_IDENTITY"
           echo "Using signing identity: $SIGNING_IDENTITY"
-          
-          # Sign all macOS frameworks
-          for fw in addons/*/bin/*.framework; do
-            if [[ -d "$fw" ]]; then
-              echo "Signing $fw"
-              codesign --keychain "$KEYCHAIN_PATH" --force --options runtime \
-                --sign "$SIGNING_IDENTITY" \
-                "$fw"
-              echo "Verifying $fw"
-              codesign --keychain "$KEYCHAIN_PATH" --verify --verbose "$fw"
-            fi
-          done
+
+          # Sign all standalone macOS frameworks, including split addons and shared runtime.
+          find addons -path '*/bin/*.framework' -type d -print | sort > "$RUNNER_TEMP/macos-frameworks.txt"
+          if [ ! -s "$RUNNER_TEMP/macos-frameworks.txt" ]; then
+            echo "No macOS frameworks found to sign" >&2
+            exit 1
+          fi
+
+          while IFS= read -r fw; do
+            echo "Signing $fw"
+            codesign --keychain "$KEYCHAIN_PATH" --force --options runtime --timestamp \
+              --sign "$SIGNING_IDENTITY" \
+              "$fw"
+            echo "Verifying $fw"
+            codesign --keychain "$KEYCHAIN_PATH" --verify --strict --deep --verbose=2 "$fw"
+          done < "$RUNNER_TEMP/macos-frameworks.txt"
 
       - name: Archive addons directory
         run: |
           PACKAGE_NAME="GodotApplePlugins-addons-${GITHUB_SHA}.zip"
-          mkdir dist
-          mv addons dist
+          rm -rf dist
+          mkdir -p dist/addons
+          for addon in \
+            GodotApplePluginsAVFoundation \
+            GodotApplePluginsFoundation \
+            GodotApplePluginsGameCenter \
+            GodotApplePluginsStoreKit \
+            GodotApplePluginsAuthenticationServices \
+            GodotApplePluginsARKit \
+            GodotApplePluginsRuntime; do
+            test -d "addons/$addon"
+            ditto "addons/$addon" "dist/addons/$addon"
+          done
           ditto -c -k --sequesterRsrc --keepParent dist "$PACKAGE_NAME"
           echo "PACKAGE_NAME=$PACKAGE_NAME" >> "$GITHUB_ENV"
 
