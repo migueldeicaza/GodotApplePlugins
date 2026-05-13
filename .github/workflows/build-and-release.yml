@@ -328,7 +328,7 @@ jobs:
 
       - name: Build split xcframework package
         env:
-          XCODEBUILD_SETTINGS: CODE_SIGNING_ALLOWED=NO
+          XCODEBUILD_SETTINGS: CODE_SIGNING_ALLOWED=NO OTHER_LDFLAGS=-Wl,-headerpad_max_install_names
           XCODEBUILD_LOG_ON_ERROR: 1
           XCODEBUILD_LOG_DIR: ${{ runner.temp }}
         run: |
@@ -444,8 +444,12 @@ jobs:
         if: env.MACOS_CERTIFICATE != ''
         env:
           MACOS_CERTIFICATE: ${{ secrets.MACOS_CERTIFICATE }}
+          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
         run: |
           set -euo pipefail
+
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
 
           # Find signing identity from keychain (first code signing certificate)
           SIGNING_IDENTITY=$(

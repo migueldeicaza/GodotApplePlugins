@@ -225,6 +225,7 @@ split-build:
 split-dist:
 	$(MAKE) split-generate-stubs
 	$(MAKE) dist FRAMEWORK_NAMES="$(SPLIT_FRAMEWORK_NAMES)"
+	set -e; \
 	rm -rf $(CURDIR)/addons/GodotApplePluginsRuntime/bin/$(SPLIT_RUNTIME_FRAMEWORK).xcframework; \
 	rm -rf $(CURDIR)/addons/GodotApplePluginsRuntime/bin/$(SPLIT_RUNTIME_FRAMEWORK).framework; \
 	rm -rf $(CURDIR)/addons/GodotApplePluginsRuntime/bin/$(SPLIT_RUNTIME_FRAMEWORK)_x64.framework; \
@@ -251,16 +252,27 @@ split-dist:
 		exit 1; \
 	fi; \
 	rsync -a $(DERIVED_DATA)arm64/Build/Products/$(CONFIG)/PackageFrameworks/$(SPLIT_RUNTIME_FRAMEWORK).framework/ $(CURDIR)/addons/GodotApplePluginsRuntime/bin/$(SPLIT_RUNTIME_FRAMEWORK).framework; \
+	set_runtime_rpath() { \
+		binary="$$1"; \
+		old_rpath="$$2"; \
+		new_rpath="@loader_path/../../../../../GodotApplePluginsRuntime/bin"; \
+		if otool -l "$$binary" | grep -Fq "$$new_rpath"; then \
+			return 0; \
+		fi; \
+		if otool -l "$$binary" | grep -Fq "$$old_rpath"; then \
+			install_name_tool -rpath "$$old_rpath" "$$new_rpath" "$$binary"; \
+		else \
+			install_name_tool -add_rpath "$$new_rpath" "$$binary"; \
+		fi; \
+	}; \
 	for framework in $(SPLIT_FRAMEWORK_NAMES); do \
 		binary_arm="$(CURDIR)/addons/$$framework/bin/$$framework.framework/Versions/A/$$framework"; \
 		binary_x64="$(CURDIR)/addons/$$framework/bin/$${framework}_x64.framework/Versions/A/$$framework"; \
 		if [ -f "$$binary_arm" ]; then \
-			install_name_tool -delete_rpath "$(DERIVED_DATA)arm64/Build/Products/$(CONFIG)/PackageFrameworks" "$$binary_arm" 2>/dev/null || true; \
-			install_name_tool -add_rpath "@loader_path/../../../../../GodotApplePluginsRuntime/bin" "$$binary_arm"; \
+			set_runtime_rpath "$$binary_arm" "$(DERIVED_DATA)arm64/Build/Products/$(CONFIG)/PackageFrameworks"; \
 		fi; \
 		if [ -f "$$binary_x64" ]; then \
-			install_name_tool -delete_rpath "$(DERIVED_DATA)x86_64/Build/Products/$(CONFIG)/PackageFrameworks" "$$binary_x64" 2>/dev/null || true; \
-			install_name_tool -add_rpath "@loader_path/../../../../../GodotApplePluginsRuntime/bin" "$$binary_x64"; \
+			set_runtime_rpath "$$binary_x64" "$(DERIVED_DATA)x86_64/Build/Products/$(CONFIG)/PackageFrameworks"; \
 		fi; \
 	done
 
@@ -293,6 +305,7 @@ split-validate-matrix: split-package
 split-smoke: split-validate
 
 dist:
+	set -e; \
 	for framework in $(FRAMEWORK_NAMES); do \
 		rm -rf $(CURDIR)/addons/$$framework/bin/$$framework.xcframework; \
 		rm -rf $(CURDIR)/addons/$$framework/bin/$$framework*.framework; \
