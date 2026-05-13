@@ -79,13 +79,15 @@ class CMMotionManager: RefCounted, @unchecked Sendable {
     func start_accelerometer_updates() {
         manager.startAccelerometerUpdates(to: updateQueue) { [weak self] data, error in
             guard let self else { return }
+            let wrapped = data.map { CMAccelerometerData(data: $0) }
+            let errorMessage = error?.localizedDescription
             DispatchQueue.main.async {
-                if let error {
-                    self.update_failed.emit(error.localizedDescription)
+                if let errorMessage {
+                    self.update_failed.emit(errorMessage)
                     return
                 }
-                guard let data else { return }
-                self.accelerometer_updated.emit(CMAccelerometerData(data: data))
+                guard let wrapped else { return }
+                self.accelerometer_updated.emit(wrapped)
             }
         }
     }
@@ -99,13 +101,15 @@ class CMMotionManager: RefCounted, @unchecked Sendable {
     func start_gyro_updates() {
         manager.startGyroUpdates(to: updateQueue) { [weak self] data, error in
             guard let self else { return }
+            let wrapped = data.map { CMGyroData(data: $0) }
+            let errorMessage = error?.localizedDescription
             DispatchQueue.main.async {
-                if let error {
-                    self.update_failed.emit(error.localizedDescription)
+                if let errorMessage {
+                    self.update_failed.emit(errorMessage)
                     return
                 }
-                guard let data else { return }
-                self.gyro_updated.emit(CMGyroData(data: data))
+                guard let wrapped else { return }
+                self.gyro_updated.emit(wrapped)
             }
         }
     }
@@ -119,13 +123,15 @@ class CMMotionManager: RefCounted, @unchecked Sendable {
     func start_magnetometer_updates() {
         manager.startMagnetometerUpdates(to: updateQueue) { [weak self] data, error in
             guard let self else { return }
+            let wrapped = data.map { CMMagnetometerData(data: $0) }
+            let errorMessage = error?.localizedDescription
             DispatchQueue.main.async {
-                if let error {
-                    self.update_failed.emit(error.localizedDescription)
+                if let errorMessage {
+                    self.update_failed.emit(errorMessage)
                     return
                 }
-                guard let data else { return }
-                self.magnetometer_updated.emit(CMMagnetometerData(data: data))
+                guard let wrapped else { return }
+                self.magnetometer_updated.emit(wrapped)
             }
         }
     }
@@ -140,13 +146,15 @@ class CMMotionManager: RefCounted, @unchecked Sendable {
         let frame = Self.toCMAttitudeReferenceFrame(referenceFrame)
         manager.startDeviceMotionUpdates(using: frame, to: updateQueue) { [weak self] motion, error in
             guard let self else { return }
+            let wrapped = motion.map { CMDeviceMotion(motion: $0) }
+            let errorMessage = error?.localizedDescription
             DispatchQueue.main.async {
-                if let error {
-                    self.update_failed.emit(error.localizedDescription)
+                if let errorMessage {
+                    self.update_failed.emit(errorMessage)
                     return
                 }
-                guard let motion else { return }
-                self.device_motion_updated.emit(CMDeviceMotion(motion: motion))
+                guard let wrapped else { return }
+                self.device_motion_updated.emit(wrapped)
             }
         }
     }

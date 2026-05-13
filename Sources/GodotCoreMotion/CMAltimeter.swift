@@ -64,13 +64,15 @@ class CMAltimeter: RefCounted, @unchecked Sendable {
     func start_relative_altitude_updates() {
         altimeter.startRelativeAltitudeUpdates(to: updateQueue) { [weak self] data, error in
             guard let self else { return }
+            let wrapped = data.map { CMAltitudeData(data: $0) }
+            let errorMessage = error?.localizedDescription
             DispatchQueue.main.async {
-                if let error {
-                    self.altimeter_failed.emit(error.localizedDescription)
+                if let errorMessage {
+                    self.altimeter_failed.emit(errorMessage)
                     return
                 }
-                guard let data else { return }
-                self.relative_altitude_updated.emit(CMAltitudeData(data: data))
+                guard let wrapped else { return }
+                self.relative_altitude_updated.emit(wrapped)
             }
         }
     }
@@ -88,17 +90,21 @@ class CMAltimeter: RefCounted, @unchecked Sendable {
         }
         altimeter.startAbsoluteAltitudeUpdates(to: updateQueue) { [weak self] data, error in
             guard let self else { return }
+            let wrapped: CMAbsoluteAltitudeData? = data.map { sample in
+                let w = CMAbsoluteAltitudeData()
+                w.timestamp = sample.timestamp
+                w.altitude = sample.altitude
+                w.accuracy = sample.accuracy
+                w.precision = sample.precision
+                return w
+            }
+            let errorMessage = error?.localizedDescription
             DispatchQueue.main.async {
-                if let error {
-                    self.altimeter_failed.emit(error.localizedDescription)
+                if let errorMessage {
+                    self.altimeter_failed.emit(errorMessage)
                     return
                 }
-                guard let data else { return }
-                let wrapped = CMAbsoluteAltitudeData()
-                wrapped.timestamp = data.timestamp
-                wrapped.altitude = data.altitude
-                wrapped.accuracy = data.accuracy
-                wrapped.precision = data.precision
+                guard let wrapped else { return }
                 self.absolute_altitude_updated.emit(wrapped)
             }
         }

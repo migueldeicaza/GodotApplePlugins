@@ -68,11 +68,13 @@ class CMPedometer: RefCounted, @unchecked Sendable {
         let from = Date(timeIntervalSince1970: fromUnixTime)
         let to = Date(timeIntervalSince1970: toUnixTime)
         pedometer.queryPedometerData(from: from, to: to) { data, error in
+            let wrapped = data.map { CMPedometerData(data: $0) }
+            let mappedError = mapError(error)
             DispatchQueue.main.async {
-                if let data {
-                    _ = callback.call(Variant(CMPedometerData(data: data)), mapError(error))
+                if let wrapped {
+                    _ = callback.call(Variant(wrapped), mappedError)
                 } else {
-                    _ = callback.call(nil, mapError(error))
+                    _ = callback.call(nil, mappedError)
                 }
             }
         }
@@ -83,13 +85,15 @@ class CMPedometer: RefCounted, @unchecked Sendable {
         let from = Date(timeIntervalSince1970: fromUnixTime)
         pedometer.startUpdates(from: from) { [weak self] data, error in
             guard let self else { return }
+            let wrapped = data.map { CMPedometerData(data: $0) }
+            let errorMessage = error?.localizedDescription
             DispatchQueue.main.async {
-                if let error {
-                    self.pedometer_failed.emit(error.localizedDescription)
+                if let errorMessage {
+                    self.pedometer_failed.emit(errorMessage)
                     return
                 }
-                guard let data else { return }
-                self.pedometer_updated.emit(CMPedometerData(data: data))
+                guard let wrapped else { return }
+                self.pedometer_updated.emit(wrapped)
             }
         }
     }

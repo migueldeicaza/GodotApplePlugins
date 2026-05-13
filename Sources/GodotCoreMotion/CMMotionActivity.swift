@@ -72,14 +72,16 @@ class CMMotionActivityManager: RefCounted, @unchecked Sendable {
         let from = Date(timeIntervalSince1970: fromUnixTime)
         let to = Date(timeIntervalSince1970: toUnixTime)
         manager.queryActivityStarting(from: from, to: to, to: updateQueue) { activities, error in
+            let wrapped = activities.map { $0.map { CMMotionActivity(activity: $0) } }
+            let mappedError = mapError(error)
             DispatchQueue.main.async {
                 let array = VariantArray()
-                if let activities {
-                    for activity in activities {
-                        array.append(Variant(CMMotionActivity(activity: activity)))
+                if let wrapped {
+                    for activity in wrapped {
+                        array.append(Variant(activity))
                     }
                 }
-                _ = callback.call(Variant(array), mapError(error))
+                _ = callback.call(Variant(array), mappedError)
             }
         }
     }
@@ -88,9 +90,10 @@ class CMMotionActivityManager: RefCounted, @unchecked Sendable {
     func start_activity_updates() {
         manager.startActivityUpdates(to: updateQueue) { [weak self] activity in
             guard let self else { return }
+            let wrapped = activity.map { CMMotionActivity(activity: $0) }
             DispatchQueue.main.async {
-                guard let activity else { return }
-                self.activity_updated.emit(CMMotionActivity(activity: activity))
+                guard let wrapped else { return }
+                self.activity_updated.emit(wrapped)
             }
         }
     }
