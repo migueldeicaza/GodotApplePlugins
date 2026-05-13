@@ -19,6 +19,12 @@ This add-on currently includes comprehensive support for:
 * Sign-in with Apple [AuthenticationServices Integration Guide](Sources/GodotAuthenticationServices/AuthenticationServicesGuide.md)
 * AppleFilePicker: allow your application to invoke the file system picker.
 * ARKit [ARKit Integration Guide](Sources/GodotARKit/ARKitGuide.md)
+* CoreMotion [CoreMotion Integration Guide](Sources/GodotCoreMotion/CoreMotionGuide.md)
+
+Notice that this package has multiple split libraries, if you are not
+using them, you can save space (and a roundtrip answering Apple's
+questions) by not including them (like "Why are you calling ARKit if
+your app has no AR capabilities").
 
 The release contains both binaries for MacOS as dynamic libraries and
 an iOS xcframework compiled with the "Mergeable Library" feature.

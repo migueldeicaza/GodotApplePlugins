@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="CMPedometer" inherits="RefCounted" api_type="extension" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Step, distance, and floor counts from the system pedometer.
+	</brief_description>
+	<description>
+		Wraps Apple's [code skip-lint]CMPedometer[/code]. Supports both historical queries (already-recorded data from the system) and live updates.
+		[b]Requires the [code]NSMotionUsageDescription[/code] Info.plist key.[/b] On iOS the system records pedometer data continuously while motion permission is granted, so [method query_pedometer_data] can return data even from before your app launched.
+		[b]Platform availability:[/b] Real implementation on [b]iOS[/b]. On other platforms the [code]is_*_available[/code] static methods return [code]false[/code] and calls report unavailability through their callback or [signal pedometer_failed].
+		See Apple's [url=https://developer.apple.com/documentation/coremotion/cmpedometer]CMPedometer reference[/url].
+	</description>
+	<tutorials>
+		<link title="CoreMotion Integration Guide">$DOCS_URL/coremotion_coremotionguide.html</link>
+	</tutorials>
+	<methods>
+		<method name="authorization_status" qualifiers="static">
+			<return type="int" />
+			<description>
+				Returns the current authorization status using Apple's [code skip-lint]CMAuthorizationStatus[/code] integer (0 = notDetermined, 1 = restricted, 2 = denied, 3 = authorized).
+			</description>
+		</method>
+		<method name="is_cadence_available" qualifiers="static">
+			<return type="bool" />
+			<description>
+				Returns [code]true[/code] when the device can report cadence.
+			</description>
+		</method>
+		<method name="is_distance_available" qualifiers="static">
+			<return type="bool" />
+			<description>
+				Returns [code]true[/code] when the device can estimate walked/run distance.
+			</description>
+		</method>
+		<method name="is_floor_counting_available" qualifiers="static">
+			<return type="bool" />
+			<description>
+				Returns [code]true[/code] when the device can count floors ascended/descended.
+			</description>
+		</method>
+		<method name="is_pace_available" qualifiers="static">
+			<return type="bool" />
+			<description>
+				Returns [code]true[/code] when the device can report pace.
+			</description>
+		</method>
+		<method name="is_step_counting_available" qualifiers="static">
+			<return type="bool" />
+			<description>
+				Returns [code]true[/code] when the device can count steps. Step counting is the minimum requirement for any pedometer functionality.
+			</description>
+		</method>
+		<method name="query_pedometer_data">
+			<return type="void" />
+			<param index="0" name="fromUnixTime" type="float" />
+			<param index="1" name="toUnixTime" type="float" />
+			<param index="2" name="callback" type="Callable" />
+			<description>
+				Queries pedometer data recorded between two Unix-time stamps. [param callback] is invoked on the main thread with [code]callback(data: CMPedometerData, error: String)[/code]; [param data] is [code]null[/code] when [param error] is set.
+			</description>
+		</method>
+		<method name="start_updates">
+			<return type="void" />
+			<param index="0" name="fromUnixTime" type="float" />
+			<description>
+				Begins live pedometer updates accumulating from [param fromUnixTime] (Unix seconds). Subsequent samples arrive via [signal pedometer_updated]. Use [code]Time.get_unix_time_from_system()[/code] for "now".
+			</description>
+		</method>
+		<method name="stop_updates">
+			<return type="void" />
+			<description>
+				Stops live pedometer updates.
+			</description>
+		</method>
+	</methods>
+	<signals>
+		<signal name="pedometer_failed">
+			<param index="0" name="message" type="String" />
+			<description>
+				Emitted when CoreMotion reports an error on a live updates stream, or when the API is unavailable on the current platform.
+			</description>
+		</signal>
+		<signal name="pedometer_updated">
+			<param index="0" name="data" type="CMPedometerData" />
+			<description>
+				Emitted on the main thread with the latest cumulative pedometer reading since [method start_updates] was called.
+			</description>
+		</signal>
+	</signals>
+</class>

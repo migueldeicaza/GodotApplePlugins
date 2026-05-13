@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="CMGyroData" inherits="RefCounted" api_type="extension" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		A single gyroscope sample produced by [CMMotionManager].
+	</brief_description>
+	<description>
+		Wraps Apple's [code skip-lint]CMGyroData[/code]. Provides the raw rotation rate around each device axis. See Apple's [url=https://developer.apple.com/documentation/coremotion/cmgyrodata]CMGyroData reference[/url].
+	</description>
+	<tutorials>
+		<link title="CoreMotion Integration Guide">$DOCS_URL/coremotion_coremotionguide.html</link>
+	</tutorials>
+	<members>
+		<member name="rotation_rate" type="Vector3" setter="set_rotation_rate" getter="get_rotation_rate">
+			Rotation rate around each axis in radians per second. Includes bias from gyroscope drift. For a bias-corrected value, use device-motion updates and read [member CMDeviceMotion.rotation_rate] instead.
+		</member>
+		<member name="timestamp" type="float" setter="set_timestamp" getter="get_timestamp">
+			The time at which the sample was taken, in seconds since device boot.
+		</member>
+	</members>
+</class>

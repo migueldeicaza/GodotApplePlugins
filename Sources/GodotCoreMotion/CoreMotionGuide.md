@@ -1,0 +1,152 @@
+# Using Apple's CoreMotion APIs with Godot
+
+This is a guide on using the CoreMotion APIs in this Godot addon. For
+an overview of what you can do with CoreMotion, check [Apple's
+CoreMotion Documentation](https://developer.apple.com/documentation/coremotion/).
+
+As with the rest of GodotApplePlugins, the binding surfaces the same
+class names that Apple uses for their own data types to simplify
+looking things up and finding resources online. Method names follow
+the Godot naming scheme (snake_case instead of camelCase).
+
+# Table of Contents
+
+* [Available Types](#available-types)
+* [Info.plist and Permissions](#infoplist-and-permissions)
+* [Choosing Between Raw Sensors and Device Motion](#choosing-between-raw-sensors-and-device-motion)
+* [Platform Notes](#platform-notes)
+* [Examples](#examples)
+
+# Available Types
+
+The CoreMotion binding is documented in `doc_classes/` and in the
+published API reference. The surface includes:
+
+## Motion (handheld device)
+
+* `CMMotionManager` — entry point for accelerometer, gyroscope, magnetometer, and fused device motion
+* `CMAccelerometerData` — a raw accelerometer sample
+* `CMGyroData` — a raw gyroscope sample
+* `CMMagnetometerData` — a raw magnetometer sample
+* `CMDeviceMotion` — fused attitude, gravity, user acceleration, rotation rate, and magnetic field
+
+## Headphone Motion
+
+* `CMHeadphoneMotionManager` — head motion from AirPods and other compatible headphones (re-uses `CMDeviceMotion`)
+
+## Pedometer
+
+* `CMPedometer` — step, distance, floor, pace, and cadence counts
+* `CMPedometerData` — a single pedometer reading covering a time window
+
+## Altimeter
+
+* `CMAltimeter` — barometric pressure-based altitude
+* `CMAltitudeData` — a relative altitude / pressure sample
+* `CMAbsoluteAltitudeData` — a sea-level-referenced altitude sample (iOS 15+)
+
+## Activity Classification
+
+* `CMMotionActivityManager` — classifies the user's current activity
+* `CMMotionActivity` — one classification (walking, running, automotive, cycling, stationary, unknown) with a confidence level
+
+# Info.plist and Permissions
+
+Most CoreMotion APIs are permission-gated. You need at least:
+
+```xml
+<key>NSMotionUsageDescription</key>
+<string>This game uses motion data to ...</string>
+```
+
+The `NSMotionUsageDescription` key covers `CMMotionManager` (accelerometer/gyroscope/magnetometer/device motion), `CMPedometer`, `CMAltimeter`, `CMMotionActivityManager`, and `CMHeadphoneMotionManager`. The first time your project starts updates on any of these, iOS prompts the user; the user's decision is reported via the `authorization_status()` static methods (where applicable).
+
+# Choosing Between Raw Sensors and Device Motion
+
+The raw `start_accelerometer_updates()` / `start_gyro_updates()` / `start_magnetometer_updates()` deliver the device's unprocessed sensor readings — accelerometer values include gravity, gyroscope values include drift bias, and magnetometer values include local magnetic interference.
+
+`start_device_motion_updates()` runs Apple's sensor fusion pipeline and gives you:
+
+* **Attitude** as both a `Quaternion` and roll/pitch/yaw Euler angles
+* **Gravity** and **user acceleration** separated from one another
+* **Bias-corrected rotation rate**
+* **Bias-corrected magnetic field** with a calibration-accuracy enum
+
+For almost all gameplay use cases (head/device tilt, shake detection, motion-controlled cameras), `CMDeviceMotion` is what you want. Reach for the raw streams only when you need very high sample rates or you're doing custom sensor fusion.
+
+# Platform Notes
+
+* **iOS** — Full support for every type in this binding.
+* **macOS** — `CMHeadphoneMotionManager` works on macOS 14+ (returns motion from connected AirPods). The other managers are surfaced but their `is_*_available` static methods return `false` and starting updates emits a `*_failed` signal with a "not available" message — this matches Apple's own coverage, since CoreMotion sensors require an iPhone or Apple Watch.
+* **visionOS** — All managers are surfaced as non-operational stubs. Use the visionOS-native ARKit `WorldTrackingProvider` (via `ARSession` in this package) for head pose instead.
+* **Linux / Windows** — All managers are surfaced as non-operational stubs so a single GDScript file can compile and run across platforms; calls emit `*_failed` signals.
+
+# Examples
+
+## Tilt-controlled camera with device motion
+
+```gdscript
+var motion := CMMotionManager.new()
+
+func _ready() -> void:
+    if not motion.is_device_motion_available:
+        return
+    motion.device_motion_update_interval = 1.0 / 60.0
+    motion.device_motion_updated.connect(_on_device_motion)
+    motion.update_failed.connect(func(msg): push_warning(msg))
+    motion.start_device_motion_updates(CMMotionManager.XARBITRARY_Z_VERTICAL)
+
+func _on_device_motion(m: CMDeviceMotion) -> void:
+    # Use the quaternion directly to orient a Node3D
+    $Camera3D.transform.basis = Basis(m.attitude_quaternion)
+```
+
+## Step counter
+
+```gdscript
+var pedometer := CMPedometer.new()
+
+func _ready() -> void:
+    if not CMPedometer.is_step_counting_available():
+        return
+    pedometer.pedometer_updated.connect(_on_pedometer_updated)
+    pedometer.pedometer_failed.connect(func(msg): push_warning(msg))
+    pedometer.start_updates(Time.get_unix_time_from_system())
+
+func _on_pedometer_updated(data: CMPedometerData) -> void:
+    print("Steps since start: ", data.number_of_steps)
+```
+
+## Querying historical activity
+
+```gdscript
+var activity := CMMotionActivityManager.new()
+
+func dump_last_hour() -> void:
+    if not CMMotionActivityManager.is_activity_available():
+        return
+    var now := Time.get_unix_time_from_system()
+    activity.query_activity(now - 3600.0, now, func(activities, error):
+        if error:
+            push_warning(error)
+            return
+        for a in activities:
+            print(a.start_date, " walking=", a.walking, " automotive=", a.automotive)
+    )
+```
+
+## Head-tracked audio with AirPods
+
+```gdscript
+var headphones := CMHeadphoneMotionManager.new()
+
+func _ready() -> void:
+    headphones.device_motion_updated.connect(_on_head_motion)
+    headphones.connected.connect(func(): print("AirPods connected"))
+    headphones.disconnected.connect(func(): print("AirPods disconnected"))
+    headphones.update_failed.connect(func(msg): push_warning(msg))
+    headphones.start_device_motion_updates()
+
+func _on_head_motion(m: CMDeviceMotion) -> void:
+    $AudioListener.transform.basis = Basis(m.attitude_quaternion)
+```

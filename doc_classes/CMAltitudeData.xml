@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="CMAltitudeData" inherits="RefCounted" api_type="extension" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		A relative altitude / barometric pressure sample from [CMAltimeter].
+	</brief_description>
+	<description>
+		Wraps Apple's [code skip-lint]CMAltitudeData[/code]. The altitude is reported relative to the point at which updates were started, not absolute sea level — for absolute readings, use [method CMAltimeter.start_absolute_altitude_updates] and [CMAbsoluteAltitudeData].
+		See Apple's [url=https://developer.apple.com/documentation/coremotion/cmaltitudedata]CMAltitudeData reference[/url].
+	</description>
+	<tutorials>
+		<link title="CoreMotion Integration Guide">$DOCS_URL/coremotion_coremotionguide.html</link>
+	</tutorials>
+	<members>
+		<member name="pressure" type="float" setter="set_pressure" getter="get_pressure">
+			Barometric pressure in kilopascals (kPa).
+		</member>
+		<member name="relative_altitude" type="float" setter="set_relative_altitude" getter="get_relative_altitude">
+			Change in altitude in meters, relative to the point at which updates were started.
+		</member>
+		<member name="timestamp" type="float" setter="set_timestamp" getter="get_timestamp">
+			The time at which the sample was taken, in seconds since device boot.
+		</member>
+	</members>
+</class>

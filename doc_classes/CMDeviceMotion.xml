@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="CMDeviceMotion" inherits="RefCounted" api_type="extension" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Fused sensor data combining accelerometer, gyroscope and magnetometer into attitude, gravity, user acceleration and bias-corrected rotation rate.
+	</brief_description>
+	<description>
+		Wraps Apple's [code skip-lint]CMDeviceMotion[/code]. Use this instead of raw accelerometer/gyro data when you need device attitude, gravity-separated user acceleration, or bias-corrected rotation. Emitted by both [CMMotionManager] (handheld device) and [CMHeadphoneMotionManager] (AirPods).
+		See Apple's [url=https://developer.apple.com/documentation/coremotion/cmdevicemotion]CMDeviceMotion reference[/url].
+	</description>
+	<tutorials>
+		<link title="CoreMotion Integration Guide">$DOCS_URL/coremotion_coremotionguide.html</link>
+	</tutorials>
+	<members>
+		<member name="attitude_quaternion" type="Quaternion" setter="set_attitude_quaternion" getter="get_attitude_quaternion">
+			Device attitude as a quaternion, relative to the reference frame chosen when starting updates.
+		</member>
+		<member name="attitude_roll_pitch_yaw" type="Vector3" setter="set_attitude_roll_pitch_yaw" getter="get_attitude_roll_pitch_yaw">
+			Device attitude as Euler angles in radians: [code]x[/code] is roll, [code]y[/code] is pitch, [code]z[/code] is yaw.
+		</member>
+		<member name="gravity" type="Vector3" setter="set_gravity" getter="get_gravity">
+			The gravity component of the acceleration, in G-forces, in device coordinates.
+		</member>
+		<member name="heading" type="float" setter="set_heading" getter="get_heading">
+			Heading in degrees, where 0° is the reference attitude. Returns [code]-1[/code] on platforms where heading is not available (e.g. macOS headphone motion, iOS &lt; 11).
+		</member>
+		<member name="magnetic_field" type="Vector3" setter="set_magnetic_field" getter="get_magnetic_field">
+			Bias-corrected magnetic field in microteslas. Check [member magnetic_field_accuracy] to interpret reliability.
+		</member>
+		<member name="magnetic_field_accuracy" type="int" setter="set_magnetic_field_accuracy" getter="get_magnetic_field_accuracy" enum="MagneticFieldCalibrationAccuracy">
+			Calibration accuracy of [member magnetic_field].
+		</member>
+		<member name="rotation_rate" type="Vector3" setter="set_rotation_rate" getter="get_rotation_rate">
+			Bias-corrected rotation rate around each axis in radians per second.
+		</member>
+		<member name="timestamp" type="float" setter="set_timestamp" getter="get_timestamp">
+			The time at which the sample was taken, in seconds since device boot.
+		</member>
+		<member name="user_acceleration" type="Vector3" setter="set_user_acceleration" getter="get_user_acceleration">
+			Acceleration imparted by the user, in G-forces, with gravity removed.
+		</member>
+	</members>
+	<constants>
+		<constant name="UNCALIBRATED" value="-1" enum="MagneticFieldCalibrationAccuracy">
+			The magnetometer has not been calibrated; [member magnetic_field] is not reliable.
+		</constant>
+		<constant name="LOW" value="0" enum="MagneticFieldCalibrationAccuracy">
+			Low calibration accuracy.
+		</constant>
+		<constant name="MEDIUM" value="1" enum="MagneticFieldCalibrationAccuracy">
+			Medium calibration accuracy.
+		</constant>
+		<constant name="HIGH" value="2" enum="MagneticFieldCalibrationAccuracy">
+			High calibration accuracy.
+		</constant>
+	</constants>
+</class>

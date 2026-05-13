@@ -8,7 +8,7 @@ DERIVED_DATA ?= $(CURDIR)/.xcodebuild
 WORKSPACE ?= .swiftpm/xcode/package.xcworkspace
 SCHEME ?= GodotApplePlugins
 FRAMEWORK_NAMES ?= GodotApplePlugins
-SPLIT_FRAMEWORK_NAMES ?= GodotApplePluginsAVFoundation GodotApplePluginsFoundation GodotApplePluginsGameCenter GodotApplePluginsStoreKit GodotApplePluginsAuthenticationServices GodotApplePluginsARKit
+SPLIT_FRAMEWORK_NAMES ?= GodotApplePluginsAVFoundation GodotApplePluginsFoundation GodotApplePluginsGameCenter GodotApplePluginsStoreKit GodotApplePluginsAuthenticationServices GodotApplePluginsARKit GodotApplePluginsCoreMotion
 SPLIT_RUNTIME_FRAMEWORK ?= SwiftGodotRuntime
 XCODEBUILD ?= xcodebuild
 XCODEBUILD_LOG_ON_ERROR ?=
@@ -140,7 +140,7 @@ check_swiftsyntax:
 	done; \
 	test "$$failed" -eq 0
 
-package: build dist
+package: split-package
 
 split-generate-stubs:
 	@set -e; \
@@ -175,6 +175,11 @@ split-generate-stubs:
 				entry_symbol="godot_apple_plugins_arkit_start"; \
 				library_name="godot_apple_plugins_arkit_stub"; \
 				files="ARSession ARWorldTrackingConfiguration ARFrame ARCamera ARLightEstimate ARPointCloud ARAnchor ARPlaneAnchor ARRaycastQuery ARRaycastResult ARTrackedRaycast ARImageAnchor ARMeshAnchor ARFaceAnchor ARWorldMap ARBodyTrackingConfiguration ARBodyAnchor ARBodySkeleton ARHandAnchor ARHandSkeleton ARCoachingOverlay AREnvironmentProbeAnchor ARGeoTrackingConfiguration ARGeoAnchor ARCollaborationData"; \
+				;; \
+			GodotApplePluginsCoreMotion) \
+				entry_symbol="godot_apple_plugins_core_motion_start"; \
+				library_name="godot_apple_plugins_core_motion_stub"; \
+				files="CMAccelerometerData CMDeviceMotion CMMotionManager CMPedometer CMAltimeter CMMotionActivity CMHeadphoneMotionManager"; \
 				;; \
 			*) \
 				echo "Unknown split framework $$framework" >&2; \
@@ -258,6 +263,7 @@ split-validate-matrix: split-package
 	$(MAKE) split-validate-built SPLIT_SELECTED_FRAMEWORK_NAMES="GodotApplePluginsStoreKit"
 	$(MAKE) split-validate-built SPLIT_SELECTED_FRAMEWORK_NAMES="GodotApplePluginsAuthenticationServices"
 	$(MAKE) split-validate-built SPLIT_SELECTED_FRAMEWORK_NAMES="GodotApplePluginsARKit"
+	$(MAKE) split-validate-built SPLIT_SELECTED_FRAMEWORK_NAMES="GodotApplePluginsCoreMotion"
 	$(MAKE) split-validate-built SPLIT_SELECTED_FRAMEWORK_NAMES="$(SPLIT_FRAMEWORK_NAMES)"
 
 split-smoke: split-validate

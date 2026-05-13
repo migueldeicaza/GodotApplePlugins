@@ -74,6 +74,11 @@ let package = Package(
             type: .dynamic,
             targets: ["GodotApplePluginsARKit"]
         ),
+        .library(
+            name: "GodotApplePluginsCoreMotion",
+            type: .dynamic,
+            targets: ["GodotApplePluginsCoreMotion"]
+        ),
         .executable(
             name: "GodotApplePluginsStubGenerator",
             targets: ["GodotApplePluginsStubGenerator"]
@@ -95,6 +100,7 @@ let package = Package(
                 "GodotApplePluginsStoreKit",
                 "GodotApplePluginsAuthenticationServices",
                 "GodotApplePluginsARKit",
+                "GodotApplePluginsCoreMotion",
             ],
             path: "Sources/GodotApplePlugins",
             swiftSettings: swiftSettings,
@@ -129,6 +135,11 @@ let package = Package(
             name: "GodotApplePluginsARKit",
             path: "Sources/GodotARKit",
             exclude: ["ARKitGuide.md"]
+        ),
+        pluginTarget(
+            name: "GodotApplePluginsCoreMotion",
+            path: "Sources/GodotCoreMotion",
+            exclude: ["CoreMotionGuide.md"]
         ),
         .executableTarget(
             name: "GodotApplePluginsStubGenerator"

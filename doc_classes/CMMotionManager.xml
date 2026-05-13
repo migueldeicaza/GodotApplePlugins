@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="CMMotionManager" inherits="RefCounted" api_type="extension" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Streams accelerometer, gyroscope, magnetometer, and fused device-motion data from the device.
+	</brief_description>
+	<description>
+		Wraps Apple's [code skip-lint]CMMotionManager[/code]. Configure an update interval, call one of the [code]start_*_updates[/code] methods, and connect to the matching signal to receive samples.
+		Prefer [signal device_motion_updated] over raw [signal accelerometer_updated] / [signal gyro_updated] / [signal magnetometer_updated] when you need gravity-separated user acceleration, bias-corrected rotation, or device attitude.
+		[b]Platform availability:[/b] Real implementation on [b]iOS[/b]. On other platforms the manager exists but [code]is_*_available[/code] returns [code]false[/code] and calling [code]start_*_updates[/code] emits [signal update_failed].
+		See Apple's [url=https://developer.apple.com/documentation/coremotion/cmmotionmanager]CMMotionManager reference[/url].
+	</description>
+	<tutorials>
+		<link title="CoreMotion Integration Guide">$DOCS_URL/coremotion_coremotionguide.html</link>
+	</tutorials>
+	<methods>
+		<method name="start_accelerometer_updates">
+			<return type="void" />
+			<description>
+				Begins delivering accelerometer samples via [signal accelerometer_updated]. Sampling cadence is controlled by [member accelerometer_update_interval].
+			</description>
+		</method>
+		<method name="start_device_motion_updates">
+			<return type="void" />
+			<param index="0" name="referenceFrame" type="int" enum="AttitudeReferenceFrame" />
+			<description>
+				Begins delivering fused [CMDeviceMotion] samples via [signal device_motion_updated]. [param referenceFrame] selects how attitude is referenced. Pass [constant XMAGNETIC_NORTH_Z_VERTICAL] or [constant XTRUE_NORTH_Z_VERTICAL] to align yaw with magnetic or true north (requires the magnetometer).
+			</description>
+		</method>
+		<method name="start_gyro_updates">
+			<return type="void" />
+			<description>
+				Begins delivering gyroscope samples via [signal gyro_updated]. Sampling cadence is controlled by [member gyro_update_interval].
+			</description>
+		</method>
+		<method name="start_magnetometer_updates">
+			<return type="void" />
+			<description>
+				Begins delivering magnetometer samples via [signal magnetometer_updated]. Sampling cadence is controlled by [member magnetometer_update_interval].
+			</description>
+		</method>
+		<method name="stop_accelerometer_updates">
+			<return type="void" />
+			<description>
+				Stops accelerometer updates.
+			</description>
+		</method>
+		<method name="stop_device_motion_updates">
+			<return type="void" />
+			<description>
+				Stops device-motion updates.
+			</description>
+		</method>
+		<method name="stop_gyro_updates">
+			<return type="void" />
+			<description>
+				Stops gyroscope updates.
+			</description>
+		</method>
+		<method name="stop_magnetometer_updates">
+			<return type="void" />
+			<description>
+				Stops magnetometer updates.
+			</description>
+		</method>
+	</methods>
+	<members>
+		<member name="accelerometer_data" type="CMAccelerometerData" setter="" getter="get_accelerometer_data">
+			The most recent accelerometer sample, or [code]null[/code] if none is available.
+		</member>
+		<member name="accelerometer_update_interval" type="float" setter="set_accelerometer_update_interval" getter="get_accelerometer_update_interval">
+			Desired interval between accelerometer samples in seconds.
+		</member>
+		<member name="device_motion" type="CMDeviceMotion" setter="" getter="get_device_motion">
+			The most recent device-motion sample, or [code]null[/code] if none is available.
+		</member>
+		<member name="device_motion_update_interval" type="float" setter="set_device_motion_update_interval" getter="get_device_motion_update_interval">
+			Desired interval between device-motion samples in seconds.
+		</member>
+		<member name="gyro_data" type="CMGyroData" setter="" getter="get_gyro_data">
+			The most recent gyroscope sample, or [code]null[/code] if none is available.
+		</member>
+		<member name="gyro_update_interval" type="float" setter="set_gyro_update_interval" getter="get_gyro_update_interval">
+			Desired interval between gyroscope samples in seconds.
+		</member>
+		<member name="is_accelerometer_active" type="bool" setter="" getter="get_is_accelerometer_active">
+			[code]true[/code] when accelerometer updates are currently being delivered.
+		</member>
+		<member name="is_accelerometer_available" type="bool" setter="" getter="get_is_accelerometer_available">
+			[code]true[/code] when the device has an accelerometer available to this binding.
+		</member>
+		<member name="is_device_motion_active" type="bool" setter="" getter="get_is_device_motion_active">
+			[code]true[/code] when device-motion updates are currently being delivered.
+		</member>
+		<member name="is_device_motion_available" type="bool" setter="" getter="get_is_device_motion_available">
+			[code]true[/code] when fused device-motion is available on this device.
+		</member>
+		<member name="is_gyro_active" type="bool" setter="" getter="get_is_gyro_active">
+			[code]true[/code] when gyroscope updates are currently being delivered.
+		</member>
+		<member name="is_gyro_available" type="bool" setter="" getter="get_is_gyro_available">
+			[code]true[/code] when the device has a gyroscope available to this binding.
+		</member>
+		<member name="is_magnetometer_active" type="bool" setter="" getter="get_is_magnetometer_active">
+			[code]true[/code] when magnetometer updates are currently being delivered.
+		</member>
+		<member name="is_magnetometer_available" type="bool" setter="" getter="get_is_magnetometer_available">
+			[code]true[/code] when the device has a magnetometer available to this binding.
+		</member>
+		<member name="magnetometer_data" type="CMMagnetometerData" setter="" getter="get_magnetometer_data">
+			The most recent magnetometer sample, or [code]null[/code] if none is available.
+		</member>
+		<member name="magnetometer_update_interval" type="float" setter="set_magnetometer_update_interval" getter="get_magnetometer_update_interval">
+			Desired interval between magnetometer samples in seconds.
+		</member>
+	</members>
+	<signals>
+		<signal name="accelerometer_updated">
+			<param index="0" name="accelerometer" type="CMAccelerometerData" />
+			<description>
+				Emitted on the main thread when a new accelerometer sample is available.
+			</description>
+		</signal>
+		<signal name="device_motion_updated">
+			<param index="0" name="deviceMotion" type="CMDeviceMotion" />
+			<description>
+				Emitted on the main thread when a new fused device-motion sample is available.
+			</description>
+		</signal>
+		<signal name="gyro_updated">
+			<param index="0" name="gyro" type="CMGyroData" />
+			<description>
+				Emitted on the main thread when a new gyroscope sample is available.
+			</description>
+		</signal>
+		<signal name="magnetometer_updated">
+			<param index="0" name="magnetometer" type="CMMagnetometerData" />
+			<description>
+				Emitted on the main thread when a new magnetometer sample is available.
+			</description>
+		</signal>
+		<signal name="update_failed">
+			<param index="0" name="message" type="String" />
+			<description>
+				Emitted when CoreMotion reports an error or when the API is unavailable on the current platform.
+			</description>
+		</signal>
+	</signals>
+	<constants>
+		<constant name="XARBITRARY_Z_VERTICAL" value="1" enum="AttitudeReferenceFrame">
+			Z axis vertical, X axis aligned with an arbitrary direction in the horizontal plane.
+		</constant>
+		<constant name="XARBITRARY_CORRECTED_Z_VERTICAL" value="2" enum="AttitudeReferenceFrame">
+			Same as [constant XARBITRARY_Z_VERTICAL] but corrected for magnetometer drift.
+		</constant>
+		<constant name="XMAGNETIC_NORTH_Z_VERTICAL" value="4" enum="AttitudeReferenceFrame">
+			Z axis vertical, X axis pointing toward magnetic north. Requires the magnetometer.
+		</constant>
+		<constant name="XTRUE_NORTH_Z_VERTICAL" value="8" enum="AttitudeReferenceFrame">
+			Z axis vertical, X axis pointing toward true north. Requires the magnetometer and Location Services.
+		</constant>
+	</constants>
+</class>

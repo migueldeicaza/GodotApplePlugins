@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="CMHeadphoneMotionManager" inherits="RefCounted" api_type="extension" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Streams fused head motion data from AirPods Pro / AirPods Max / AirPods 3rd gen and later.
+	</brief_description>
+	<description>
+		Wraps Apple's [code skip-lint]CMHeadphoneMotionManager[/code]. Provides [CMDeviceMotion] samples representing head pose when compatible headphones are connected. Useful for head-tracked audio, spatial UI, or letting the user look around with their head while their hands are free.
+		[b]Requires the [code]NSMotionUsageDescription[/code] Info.plist key (and on macOS, the matching entitlement).[/b]
+		[b]Platform availability:[/b] Real implementation on [b]iOS 14+[/b] and [b]macOS 14+[/b]. On other platforms [member is_device_motion_available] is [code]false[/code] and [method start_device_motion_updates] emits [signal update_failed].
+		See Apple's [url=https://developer.apple.com/documentation/coremotion/cmheadphonemotionmanager]CMHeadphoneMotionManager reference[/url].
+	</description>
+	<tutorials>
+		<link title="CoreMotion Integration Guide">$DOCS_URL/coremotion_coremotionguide.html</link>
+	</tutorials>
+	<methods>
+		<method name="authorization_status" qualifiers="static">
+			<return type="int" />
+			<description>
+				Returns Apple's [code skip-lint]CMAuthorizationStatus[/code] integer (0 = notDetermined, 1 = restricted, 2 = denied, 3 = authorized). Available on iOS 17.4 / macOS 14.4 and later; returns 0 on earlier versions.
+			</description>
+		</method>
+		<method name="start_device_motion_updates">
+			<return type="void" />
+			<description>
+				Begins delivering [CMDeviceMotion] samples for the connected headphones via [signal device_motion_updated]. If no compatible headphones are connected, samples will begin to arrive once a pair connects.
+			</description>
+		</method>
+		<method name="stop_device_motion_updates">
+			<return type="void" />
+			<description>
+				Stops headphone motion updates.
+			</description>
+		</method>
+	</methods>
+	<members>
+		<member name="device_motion" type="CMDeviceMotion" setter="" getter="get_device_motion">
+			The most recent headphone motion sample, or [code]null[/code] if none is available.
+		</member>
+		<member name="is_device_motion_active" type="bool" setter="" getter="get_is_device_motion_active">
+			[code]true[/code] when updates are currently being delivered.
+		</member>
+		<member name="is_device_motion_available" type="bool" setter="" getter="get_is_device_motion_available">
+			[code]true[/code] when compatible headphones are currently connected and providing motion data.
+		</member>
+	</members>
+	<signals>
+		<signal name="connected">
+			<description>
+				Emitted when compatible headphones connect and begin providing motion data.
+			</description>
+		</signal>
+		<signal name="device_motion_updated">
+			<param index="0" name="deviceMotion" type="CMDeviceMotion" />
+			<description>
+				Emitted on the main thread when a new headphone motion sample is available.
+			</description>
+		</signal>
+		<signal name="disconnected">
+			<description>
+				Emitted when the previously connected headphones disconnect.
+			</description>
+		</signal>
+		<signal name="update_failed">
+			<param index="0" name="message" type="String" />
+			<description>
+				Emitted when CoreMotion reports an error or when the API is unavailable on the current platform.
+			</description>
+		</signal>
+	</signals>
+</class>

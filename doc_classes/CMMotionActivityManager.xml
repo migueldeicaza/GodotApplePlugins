@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="CMMotionActivityManager" inherits="RefCounted" api_type="extension" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Classifies the user's current activity (walking, running, automotive, cycling, stationary).
+	</brief_description>
+	<description>
+		Wraps Apple's [code skip-lint]CMMotionActivityManager[/code]. The system continuously classifies user activity in the background while motion permission is granted, so [method query_activity] can return historical data even from before your app launched.
+		[b]Requires the [code]NSMotionUsageDescription[/code] Info.plist key.[/b]
+		[b]Platform availability:[/b] Real implementation on [b]iOS[/b]. On other platforms [method is_activity_available] returns [code]false[/code] and calls report unavailability via the callback or [signal activity_failed].
+		See Apple's [url=https://developer.apple.com/documentation/coremotion/cmmotionactivitymanager]CMMotionActivityManager reference[/url].
+	</description>
+	<tutorials>
+		<link title="CoreMotion Integration Guide">$DOCS_URL/coremotion_coremotionguide.html</link>
+	</tutorials>
+	<methods>
+		<method name="authorization_status" qualifiers="static">
+			<return type="int" />
+			<description>
+				Returns Apple's [code skip-lint]CMAuthorizationStatus[/code] integer (0 = notDetermined, 1 = restricted, 2 = denied, 3 = authorized).
+			</description>
+		</method>
+		<method name="is_activity_available" qualifiers="static">
+			<return type="bool" />
+			<description>
+				Returns [code]true[/code] when the device has a motion coprocessor capable of activity classification.
+			</description>
+		</method>
+		<method name="query_activity">
+			<return type="void" />
+			<param index="0" name="fromUnixTime" type="float" />
+			<param index="1" name="toUnixTime" type="float" />
+			<param index="2" name="callback" type="Callable" />
+			<description>
+				Returns historical activities recorded between two Unix-time stamps. [param callback] is invoked on the main thread with [code]callback(activities: Array, error: String)[/code]; [param activities] is an array of [CMMotionActivity].
+			</description>
+		</method>
+		<method name="start_activity_updates">
+			<return type="void" />
+			<description>
+				Begins live activity updates delivered via [signal activity_updated]. The signal fires whenever the classified activity changes.
+			</description>
+		</method>
+		<method name="stop_activity_updates">
+			<return type="void" />
+			<description>
+				Stops live activity updates.
+			</description>
+		</method>
+	</methods>
+	<signals>
+		<signal name="activity_failed">
+			<param index="0" name="message" type="String" />
+			<description>
+				Emitted when the API is unavailable on the current platform.
+			</description>
+		</signal>
+		<signal name="activity_updated">
+			<param index="0" name="activity" type="CMMotionActivity" />
+			<description>
+				Emitted on the main thread when the user's classified activity changes.
+			</description>
+		</signal>
+	</signals>
+</class>

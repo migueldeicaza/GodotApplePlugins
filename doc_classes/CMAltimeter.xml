@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="CMAltimeter" inherits="RefCounted" api_type="extension" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Reports relative and (iOS 15+) absolute altitude from the device barometer.
+	</brief_description>
+	<description>
+		Wraps Apple's [code skip-lint]CMAltimeter[/code]. Use [method start_relative_altitude_updates] for change-from-start readings and [method start_absolute_altitude_updates] for sea-level-referenced readings (iOS 15+).
+		[b]Requires the [code]NSMotionUsageDescription[/code] Info.plist key.[/b]
+		[b]Platform availability:[/b] Real implementation on [b]iOS[/b]. On other platforms [code]is_*_available[/code] returns [code]false[/code] and calls to start updates emit [signal altimeter_failed].
+		See Apple's [url=https://developer.apple.com/documentation/coremotion/cmaltimeter]CMAltimeter reference[/url].
+	</description>
+	<tutorials>
+		<link title="CoreMotion Integration Guide">$DOCS_URL/coremotion_coremotionguide.html</link>
+	</tutorials>
+	<methods>
+		<method name="authorization_status" qualifiers="static">
+			<return type="int" />
+			<description>
+				Returns Apple's [code skip-lint]CMAuthorizationStatus[/code] integer for altimeter access (0 = notDetermined, 1 = restricted, 2 = denied, 3 = authorized).
+			</description>
+		</method>
+		<method name="is_absolute_altitude_available" qualifiers="static">
+			<return type="bool" />
+			<description>
+				Returns [code]true[/code] when the device can report absolute (sea-level) altitude. Requires iOS 15 or later.
+			</description>
+		</method>
+		<method name="is_relative_altitude_available" qualifiers="static">
+			<return type="bool" />
+			<description>
+				Returns [code]true[/code] when the device has a barometer capable of reporting relative altitude.
+			</description>
+		</method>
+		<method name="start_absolute_altitude_updates">
+			<return type="void" />
+			<description>
+				Begins absolute altitude updates delivered via [signal absolute_altitude_updated]. iOS 15+; emits [signal altimeter_failed] on earlier iOS versions or other platforms.
+			</description>
+		</method>
+		<method name="start_relative_altitude_updates">
+			<return type="void" />
+			<description>
+				Begins relative altitude updates delivered via [signal relative_altitude_updated].
+			</description>
+		</method>
+		<method name="stop_absolute_altitude_updates">
+			<return type="void" />
+			<description>
+				Stops absolute altitude updates.
+			</description>
+		</method>
+		<method name="stop_relative_altitude_updates">
+			<return type="void" />
+			<description>
+				Stops relative altitude updates.
+			</description>
+		</method>
+	</methods>
+	<signals>
+		<signal name="absolute_altitude_updated">
+			<param index="0" name="altitude" type="CMAbsoluteAltitudeData" />
+			<description>
+				Emitted on the main thread when a new absolute altitude sample is available.
+			</description>
+		</signal>
+		<signal name="altimeter_failed">
+			<param index="0" name="message" type="String" />
+			<description>
+				Emitted when CoreMotion reports an error or when the API is unavailable on the current platform.
+			</description>
+		</signal>
+		<signal name="relative_altitude_updated">
+			<param index="0" name="altitude" type="CMAltitudeData" />
+			<description>
+				Emitted on the main thread when a new relative altitude sample is available.
+			</description>
+		</signal>
+	</signals>
+</class>

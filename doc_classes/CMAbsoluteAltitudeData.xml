@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="CMAbsoluteAltitudeData" inherits="RefCounted" api_type="extension" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		An absolute (sea-level-referenced) altitude sample from [CMAltimeter].
+	</brief_description>
+	<description>
+		Wraps Apple's [code skip-lint]CMAbsoluteAltitudeData[/code], available on iOS 15 and later. Reports altitude referenced to mean sea level along with accuracy and precision estimates.
+		See Apple's [url=https://developer.apple.com/documentation/coremotion/cmabsolutealtitudedata]CMAbsoluteAltitudeData reference[/url].
+	</description>
+	<tutorials>
+		<link title="CoreMotion Integration Guide">$DOCS_URL/coremotion_coremotionguide.html</link>
+	</tutorials>
+	<members>
+		<member name="accuracy" type="float" setter="set_accuracy" getter="get_accuracy">
+			Estimated accuracy of [member altitude] in meters.
+		</member>
+		<member name="altitude" type="float" setter="set_altitude" getter="get_altitude">
+			Altitude in meters relative to mean sea level.
+		</member>
+		<member name="precision" type="float" setter="set_precision" getter="get_precision">
+			Estimated precision of [member altitude] in meters.
+		</member>
+		<member name="timestamp" type="float" setter="set_timestamp" getter="get_timestamp">
+			The time at which the sample was taken, in seconds since device boot.
+		</member>
+	</members>
+</class>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="CMMagnetometerData" inherits="RefCounted" api_type="extension" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		A single magnetometer sample produced by [CMMotionManager].
+	</brief_description>
+	<description>
+		Wraps Apple's [code skip-lint]CMMagnetometerData[/code]. Provides the raw magnetic field reading in microteslas along each device axis. Includes bias from device magnetic interference. For a bias-corrected value, use device-motion updates and read [member CMDeviceMotion.magnetic_field] instead. See Apple's [url=https://developer.apple.com/documentation/coremotion/cmmagnetometerdata]CMMagnetometerData reference[/url].
+	</description>
+	<tutorials>
+		<link title="CoreMotion Integration Guide">$DOCS_URL/coremotion_coremotionguide.html</link>
+	</tutorials>
+	<members>
+		<member name="magnetic_field" type="Vector3" setter="set_magnetic_field" getter="get_magnetic_field">
+			Magnetic field strength along each axis in microteslas (µT).
+		</member>
+		<member name="timestamp" type="float" setter="set_timestamp" getter="get_timestamp">
+			The time at which the sample was taken, in seconds since device boot.
+		</member>
+	</members>
+</class>

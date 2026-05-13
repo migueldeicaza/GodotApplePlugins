@@ -1776,19 +1776,21 @@ def make_link(url: str, title: str) -> str:
     match = GODOT_DOCS_PATTERN.search(url)
     if match:
         groups = match.groups()
+        # Our generated docs are all in one directory, so cross-references use
+        # the slug directly without Godot's upstream "../" prefix.
         if match.lastindex == 2:
             # Doc reference with fragment identifier: emit direct link to section with reference to page, for example:
             # `#calling-javascript-from-script in Exporting For Web`
             # Or use the title if provided.
             if title != "":
-                return f"`{title} <../{groups[0]}.html{groups[1]}>`__"
-            return f"`{groups[1]} <../{groups[0]}.html{groups[1]}>`__ in :doc:`../{groups[0]}`"
+                return f"`{title} <{groups[0]}.html{groups[1]}>`__"
+            return f"`{groups[1]} <{groups[0]}.html{groups[1]}>`__ in :doc:`{groups[0]}`"
         elif match.lastindex == 1:
             # Doc reference, for example:
             # `Math`
             if title != "":
-                return f":doc:`{title} <../{groups[0]}>`"
-            return f":doc:`../{groups[0]}`"
+                return f":doc:`{title} <{groups[0]}>`"
+            return f":doc:`{groups[0]}`"
 
     # External link, for example:
     # `http://enet.bespin.org/usergroup0.html`
@@ -1798,12 +1800,14 @@ def make_link(url: str, title: str) -> str:
 
 
 def topic_docs_root() -> str:
-    return os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "Sources", "GodotApplePlugins"))
+    return os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "Sources"))
 
 
 def sanitize_topic_doc_name(relative_path: str) -> str:
-    stem = os.path.splitext(relative_path)[0]
-    return stem.lower().replace(os.sep, "_").replace("-", "_")
+    parts = list(os.path.splitext(relative_path)[0].split(os.sep))
+    if parts and parts[0].startswith("Godot"):
+        parts[0] = parts[0][len("Godot"):]
+    return "_".join(part.lower() for part in parts).replace("-", "_")
 
 
 def extract_markdown_title(source_path: str) -> str:

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="CMAccelerometerData" inherits="RefCounted" api_type="extension" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		A single accelerometer sample produced by [CMMotionManager].
+	</brief_description>
+	<description>
+		Wraps Apple's [code skip-lint]CMAccelerometerData[/code]. Provides the raw accelerometer reading in G-forces (1 G = 9.81 m/s²) along each device axis. See Apple's [url=https://developer.apple.com/documentation/coremotion/cmaccelerometerdata]CMAccelerometerData reference[/url].
+	</description>
+	<tutorials>
+		<link title="CoreMotion Integration Guide">$DOCS_URL/coremotion_coremotionguide.html</link>
+	</tutorials>
+	<members>
+		<member name="acceleration" type="Vector3" setter="set_acceleration" getter="get_acceleration">
+			Acceleration along each axis in G-forces. Includes gravity. To remove gravity, use device-motion updates and read [member CMDeviceMotion.user_acceleration] instead.
+		</member>
+		<member name="timestamp" type="float" setter="set_timestamp" getter="get_timestamp">
+			The time at which the sample was taken, in seconds since device boot.
+		</member>
+	</members>
+</class>

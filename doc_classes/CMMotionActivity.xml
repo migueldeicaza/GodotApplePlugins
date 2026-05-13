@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="CMMotionActivity" inherits="RefCounted" api_type="extension" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		A user-activity classification (walking, running, automotive, etc.) from the system motion coprocessor.
+	</brief_description>
+	<description>
+		Wraps Apple's [code skip-lint]CMMotionActivity[/code]. More than one activity flag may be set simultaneously (e.g. [member walking] and [member automotive] when the user is moving inside a vehicle). The system uses [member confidence] to indicate how certain the classification is.
+		See Apple's [url=https://developer.apple.com/documentation/coremotion/cmmotionactivity]CMMotionActivity reference[/url].
+	</description>
+	<tutorials>
+		<link title="CoreMotion Integration Guide">$DOCS_URL/coremotion_coremotionguide.html</link>
+	</tutorials>
+	<members>
+		<member name="automotive" type="bool" setter="set_automotive" getter="get_automotive">
+			[code]true[/code] when the user appears to be in a vehicle.
+		</member>
+		<member name="confidence" type="int" setter="set_confidence" getter="get_confidence" enum="Confidence">
+			How confident the system is in this classification.
+		</member>
+		<member name="cycling" type="bool" setter="set_cycling" getter="get_cycling">
+			[code]true[/code] when the user appears to be cycling.
+		</member>
+		<member name="running" type="bool" setter="set_running" getter="get_running">
+			[code]true[/code] when the user appears to be running.
+		</member>
+		<member name="start_date" type="float" setter="set_start_date" getter="get_start_date">
+			Unix-time start of the period for which this activity applies, in seconds.
+		</member>
+		<member name="stationary" type="bool" setter="set_stationary" getter="get_stationary">
+			[code]true[/code] when the user appears to be stationary.
+		</member>
+		<member name="unknown" type="bool" setter="set_unknown" getter="get_unknown">
+			[code]true[/code] when the system cannot classify the user's activity.
+		</member>
+		<member name="walking" type="bool" setter="set_walking" getter="get_walking">
+			[code]true[/code] when the user appears to be walking.
+		</member>
+	</members>
+	<constants>
+		<constant name="LOW" value="0" enum="Confidence">
+			Low confidence in the classification.
+		</constant>
+		<constant name="MEDIUM" value="1" enum="Confidence">
+			Medium confidence in the classification.
+		</constant>
+		<constant name="HIGH" value="2" enum="Confidence">
+			High confidence in the classification.
+		</constant>
+	</constants>
+</class>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="CMPedometerData" inherits="RefCounted" api_type="extension" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		Aggregated pedometer data covering a time window.
+	</brief_description>
+	<description>
+		Wraps Apple's [code skip-lint]CMPedometerData[/code]. Optional Apple values (distance, floor counts, pace, cadence) report [code]-1[/code] when the underlying capability is unavailable on the device. See Apple's [url=https://developer.apple.com/documentation/coremotion/cmpedometerdata]CMPedometerData reference[/url].
+	</description>
+	<tutorials>
+		<link title="CoreMotion Integration Guide">$DOCS_URL/coremotion_coremotionguide.html</link>
+	</tutorials>
+	<members>
+		<member name="average_active_pace" type="float" setter="set_average_active_pace" getter="get_average_active_pace">
+			Average pace across the window in seconds per meter, or [code]-1[/code] when unavailable.
+		</member>
+		<member name="current_cadence" type="float" setter="set_current_cadence" getter="get_current_cadence">
+			Instantaneous cadence in steps per second, or [code]-1[/code] when unavailable.
+		</member>
+		<member name="current_pace" type="float" setter="set_current_pace" getter="get_current_pace">
+			Instantaneous pace in seconds per meter, or [code]-1[/code] when unavailable.
+		</member>
+		<member name="distance" type="float" setter="set_distance" getter="get_distance">
+			Distance walked or run in meters, or [code]-1[/code] when distance estimation is unavailable.
+		</member>
+		<member name="end_date" type="float" setter="set_end_date" getter="get_end_date">
+			Unix-time end of the reporting window in seconds.
+		</member>
+		<member name="floors_ascended" type="int" setter="set_floors_ascended" getter="get_floors_ascended">
+			Approximate number of floors ascended, or [code]-1[/code] when floor counting is unavailable.
+		</member>
+		<member name="floors_descended" type="int" setter="set_floors_descended" getter="get_floors_descended">
+			Approximate number of floors descended, or [code]-1[/code] when floor counting is unavailable.
+		</member>
+		<member name="number_of_steps" type="int" setter="set_number_of_steps" getter="get_number_of_steps">
+			Step count across the reporting window.
+		</member>
+		<member name="start_date" type="float" setter="set_start_date" getter="get_start_date">
+			Unix-time start of the reporting window in seconds.
+		</member>
+	</members>
+</class>

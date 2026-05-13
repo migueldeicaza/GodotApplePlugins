@@ -22,7 +22,8 @@ jobs:
             Generated/GodotApplePluginsGameCenterStub \
             Generated/GodotApplePluginsStoreKitStub \
             Generated/GodotApplePluginsAuthenticationServicesStub \
-            Generated/GodotApplePluginsARKitStub
+            Generated/GodotApplePluginsARKitStub \
+            Generated/GodotApplePluginsCoreMotionStub
 
           make split-generate-stubs
 
@@ -32,7 +33,8 @@ jobs:
             Generated/GodotApplePluginsGameCenterStub \
             Generated/GodotApplePluginsStoreKitStub \
             Generated/GodotApplePluginsAuthenticationServicesStub \
-            Generated/GodotApplePluginsARKitStub
+            Generated/GodotApplePluginsARKitStub \
+            Generated/GodotApplePluginsCoreMotionStub
 
       - name: Upload split stub sources
         uses: actions/upload-artifact@v4
@@ -360,6 +362,9 @@ jobs:
               godot_apple_plugins_arkit_stub.*)
                 addon="GodotApplePluginsARKit"
                 ;;
+              godot_apple_plugins_core_motion_stub.*)
+                addon="GodotApplePluginsCoreMotion"
+                ;;
               *)
                 echo "Unknown split stub: $file" >&2
                 return 1
@@ -381,7 +386,8 @@ jobs:
             GodotApplePluginsGameCenter:godot_apple_plugins_game_center_stub \
             GodotApplePluginsStoreKit:godot_apple_plugins_storekit_stub \
             GodotApplePluginsAuthenticationServices:godot_apple_plugins_authentication_services_stub \
-            GodotApplePluginsARKit:godot_apple_plugins_arkit_stub; do
+            GodotApplePluginsARKit:godot_apple_plugins_arkit_stub \
+            GodotApplePluginsCoreMotion:godot_apple_plugins_core_motion_stub; do
             addon="${addon_prefix%%:*}"
             prefix="${addon_prefix#*:}"
             for stub in \
@@ -409,7 +415,16 @@ jobs:
           echo "Using signing identity: $SIGNING_IDENTITY"
 
           # Sign all standalone macOS frameworks, including split addons and shared runtime.
-          find addons -path '*/bin/*.framework' -type d -print | sort > "$RUNNER_TEMP/macos-frameworks.txt"
+          find \
+            addons/GodotApplePluginsAVFoundation \
+            addons/GodotApplePluginsFoundation \
+            addons/GodotApplePluginsGameCenter \
+            addons/GodotApplePluginsStoreKit \
+            addons/GodotApplePluginsAuthenticationServices \
+            addons/GodotApplePluginsARKit \
+            addons/GodotApplePluginsCoreMotion \
+            addons/GodotApplePluginsRuntime \
+            -path '*/bin/*.framework' -type d -print | sort > "$RUNNER_TEMP/macos-frameworks.txt"
           if [ ! -s "$RUNNER_TEMP/macos-frameworks.txt" ]; then
             echo "No macOS frameworks found to sign" >&2
             exit 1
@@ -436,6 +451,7 @@ jobs:
             GodotApplePluginsStoreKit \
             GodotApplePluginsAuthenticationServices \
             GodotApplePluginsARKit \
+            GodotApplePluginsCoreMotion \
             GodotApplePluginsRuntime; do
             test -d "addons/$addon"
             ditto "addons/$addon" "dist/addons/$addon"
