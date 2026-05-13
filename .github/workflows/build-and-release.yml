@@ -9,6 +9,23 @@ jobs:
       - self-hosted
       - macos
     steps:
+      - name: Prune stale keychain references
+        shell: bash
+        run: |
+          set -euo pipefail
+          # Drop entries in the user keychain search list whose file no longer
+          # exists. Otherwise git's osxkeychain credential helper triggers a
+          # blocking "A keychain cannot be found to store …" GUI dialog when
+          # actions/checkout runs.
+          KEEP=()
+          while IFS= read -r kc; do
+            kc="$(echo "${kc//\"/}" | xargs)"
+            [ -n "$kc" ] && [ -e "$kc" ] && KEEP+=("$kc")
+          done < <(security list-keychains -d user)
+          if [ "${#KEEP[@]}" -gt 0 ]; then
+            security list-keychains -d user -s "${KEEP[@]}"
+          fi
+
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -244,6 +261,23 @@ jobs:
     env:
       GIT_CONFIG_NOSYSTEM: 1
     steps:
+      - name: Prune stale keychain references
+        shell: bash
+        run: |
+          set -euo pipefail
+          # Drop entries in the user keychain search list whose file no longer
+          # exists. Otherwise git's osxkeychain credential helper triggers a
+          # blocking "A keychain cannot be found to store …" GUI dialog when
+          # actions/checkout runs.
+          KEEP=()
+          while IFS= read -r kc; do
+            kc="$(echo "${kc//\"/}" | xargs)"
+            [ -n "$kc" ] && [ -e "$kc" ] && KEEP+=("$kc")
+          done < <(security list-keychains -d user)
+          if [ "${#KEEP[@]}" -gt 0 ]; then
+            security list-keychains -d user -s "${KEEP[@]}"
+          fi
+
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -262,11 +296,17 @@ jobs:
           if security default-keychain -d user >/tmp/default-keychain-path 2>/dev/null; then
             DEFAULT_KEYCHAIN_PATH=$(tr -d '"' </tmp/default-keychain-path)
           fi
-          ORIGINAL_KEYCHAINS=$(
-            security list-keychains -d user |
-            tr -d '"' |
-            tr '\n' ' '
-          )
+          # Capture only entries whose file still exists, so a stale reference
+          # left by a prior interrupted run doesn't get re-persisted here and
+          # later trigger a "keychain cannot be found" GUI dialog.
+          ORIGINAL_KEYCHAINS=""
+          while IFS= read -r kc; do
+            kc="$(echo "${kc//\"/}" | xargs)"
+            if [ -n "$kc" ] && [ -e "$kc" ]; then
+              ORIGINAL_KEYCHAINS="$ORIGINAL_KEYCHAINS $kc"
+            fi
+          done < <(security list-keychains -d user)
+          ORIGINAL_KEYCHAINS="${ORIGINAL_KEYCHAINS# }"
           security delete-keychain "$KEYCHAIN_PATH" 2>/dev/null || true
           security create-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
           security set-keychain-settings -lut 21600 "$KEYCHAIN_PATH"
