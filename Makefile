@@ -11,8 +11,10 @@ FRAMEWORK_NAMES ?= GodotApplePlugins
 SPLIT_FRAMEWORK_NAMES ?= GodotApplePluginsAVFoundation GodotApplePluginsFoundation GodotApplePluginsGameCenter GodotApplePluginsStoreKit GodotApplePluginsAuthenticationServices GodotApplePluginsARKit GodotApplePluginsCoreMotion
 SPLIT_RUNTIME_FRAMEWORK ?= SwiftGodotRuntime
 XCODEBUILD ?= xcodebuild
+XCODEBUILD_SETTINGS ?=
 XCODEBUILD_LOG_ON_ERROR ?=
 XCODEBUILD_LOG_DIR ?=
+XCODEBUILD_HEARTBEAT_SECONDS ?= 60
 CC ?= cc
 GODOT ?= ~/cvs/master-godot/editor/bin/godot.macos.editor.dev.arm64
 
@@ -60,10 +62,29 @@ build build2:
 				mkdir -p "$$log_dir"; \
 			fi; \
 			log_file=$$(mktemp "$${log_dir:-$${TMPDIR:-/tmp}}/xcodebuild.XXXXXX"); \
-			if ! "$$@" >"$$log_file" 2>&1; then \
+			echo "Capturing xcodebuild output to $$log_file"; \
+			"$$@" >"$$log_file" 2>&1 & \
+			xcodebuild_pid=$$!; \
+			( \
+				while kill -0 "$$xcodebuild_pid" 2>/dev/null; do \
+					sleep "$(XCODEBUILD_HEARTBEAT_SECONDS)"; \
+					if kill -0 "$$xcodebuild_pid" 2>/dev/null; then \
+						echo "xcodebuild still running (pid $$xcodebuild_pid): $$*"; \
+					fi; \
+				done \
+			) & \
+			heartbeat_pid=$$!; \
+			if wait "$$xcodebuild_pid"; then \
+				status=0; \
+			else \
+				status=$$?; \
+			fi; \
+			kill "$$heartbeat_pid" 2>/dev/null || true; \
+			wait "$$heartbeat_pid" 2>/dev/null || true; \
+			if [ "$$status" -ne 0 ]; then \
 				echo "xcodebuild failed; dumping $$log_file"; \
 				cat "$$log_file"; \
-				return 1; \
+				return "$$status"; \
 			fi; \
 			rm -f "$$log_file"; \
 		else \
@@ -95,13 +116,16 @@ build build2:
 			suffix="$$arch_name"; \
 		fi; \
 	    for framework in $(FRAMEWORK_NAMES); do \
+			echo "Building $$framework for $$dest"; \
 			run_xcodebuild $(XCODEBUILD) \
 				-workspace '$(WORKSPACE)' \
 				-scheme $$framework \
 				-configuration '$(CONFIG)' \
 				-destination "$$dest" \
 				-derivedDataPath "$(DERIVED_DATA)$$suffix" \
+				$(XCODEBUILD_SETTINGS) \
 				build; \
+			echo "Built $$framework for $$dest"; \
 			if [ "$$platform_lc" = "ios" ] || [ "$$platform_lc" = "macos" ]; then \
 				relink_platform="$$platform_lc"; \
 				$(CURDIR)/relink_without_swiftsyntax.sh \

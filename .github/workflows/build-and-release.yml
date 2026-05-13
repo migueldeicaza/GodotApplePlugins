@@ -328,6 +328,7 @@ jobs:
 
       - name: Build split xcframework package
         env:
+          XCODEBUILD_SETTINGS: CODE_SIGNING_ALLOWED=NO
           XCODEBUILD_LOG_ON_ERROR: 1
           XCODEBUILD_LOG_DIR: ${{ runner.temp }}
         run: |
