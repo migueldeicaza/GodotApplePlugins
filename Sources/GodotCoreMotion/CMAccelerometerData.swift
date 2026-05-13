@@ -6,6 +6,10 @@
 @preconcurrency import SwiftGodotRuntime
 import Foundation
 
+#if canImport(CoreMotion) && os(iOS)
+import CoreMotion
+#endif
+
 @Godot
 class CMAccelerometerData: RefCounted, @unchecked Sendable {
     @Export var timestamp: Double = 0
