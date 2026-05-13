@@ -1,4 +1,4 @@
-.PHONY: run xcframework check_swiftsyntax generate-stubs split-generate-stubs gendocs docs-html deploy-docs split-build split-dist split-package split-smoke split-validate split-validate-built split-validate-matrix
+.PHONY: run build build2 package dist xcframework check_swiftsyntax generate-stubs split-generate-stubs gendocs docs-html deploy-docs split-build split-dist split-package split-smoke split-validate split-validate-built split-validate-matrix
 
 # Allow overriding common build knobs.
 CONFIG ?= Release
@@ -200,18 +200,28 @@ split-dist:
 	rm -rf $(CURDIR)/addons/GodotApplePluginsRuntime/bin/$(SPLIT_RUNTIME_FRAMEWORK).framework; \
 	rm -rf $(CURDIR)/addons/GodotApplePluginsRuntime/bin/$(SPLIT_RUNTIME_FRAMEWORK)_x64.framework; \
 	mkdir -p $(CURDIR)/addons/GodotApplePluginsRuntime/bin; \
-	if [ -d "$(DERIVED_DATA)/Build/Products/$(CONFIG)-iphoneos/PackageFrameworks/$(SPLIT_RUNTIME_FRAMEWORK).framework" ] && [ -d "$(DERIVED_DATA)simulator/Build/Products/$(CONFIG)-iphonesimulator/PackageFrameworks/$(SPLIT_RUNTIME_FRAMEWORK).framework" ]; then \
-		$(XCODEBUILD) -create-xcframework \
-			-framework $(DERIVED_DATA)/Build/Products/$(CONFIG)-iphoneos/PackageFrameworks/$(SPLIT_RUNTIME_FRAMEWORK).framework \
-			-framework $(DERIVED_DATA)simulator/Build/Products/$(CONFIG)-iphonesimulator/PackageFrameworks/$(SPLIT_RUNTIME_FRAMEWORK).framework \
-			-output $(CURDIR)/addons/GodotApplePluginsRuntime/bin/$(SPLIT_RUNTIME_FRAMEWORK).xcframework; \
+	runtime_ios_device="$(DERIVED_DATA)/Build/Products/$(CONFIG)-iphoneos/PackageFrameworks/$(SPLIT_RUNTIME_FRAMEWORK).framework"; \
+	runtime_ios_sim="$(DERIVED_DATA)simulator/Build/Products/$(CONFIG)-iphonesimulator/PackageFrameworks/$(SPLIT_RUNTIME_FRAMEWORK).framework"; \
+	if [ ! -d "$$runtime_ios_device" ] || [ ! -d "$$runtime_ios_sim" ]; then \
+		echo "Missing $(SPLIT_RUNTIME_FRAMEWORK) iOS build products. Run make split-build before make split-dist." >&2; \
+		echo "  $$runtime_ios_device" >&2; \
+		echo "  $$runtime_ios_sim" >&2; \
+		exit 1; \
 	fi; \
-	if [ -d "$(DERIVED_DATA)x86_64/Build/Products/$(CONFIG)/PackageFrameworks/$(SPLIT_RUNTIME_FRAMEWORK).framework" ]; then \
-		rsync -a $(DERIVED_DATA)x86_64/Build/Products/$(CONFIG)/PackageFrameworks/$(SPLIT_RUNTIME_FRAMEWORK).framework/ $(CURDIR)/addons/GodotApplePluginsRuntime/bin/$(SPLIT_RUNTIME_FRAMEWORK)_x64.framework; \
+	$(XCODEBUILD) -create-xcframework \
+		-framework "$$runtime_ios_device" \
+		-framework "$$runtime_ios_sim" \
+		-output $(CURDIR)/addons/GodotApplePluginsRuntime/bin/$(SPLIT_RUNTIME_FRAMEWORK).xcframework; \
+	if [ ! -d "$(DERIVED_DATA)x86_64/Build/Products/$(CONFIG)/PackageFrameworks/$(SPLIT_RUNTIME_FRAMEWORK).framework" ]; then \
+		echo "Missing $(SPLIT_RUNTIME_FRAMEWORK) macOS x86_64 build product. Run split-build for platform=macOS,arch=x86_64 before split-dist." >&2; \
+		exit 1; \
 	fi; \
-	if [ -d "$(DERIVED_DATA)arm64/Build/Products/$(CONFIG)/PackageFrameworks/$(SPLIT_RUNTIME_FRAMEWORK).framework" ]; then \
-		rsync -a $(DERIVED_DATA)arm64/Build/Products/$(CONFIG)/PackageFrameworks/$(SPLIT_RUNTIME_FRAMEWORK).framework/ $(CURDIR)/addons/GodotApplePluginsRuntime/bin/$(SPLIT_RUNTIME_FRAMEWORK).framework; \
+	rsync -a $(DERIVED_DATA)x86_64/Build/Products/$(CONFIG)/PackageFrameworks/$(SPLIT_RUNTIME_FRAMEWORK).framework/ $(CURDIR)/addons/GodotApplePluginsRuntime/bin/$(SPLIT_RUNTIME_FRAMEWORK)_x64.framework; \
+	if [ ! -d "$(DERIVED_DATA)arm64/Build/Products/$(CONFIG)/PackageFrameworks/$(SPLIT_RUNTIME_FRAMEWORK).framework" ]; then \
+		echo "Missing $(SPLIT_RUNTIME_FRAMEWORK) macOS arm64 build product. Run split-build for platform=macOS,arch=arm64 before split-dist." >&2; \
+		exit 1; \
 	fi; \
+	rsync -a $(DERIVED_DATA)arm64/Build/Products/$(CONFIG)/PackageFrameworks/$(SPLIT_RUNTIME_FRAMEWORK).framework/ $(CURDIR)/addons/GodotApplePluginsRuntime/bin/$(SPLIT_RUNTIME_FRAMEWORK).framework; \
 	for framework in $(SPLIT_FRAMEWORK_NAMES); do \
 		binary_arm="$(CURDIR)/addons/$$framework/bin/$$framework.framework/Versions/A/$$framework"; \
 		binary_x64="$(CURDIR)/addons/$$framework/bin/$${framework}_x64.framework/Versions/A/$$framework"; \

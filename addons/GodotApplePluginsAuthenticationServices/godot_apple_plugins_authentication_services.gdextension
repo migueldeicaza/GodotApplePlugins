@@ -11,3 +11,8 @@ macos.arm64 = "res://addons/GodotApplePluginsAuthenticationServices/bin/GodotApp
 macos.x86_64 = "res://addons/GodotApplePluginsAuthenticationServices/bin/GodotApplePluginsAuthenticationServices_x64.framework"
 windows.arm64 = "res://addons/GodotApplePluginsAuthenticationServices/bin/godot_apple_plugins_authentication_services_stub.windows.arm64.dll"
 windows.x86_64 = "res://addons/GodotApplePluginsAuthenticationServices/bin/godot_apple_plugins_authentication_services_stub.windows.x86_64.dll"
+
+[dependencies]
+ios = { "res://addons/GodotApplePluginsRuntime/bin/SwiftGodotRuntime.xcframework": "" }
+macos.arm64 = { "res://addons/GodotApplePluginsRuntime/bin/SwiftGodotRuntime.framework": "" }
+macos.x86_64 = { "res://addons/GodotApplePluginsRuntime/bin/SwiftGodotRuntime_x64.framework": "" }

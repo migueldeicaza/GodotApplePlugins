@@ -11,3 +11,8 @@ macos.arm64 = "res://addons/GodotApplePluginsGameCenter/bin/GodotApplePluginsGam
 macos.x86_64 = "res://addons/GodotApplePluginsGameCenter/bin/GodotApplePluginsGameCenter_x64.framework"
 windows.arm64 = "res://addons/GodotApplePluginsGameCenter/bin/godot_apple_plugins_game_center_stub.windows.arm64.dll"
 windows.x86_64 = "res://addons/GodotApplePluginsGameCenter/bin/godot_apple_plugins_game_center_stub.windows.x86_64.dll"
+
+[dependencies]
+ios = { "res://addons/GodotApplePluginsRuntime/bin/SwiftGodotRuntime.xcframework": "" }
+macos.arm64 = { "res://addons/GodotApplePluginsRuntime/bin/SwiftGodotRuntime.framework": "" }
+macos.x86_64 = { "res://addons/GodotApplePluginsRuntime/bin/SwiftGodotRuntime_x64.framework": "" }
