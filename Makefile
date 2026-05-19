@@ -306,6 +306,48 @@ split-smoke: split-validate
 
 dist:
 	set -e; \
+	copy_framework_docs() { \
+		framework="$$1"; \
+		destination="$$2"; \
+		case "$$framework" in \
+			GodotApplePluginsAVFoundation) \
+				registration_source="Sources/GodotAVFoundation/GodotAVFoundation.swift"; \
+				;; \
+			GodotApplePluginsFoundation) \
+				registration_source="Sources/GodotFoundation/GodotFoundation.swift"; \
+				;; \
+			GodotApplePluginsGameCenter) \
+				registration_source="Sources/GodotGameCenter/GodotGameCenter.swift"; \
+				;; \
+			GodotApplePluginsStoreKit) \
+				registration_source="Sources/GodotStoreKit/GodotStoreKit.swift"; \
+				;; \
+			GodotApplePluginsAuthenticationServices) \
+				registration_source="Sources/GodotAuthenticationServices/GodotAuthenticationServices.swift"; \
+				;; \
+			GodotApplePluginsARKit) \
+				registration_source="Sources/GodotARKit/GodotARKit.swift"; \
+				;; \
+			GodotApplePluginsCoreMotion) \
+				registration_source="Sources/GodotCoreMotion/GodotCoreMotion.swift"; \
+				;; \
+			*) \
+				registration_source=""; \
+				;; \
+		esac; \
+		rm -rf "$$destination"; \
+		mkdir -p "$$destination"; \
+		if [ -z "$$registration_source" ]; then \
+			rsync -a doc_classes/ "$$destination"/; \
+		else \
+			doc_files=$$(sed -n 's/^[[:space:]]*\([A-Za-z_][A-Za-z0-9_]*\)\.self,.*/\1/p' "$$registration_source"); \
+			for file in $$doc_files; do \
+				if [ -f "doc_classes/$$file.xml" ]; then \
+					rsync -a "doc_classes/$$file.xml" "$$destination"/; \
+				fi; \
+			done; \
+		fi; \
+	}; \
 	for framework in $(FRAMEWORK_NAMES); do \
 		rm -rf $(CURDIR)/addons/$$framework/bin/$$framework.xcframework; \
 		rm -rf $(CURDIR)/addons/$$framework/bin/$$framework*.framework; \
@@ -317,11 +359,11 @@ dist:
 		fi; \
 		if [ -d "$(DERIVED_DATA)x86_64/Build/Products/$(CONFIG)/PackageFrameworks/$${framework}.framework" ]; then \
 			rsync -a $(DERIVED_DATA)x86_64/Build/Products/$(CONFIG)/PackageFrameworks/$${framework}.framework/ $(CURDIR)/addons/$$framework/bin/$${framework}_x64.framework; \
-			rsync -a doc_classes/ $(CURDIR)/addons/$$framework/bin/$${framework}_x64.framework/Resources/doc_classes/; \
+			copy_framework_docs "$$framework" "$(CURDIR)/addons/$$framework/bin/$${framework}_x64.framework/Resources/doc_classes"; \
 		fi; \
 		if [ -d "$(DERIVED_DATA)arm64/Build/Products/$(CONFIG)/PackageFrameworks/$${framework}.framework" ]; then \
 			rsync -a $(DERIVED_DATA)arm64/Build/Products/$(CONFIG)/PackageFrameworks/$${framework}.framework/ $(CURDIR)/addons/$$framework/bin/$${framework}.framework; \
-			rsync -a doc_classes/ $(CURDIR)/addons/$$framework/bin/$${framework}.framework/Resources/doc_classes/; \
+			copy_framework_docs "$$framework" "$(CURDIR)/addons/$$framework/bin/$${framework}.framework/Resources/doc_classes"; \
 		fi; \
 	done
 
