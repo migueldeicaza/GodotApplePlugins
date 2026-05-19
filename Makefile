@@ -11,7 +11,7 @@ FRAMEWORK_NAMES ?= GodotApplePlugins
 SPLIT_FRAMEWORK_NAMES ?= GodotApplePluginsAVFoundation GodotApplePluginsFoundation GodotApplePluginsGameCenter GodotApplePluginsStoreKit GodotApplePluginsAuthenticationServices GodotApplePluginsARKit GodotApplePluginsCoreMotion
 SPLIT_RUNTIME_FRAMEWORK ?= SwiftGodotRuntime
 SPLIT_RUNTIME_RPATH ?= @loader_path/../../../../../GodotApplePluginsRuntime/bin
-SPLIT_BAD_RUNTIME_RPATH ?= @loader_path/../../../GodotApplePluginsRuntime/bin
+SPLIT_RUNTIME_FRAMEWORK_RPATH ?= @loader_path/../../../GodotApplePluginsRuntime/bin
 SPLIT_RUNTIME_LOAD_DYLIB ?= @rpath/$(SPLIT_RUNTIME_FRAMEWORK).framework/Versions/A/$(SPLIT_RUNTIME_FRAMEWORK)
 SPLIT_X64_RUNTIME_LOAD_DYLIB ?= @rpath/$(SPLIT_RUNTIME_FRAMEWORK)_x64.framework/Versions/A/$(SPLIT_RUNTIME_FRAMEWORK)
 XCODEBUILD ?= xcodebuild
@@ -277,38 +277,51 @@ split-dist:
 		runtime_framework="$$3"; \
 		runtime_load_dylib="$$4"; \
 		new_rpath="$(SPLIT_RUNTIME_RPATH)"; \
-		bad_rpath="$(SPLIT_BAD_RUNTIME_RPATH)"; \
+		framework_rpath="$(SPLIT_RUNTIME_FRAMEWORK_RPATH)"; \
 		if [ "$$runtime_load_dylib" != "$(SPLIT_RUNTIME_LOAD_DYLIB)" ] && otool -L "$$binary" | grep -Fq "$(SPLIT_RUNTIME_LOAD_DYLIB)"; then \
 			install_name_tool -change "$(SPLIT_RUNTIME_LOAD_DYLIB)" "$$runtime_load_dylib" "$$binary"; \
 		fi; \
 		if ! has_rpath "$$binary" "$$new_rpath"; then \
-			if has_rpath "$$binary" "$$bad_rpath"; then \
-				install_name_tool -rpath "$$bad_rpath" "$$new_rpath" "$$binary"; \
-			elif has_rpath "$$binary" "$$old_rpath"; then \
+			if has_rpath "$$binary" "$$old_rpath"; then \
 				install_name_tool -rpath "$$old_rpath" "$$new_rpath" "$$binary"; \
 			else \
 				install_name_tool -add_rpath "$$new_rpath" "$$binary"; \
 			fi; \
 		fi; \
-		if [ "$$bad_rpath" != "$$new_rpath" ] && has_rpath "$$binary" "$$bad_rpath"; then \
-			install_name_tool -delete_rpath "$$bad_rpath" "$$binary"; \
+		if ! has_rpath "$$binary" "$$framework_rpath"; then \
+			install_name_tool -add_rpath "$$framework_rpath" "$$binary"; \
 		fi; \
-		if [ "$$old_rpath" != "$$new_rpath" ] && has_rpath "$$binary" "$$old_rpath"; then \
+		if [ "$$old_rpath" != "$$new_rpath" ] && [ "$$old_rpath" != "$$framework_rpath" ] && has_rpath "$$binary" "$$old_rpath"; then \
 			install_name_tool -delete_rpath "$$old_rpath" "$$binary"; \
 		fi; \
 		if ! has_rpath "$$binary" "$$new_rpath"; then \
 			echo "Failed to set runtime rpath on $$binary" >&2; \
 			exit 1; \
 		fi; \
-		if ! runtime_dir=$$(cd "$$(dirname "$$binary")/$${new_rpath#@loader_path/}" 2>/dev/null && pwd -P); then \
-			echo "Runtime rpath does not resolve from $$binary: $$new_rpath" >&2; \
+		if ! has_rpath "$$binary" "$$framework_rpath"; then \
+			echo "Failed to set framework-root runtime rpath on $$binary" >&2; \
 			exit 1; \
 		fi; \
-		if [ ! -f "$$runtime_dir/$$runtime_framework/Versions/A/$(SPLIT_RUNTIME_FRAMEWORK)" ]; then \
-			echo "Runtime framework is not reachable from $$binary via $$new_rpath" >&2; \
-			echo "Missing: $$runtime_dir/$$runtime_framework/Versions/A/$(SPLIT_RUNTIME_FRAMEWORK)" >&2; \
+		validate_runtime_rpath() { \
+			loader_binary="$$1"; \
+			rpath="$$2"; \
+			if ! runtime_dir=$$(cd "$$(dirname "$$loader_binary")/$${rpath#@loader_path/}" 2>/dev/null && pwd -P); then \
+				echo "Runtime rpath does not resolve from $$loader_binary: $$rpath" >&2; \
+				exit 1; \
+			fi; \
+			if [ ! -f "$$runtime_dir/$$runtime_framework/Versions/A/$(SPLIT_RUNTIME_FRAMEWORK)" ]; then \
+				echo "Runtime framework is not reachable from $$loader_binary via $$rpath" >&2; \
+				echo "Missing: $$runtime_dir/$$runtime_framework/Versions/A/$(SPLIT_RUNTIME_FRAMEWORK)" >&2; \
+				exit 1; \
+			fi; \
+		}; \
+		framework_binary="$$(dirname "$$binary")/../../$$(basename "$$binary")"; \
+		if [ ! -f "$$framework_binary" ]; then \
+			echo "Missing framework-root binary symlink: $$framework_binary" >&2; \
 			exit 1; \
 		fi; \
+		validate_runtime_rpath "$$binary" "$$new_rpath"; \
+		validate_runtime_rpath "$$framework_binary" "$$framework_rpath"; \
 		if ! otool -L "$$binary" | grep -Fq "$$runtime_load_dylib"; then \
 			echo "Runtime load command is not set on $$binary: $$runtime_load_dylib" >&2; \
 			exit 1; \
