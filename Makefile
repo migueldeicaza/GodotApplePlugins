@@ -10,8 +10,10 @@ SCHEME ?= GodotApplePlugins
 FRAMEWORK_NAMES ?= GodotApplePlugins
 SPLIT_FRAMEWORK_NAMES ?= GodotApplePluginsAVFoundation GodotApplePluginsFoundation GodotApplePluginsGameCenter GodotApplePluginsStoreKit GodotApplePluginsAuthenticationServices GodotApplePluginsARKit GodotApplePluginsCoreMotion
 SPLIT_RUNTIME_FRAMEWORK ?= SwiftGodotRuntime
-SPLIT_RUNTIME_RPATH ?= @loader_path/../../../GodotApplePluginsRuntime/bin
-SPLIT_BAD_RUNTIME_RPATH ?= @loader_path/../../../../../GodotApplePluginsRuntime/bin
+SPLIT_RUNTIME_RPATH ?= @loader_path/../../../../../GodotApplePluginsRuntime/bin
+SPLIT_BAD_RUNTIME_RPATH ?= @loader_path/../../../GodotApplePluginsRuntime/bin
+SPLIT_RUNTIME_LOAD_DYLIB ?= @rpath/$(SPLIT_RUNTIME_FRAMEWORK).framework/Versions/A/$(SPLIT_RUNTIME_FRAMEWORK)
+SPLIT_X64_RUNTIME_LOAD_DYLIB ?= @rpath/$(SPLIT_RUNTIME_FRAMEWORK)_x64.framework/Versions/A/$(SPLIT_RUNTIME_FRAMEWORK)
 XCODEBUILD ?= xcodebuild
 XCODEBUILD_SETTINGS ?=
 XCODEBUILD_LOG_ON_ERROR ?=
@@ -249,6 +251,16 @@ split-dist:
 		exit 1; \
 	fi; \
 	rsync -a $(DERIVED_DATA)x86_64/Build/Products/$(CONFIG)/PackageFrameworks/$(SPLIT_RUNTIME_FRAMEWORK).framework/ $(CURDIR)/addons/GodotApplePluginsRuntime/bin/$(SPLIT_RUNTIME_FRAMEWORK)_x64.framework; \
+	runtime_x64_binary="$(CURDIR)/addons/GodotApplePluginsRuntime/bin/$(SPLIT_RUNTIME_FRAMEWORK)_x64.framework/Versions/A/$(SPLIT_RUNTIME_FRAMEWORK)"; \
+	if [ ! -f "$$runtime_x64_binary" ]; then \
+		echo "Missing $(SPLIT_RUNTIME_FRAMEWORK) macOS x86_64 runtime binary: $$runtime_x64_binary" >&2; \
+		exit 1; \
+	fi; \
+	install_name_tool -id "$(SPLIT_X64_RUNTIME_LOAD_DYLIB)" "$$runtime_x64_binary"; \
+	if ! otool -D "$$runtime_x64_binary" | grep -Fq "$(SPLIT_X64_RUNTIME_LOAD_DYLIB)"; then \
+		echo "Failed to set x86_64 runtime install name on $$runtime_x64_binary" >&2; \
+		exit 1; \
+	fi; \
 	if [ ! -d "$(DERIVED_DATA)arm64/Build/Products/$(CONFIG)/PackageFrameworks/$(SPLIT_RUNTIME_FRAMEWORK).framework" ]; then \
 		echo "Missing $(SPLIT_RUNTIME_FRAMEWORK) macOS arm64 build product. Run split-build for platform=macOS,arch=arm64 before split-dist." >&2; \
 		exit 1; \
@@ -262,8 +274,13 @@ split-dist:
 	set_runtime_rpath() { \
 		binary="$$1"; \
 		old_rpath="$$2"; \
+		runtime_framework="$$3"; \
+		runtime_load_dylib="$$4"; \
 		new_rpath="$(SPLIT_RUNTIME_RPATH)"; \
 		bad_rpath="$(SPLIT_BAD_RUNTIME_RPATH)"; \
+		if [ "$$runtime_load_dylib" != "$(SPLIT_RUNTIME_LOAD_DYLIB)" ] && otool -L "$$binary" | grep -Fq "$(SPLIT_RUNTIME_LOAD_DYLIB)"; then \
+			install_name_tool -change "$(SPLIT_RUNTIME_LOAD_DYLIB)" "$$runtime_load_dylib" "$$binary"; \
+		fi; \
 		if ! has_rpath "$$binary" "$$new_rpath"; then \
 			if has_rpath "$$binary" "$$bad_rpath"; then \
 				install_name_tool -rpath "$$bad_rpath" "$$new_rpath" "$$binary"; \
@@ -283,6 +300,19 @@ split-dist:
 			echo "Failed to set runtime rpath on $$binary" >&2; \
 			exit 1; \
 		fi; \
+		if ! runtime_dir=$$(cd "$$(dirname "$$binary")/$${new_rpath#@loader_path/}" 2>/dev/null && pwd -P); then \
+			echo "Runtime rpath does not resolve from $$binary: $$new_rpath" >&2; \
+			exit 1; \
+		fi; \
+		if [ ! -f "$$runtime_dir/$$runtime_framework/Versions/A/$(SPLIT_RUNTIME_FRAMEWORK)" ]; then \
+			echo "Runtime framework is not reachable from $$binary via $$new_rpath" >&2; \
+			echo "Missing: $$runtime_dir/$$runtime_framework/Versions/A/$(SPLIT_RUNTIME_FRAMEWORK)" >&2; \
+			exit 1; \
+		fi; \
+		if ! otool -L "$$binary" | grep -Fq "$$runtime_load_dylib"; then \
+			echo "Runtime load command is not set on $$binary: $$runtime_load_dylib" >&2; \
+			exit 1; \
+		fi; \
 	}; \
 	for framework in $(SPLIT_FRAMEWORK_NAMES); do \
 		binary_arm="$(CURDIR)/addons/$$framework/bin/$$framework.framework/Versions/A/$$framework"; \
@@ -295,8 +325,8 @@ split-dist:
 			echo "Missing macOS x86_64 split framework binary: $$binary_x64" >&2; \
 			exit 1; \
 		fi; \
-		set_runtime_rpath "$$binary_arm" "$(DERIVED_DATA)arm64/Build/Products/$(CONFIG)/PackageFrameworks"; \
-		set_runtime_rpath "$$binary_x64" "$(DERIVED_DATA)x86_64/Build/Products/$(CONFIG)/PackageFrameworks"; \
+		set_runtime_rpath "$$binary_arm" "$(DERIVED_DATA)arm64/Build/Products/$(CONFIG)/PackageFrameworks" "$(SPLIT_RUNTIME_FRAMEWORK).framework" "$(SPLIT_RUNTIME_LOAD_DYLIB)"; \
+		set_runtime_rpath "$$binary_x64" "$(DERIVED_DATA)x86_64/Build/Products/$(CONFIG)/PackageFrameworks" "$(SPLIT_RUNTIME_FRAMEWORK)_x64.framework" "$(SPLIT_X64_RUNTIME_LOAD_DYLIB)"; \
 	done
 
 split-package: split-build split-dist
@@ -307,9 +337,9 @@ split-validate-built:
 	trap 'rm -rf "$$project_dir"' EXIT INT TERM; \
 	rsync -a --delete --exclude addons test-apple-godot-api/ "$$project_dir"/; \
 	mkdir -p "$$project_dir/addons"; \
-	ln -sfn "$(CURDIR)/addons/GodotApplePluginsRuntime" "$$project_dir/addons/GodotApplePluginsRuntime"; \
+	rsync -a --delete "$(CURDIR)/addons/GodotApplePluginsRuntime/" "$$project_dir/addons/GodotApplePluginsRuntime/"; \
 	for addon in $(SPLIT_SELECTED_FRAMEWORK_NAMES); do \
-		ln -sfn "$(CURDIR)/addons/$$addon" "$$project_dir/addons/$$addon"; \
+		rsync -a --delete "$(CURDIR)/addons/$$addon/" "$$project_dir/addons/$$addon/"; \
 	done; \
 	$(GODOT) --headless --path "$$project_dir" --scene res://split_validation.tscn -- --frameworks=$(SPLIT_SELECTED_FRAMEWORKS_ARG)
 
