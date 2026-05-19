@@ -10,6 +10,8 @@ SCHEME ?= GodotApplePlugins
 FRAMEWORK_NAMES ?= GodotApplePlugins
 SPLIT_FRAMEWORK_NAMES ?= GodotApplePluginsAVFoundation GodotApplePluginsFoundation GodotApplePluginsGameCenter GodotApplePluginsStoreKit GodotApplePluginsAuthenticationServices GodotApplePluginsARKit GodotApplePluginsCoreMotion
 SPLIT_RUNTIME_FRAMEWORK ?= SwiftGodotRuntime
+SPLIT_RUNTIME_RPATH ?= @loader_path/../../../GodotApplePluginsRuntime/bin
+SPLIT_BAD_RUNTIME_RPATH ?= @loader_path/../../../../../GodotApplePluginsRuntime/bin
 XCODEBUILD ?= xcodebuild
 XCODEBUILD_SETTINGS ?=
 XCODEBUILD_LOG_ON_ERROR ?=
@@ -252,28 +254,49 @@ split-dist:
 		exit 1; \
 	fi; \
 	rsync -a $(DERIVED_DATA)arm64/Build/Products/$(CONFIG)/PackageFrameworks/$(SPLIT_RUNTIME_FRAMEWORK).framework/ $(CURDIR)/addons/GodotApplePluginsRuntime/bin/$(SPLIT_RUNTIME_FRAMEWORK).framework; \
+	has_rpath() { \
+		binary="$$1"; \
+		rpath="$$2"; \
+		otool -l "$$binary" | grep -Fq "path $$rpath "; \
+	}; \
 	set_runtime_rpath() { \
 		binary="$$1"; \
 		old_rpath="$$2"; \
-		new_rpath="@loader_path/../../../../../GodotApplePluginsRuntime/bin"; \
-		if otool -l "$$binary" | grep -Fq "$$new_rpath"; then \
-			return 0; \
+		new_rpath="$(SPLIT_RUNTIME_RPATH)"; \
+		bad_rpath="$(SPLIT_BAD_RUNTIME_RPATH)"; \
+		if ! has_rpath "$$binary" "$$new_rpath"; then \
+			if has_rpath "$$binary" "$$bad_rpath"; then \
+				install_name_tool -rpath "$$bad_rpath" "$$new_rpath" "$$binary"; \
+			elif has_rpath "$$binary" "$$old_rpath"; then \
+				install_name_tool -rpath "$$old_rpath" "$$new_rpath" "$$binary"; \
+			else \
+				install_name_tool -add_rpath "$$new_rpath" "$$binary"; \
+			fi; \
 		fi; \
-		if otool -l "$$binary" | grep -Fq "$$old_rpath"; then \
-			install_name_tool -rpath "$$old_rpath" "$$new_rpath" "$$binary"; \
-		else \
-			install_name_tool -add_rpath "$$new_rpath" "$$binary"; \
+		if [ "$$bad_rpath" != "$$new_rpath" ] && has_rpath "$$binary" "$$bad_rpath"; then \
+			install_name_tool -delete_rpath "$$bad_rpath" "$$binary"; \
+		fi; \
+		if [ "$$old_rpath" != "$$new_rpath" ] && has_rpath "$$binary" "$$old_rpath"; then \
+			install_name_tool -delete_rpath "$$old_rpath" "$$binary"; \
+		fi; \
+		if ! has_rpath "$$binary" "$$new_rpath"; then \
+			echo "Failed to set runtime rpath on $$binary" >&2; \
+			exit 1; \
 		fi; \
 	}; \
 	for framework in $(SPLIT_FRAMEWORK_NAMES); do \
 		binary_arm="$(CURDIR)/addons/$$framework/bin/$$framework.framework/Versions/A/$$framework"; \
 		binary_x64="$(CURDIR)/addons/$$framework/bin/$${framework}_x64.framework/Versions/A/$$framework"; \
-		if [ -f "$$binary_arm" ]; then \
-			set_runtime_rpath "$$binary_arm" "$(DERIVED_DATA)arm64/Build/Products/$(CONFIG)/PackageFrameworks"; \
+		if [ ! -f "$$binary_arm" ]; then \
+			echo "Missing macOS arm64 split framework binary: $$binary_arm" >&2; \
+			exit 1; \
 		fi; \
-		if [ -f "$$binary_x64" ]; then \
-			set_runtime_rpath "$$binary_x64" "$(DERIVED_DATA)x86_64/Build/Products/$(CONFIG)/PackageFrameworks"; \
+		if [ ! -f "$$binary_x64" ]; then \
+			echo "Missing macOS x86_64 split framework binary: $$binary_x64" >&2; \
+			exit 1; \
 		fi; \
+		set_runtime_rpath "$$binary_arm" "$(DERIVED_DATA)arm64/Build/Products/$(CONFIG)/PackageFrameworks"; \
+		set_runtime_rpath "$$binary_x64" "$(DERIVED_DATA)x86_64/Build/Products/$(CONFIG)/PackageFrameworks"; \
 	done
 
 split-package: split-build split-dist
