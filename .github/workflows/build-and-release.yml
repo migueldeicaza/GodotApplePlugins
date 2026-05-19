@@ -8,15 +8,16 @@ jobs:
     runs-on:
       - self-hosted
       - macos
+    env:
+      GIT_CONFIG_NOSYSTEM: 1
     steps:
       - name: Prune stale keychain references
         shell: bash
         run: |
           set -euo pipefail
           # Drop entries in the user keychain search list whose file no longer
-          # exists. Otherwise git's osxkeychain credential helper triggers a
-          # blocking "A keychain cannot be found to store …" GUI dialog when
-          # actions/checkout runs.
+          # exists. Git credential helpers are disabled for this job, but this
+          # keeps the persistent self-hosted runner state clean as well.
           KEEP=()
           while IFS= read -r kc; do
             kc="$(echo "${kc//\"/}" | xargs)"
