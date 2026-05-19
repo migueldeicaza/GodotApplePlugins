@@ -345,10 +345,10 @@ jobs:
             x86_xcodebuild="arch -x86_64 xcodebuild"
           fi
 
-          make split-build DESTINATIONS="platform=macOS,arch=x86_64" XCODEBUILD="$x86_xcodebuild"
+          caffeinate -dimsu make split-build DESTINATIONS="platform=macOS,arch=x86_64" XCODEBUILD="$x86_xcodebuild"
 
       - name: Package split addons for Distribution
-        run: make split-dist
+        run: caffeinate -dimsu make split-dist
 
       - name: Download Linux x64 split stubs
         uses: actions/download-artifact@v4
@@ -377,7 +377,7 @@ jobs:
       - name: Install split stubs
         run: |
           set -euo pipefail
-
+          caffeinate -t 60 &
           install_stub() {
             local stub="$1"
             local file
