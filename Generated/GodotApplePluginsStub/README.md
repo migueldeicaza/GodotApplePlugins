@@ -8,11 +8,11 @@ This run used the full `doc_classes/*.xml` set.
 
 ## Generated Surface
 
-- Classes: 79
-- Methods: 772
-- Members: 360
-- Signals: 63
-- Integer constants: 318
+- Classes: 92
+- Methods: 903
+- Members: 418
+- Signals: 79
+- Integer constants: 329
 
 ## Behavior
 

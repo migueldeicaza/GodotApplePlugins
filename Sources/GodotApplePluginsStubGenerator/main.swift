@@ -612,7 +612,7 @@ enum CEmitter {
         }
 
         static void gap_string_name_init(GAPStubStringNameStorage *storage, const char *value) {
-            gap_api.string_name_new_with_latin1_chars((GDExtensionUninitializedStringNamePtr)storage, value != NULL ? value : "", 1);
+            gap_api.string_name_new_with_latin1_chars((GDExtensionUninitializedStringNamePtr)storage, value != NULL ? value : "", 0);
         }
 
         static void gap_string_name_destroy(GAPStubStringNameStorage *storage) {

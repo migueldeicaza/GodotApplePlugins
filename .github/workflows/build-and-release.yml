@@ -10,6 +10,7 @@ jobs:
       - macos
     env:
       GIT_CONFIG_NOSYSTEM: 1
+      GIT_TERMINAL_PROMPT: 0
     steps:
       - name: Prune stale keychain references
         shell: bash

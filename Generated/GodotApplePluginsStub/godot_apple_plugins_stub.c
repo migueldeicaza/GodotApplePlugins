@@ -132,7 +132,7 @@ static void gap_string_destroy(GAPStubStringStorage *storage) {
 }
 
 static void gap_string_name_init(GAPStubStringNameStorage *storage, const char *value) {
-    gap_api.string_name_new_with_latin1_chars((GDExtensionUninitializedStringNamePtr)storage, value != NULL ? value : "", 1);
+    gap_api.string_name_new_with_latin1_chars((GDExtensionUninitializedStringNamePtr)storage, value != NULL ? value : "", 0);
 }
 
 static void gap_string_name_destroy(GAPStubStringNameStorage *storage) {
@@ -3709,25 +3709,17 @@ static const GAPStubNamedTypeInfo gap_class_21_method_10_args[] = {
     { "options", { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
 static const GAPStubNamedTypeInfo gap_class_21_method_11_args[] = {
-    { "configuration", { GDEXTENSION_VARIANT_TYPE_OBJECT, "ARFaceTrackingConfiguration", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
-    { "options", { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
-};
-static const GAPStubNamedTypeInfo gap_class_21_method_12_args[] = {
-    { "configuration", { GDEXTENSION_VARIANT_TYPE_OBJECT, "ARImageTrackingConfiguration", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
-    { "options", { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
-};
-static const GAPStubNamedTypeInfo gap_class_21_method_13_args[] = {
     { "configuration", { GDEXTENSION_VARIANT_TYPE_OBJECT, "ARWorldTrackingConfiguration", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "worldMap", { GDEXTENSION_VARIANT_TYPE_OBJECT, "ARWorldMap", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_21_method_14_args[] = {
+static const GAPStubNamedTypeInfo gap_class_21_method_12_args[] = {
     { "relativeTransform", { GDEXTENSION_VARIANT_TYPE_TRANSFORM3D, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_21_method_15_args[] = {
+static const GAPStubNamedTypeInfo gap_class_21_method_13_args[] = {
     { "query", { GDEXTENSION_VARIANT_TYPE_OBJECT, "ARRaycastQuery", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_21_method_16_args[] = {
+static const GAPStubNamedTypeInfo gap_class_21_method_14_args[] = {
     { "data", { GDEXTENSION_VARIANT_TYPE_OBJECT, "ARCollaborationData", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
 static const GAPStubNamedTypeInfo gap_class_21_signal_0_args[] = {
@@ -3864,30 +3856,12 @@ static const GAPStubMethodDescriptor gap_class_21_methods[] = {
     2
 },
 {
-    "run_face_tracking",
-    "ARSession.run_face_tracking",
-    GDEXTENSION_METHOD_FLAG_NORMAL,
-    0,
-    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_21_method_11_args,
-    2
-},
-{
-    "run_image_tracking",
-    "ARSession.run_image_tracking",
-    GDEXTENSION_METHOD_FLAG_NORMAL,
-    0,
-    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_21_method_12_args,
-    2
-},
-{
     "run_with_world_map",
     "ARSession.run_with_world_map",
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_21_method_13_args,
+    gap_class_21_method_11_args,
     2
 },
 {
@@ -3896,7 +3870,7 @@ static const GAPStubMethodDescriptor gap_class_21_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_21_method_14_args,
+    gap_class_21_method_12_args,
     1
 },
 {
@@ -3905,7 +3879,7 @@ static const GAPStubMethodDescriptor gap_class_21_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     1,
     { GDEXTENSION_VARIANT_TYPE_OBJECT, "ARTrackedRaycast", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_21_method_15_args,
+    gap_class_21_method_13_args,
     2
 },
 {
@@ -3914,7 +3888,7 @@ static const GAPStubMethodDescriptor gap_class_21_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_21_method_16_args,
+    gap_class_21_method_14_args,
     1
 },
 {
@@ -5203,7 +5177,1892 @@ static const GAPStubMethodDescriptor gap_class_31_methods[] = {
     0
 },
 };
+static const GAPStubNamedTypeInfo gap_class_32_method_1_args[] = {
+    { "accuracy", { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
+static const GAPStubNamedTypeInfo gap_class_32_method_3_args[] = {
+    { "altitude", { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
+static const GAPStubNamedTypeInfo gap_class_32_method_5_args[] = {
+    { "precision", { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
+static const GAPStubNamedTypeInfo gap_class_32_method_7_args[] = {
+    { "timestamp", { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
 static const GAPStubMethodDescriptor gap_class_32_methods[] = {
+{
+    "get_accuracy",
+    "CMAbsoluteAltitudeData.get_accuracy",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "set_accuracy",
+    "CMAbsoluteAltitudeData.set_accuracy",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    gap_class_32_method_1_args,
+    1
+},
+{
+    "get_altitude",
+    "CMAbsoluteAltitudeData.get_altitude",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "set_altitude",
+    "CMAbsoluteAltitudeData.set_altitude",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    gap_class_32_method_3_args,
+    1
+},
+{
+    "get_precision",
+    "CMAbsoluteAltitudeData.get_precision",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "set_precision",
+    "CMAbsoluteAltitudeData.set_precision",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    gap_class_32_method_5_args,
+    1
+},
+{
+    "get_timestamp",
+    "CMAbsoluteAltitudeData.get_timestamp",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "set_timestamp",
+    "CMAbsoluteAltitudeData.set_timestamp",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    gap_class_32_method_7_args,
+    1
+},
+};
+static const GAPStubPropertyDescriptor gap_class_32_properties[] = {
+{
+    "accuracy",
+    { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    "set_accuracy",
+    "get_accuracy"
+},
+{
+    "altitude",
+    { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    "set_altitude",
+    "get_altitude"
+},
+{
+    "precision",
+    { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    "set_precision",
+    "get_precision"
+},
+{
+    "timestamp",
+    { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    "set_timestamp",
+    "get_timestamp"
+},
+};
+static const GAPStubNamedTypeInfo gap_class_33_method_1_args[] = {
+    { "acceleration", { GDEXTENSION_VARIANT_TYPE_VECTOR3, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
+static const GAPStubNamedTypeInfo gap_class_33_method_3_args[] = {
+    { "timestamp", { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
+static const GAPStubMethodDescriptor gap_class_33_methods[] = {
+{
+    "get_acceleration",
+    "CMAccelerometerData.get_acceleration",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_VECTOR3, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "set_acceleration",
+    "CMAccelerometerData.set_acceleration",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    gap_class_33_method_1_args,
+    1
+},
+{
+    "get_timestamp",
+    "CMAccelerometerData.get_timestamp",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "set_timestamp",
+    "CMAccelerometerData.set_timestamp",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    gap_class_33_method_3_args,
+    1
+},
+};
+static const GAPStubPropertyDescriptor gap_class_33_properties[] = {
+{
+    "acceleration",
+    { GDEXTENSION_VARIANT_TYPE_VECTOR3, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    "set_acceleration",
+    "get_acceleration"
+},
+{
+    "timestamp",
+    { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    "set_timestamp",
+    "get_timestamp"
+},
+};
+static const GAPStubNamedTypeInfo gap_class_34_signal_0_args[] = {
+    { "altitude", { GDEXTENSION_VARIANT_TYPE_OBJECT, "CMAbsoluteAltitudeData", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
+static const GAPStubNamedTypeInfo gap_class_34_signal_1_args[] = {
+    { "message", { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
+static const GAPStubNamedTypeInfo gap_class_34_signal_2_args[] = {
+    { "altitude", { GDEXTENSION_VARIANT_TYPE_OBJECT, "CMAltitudeData", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
+static const GAPStubMethodDescriptor gap_class_34_methods[] = {
+{
+    "authorization_status",
+    "CMAltimeter.authorization_status",
+    GDEXTENSION_METHOD_FLAG_NORMAL | GDEXTENSION_METHOD_FLAG_STATIC,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "is_absolute_altitude_available",
+    "CMAltimeter.is_absolute_altitude_available",
+    GDEXTENSION_METHOD_FLAG_NORMAL | GDEXTENSION_METHOD_FLAG_STATIC,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "is_relative_altitude_available",
+    "CMAltimeter.is_relative_altitude_available",
+    GDEXTENSION_METHOD_FLAG_NORMAL | GDEXTENSION_METHOD_FLAG_STATIC,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "start_absolute_altitude_updates",
+    "CMAltimeter.start_absolute_altitude_updates",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "start_relative_altitude_updates",
+    "CMAltimeter.start_relative_altitude_updates",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "stop_absolute_altitude_updates",
+    "CMAltimeter.stop_absolute_altitude_updates",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "stop_relative_altitude_updates",
+    "CMAltimeter.stop_relative_altitude_updates",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+};
+static const GAPStubSignalDescriptor gap_class_34_signals[] = {
+{
+    "absolute_altitude_updated",
+    gap_class_34_signal_0_args,
+    1
+},
+{
+    "altimeter_failed",
+    gap_class_34_signal_1_args,
+    1
+},
+{
+    "relative_altitude_updated",
+    gap_class_34_signal_2_args,
+    1
+},
+};
+static const GAPStubNamedTypeInfo gap_class_35_method_1_args[] = {
+    { "pressure", { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
+static const GAPStubNamedTypeInfo gap_class_35_method_3_args[] = {
+    { "relative_altitude", { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
+static const GAPStubNamedTypeInfo gap_class_35_method_5_args[] = {
+    { "timestamp", { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
+static const GAPStubMethodDescriptor gap_class_35_methods[] = {
+{
+    "get_pressure",
+    "CMAltitudeData.get_pressure",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "set_pressure",
+    "CMAltitudeData.set_pressure",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    gap_class_35_method_1_args,
+    1
+},
+{
+    "get_relative_altitude",
+    "CMAltitudeData.get_relative_altitude",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "set_relative_altitude",
+    "CMAltitudeData.set_relative_altitude",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    gap_class_35_method_3_args,
+    1
+},
+{
+    "get_timestamp",
+    "CMAltitudeData.get_timestamp",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "set_timestamp",
+    "CMAltitudeData.set_timestamp",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    gap_class_35_method_5_args,
+    1
+},
+};
+static const GAPStubPropertyDescriptor gap_class_35_properties[] = {
+{
+    "pressure",
+    { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    "set_pressure",
+    "get_pressure"
+},
+{
+    "relative_altitude",
+    { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    "set_relative_altitude",
+    "get_relative_altitude"
+},
+{
+    "timestamp",
+    { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    "set_timestamp",
+    "get_timestamp"
+},
+};
+static const GAPStubNamedTypeInfo gap_class_36_method_1_args[] = {
+    { "attitude_quaternion", { GDEXTENSION_VARIANT_TYPE_OBJECT, "Quaternion", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
+static const GAPStubNamedTypeInfo gap_class_36_method_3_args[] = {
+    { "attitude_roll_pitch_yaw", { GDEXTENSION_VARIANT_TYPE_VECTOR3, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
+static const GAPStubNamedTypeInfo gap_class_36_method_5_args[] = {
+    { "gravity", { GDEXTENSION_VARIANT_TYPE_VECTOR3, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
+static const GAPStubNamedTypeInfo gap_class_36_method_7_args[] = {
+    { "heading", { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
+static const GAPStubNamedTypeInfo gap_class_36_method_9_args[] = {
+    { "magnetic_field", { GDEXTENSION_VARIANT_TYPE_VECTOR3, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
+static const GAPStubNamedTypeInfo gap_class_36_method_11_args[] = {
+    { "magnetic_field_accuracy", { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
+static const GAPStubNamedTypeInfo gap_class_36_method_13_args[] = {
+    { "rotation_rate", { GDEXTENSION_VARIANT_TYPE_VECTOR3, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
+static const GAPStubNamedTypeInfo gap_class_36_method_15_args[] = {
+    { "timestamp", { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
+static const GAPStubNamedTypeInfo gap_class_36_method_17_args[] = {
+    { "user_acceleration", { GDEXTENSION_VARIANT_TYPE_VECTOR3, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
+static const GAPStubMethodDescriptor gap_class_36_methods[] = {
+{
+    "get_attitude_quaternion",
+    "CMDeviceMotion.get_attitude_quaternion",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_OBJECT, "Quaternion", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "set_attitude_quaternion",
+    "CMDeviceMotion.set_attitude_quaternion",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    gap_class_36_method_1_args,
+    1
+},
+{
+    "get_attitude_roll_pitch_yaw",
+    "CMDeviceMotion.get_attitude_roll_pitch_yaw",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_VECTOR3, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "set_attitude_roll_pitch_yaw",
+    "CMDeviceMotion.set_attitude_roll_pitch_yaw",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    gap_class_36_method_3_args,
+    1
+},
+{
+    "get_gravity",
+    "CMDeviceMotion.get_gravity",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_VECTOR3, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "set_gravity",
+    "CMDeviceMotion.set_gravity",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    gap_class_36_method_5_args,
+    1
+},
+{
+    "get_heading",
+    "CMDeviceMotion.get_heading",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "set_heading",
+    "CMDeviceMotion.set_heading",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    gap_class_36_method_7_args,
+    1
+},
+{
+    "get_magnetic_field",
+    "CMDeviceMotion.get_magnetic_field",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_VECTOR3, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "set_magnetic_field",
+    "CMDeviceMotion.set_magnetic_field",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    gap_class_36_method_9_args,
+    1
+},
+{
+    "get_magnetic_field_accuracy",
+    "CMDeviceMotion.get_magnetic_field_accuracy",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "set_magnetic_field_accuracy",
+    "CMDeviceMotion.set_magnetic_field_accuracy",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    gap_class_36_method_11_args,
+    1
+},
+{
+    "get_rotation_rate",
+    "CMDeviceMotion.get_rotation_rate",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_VECTOR3, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "set_rotation_rate",
+    "CMDeviceMotion.set_rotation_rate",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    gap_class_36_method_13_args,
+    1
+},
+{
+    "get_timestamp",
+    "CMDeviceMotion.get_timestamp",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "set_timestamp",
+    "CMDeviceMotion.set_timestamp",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    gap_class_36_method_15_args,
+    1
+},
+{
+    "get_user_acceleration",
+    "CMDeviceMotion.get_user_acceleration",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_VECTOR3, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "set_user_acceleration",
+    "CMDeviceMotion.set_user_acceleration",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    gap_class_36_method_17_args,
+    1
+},
+};
+static const GAPStubPropertyDescriptor gap_class_36_properties[] = {
+{
+    "attitude_quaternion",
+    { GDEXTENSION_VARIANT_TYPE_OBJECT, "Quaternion", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    "set_attitude_quaternion",
+    "get_attitude_quaternion"
+},
+{
+    "attitude_roll_pitch_yaw",
+    { GDEXTENSION_VARIANT_TYPE_VECTOR3, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    "set_attitude_roll_pitch_yaw",
+    "get_attitude_roll_pitch_yaw"
+},
+{
+    "gravity",
+    { GDEXTENSION_VARIANT_TYPE_VECTOR3, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    "set_gravity",
+    "get_gravity"
+},
+{
+    "heading",
+    { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    "set_heading",
+    "get_heading"
+},
+{
+    "magnetic_field",
+    { GDEXTENSION_VARIANT_TYPE_VECTOR3, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    "set_magnetic_field",
+    "get_magnetic_field"
+},
+{
+    "magnetic_field_accuracy",
+    { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    "set_magnetic_field_accuracy",
+    "get_magnetic_field_accuracy"
+},
+{
+    "rotation_rate",
+    { GDEXTENSION_VARIANT_TYPE_VECTOR3, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    "set_rotation_rate",
+    "get_rotation_rate"
+},
+{
+    "timestamp",
+    { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    "set_timestamp",
+    "get_timestamp"
+},
+{
+    "user_acceleration",
+    { GDEXTENSION_VARIANT_TYPE_VECTOR3, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    "set_user_acceleration",
+    "get_user_acceleration"
+},
+};
+static const GAPStubConstantDescriptor gap_class_36_constants[] = {
+{ "MagneticFieldCalibrationAccuracy", "UNCALIBRATED", -1, 0 },
+{ "MagneticFieldCalibrationAccuracy", "LOW", 0, 0 },
+{ "MagneticFieldCalibrationAccuracy", "MEDIUM", 1, 0 },
+{ "MagneticFieldCalibrationAccuracy", "HIGH", 2, 0 },
+};
+static const GAPStubNamedTypeInfo gap_class_37_method_1_args[] = {
+    { "rotation_rate", { GDEXTENSION_VARIANT_TYPE_VECTOR3, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
+static const GAPStubNamedTypeInfo gap_class_37_method_3_args[] = {
+    { "timestamp", { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
+static const GAPStubMethodDescriptor gap_class_37_methods[] = {
+{
+    "get_rotation_rate",
+    "CMGyroData.get_rotation_rate",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_VECTOR3, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "set_rotation_rate",
+    "CMGyroData.set_rotation_rate",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    gap_class_37_method_1_args,
+    1
+},
+{
+    "get_timestamp",
+    "CMGyroData.get_timestamp",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "set_timestamp",
+    "CMGyroData.set_timestamp",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    gap_class_37_method_3_args,
+    1
+},
+};
+static const GAPStubPropertyDescriptor gap_class_37_properties[] = {
+{
+    "rotation_rate",
+    { GDEXTENSION_VARIANT_TYPE_VECTOR3, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    "set_rotation_rate",
+    "get_rotation_rate"
+},
+{
+    "timestamp",
+    { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    "set_timestamp",
+    "get_timestamp"
+},
+};
+static const GAPStubNamedTypeInfo gap_class_38_signal_1_args[] = {
+    { "deviceMotion", { GDEXTENSION_VARIANT_TYPE_OBJECT, "CMDeviceMotion", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
+static const GAPStubNamedTypeInfo gap_class_38_signal_3_args[] = {
+    { "message", { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
+static const GAPStubMethodDescriptor gap_class_38_methods[] = {
+{
+    "authorization_status",
+    "CMHeadphoneMotionManager.authorization_status",
+    GDEXTENSION_METHOD_FLAG_NORMAL | GDEXTENSION_METHOD_FLAG_STATIC,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "start_device_motion_updates",
+    "CMHeadphoneMotionManager.start_device_motion_updates",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "stop_device_motion_updates",
+    "CMHeadphoneMotionManager.stop_device_motion_updates",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "get_device_motion",
+    "CMHeadphoneMotionManager.get_device_motion",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_OBJECT, "CMDeviceMotion", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "get_is_device_motion_active",
+    "CMHeadphoneMotionManager.get_is_device_motion_active",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "get_is_device_motion_available",
+    "CMHeadphoneMotionManager.get_is_device_motion_available",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+};
+static const GAPStubPropertyDescriptor gap_class_38_properties[] = {
+{
+    "device_motion",
+    { GDEXTENSION_VARIANT_TYPE_OBJECT, "CMDeviceMotion", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    "",
+    "get_device_motion"
+},
+{
+    "is_device_motion_active",
+    { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    "",
+    "get_is_device_motion_active"
+},
+{
+    "is_device_motion_available",
+    { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    "",
+    "get_is_device_motion_available"
+},
+};
+static const GAPStubSignalDescriptor gap_class_38_signals[] = {
+{
+    "connected",
+    NULL,
+    0
+},
+{
+    "device_motion_updated",
+    gap_class_38_signal_1_args,
+    1
+},
+{
+    "disconnected",
+    NULL,
+    0
+},
+{
+    "update_failed",
+    gap_class_38_signal_3_args,
+    1
+},
+};
+static const GAPStubNamedTypeInfo gap_class_39_method_1_args[] = {
+    { "magnetic_field", { GDEXTENSION_VARIANT_TYPE_VECTOR3, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
+static const GAPStubNamedTypeInfo gap_class_39_method_3_args[] = {
+    { "timestamp", { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
+static const GAPStubMethodDescriptor gap_class_39_methods[] = {
+{
+    "get_magnetic_field",
+    "CMMagnetometerData.get_magnetic_field",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_VECTOR3, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "set_magnetic_field",
+    "CMMagnetometerData.set_magnetic_field",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    gap_class_39_method_1_args,
+    1
+},
+{
+    "get_timestamp",
+    "CMMagnetometerData.get_timestamp",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "set_timestamp",
+    "CMMagnetometerData.set_timestamp",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    gap_class_39_method_3_args,
+    1
+},
+};
+static const GAPStubPropertyDescriptor gap_class_39_properties[] = {
+{
+    "magnetic_field",
+    { GDEXTENSION_VARIANT_TYPE_VECTOR3, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    "set_magnetic_field",
+    "get_magnetic_field"
+},
+{
+    "timestamp",
+    { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    "set_timestamp",
+    "get_timestamp"
+},
+};
+static const GAPStubNamedTypeInfo gap_class_40_method_1_args[] = {
+    { "automotive", { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
+static const GAPStubNamedTypeInfo gap_class_40_method_3_args[] = {
+    { "confidence", { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
+static const GAPStubNamedTypeInfo gap_class_40_method_5_args[] = {
+    { "cycling", { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
+static const GAPStubNamedTypeInfo gap_class_40_method_7_args[] = {
+    { "running", { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
+static const GAPStubNamedTypeInfo gap_class_40_method_9_args[] = {
+    { "start_date", { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
+static const GAPStubNamedTypeInfo gap_class_40_method_11_args[] = {
+    { "stationary", { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
+static const GAPStubNamedTypeInfo gap_class_40_method_13_args[] = {
+    { "unknown", { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
+static const GAPStubNamedTypeInfo gap_class_40_method_15_args[] = {
+    { "walking", { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
+static const GAPStubMethodDescriptor gap_class_40_methods[] = {
+{
+    "get_automotive",
+    "CMMotionActivity.get_automotive",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "set_automotive",
+    "CMMotionActivity.set_automotive",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    gap_class_40_method_1_args,
+    1
+},
+{
+    "get_confidence",
+    "CMMotionActivity.get_confidence",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "set_confidence",
+    "CMMotionActivity.set_confidence",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    gap_class_40_method_3_args,
+    1
+},
+{
+    "get_cycling",
+    "CMMotionActivity.get_cycling",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "set_cycling",
+    "CMMotionActivity.set_cycling",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    gap_class_40_method_5_args,
+    1
+},
+{
+    "get_running",
+    "CMMotionActivity.get_running",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "set_running",
+    "CMMotionActivity.set_running",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    gap_class_40_method_7_args,
+    1
+},
+{
+    "get_start_date",
+    "CMMotionActivity.get_start_date",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "set_start_date",
+    "CMMotionActivity.set_start_date",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    gap_class_40_method_9_args,
+    1
+},
+{
+    "get_stationary",
+    "CMMotionActivity.get_stationary",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "set_stationary",
+    "CMMotionActivity.set_stationary",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    gap_class_40_method_11_args,
+    1
+},
+{
+    "get_unknown",
+    "CMMotionActivity.get_unknown",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "set_unknown",
+    "CMMotionActivity.set_unknown",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    gap_class_40_method_13_args,
+    1
+},
+{
+    "get_walking",
+    "CMMotionActivity.get_walking",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "set_walking",
+    "CMMotionActivity.set_walking",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    gap_class_40_method_15_args,
+    1
+},
+};
+static const GAPStubPropertyDescriptor gap_class_40_properties[] = {
+{
+    "automotive",
+    { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    "set_automotive",
+    "get_automotive"
+},
+{
+    "confidence",
+    { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    "set_confidence",
+    "get_confidence"
+},
+{
+    "cycling",
+    { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    "set_cycling",
+    "get_cycling"
+},
+{
+    "running",
+    { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    "set_running",
+    "get_running"
+},
+{
+    "start_date",
+    { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    "set_start_date",
+    "get_start_date"
+},
+{
+    "stationary",
+    { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    "set_stationary",
+    "get_stationary"
+},
+{
+    "unknown",
+    { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    "set_unknown",
+    "get_unknown"
+},
+{
+    "walking",
+    { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    "set_walking",
+    "get_walking"
+},
+};
+static const GAPStubConstantDescriptor gap_class_40_constants[] = {
+{ "Confidence", "LOW", 0, 0 },
+{ "Confidence", "MEDIUM", 1, 0 },
+{ "Confidence", "HIGH", 2, 0 },
+};
+static const GAPStubNamedTypeInfo gap_class_41_method_2_args[] = {
+    { "fromUnixTime", { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+    { "toUnixTime", { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+    { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
+static const GAPStubNamedTypeInfo gap_class_41_signal_0_args[] = {
+    { "message", { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
+static const GAPStubNamedTypeInfo gap_class_41_signal_1_args[] = {
+    { "activity", { GDEXTENSION_VARIANT_TYPE_OBJECT, "CMMotionActivity", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
+static const GAPStubMethodDescriptor gap_class_41_methods[] = {
+{
+    "authorization_status",
+    "CMMotionActivityManager.authorization_status",
+    GDEXTENSION_METHOD_FLAG_NORMAL | GDEXTENSION_METHOD_FLAG_STATIC,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "is_activity_available",
+    "CMMotionActivityManager.is_activity_available",
+    GDEXTENSION_METHOD_FLAG_NORMAL | GDEXTENSION_METHOD_FLAG_STATIC,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "query_activity",
+    "CMMotionActivityManager.query_activity",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    gap_class_41_method_2_args,
+    3
+},
+{
+    "start_activity_updates",
+    "CMMotionActivityManager.start_activity_updates",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "stop_activity_updates",
+    "CMMotionActivityManager.stop_activity_updates",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+};
+static const GAPStubSignalDescriptor gap_class_41_signals[] = {
+{
+    "activity_failed",
+    gap_class_41_signal_0_args,
+    1
+},
+{
+    "activity_updated",
+    gap_class_41_signal_1_args,
+    1
+},
+};
+static const GAPStubNamedTypeInfo gap_class_42_method_1_args[] = {
+    { "referenceFrame", { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
+static const GAPStubNamedTypeInfo gap_class_42_method_10_args[] = {
+    { "accelerometer_update_interval", { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
+static const GAPStubNamedTypeInfo gap_class_42_method_13_args[] = {
+    { "device_motion_update_interval", { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
+static const GAPStubNamedTypeInfo gap_class_42_method_16_args[] = {
+    { "gyro_update_interval", { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
+static const GAPStubNamedTypeInfo gap_class_42_method_27_args[] = {
+    { "magnetometer_update_interval", { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
+static const GAPStubNamedTypeInfo gap_class_42_signal_0_args[] = {
+    { "accelerometer", { GDEXTENSION_VARIANT_TYPE_OBJECT, "CMAccelerometerData", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
+static const GAPStubNamedTypeInfo gap_class_42_signal_1_args[] = {
+    { "deviceMotion", { GDEXTENSION_VARIANT_TYPE_OBJECT, "CMDeviceMotion", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
+static const GAPStubNamedTypeInfo gap_class_42_signal_2_args[] = {
+    { "gyro", { GDEXTENSION_VARIANT_TYPE_OBJECT, "CMGyroData", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
+static const GAPStubNamedTypeInfo gap_class_42_signal_3_args[] = {
+    { "magnetometer", { GDEXTENSION_VARIANT_TYPE_OBJECT, "CMMagnetometerData", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
+static const GAPStubNamedTypeInfo gap_class_42_signal_4_args[] = {
+    { "message", { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
+static const GAPStubMethodDescriptor gap_class_42_methods[] = {
+{
+    "start_accelerometer_updates",
+    "CMMotionManager.start_accelerometer_updates",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "start_device_motion_updates",
+    "CMMotionManager.start_device_motion_updates",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    gap_class_42_method_1_args,
+    1
+},
+{
+    "start_gyro_updates",
+    "CMMotionManager.start_gyro_updates",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "start_magnetometer_updates",
+    "CMMotionManager.start_magnetometer_updates",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "stop_accelerometer_updates",
+    "CMMotionManager.stop_accelerometer_updates",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "stop_device_motion_updates",
+    "CMMotionManager.stop_device_motion_updates",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "stop_gyro_updates",
+    "CMMotionManager.stop_gyro_updates",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "stop_magnetometer_updates",
+    "CMMotionManager.stop_magnetometer_updates",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "get_accelerometer_data",
+    "CMMotionManager.get_accelerometer_data",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_OBJECT, "CMAccelerometerData", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "get_accelerometer_update_interval",
+    "CMMotionManager.get_accelerometer_update_interval",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "set_accelerometer_update_interval",
+    "CMMotionManager.set_accelerometer_update_interval",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    gap_class_42_method_10_args,
+    1
+},
+{
+    "get_device_motion",
+    "CMMotionManager.get_device_motion",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_OBJECT, "CMDeviceMotion", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "get_device_motion_update_interval",
+    "CMMotionManager.get_device_motion_update_interval",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "set_device_motion_update_interval",
+    "CMMotionManager.set_device_motion_update_interval",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    gap_class_42_method_13_args,
+    1
+},
+{
+    "get_gyro_data",
+    "CMMotionManager.get_gyro_data",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_OBJECT, "CMGyroData", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "get_gyro_update_interval",
+    "CMMotionManager.get_gyro_update_interval",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "set_gyro_update_interval",
+    "CMMotionManager.set_gyro_update_interval",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    gap_class_42_method_16_args,
+    1
+},
+{
+    "get_is_accelerometer_active",
+    "CMMotionManager.get_is_accelerometer_active",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "get_is_accelerometer_available",
+    "CMMotionManager.get_is_accelerometer_available",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "get_is_device_motion_active",
+    "CMMotionManager.get_is_device_motion_active",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "get_is_device_motion_available",
+    "CMMotionManager.get_is_device_motion_available",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "get_is_gyro_active",
+    "CMMotionManager.get_is_gyro_active",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "get_is_gyro_available",
+    "CMMotionManager.get_is_gyro_available",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "get_is_magnetometer_active",
+    "CMMotionManager.get_is_magnetometer_active",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "get_is_magnetometer_available",
+    "CMMotionManager.get_is_magnetometer_available",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "get_magnetometer_data",
+    "CMMotionManager.get_magnetometer_data",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_OBJECT, "CMMagnetometerData", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "get_magnetometer_update_interval",
+    "CMMotionManager.get_magnetometer_update_interval",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "set_magnetometer_update_interval",
+    "CMMotionManager.set_magnetometer_update_interval",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    gap_class_42_method_27_args,
+    1
+},
+};
+static const GAPStubPropertyDescriptor gap_class_42_properties[] = {
+{
+    "accelerometer_data",
+    { GDEXTENSION_VARIANT_TYPE_OBJECT, "CMAccelerometerData", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    "",
+    "get_accelerometer_data"
+},
+{
+    "accelerometer_update_interval",
+    { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    "set_accelerometer_update_interval",
+    "get_accelerometer_update_interval"
+},
+{
+    "device_motion",
+    { GDEXTENSION_VARIANT_TYPE_OBJECT, "CMDeviceMotion", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    "",
+    "get_device_motion"
+},
+{
+    "device_motion_update_interval",
+    { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    "set_device_motion_update_interval",
+    "get_device_motion_update_interval"
+},
+{
+    "gyro_data",
+    { GDEXTENSION_VARIANT_TYPE_OBJECT, "CMGyroData", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    "",
+    "get_gyro_data"
+},
+{
+    "gyro_update_interval",
+    { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    "set_gyro_update_interval",
+    "get_gyro_update_interval"
+},
+{
+    "is_accelerometer_active",
+    { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    "",
+    "get_is_accelerometer_active"
+},
+{
+    "is_accelerometer_available",
+    { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    "",
+    "get_is_accelerometer_available"
+},
+{
+    "is_device_motion_active",
+    { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    "",
+    "get_is_device_motion_active"
+},
+{
+    "is_device_motion_available",
+    { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    "",
+    "get_is_device_motion_available"
+},
+{
+    "is_gyro_active",
+    { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    "",
+    "get_is_gyro_active"
+},
+{
+    "is_gyro_available",
+    { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    "",
+    "get_is_gyro_available"
+},
+{
+    "is_magnetometer_active",
+    { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    "",
+    "get_is_magnetometer_active"
+},
+{
+    "is_magnetometer_available",
+    { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    "",
+    "get_is_magnetometer_available"
+},
+{
+    "magnetometer_data",
+    { GDEXTENSION_VARIANT_TYPE_OBJECT, "CMMagnetometerData", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    "",
+    "get_magnetometer_data"
+},
+{
+    "magnetometer_update_interval",
+    { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    "set_magnetometer_update_interval",
+    "get_magnetometer_update_interval"
+},
+};
+static const GAPStubSignalDescriptor gap_class_42_signals[] = {
+{
+    "accelerometer_updated",
+    gap_class_42_signal_0_args,
+    1
+},
+{
+    "device_motion_updated",
+    gap_class_42_signal_1_args,
+    1
+},
+{
+    "gyro_updated",
+    gap_class_42_signal_2_args,
+    1
+},
+{
+    "magnetometer_updated",
+    gap_class_42_signal_3_args,
+    1
+},
+{
+    "update_failed",
+    gap_class_42_signal_4_args,
+    1
+},
+};
+static const GAPStubConstantDescriptor gap_class_42_constants[] = {
+{ "AttitudeReferenceFrame", "XARBITRARY_Z_VERTICAL", 1, 0 },
+{ "AttitudeReferenceFrame", "XARBITRARY_CORRECTED_Z_VERTICAL", 2, 0 },
+{ "AttitudeReferenceFrame", "XMAGNETIC_NORTH_Z_VERTICAL", 4, 0 },
+{ "AttitudeReferenceFrame", "XTRUE_NORTH_Z_VERTICAL", 8, 0 },
+};
+static const GAPStubNamedTypeInfo gap_class_43_method_6_args[] = {
+    { "fromUnixTime", { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+    { "toUnixTime", { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+    { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
+static const GAPStubNamedTypeInfo gap_class_43_method_7_args[] = {
+    { "fromUnixTime", { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
+static const GAPStubNamedTypeInfo gap_class_43_signal_0_args[] = {
+    { "message", { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
+static const GAPStubNamedTypeInfo gap_class_43_signal_1_args[] = {
+    { "data", { GDEXTENSION_VARIANT_TYPE_OBJECT, "CMPedometerData", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
+static const GAPStubMethodDescriptor gap_class_43_methods[] = {
+{
+    "authorization_status",
+    "CMPedometer.authorization_status",
+    GDEXTENSION_METHOD_FLAG_NORMAL | GDEXTENSION_METHOD_FLAG_STATIC,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "is_cadence_available",
+    "CMPedometer.is_cadence_available",
+    GDEXTENSION_METHOD_FLAG_NORMAL | GDEXTENSION_METHOD_FLAG_STATIC,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "is_distance_available",
+    "CMPedometer.is_distance_available",
+    GDEXTENSION_METHOD_FLAG_NORMAL | GDEXTENSION_METHOD_FLAG_STATIC,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "is_floor_counting_available",
+    "CMPedometer.is_floor_counting_available",
+    GDEXTENSION_METHOD_FLAG_NORMAL | GDEXTENSION_METHOD_FLAG_STATIC,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "is_pace_available",
+    "CMPedometer.is_pace_available",
+    GDEXTENSION_METHOD_FLAG_NORMAL | GDEXTENSION_METHOD_FLAG_STATIC,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "is_step_counting_available",
+    "CMPedometer.is_step_counting_available",
+    GDEXTENSION_METHOD_FLAG_NORMAL | GDEXTENSION_METHOD_FLAG_STATIC,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "query_pedometer_data",
+    "CMPedometer.query_pedometer_data",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    gap_class_43_method_6_args,
+    3
+},
+{
+    "start_updates",
+    "CMPedometer.start_updates",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    gap_class_43_method_7_args,
+    1
+},
+{
+    "stop_updates",
+    "CMPedometer.stop_updates",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+};
+static const GAPStubSignalDescriptor gap_class_43_signals[] = {
+{
+    "pedometer_failed",
+    gap_class_43_signal_0_args,
+    1
+},
+{
+    "pedometer_updated",
+    gap_class_43_signal_1_args,
+    1
+},
+};
+static const GAPStubNamedTypeInfo gap_class_44_method_1_args[] = {
+    { "average_active_pace", { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
+static const GAPStubNamedTypeInfo gap_class_44_method_3_args[] = {
+    { "current_cadence", { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
+static const GAPStubNamedTypeInfo gap_class_44_method_5_args[] = {
+    { "current_pace", { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
+static const GAPStubNamedTypeInfo gap_class_44_method_7_args[] = {
+    { "distance", { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
+static const GAPStubNamedTypeInfo gap_class_44_method_9_args[] = {
+    { "end_date", { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
+static const GAPStubNamedTypeInfo gap_class_44_method_11_args[] = {
+    { "floors_ascended", { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
+static const GAPStubNamedTypeInfo gap_class_44_method_13_args[] = {
+    { "floors_descended", { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
+static const GAPStubNamedTypeInfo gap_class_44_method_15_args[] = {
+    { "number_of_steps", { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
+static const GAPStubNamedTypeInfo gap_class_44_method_17_args[] = {
+    { "start_date", { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
+};
+static const GAPStubMethodDescriptor gap_class_44_methods[] = {
+{
+    "get_average_active_pace",
+    "CMPedometerData.get_average_active_pace",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "set_average_active_pace",
+    "CMPedometerData.set_average_active_pace",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    gap_class_44_method_1_args,
+    1
+},
+{
+    "get_current_cadence",
+    "CMPedometerData.get_current_cadence",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "set_current_cadence",
+    "CMPedometerData.set_current_cadence",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    gap_class_44_method_3_args,
+    1
+},
+{
+    "get_current_pace",
+    "CMPedometerData.get_current_pace",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "set_current_pace",
+    "CMPedometerData.set_current_pace",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    gap_class_44_method_5_args,
+    1
+},
+{
+    "get_distance",
+    "CMPedometerData.get_distance",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "set_distance",
+    "CMPedometerData.set_distance",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    gap_class_44_method_7_args,
+    1
+},
+{
+    "get_end_date",
+    "CMPedometerData.get_end_date",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "set_end_date",
+    "CMPedometerData.set_end_date",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    gap_class_44_method_9_args,
+    1
+},
+{
+    "get_floors_ascended",
+    "CMPedometerData.get_floors_ascended",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "set_floors_ascended",
+    "CMPedometerData.set_floors_ascended",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    gap_class_44_method_11_args,
+    1
+},
+{
+    "get_floors_descended",
+    "CMPedometerData.get_floors_descended",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "set_floors_descended",
+    "CMPedometerData.set_floors_descended",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    gap_class_44_method_13_args,
+    1
+},
+{
+    "get_number_of_steps",
+    "CMPedometerData.get_number_of_steps",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "set_number_of_steps",
+    "CMPedometerData.set_number_of_steps",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    gap_class_44_method_15_args,
+    1
+},
+{
+    "get_start_date",
+    "CMPedometerData.get_start_date",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
+    "set_start_date",
+    "CMPedometerData.set_start_date",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    0,
+    { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    gap_class_44_method_17_args,
+    1
+},
+};
+static const GAPStubPropertyDescriptor gap_class_44_properties[] = {
+{
+    "average_active_pace",
+    { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    "set_average_active_pace",
+    "get_average_active_pace"
+},
+{
+    "current_cadence",
+    { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    "set_current_cadence",
+    "get_current_cadence"
+},
+{
+    "current_pace",
+    { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    "set_current_pace",
+    "get_current_pace"
+},
+{
+    "distance",
+    { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    "set_distance",
+    "get_distance"
+},
+{
+    "end_date",
+    { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    "set_end_date",
+    "get_end_date"
+},
+{
+    "floors_ascended",
+    { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    "set_floors_ascended",
+    "get_floors_ascended"
+},
+{
+    "floors_descended",
+    { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    "set_floors_descended",
+    "get_floors_descended"
+},
+{
+    "number_of_steps",
+    { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    "set_number_of_steps",
+    "get_number_of_steps"
+},
+{
+    "start_date",
+    { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    "set_start_date",
+    "get_start_date"
+},
+};
+static const GAPStubMethodDescriptor gap_class_45_methods[] = {
 {
     "uuid",
     "Foundation.uuid",
@@ -5214,69 +7073,69 @@ static const GAPStubMethodDescriptor gap_class_32_methods[] = {
     0
 },
 };
-static const GAPStubNamedTypeInfo gap_class_33_method_0_args[] = {
+static const GAPStubNamedTypeInfo gap_class_46_method_0_args[] = {
     { "done", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_33_method_1_args[] = {
+static const GAPStubNamedTypeInfo gap_class_46_method_1_args[] = {
     { "done", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_33_method_2_args[] = {
+static const GAPStubNamedTypeInfo gap_class_46_method_2_args[] = {
     { "done", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_33_method_3_args[] = {
+static const GAPStubNamedTypeInfo gap_class_46_method_3_args[] = {
     { "done", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_33_method_4_args[] = {
+static const GAPStubNamedTypeInfo gap_class_46_method_4_args[] = {
     { "achievementID", { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "done", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_33_method_5_args[] = {
+static const GAPStubNamedTypeInfo gap_class_46_method_5_args[] = {
     { "challengeDefinitionID", { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "done", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_33_method_6_args[] = {
+static const GAPStubNamedTypeInfo gap_class_46_method_6_args[] = {
     { "gameActivity", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKGameActivity", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "done", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_33_method_7_args[] = {
+static const GAPStubNamedTypeInfo gap_class_46_method_7_args[] = {
     { "gameActivityDefinitionID", { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "done", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_33_method_8_args[] = {
+static const GAPStubNamedTypeInfo gap_class_46_method_8_args[] = {
     { "leaderboardID", { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "playerScope", { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "timeScope", { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "done", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_33_method_9_args[] = {
+static const GAPStubNamedTypeInfo gap_class_46_method_9_args[] = {
     { "leaderboardSetID", { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "done", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_33_method_10_args[] = {
+static const GAPStubNamedTypeInfo gap_class_46_method_10_args[] = {
     { "player", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKPlayer", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "done", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_33_method_11_args[] = {
+static const GAPStubNamedTypeInfo gap_class_46_method_11_args[] = {
     { "state", { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "done", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_33_method_13_args[] = {
+static const GAPStubNamedTypeInfo gap_class_46_method_13_args[] = {
     { "active", { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_33_method_18_args[] = {
+static const GAPStubNamedTypeInfo gap_class_46_method_18_args[] = {
     { "location", { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_33_method_20_args[] = {
+static const GAPStubNamedTypeInfo gap_class_46_method_20_args[] = {
     { "show_highlights", { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubMethodDescriptor gap_class_33_methods[] = {
+static const GAPStubMethodDescriptor gap_class_46_methods[] = {
 {
     "trigger",
     "GKAccessPoint.trigger",
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_33_method_0_args,
+    gap_class_46_method_0_args,
     1
 },
 {
@@ -5285,7 +7144,7 @@ static const GAPStubMethodDescriptor gap_class_33_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_33_method_1_args,
+    gap_class_46_method_1_args,
     1
 },
 {
@@ -5294,7 +7153,7 @@ static const GAPStubMethodDescriptor gap_class_33_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_33_method_2_args,
+    gap_class_46_method_2_args,
     1
 },
 {
@@ -5303,7 +7162,7 @@ static const GAPStubMethodDescriptor gap_class_33_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_33_method_3_args,
+    gap_class_46_method_3_args,
     1
 },
 {
@@ -5312,7 +7171,7 @@ static const GAPStubMethodDescriptor gap_class_33_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_33_method_4_args,
+    gap_class_46_method_4_args,
     2
 },
 {
@@ -5321,7 +7180,7 @@ static const GAPStubMethodDescriptor gap_class_33_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_33_method_5_args,
+    gap_class_46_method_5_args,
     2
 },
 {
@@ -5330,7 +7189,7 @@ static const GAPStubMethodDescriptor gap_class_33_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_33_method_6_args,
+    gap_class_46_method_6_args,
     2
 },
 {
@@ -5339,7 +7198,7 @@ static const GAPStubMethodDescriptor gap_class_33_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_33_method_7_args,
+    gap_class_46_method_7_args,
     2
 },
 {
@@ -5348,7 +7207,7 @@ static const GAPStubMethodDescriptor gap_class_33_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_33_method_8_args,
+    gap_class_46_method_8_args,
     4
 },
 {
@@ -5357,7 +7216,7 @@ static const GAPStubMethodDescriptor gap_class_33_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_33_method_9_args,
+    gap_class_46_method_9_args,
     2
 },
 {
@@ -5366,7 +7225,7 @@ static const GAPStubMethodDescriptor gap_class_33_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_33_method_10_args,
+    gap_class_46_method_10_args,
     2
 },
 {
@@ -5375,7 +7234,7 @@ static const GAPStubMethodDescriptor gap_class_33_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_33_method_11_args,
+    gap_class_46_method_11_args,
     2
 },
 {
@@ -5393,7 +7252,7 @@ static const GAPStubMethodDescriptor gap_class_33_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_33_method_13_args,
+    gap_class_46_method_13_args,
     1
 },
 {
@@ -5438,7 +7297,7 @@ static const GAPStubMethodDescriptor gap_class_33_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_33_method_18_args,
+    gap_class_46_method_18_args,
     1
 },
 {
@@ -5456,7 +7315,7 @@ static const GAPStubMethodDescriptor gap_class_33_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_33_method_20_args,
+    gap_class_46_method_20_args,
     1
 },
 {
@@ -5469,7 +7328,7 @@ static const GAPStubMethodDescriptor gap_class_33_methods[] = {
     0
 },
 };
-static const GAPStubPropertyDescriptor gap_class_33_properties[] = {
+static const GAPStubPropertyDescriptor gap_class_46_properties[] = {
 {
     "active",
     { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
@@ -5513,54 +7372,54 @@ static const GAPStubPropertyDescriptor gap_class_33_properties[] = {
     "get_visible"
 },
 };
-static const GAPStubConstantDescriptor gap_class_33_constants[] = {
+static const GAPStubConstantDescriptor gap_class_46_constants[] = {
 { "Location", "TOP_LEADING", 0, 0 },
 { "Location", "TOP_TRAILING", 1, 0 },
 { "Location", "BOTTOM_LEADING", 2, 0 },
 { "Location", "BOTTOM_TRAILING", 3, 0 },
 };
-static const GAPStubNamedTypeInfo gap_class_34_method_0_args[] = {
+static const GAPStubNamedTypeInfo gap_class_47_method_0_args[] = {
     { "message", { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "players", { GDEXTENSION_VARIANT_TYPE_ARRAY, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_34_method_1_args[] = {
+static const GAPStubNamedTypeInfo gap_class_47_method_1_args[] = {
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_34_method_2_args[] = {
+static const GAPStubNamedTypeInfo gap_class_47_method_2_args[] = {
     { "identifier", { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_34_method_3_args[] = {
+static const GAPStubNamedTypeInfo gap_class_47_method_3_args[] = {
     { "identifier", { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "player", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKPlayer", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_34_method_4_args[] = {
+static const GAPStubNamedTypeInfo gap_class_47_method_4_args[] = {
     { "achievements", { GDEXTENSION_VARIANT_TYPE_ARRAY, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_34_method_5_args[] = {
+static const GAPStubNamedTypeInfo gap_class_47_method_5_args[] = {
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_34_method_6_args[] = {
+static const GAPStubNamedTypeInfo gap_class_47_method_6_args[] = {
     { "players", { GDEXTENSION_VARIANT_TYPE_ARRAY, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_34_method_8_args[] = {
+static const GAPStubNamedTypeInfo gap_class_47_method_8_args[] = {
     { "identifier", { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_34_method_12_args[] = {
+static const GAPStubNamedTypeInfo gap_class_47_method_12_args[] = {
     { "percent_complete", { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_34_method_15_args[] = {
+static const GAPStubNamedTypeInfo gap_class_47_method_15_args[] = {
     { "shows_completion_banner", { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubMethodDescriptor gap_class_34_methods[] = {
+static const GAPStubMethodDescriptor gap_class_47_methods[] = {
 {
     "challenge_compose_controller",
     "GKAchievement.challenge_compose_controller",
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_34_method_0_args,
+    gap_class_47_method_0_args,
     2
 },
 {
@@ -5569,7 +7428,7 @@ static const GAPStubMethodDescriptor gap_class_34_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL | GDEXTENSION_METHOD_FLAG_STATIC,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_34_method_1_args,
+    gap_class_47_method_1_args,
     1
 },
 {
@@ -5578,7 +7437,7 @@ static const GAPStubMethodDescriptor gap_class_34_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL | GDEXTENSION_METHOD_FLAG_STATIC,
     1,
     { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKAchievement", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_34_method_2_args,
+    gap_class_47_method_2_args,
     1
 },
 {
@@ -5587,7 +7446,7 @@ static const GAPStubMethodDescriptor gap_class_34_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL | GDEXTENSION_METHOD_FLAG_STATIC,
     1,
     { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKAchievement", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_34_method_3_args,
+    gap_class_47_method_3_args,
     2
 },
 {
@@ -5596,7 +7455,7 @@ static const GAPStubMethodDescriptor gap_class_34_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL | GDEXTENSION_METHOD_FLAG_STATIC,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_34_method_4_args,
+    gap_class_47_method_4_args,
     2
 },
 {
@@ -5605,7 +7464,7 @@ static const GAPStubMethodDescriptor gap_class_34_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL | GDEXTENSION_METHOD_FLAG_STATIC,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_34_method_5_args,
+    gap_class_47_method_5_args,
     1
 },
 {
@@ -5614,7 +7473,7 @@ static const GAPStubMethodDescriptor gap_class_34_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_34_method_6_args,
+    gap_class_47_method_6_args,
     2
 },
 {
@@ -5632,7 +7491,7 @@ static const GAPStubMethodDescriptor gap_class_34_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_34_method_8_args,
+    gap_class_47_method_8_args,
     1
 },
 {
@@ -5668,7 +7527,7 @@ static const GAPStubMethodDescriptor gap_class_34_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_34_method_12_args,
+    gap_class_47_method_12_args,
     1
 },
 {
@@ -5695,11 +7554,11 @@ static const GAPStubMethodDescriptor gap_class_34_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_34_method_15_args,
+    gap_class_47_method_15_args,
     1
 },
 };
-static const GAPStubPropertyDescriptor gap_class_34_properties[] = {
+static const GAPStubPropertyDescriptor gap_class_47_properties[] = {
 {
     "identifier",
     { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
@@ -5737,10 +7596,10 @@ static const GAPStubPropertyDescriptor gap_class_34_properties[] = {
     "get_shows_completion_banner"
 },
 };
-static const GAPStubNamedTypeInfo gap_class_35_method_1_args[] = {
+static const GAPStubNamedTypeInfo gap_class_48_method_1_args[] = {
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubMethodDescriptor gap_class_35_methods[] = {
+static const GAPStubMethodDescriptor gap_class_48_methods[] = {
 {
     "decline",
     "GKChallenge.decline",
@@ -5756,7 +7615,7 @@ static const GAPStubMethodDescriptor gap_class_35_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL | GDEXTENSION_METHOD_FLAG_STATIC,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_35_method_1_args,
+    gap_class_48_method_1_args,
     1
 },
 {
@@ -5823,7 +7682,7 @@ static const GAPStubMethodDescriptor gap_class_35_methods[] = {
     0
 },
 };
-static const GAPStubPropertyDescriptor gap_class_35_properties[] = {
+static const GAPStubPropertyDescriptor gap_class_48_properties[] = {
 {
     "challenge_type",
     { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
@@ -5867,7 +7726,7 @@ static const GAPStubPropertyDescriptor gap_class_35_properties[] = {
     "get_state"
 },
 };
-static const GAPStubConstantDescriptor gap_class_35_constants[] = {
+static const GAPStubConstantDescriptor gap_class_48_constants[] = {
 { "ChallengeState", "INVALID", 0, 0 },
 { "ChallengeState", "PENDING", 1, 0 },
 { "ChallengeState", "COMPLETED", 2, 0 },
@@ -5876,7 +7735,7 @@ static const GAPStubConstantDescriptor gap_class_35_constants[] = {
 { "ChallengeType", "ACHIEVEMENT", 1, 0 },
 { "ChallengeType", "UNKNOWN", 2, 0 },
 };
-static const GAPStubMethodDescriptor gap_class_36_methods[] = {
+static const GAPStubMethodDescriptor gap_class_49_methods[] = {
 {
     "get_achievement",
     "GKAchievementChallenge.get_achievement",
@@ -5887,7 +7746,7 @@ static const GAPStubMethodDescriptor gap_class_36_methods[] = {
     0
 },
 };
-static const GAPStubPropertyDescriptor gap_class_36_properties[] = {
+static const GAPStubPropertyDescriptor gap_class_49_properties[] = {
 {
     "achievement",
     { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKAchievement", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
@@ -5895,13 +7754,13 @@ static const GAPStubPropertyDescriptor gap_class_36_properties[] = {
     "get_achievement"
 },
 };
-static const GAPStubNamedTypeInfo gap_class_37_method_1_args[] = {
+static const GAPStubNamedTypeInfo gap_class_50_method_1_args[] = {
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_37_method_2_args[] = {
+static const GAPStubNamedTypeInfo gap_class_50_method_2_args[] = {
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubMethodDescriptor gap_class_37_methods[] = {
+static const GAPStubMethodDescriptor gap_class_50_methods[] = {
 {
     "incomplete_achievement_image",
     "GKAchievementDescription.incomplete_achievement_image",
@@ -5917,7 +7776,7 @@ static const GAPStubMethodDescriptor gap_class_37_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL | GDEXTENSION_METHOD_FLAG_STATIC,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_37_method_1_args,
+    gap_class_50_method_1_args,
     1
 },
 {
@@ -5926,7 +7785,7 @@ static const GAPStubMethodDescriptor gap_class_37_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_37_method_2_args,
+    gap_class_50_method_2_args,
     1
 },
 {
@@ -6047,7 +7906,7 @@ static const GAPStubMethodDescriptor gap_class_37_methods[] = {
     0
 },
 };
-static const GAPStubPropertyDescriptor gap_class_37_properties[] = {
+static const GAPStubPropertyDescriptor gap_class_50_properties[] = {
 {
     "achieved_description",
     { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
@@ -6121,23 +7980,23 @@ static const GAPStubPropertyDescriptor gap_class_37_properties[] = {
     "get_unachieved_description"
 },
 };
-static const GAPStubNamedTypeInfo gap_class_38_method_0_args[] = {
+static const GAPStubNamedTypeInfo gap_class_51_method_0_args[] = {
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_38_method_1_args[] = {
+static const GAPStubNamedTypeInfo gap_class_51_method_1_args[] = {
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_38_method_2_args[] = {
+static const GAPStubNamedTypeInfo gap_class_51_method_2_args[] = {
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubMethodDescriptor gap_class_38_methods[] = {
+static const GAPStubMethodDescriptor gap_class_51_methods[] = {
 {
     "has_active_challenges",
     "GKChallengeDefinition.has_active_challenges",
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_38_method_0_args,
+    gap_class_51_method_0_args,
     1
 },
 {
@@ -6146,7 +8005,7 @@ static const GAPStubMethodDescriptor gap_class_38_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL | GDEXTENSION_METHOD_FLAG_STATIC,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_38_method_1_args,
+    gap_class_51_method_1_args,
     1
 },
 {
@@ -6155,7 +8014,7 @@ static const GAPStubMethodDescriptor gap_class_38_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_38_method_2_args,
+    gap_class_51_method_2_args,
     1
 },
 {
@@ -6231,7 +8090,7 @@ static const GAPStubMethodDescriptor gap_class_38_methods[] = {
     0
 },
 };
-static const GAPStubPropertyDescriptor gap_class_38_properties[] = {
+static const GAPStubPropertyDescriptor gap_class_51_properties[] = {
 {
     "details",
     { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
@@ -6281,16 +8140,16 @@ static const GAPStubPropertyDescriptor gap_class_38_properties[] = {
     "get_title"
 },
 };
-static const GAPStubNamedTypeInfo gap_class_39_method_1_args[] = {
+static const GAPStubNamedTypeInfo gap_class_52_method_1_args[] = {
     { "code", { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_39_method_3_args[] = {
+static const GAPStubNamedTypeInfo gap_class_52_method_3_args[] = {
     { "domain", { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_39_method_5_args[] = {
+static const GAPStubNamedTypeInfo gap_class_52_method_5_args[] = {
     { "message", { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubMethodDescriptor gap_class_39_methods[] = {
+static const GAPStubMethodDescriptor gap_class_52_methods[] = {
 {
     "get_code",
     "GKError.get_code",
@@ -6306,7 +8165,7 @@ static const GAPStubMethodDescriptor gap_class_39_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_39_method_1_args,
+    gap_class_52_method_1_args,
     1
 },
 {
@@ -6324,7 +8183,7 @@ static const GAPStubMethodDescriptor gap_class_39_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_39_method_3_args,
+    gap_class_52_method_3_args,
     1
 },
 {
@@ -6342,11 +8201,11 @@ static const GAPStubMethodDescriptor gap_class_39_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_39_method_5_args,
+    gap_class_52_method_5_args,
     1
 },
 };
-static const GAPStubPropertyDescriptor gap_class_39_properties[] = {
+static const GAPStubPropertyDescriptor gap_class_52_properties[] = {
 {
     "code",
     { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
@@ -6366,7 +8225,7 @@ static const GAPStubPropertyDescriptor gap_class_39_properties[] = {
     "get_message"
 },
 };
-static const GAPStubConstantDescriptor gap_class_39_constants[] = {
+static const GAPStubConstantDescriptor gap_class_52_constants[] = {
 { "Code", "GAME_UNRECOGNIZED", 0, 0 },
 { "Code", "NOT_SUPPORTED", 1, 0 },
 { "Code", "APP_UNLISTED", 2, 0 },
@@ -6410,69 +8269,69 @@ static const GAPStubConstantDescriptor gap_class_39_constants[] = {
 { "Code", "CHALLENGE_INVALID", 40, 0 },
 { "Code", "DEBUG_MODE", 41, 0 },
 };
-static const GAPStubNamedTypeInfo gap_class_40_method_0_args[] = {
+static const GAPStubNamedTypeInfo gap_class_53_method_0_args[] = {
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_40_method_1_args[] = {
+static const GAPStubNamedTypeInfo gap_class_53_method_1_args[] = {
     { "definition", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKGameActivityDefinition", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_40_method_3_args[] = {
+static const GAPStubNamedTypeInfo gap_class_53_method_3_args[] = {
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_40_method_4_args[] = {
+static const GAPStubNamedTypeInfo gap_class_53_method_4_args[] = {
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_40_method_5_args[] = {
+static const GAPStubNamedTypeInfo gap_class_53_method_5_args[] = {
     { "achievement", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKAchievement", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_40_method_6_args[] = {
+static const GAPStubNamedTypeInfo gap_class_53_method_6_args[] = {
     { "leaderboard", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKLeaderboard", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_40_method_7_args[] = {
+static const GAPStubNamedTypeInfo gap_class_53_method_7_args[] = {
     { "partyCode", { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_40_method_10_args[] = {
+static const GAPStubNamedTypeInfo gap_class_53_method_10_args[] = {
     { "achievements", { GDEXTENSION_VARIANT_TYPE_ARRAY, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_40_method_11_args[] = {
+static const GAPStubNamedTypeInfo gap_class_53_method_11_args[] = {
     { "leaderboards", { GDEXTENSION_VARIANT_TYPE_ARRAY, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_40_method_13_args[] = {
+static const GAPStubNamedTypeInfo gap_class_53_method_13_args[] = {
     { "achievement", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKAchievement", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_40_method_14_args[] = {
+static const GAPStubNamedTypeInfo gap_class_53_method_14_args[] = {
     { "achievement", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKAchievement", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "percentComplete", { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_40_method_15_args[] = {
+static const GAPStubNamedTypeInfo gap_class_53_method_15_args[] = {
     { "leaderboard", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKLeaderboard", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "score", { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_40_method_16_args[] = {
+static const GAPStubNamedTypeInfo gap_class_53_method_16_args[] = {
     { "leaderboard", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKLeaderboard", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "score", { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "context", { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_40_method_18_args[] = {
+static const GAPStubNamedTypeInfo gap_class_53_method_18_args[] = {
     { "definition", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKGameActivityDefinition", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_40_method_19_args[] = {
+static const GAPStubNamedTypeInfo gap_class_53_method_19_args[] = {
     { "definition", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKGameActivityDefinition", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "partyCode", { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_40_method_32_args[] = {
+static const GAPStubNamedTypeInfo gap_class_53_method_32_args[] = {
     { "properties", { GDEXTENSION_VARIANT_TYPE_DICTIONARY, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubMethodDescriptor gap_class_40_methods[] = {
+static const GAPStubMethodDescriptor gap_class_53_methods[] = {
 {
     "check_pending_game_activity_existence",
     "GKGameActivity.check_pending_game_activity_existence",
     GDEXTENSION_METHOD_FLAG_NORMAL | GDEXTENSION_METHOD_FLAG_STATIC,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_40_method_0_args,
+    gap_class_53_method_0_args,
     1
 },
 {
@@ -6481,7 +8340,7 @@ static const GAPStubMethodDescriptor gap_class_40_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL | GDEXTENSION_METHOD_FLAG_STATIC,
     1,
     { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKGameActivity", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_40_method_1_args,
+    gap_class_53_method_1_args,
     1
 },
 {
@@ -6499,7 +8358,7 @@ static const GAPStubMethodDescriptor gap_class_40_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_40_method_3_args,
+    gap_class_53_method_3_args,
     1
 },
 {
@@ -6508,7 +8367,7 @@ static const GAPStubMethodDescriptor gap_class_40_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_40_method_4_args,
+    gap_class_53_method_4_args,
     1
 },
 {
@@ -6517,7 +8376,7 @@ static const GAPStubMethodDescriptor gap_class_40_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     1,
     { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_40_method_5_args,
+    gap_class_53_method_5_args,
     1
 },
 {
@@ -6526,7 +8385,7 @@ static const GAPStubMethodDescriptor gap_class_40_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     1,
     { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKLeaderboardScore", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_40_method_6_args,
+    gap_class_53_method_6_args,
     1
 },
 {
@@ -6535,7 +8394,7 @@ static const GAPStubMethodDescriptor gap_class_40_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL | GDEXTENSION_METHOD_FLAG_STATIC,
     1,
     { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_40_method_7_args,
+    gap_class_53_method_7_args,
     1
 },
 {
@@ -6562,7 +8421,7 @@ static const GAPStubMethodDescriptor gap_class_40_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_40_method_10_args,
+    gap_class_53_method_10_args,
     1
 },
 {
@@ -6571,7 +8430,7 @@ static const GAPStubMethodDescriptor gap_class_40_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_40_method_11_args,
+    gap_class_53_method_11_args,
     1
 },
 {
@@ -6589,7 +8448,7 @@ static const GAPStubMethodDescriptor gap_class_40_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_40_method_13_args,
+    gap_class_53_method_13_args,
     1
 },
 {
@@ -6598,7 +8457,7 @@ static const GAPStubMethodDescriptor gap_class_40_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_40_method_14_args,
+    gap_class_53_method_14_args,
     2
 },
 {
@@ -6607,7 +8466,7 @@ static const GAPStubMethodDescriptor gap_class_40_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_40_method_15_args,
+    gap_class_53_method_15_args,
     2
 },
 {
@@ -6616,7 +8475,7 @@ static const GAPStubMethodDescriptor gap_class_40_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_40_method_16_args,
+    gap_class_53_method_16_args,
     3
 },
 {
@@ -6634,7 +8493,7 @@ static const GAPStubMethodDescriptor gap_class_40_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL | GDEXTENSION_METHOD_FLAG_STATIC,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_40_method_18_args,
+    gap_class_53_method_18_args,
     2
 },
 {
@@ -6643,7 +8502,7 @@ static const GAPStubMethodDescriptor gap_class_40_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL | GDEXTENSION_METHOD_FLAG_STATIC,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_40_method_19_args,
+    gap_class_53_method_19_args,
     3
 },
 {
@@ -6760,7 +8619,7 @@ static const GAPStubMethodDescriptor gap_class_40_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_40_method_32_args,
+    gap_class_53_method_32_args,
     1
 },
 {
@@ -6782,7 +8641,7 @@ static const GAPStubMethodDescriptor gap_class_40_methods[] = {
     0
 },
 };
-static const GAPStubPropertyDescriptor gap_class_40_properties[] = {
+static const GAPStubPropertyDescriptor gap_class_53_properties[] = {
 {
     "achievements",
     { GDEXTENSION_VARIANT_TYPE_ARRAY, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
@@ -6862,30 +8721,30 @@ static const GAPStubPropertyDescriptor gap_class_40_properties[] = {
     "get_state"
 },
 };
-static const GAPStubNamedTypeInfo gap_class_41_method_0_args[] = {
+static const GAPStubNamedTypeInfo gap_class_54_method_0_args[] = {
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_41_method_1_args[] = {
+static const GAPStubNamedTypeInfo gap_class_54_method_1_args[] = {
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_41_method_2_args[] = {
+static const GAPStubNamedTypeInfo gap_class_54_method_2_args[] = {
     { "ids", { GDEXTENSION_VARIANT_TYPE_PACKED_STRING_ARRAY, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_41_method_3_args[] = {
+static const GAPStubNamedTypeInfo gap_class_54_method_3_args[] = {
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_41_method_4_args[] = {
+static const GAPStubNamedTypeInfo gap_class_54_method_4_args[] = {
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubMethodDescriptor gap_class_41_methods[] = {
+static const GAPStubMethodDescriptor gap_class_54_methods[] = {
 {
     "load_achievement_descriptions",
     "GKGameActivityDefinition.load_achievement_descriptions",
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_41_method_0_args,
+    gap_class_54_method_0_args,
     1
 },
 {
@@ -6894,7 +8753,7 @@ static const GAPStubMethodDescriptor gap_class_41_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL | GDEXTENSION_METHOD_FLAG_STATIC,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_41_method_1_args,
+    gap_class_54_method_1_args,
     1
 },
 {
@@ -6903,7 +8762,7 @@ static const GAPStubMethodDescriptor gap_class_41_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL | GDEXTENSION_METHOD_FLAG_STATIC,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_41_method_2_args,
+    gap_class_54_method_2_args,
     2
 },
 {
@@ -6912,7 +8771,7 @@ static const GAPStubMethodDescriptor gap_class_41_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_41_method_3_args,
+    gap_class_54_method_3_args,
     1
 },
 {
@@ -6921,7 +8780,7 @@ static const GAPStubMethodDescriptor gap_class_41_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_41_method_4_args,
+    gap_class_54_method_4_args,
     1
 },
 {
@@ -7033,7 +8892,7 @@ static const GAPStubMethodDescriptor gap_class_41_methods[] = {
     0
 },
 };
-static const GAPStubPropertyDescriptor gap_class_41_properties[] = {
+static const GAPStubPropertyDescriptor gap_class_54_properties[] = {
 {
     "default_properties",
     { GDEXTENSION_VARIANT_TYPE_DICTIONARY, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
@@ -7107,35 +8966,35 @@ static const GAPStubPropertyDescriptor gap_class_41_properties[] = {
     "get_title"
 },
 };
-static const GAPStubNamedTypeInfo gap_class_42_method_0_args[] = {
+static const GAPStubNamedTypeInfo gap_class_55_method_0_args[] = {
     { "id", { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_42_method_1_args[] = {
+static const GAPStubNamedTypeInfo gap_class_55_method_1_args[] = {
     { "leaderboard", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKLeaderboard", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "scope", { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_42_method_2_args[] = {
+static const GAPStubNamedTypeInfo gap_class_55_method_2_args[] = {
     { "id", { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "scope", { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "timeScope", { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_42_method_3_args[] = {
+static const GAPStubNamedTypeInfo gap_class_55_method_3_args[] = {
     { "id", { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_42_method_4_args[] = {
+static const GAPStubNamedTypeInfo gap_class_55_method_4_args[] = {
     { "player", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKPlayer", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_42_method_5_args[] = {
+static const GAPStubNamedTypeInfo gap_class_55_method_5_args[] = {
     { "type", { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubMethodDescriptor gap_class_42_methods[] = {
+static const GAPStubMethodDescriptor gap_class_55_methods[] = {
 {
     "show_achievement",
     "GKGameCenterViewController.show_achievement",
     GDEXTENSION_METHOD_FLAG_NORMAL | GDEXTENSION_METHOD_FLAG_STATIC,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_42_method_0_args,
+    gap_class_55_method_0_args,
     1
 },
 {
@@ -7144,7 +9003,7 @@ static const GAPStubMethodDescriptor gap_class_42_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL | GDEXTENSION_METHOD_FLAG_STATIC,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_42_method_1_args,
+    gap_class_55_method_1_args,
     2
 },
 {
@@ -7153,7 +9012,7 @@ static const GAPStubMethodDescriptor gap_class_42_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL | GDEXTENSION_METHOD_FLAG_STATIC,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_42_method_2_args,
+    gap_class_55_method_2_args,
     3
 },
 {
@@ -7162,7 +9021,7 @@ static const GAPStubMethodDescriptor gap_class_42_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL | GDEXTENSION_METHOD_FLAG_STATIC,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_42_method_3_args,
+    gap_class_55_method_3_args,
     1
 },
 {
@@ -7171,7 +9030,7 @@ static const GAPStubMethodDescriptor gap_class_42_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL | GDEXTENSION_METHOD_FLAG_STATIC,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_42_method_4_args,
+    gap_class_55_method_4_args,
     1
 },
 {
@@ -7180,11 +9039,11 @@ static const GAPStubMethodDescriptor gap_class_42_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL | GDEXTENSION_METHOD_FLAG_STATIC,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_42_method_5_args,
+    gap_class_55_method_5_args,
     1
 },
 };
-static const GAPStubConstantDescriptor gap_class_42_constants[] = {
+static const GAPStubConstantDescriptor gap_class_55_constants[] = {
 { "State", "DEFAULT_SCREEN", 0, 0 },
 { "State", "LEADERBOARDS", 1, 0 },
 { "State", "ACHIEVEMENTS", 2, 0 },
@@ -7192,7 +9051,7 @@ static const GAPStubConstantDescriptor gap_class_42_constants[] = {
 { "State", "DASHBOARD", 4, 0 },
 { "State", "LOCAL_PLAYER_FRIENDS_LIST", 5, 0 },
 };
-static const GAPStubMethodDescriptor gap_class_43_methods[] = {
+static const GAPStubMethodDescriptor gap_class_56_methods[] = {
 {
     "get_is_hosted",
     "GKInvite.get_is_hosted",
@@ -7230,7 +9089,7 @@ static const GAPStubMethodDescriptor gap_class_43_methods[] = {
     0
 },
 };
-static const GAPStubPropertyDescriptor gap_class_43_properties[] = {
+static const GAPStubPropertyDescriptor gap_class_56_properties[] = {
 {
     "is_hosted",
     { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
@@ -7256,42 +9115,42 @@ static const GAPStubPropertyDescriptor gap_class_43_properties[] = {
     "get_sender"
 },
 };
-static const GAPStubNamedTypeInfo gap_class_44_method_0_args[] = {
+static const GAPStubNamedTypeInfo gap_class_57_method_0_args[] = {
     { "players", { GDEXTENSION_VARIANT_TYPE_ARRAY, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "timeScope", { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_44_method_1_args[] = {
+static const GAPStubNamedTypeInfo gap_class_57_method_1_args[] = {
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_44_method_2_args[] = {
+static const GAPStubNamedTypeInfo gap_class_57_method_2_args[] = {
     { "ids", { GDEXTENSION_VARIANT_TYPE_PACKED_STRING_ARRAY, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_44_method_3_args[] = {
+static const GAPStubNamedTypeInfo gap_class_57_method_3_args[] = {
     { "playerScope", { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "timeScope", { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "rangeStart", { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "rangeLength", { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_44_method_4_args[] = {
+static const GAPStubNamedTypeInfo gap_class_57_method_4_args[] = {
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_44_method_5_args[] = {
+static const GAPStubNamedTypeInfo gap_class_57_method_5_args[] = {
     { "score", { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "context", { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "player", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKPlayer", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubMethodDescriptor gap_class_44_methods[] = {
+static const GAPStubMethodDescriptor gap_class_57_methods[] = {
 {
     "load_entries",
     "GKLeaderboard.load_entries",
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_44_method_0_args,
+    gap_class_57_method_0_args,
     3
 },
 {
@@ -7300,7 +9159,7 @@ static const GAPStubMethodDescriptor gap_class_44_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_44_method_1_args,
+    gap_class_57_method_1_args,
     1
 },
 {
@@ -7309,7 +9168,7 @@ static const GAPStubMethodDescriptor gap_class_44_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL | GDEXTENSION_METHOD_FLAG_STATIC,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_44_method_2_args,
+    gap_class_57_method_2_args,
     2
 },
 {
@@ -7318,7 +9177,7 @@ static const GAPStubMethodDescriptor gap_class_44_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_44_method_3_args,
+    gap_class_57_method_3_args,
     5
 },
 {
@@ -7327,7 +9186,7 @@ static const GAPStubMethodDescriptor gap_class_44_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_44_method_4_args,
+    gap_class_57_method_4_args,
     1
 },
 {
@@ -7336,7 +9195,7 @@ static const GAPStubMethodDescriptor gap_class_44_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_44_method_5_args,
+    gap_class_57_method_5_args,
     4
 },
 {
@@ -7448,7 +9307,7 @@ static const GAPStubMethodDescriptor gap_class_44_methods[] = {
     0
 },
 };
-static const GAPStubPropertyDescriptor gap_class_44_properties[] = {
+static const GAPStubPropertyDescriptor gap_class_57_properties[] = {
 {
     "activity_identifier",
     { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
@@ -7522,7 +9381,7 @@ static const GAPStubPropertyDescriptor gap_class_44_properties[] = {
     "get_type"
 },
 };
-static const GAPStubConstantDescriptor gap_class_44_constants[] = {
+static const GAPStubConstantDescriptor gap_class_57_constants[] = {
 { "AppleLeaderboardType", "CLASSIC", 0, 0 },
 { "AppleLeaderboardType", "RECURRING", 1, 0 },
 { "AppleLeaderboardType", "UNKNOWN", 2, 0 },
@@ -7532,7 +9391,7 @@ static const GAPStubConstantDescriptor gap_class_44_constants[] = {
 { "PlayerScope", "GLOBAL", 0, 0 },
 { "PlayerScope", "FRIENDS_ONLY", 1, 0 },
 };
-static const GAPStubMethodDescriptor gap_class_45_methods[] = {
+static const GAPStubMethodDescriptor gap_class_58_methods[] = {
 {
     "get_context",
     "GKLeaderboardEntry.get_context",
@@ -7588,7 +9447,7 @@ static const GAPStubMethodDescriptor gap_class_45_methods[] = {
     0
 },
 };
-static const GAPStubPropertyDescriptor gap_class_45_properties[] = {
+static const GAPStubPropertyDescriptor gap_class_58_properties[] = {
 {
     "context",
     { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
@@ -7626,19 +9485,19 @@ static const GAPStubPropertyDescriptor gap_class_45_properties[] = {
     "get_score"
 },
 };
-static const GAPStubNamedTypeInfo gap_class_46_method_1_args[] = {
+static const GAPStubNamedTypeInfo gap_class_59_method_1_args[] = {
     { "context", { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_46_method_3_args[] = {
+static const GAPStubNamedTypeInfo gap_class_59_method_3_args[] = {
     { "leaderboard_id", { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_46_method_5_args[] = {
+static const GAPStubNamedTypeInfo gap_class_59_method_5_args[] = {
     { "player", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKPlayer", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_46_method_7_args[] = {
+static const GAPStubNamedTypeInfo gap_class_59_method_7_args[] = {
     { "value", { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubMethodDescriptor gap_class_46_methods[] = {
+static const GAPStubMethodDescriptor gap_class_59_methods[] = {
 {
     "get_context",
     "GKLeaderboardScore.get_context",
@@ -7654,7 +9513,7 @@ static const GAPStubMethodDescriptor gap_class_46_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_46_method_1_args,
+    gap_class_59_method_1_args,
     1
 },
 {
@@ -7672,7 +9531,7 @@ static const GAPStubMethodDescriptor gap_class_46_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_46_method_3_args,
+    gap_class_59_method_3_args,
     1
 },
 {
@@ -7690,7 +9549,7 @@ static const GAPStubMethodDescriptor gap_class_46_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_46_method_5_args,
+    gap_class_59_method_5_args,
     1
 },
 {
@@ -7708,11 +9567,11 @@ static const GAPStubMethodDescriptor gap_class_46_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_46_method_7_args,
+    gap_class_59_method_7_args,
     1
 },
 };
-static const GAPStubPropertyDescriptor gap_class_46_properties[] = {
+static const GAPStubPropertyDescriptor gap_class_59_properties[] = {
 {
     "context",
     { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
@@ -7738,23 +9597,23 @@ static const GAPStubPropertyDescriptor gap_class_46_properties[] = {
     "get_value"
 },
 };
-static const GAPStubNamedTypeInfo gap_class_47_method_0_args[] = {
+static const GAPStubNamedTypeInfo gap_class_60_method_0_args[] = {
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_47_method_1_args[] = {
+static const GAPStubNamedTypeInfo gap_class_60_method_1_args[] = {
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_47_method_2_args[] = {
+static const GAPStubNamedTypeInfo gap_class_60_method_2_args[] = {
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubMethodDescriptor gap_class_47_methods[] = {
+static const GAPStubMethodDescriptor gap_class_60_methods[] = {
 {
     "load_image",
     "GKLeaderboardSet.load_image",
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_47_method_0_args,
+    gap_class_60_method_0_args,
     1
 },
 {
@@ -7763,7 +9622,7 @@ static const GAPStubMethodDescriptor gap_class_47_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL | GDEXTENSION_METHOD_FLAG_STATIC,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_47_method_1_args,
+    gap_class_60_method_1_args,
     1
 },
 {
@@ -7772,7 +9631,7 @@ static const GAPStubMethodDescriptor gap_class_47_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_47_method_2_args,
+    gap_class_60_method_2_args,
     1
 },
 {
@@ -7803,7 +9662,7 @@ static const GAPStubMethodDescriptor gap_class_47_methods[] = {
     0
 },
 };
-static const GAPStubPropertyDescriptor gap_class_47_properties[] = {
+static const GAPStubPropertyDescriptor gap_class_60_properties[] = {
 {
     "group_identifier",
     { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
@@ -7823,21 +9682,21 @@ static const GAPStubPropertyDescriptor gap_class_47_properties[] = {
     "get_title"
 },
 };
-static const GAPStubNamedTypeInfo gap_class_48_method_0_args[] = {
+static const GAPStubNamedTypeInfo gap_class_61_method_0_args[] = {
     { "identifier", { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_48_method_1_args[] = {
+static const GAPStubNamedTypeInfo gap_class_61_method_1_args[] = {
     { "small", { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubMethodDescriptor gap_class_48_methods[] = {
+static const GAPStubMethodDescriptor gap_class_61_methods[] = {
 {
     "anonymous_guest_player",
     "GKPlayer.anonymous_guest_player",
     GDEXTENSION_METHOD_FLAG_NORMAL | GDEXTENSION_METHOD_FLAG_STATIC,
     1,
     { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKPlayer", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_48_method_0_args,
+    gap_class_61_method_0_args,
     1
 },
 {
@@ -7846,7 +9705,7 @@ static const GAPStubMethodDescriptor gap_class_48_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_48_method_1_args,
+    gap_class_61_method_1_args,
     2
 },
 {
@@ -7913,7 +9772,7 @@ static const GAPStubMethodDescriptor gap_class_48_methods[] = {
     0
 },
 };
-static const GAPStubPropertyDescriptor gap_class_48_properties[] = {
+static const GAPStubPropertyDescriptor gap_class_61_properties[] = {
 {
     "alias",
     { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
@@ -7951,119 +9810,119 @@ static const GAPStubPropertyDescriptor gap_class_48_properties[] = {
     "get_team_player_id"
 },
 };
-static const GAPStubNamedTypeInfo gap_class_49_method_0_args[] = {
+static const GAPStubNamedTypeInfo gap_class_62_method_0_args[] = {
     { "named", { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_49_method_1_args[] = {
+static const GAPStubNamedTypeInfo gap_class_62_method_1_args[] = {
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_49_method_2_args[] = {
+static const GAPStubNamedTypeInfo gap_class_62_method_2_args[] = {
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_49_method_3_args[] = {
+static const GAPStubNamedTypeInfo gap_class_62_method_3_args[] = {
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_49_method_4_args[] = {
+static const GAPStubNamedTypeInfo gap_class_62_method_4_args[] = {
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_49_method_5_args[] = {
+static const GAPStubNamedTypeInfo gap_class_62_method_5_args[] = {
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_49_method_6_args[] = {
+static const GAPStubNamedTypeInfo gap_class_62_method_6_args[] = {
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_49_method_7_args[] = {
+static const GAPStubNamedTypeInfo gap_class_62_method_7_args[] = {
     { "identifiers", { GDEXTENSION_VARIANT_TYPE_PACKED_STRING_ARRAY, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_49_method_8_args[] = {
+static const GAPStubNamedTypeInfo gap_class_62_method_8_args[] = {
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_49_method_10_args[] = {
+static const GAPStubNamedTypeInfo gap_class_62_method_10_args[] = {
     { "conflicts", { GDEXTENSION_VARIANT_TYPE_ARRAY, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "data", { GDEXTENSION_VARIANT_TYPE_PACKED_BYTE_ARRAY, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_49_method_11_args[] = {
+static const GAPStubNamedTypeInfo gap_class_62_method_11_args[] = {
     { "data", { GDEXTENSION_VARIANT_TYPE_PACKED_BYTE_ARRAY, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "withName", { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_49_method_12_args[] = {
+static const GAPStubNamedTypeInfo gap_class_62_method_12_args[] = {
     { "identifier", { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_49_signal_0_args[] = {
+static const GAPStubNamedTypeInfo gap_class_62_signal_0_args[] = {
     { "player", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKPlayer", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "challenge", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKChallenge", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "friend_player", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKPlayer", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_49_signal_1_args[] = {
+static const GAPStubNamedTypeInfo gap_class_62_signal_1_args[] = {
     { "player", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKPlayer", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "challenge", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKChallenge", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_49_signal_2_args[] = {
+static const GAPStubNamedTypeInfo gap_class_62_signal_2_args[] = {
     { "player", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKPlayer", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "challenge", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKChallenge", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "friend_player", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKPlayer", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_49_signal_3_args[] = {
+static const GAPStubNamedTypeInfo gap_class_62_signal_3_args[] = {
     { "player", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKPlayer", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "challenge", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKChallenge", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_49_signal_4_args[] = {
+static const GAPStubNamedTypeInfo gap_class_62_signal_4_args[] = {
     { "player", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKPlayer", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "conflicting_saved_games", { GDEXTENSION_VARIANT_TYPE_ARRAY, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_49_signal_5_args[] = {
+static const GAPStubNamedTypeInfo gap_class_62_signal_5_args[] = {
     { "player", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKPlayer", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "exchange", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKTurnBasedExchange", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "match", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKTurnBasedMatch", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_49_signal_6_args[] = {
+static const GAPStubNamedTypeInfo gap_class_62_signal_6_args[] = {
     { "player", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKPlayer", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "replies", { GDEXTENSION_VARIANT_TYPE_ARRAY, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "match", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKTurnBasedMatch", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_49_signal_7_args[] = {
+static const GAPStubNamedTypeInfo gap_class_62_signal_7_args[] = {
     { "player", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKPlayer", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "exchange", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKTurnBasedExchange", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "match", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKTurnBasedMatch", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_49_signal_8_args[] = {
+static const GAPStubNamedTypeInfo gap_class_62_signal_8_args[] = {
     { "player", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKPlayer", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "invite", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKInvite", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_49_signal_9_args[] = {
+static const GAPStubNamedTypeInfo gap_class_62_signal_9_args[] = {
     { "player", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKPlayer", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "recipient_players", { GDEXTENSION_VARIANT_TYPE_ARRAY, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_49_signal_10_args[] = {
+static const GAPStubNamedTypeInfo gap_class_62_signal_10_args[] = {
     { "player", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKPlayer", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "match", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKTurnBasedMatch", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_49_signal_11_args[] = {
+static const GAPStubNamedTypeInfo gap_class_62_signal_11_args[] = {
     { "player", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKPlayer", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "saved_game", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKSavedGame", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_49_signal_12_args[] = {
+static const GAPStubNamedTypeInfo gap_class_62_signal_12_args[] = {
     { "player", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKPlayer", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "match", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKTurnBasedMatch", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_49_signal_13_args[] = {
+static const GAPStubNamedTypeInfo gap_class_62_signal_13_args[] = {
     { "player", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKPlayer", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "match", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKTurnBasedMatch", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "did_become_active", { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubMethodDescriptor gap_class_49_methods[] = {
+static const GAPStubMethodDescriptor gap_class_62_methods[] = {
 {
     "delete_saved_games",
     "GKLocalPlayer.delete_saved_games",
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_49_method_0_args,
+    gap_class_62_method_0_args,
     2
 },
 {
@@ -8072,7 +9931,7 @@ static const GAPStubMethodDescriptor gap_class_49_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_49_method_1_args,
+    gap_class_62_method_1_args,
     1
 },
 {
@@ -8081,7 +9940,7 @@ static const GAPStubMethodDescriptor gap_class_49_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_49_method_2_args,
+    gap_class_62_method_2_args,
     1
 },
 {
@@ -8090,7 +9949,7 @@ static const GAPStubMethodDescriptor gap_class_49_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_49_method_3_args,
+    gap_class_62_method_3_args,
     1
 },
 {
@@ -8099,7 +9958,7 @@ static const GAPStubMethodDescriptor gap_class_49_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_49_method_4_args,
+    gap_class_62_method_4_args,
     1
 },
 {
@@ -8108,7 +9967,7 @@ static const GAPStubMethodDescriptor gap_class_49_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_49_method_5_args,
+    gap_class_62_method_5_args,
     1
 },
 {
@@ -8117,7 +9976,7 @@ static const GAPStubMethodDescriptor gap_class_49_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_49_method_6_args,
+    gap_class_62_method_6_args,
     1
 },
 {
@@ -8126,7 +9985,7 @@ static const GAPStubMethodDescriptor gap_class_49_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_49_method_7_args,
+    gap_class_62_method_7_args,
     2
 },
 {
@@ -8135,7 +9994,7 @@ static const GAPStubMethodDescriptor gap_class_49_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_49_method_8_args,
+    gap_class_62_method_8_args,
     1
 },
 {
@@ -8153,7 +10012,7 @@ static const GAPStubMethodDescriptor gap_class_49_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_49_method_10_args,
+    gap_class_62_method_10_args,
     3
 },
 {
@@ -8162,7 +10021,7 @@ static const GAPStubMethodDescriptor gap_class_49_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_49_method_11_args,
+    gap_class_62_method_11_args,
     3
 },
 {
@@ -8171,7 +10030,7 @@ static const GAPStubMethodDescriptor gap_class_49_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_49_method_12_args,
+    gap_class_62_method_12_args,
     2
 },
 {
@@ -8220,7 +10079,7 @@ static const GAPStubMethodDescriptor gap_class_49_methods[] = {
     0
 },
 };
-static const GAPStubPropertyDescriptor gap_class_49_properties[] = {
+static const GAPStubPropertyDescriptor gap_class_62_properties[] = {
 {
     "is_authenticated",
     { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
@@ -8246,123 +10105,123 @@ static const GAPStubPropertyDescriptor gap_class_49_properties[] = {
     "get_is_underage"
 },
 };
-static const GAPStubSignalDescriptor gap_class_49_signals[] = {
+static const GAPStubSignalDescriptor gap_class_62_signals[] = {
 {
     "challenge_completed",
-    gap_class_49_signal_0_args,
+    gap_class_62_signal_0_args,
     3
 },
 {
     "challenge_other_player_accepted",
-    gap_class_49_signal_1_args,
+    gap_class_62_signal_1_args,
     2
 },
 {
     "challenge_other_player_completed",
-    gap_class_49_signal_2_args,
+    gap_class_62_signal_2_args,
     3
 },
 {
     "challenge_received",
-    gap_class_49_signal_3_args,
+    gap_class_62_signal_3_args,
     2
 },
 {
     "conflicting_saved_games",
-    gap_class_49_signal_4_args,
+    gap_class_62_signal_4_args,
     2
 },
 {
     "exchange_canceled",
-    gap_class_49_signal_5_args,
+    gap_class_62_signal_5_args,
     3
 },
 {
     "exchange_completed",
-    gap_class_49_signal_6_args,
+    gap_class_62_signal_6_args,
     3
 },
 {
     "exchange_received",
-    gap_class_49_signal_7_args,
+    gap_class_62_signal_7_args,
     3
 },
 {
     "invite_accepted",
-    gap_class_49_signal_8_args,
+    gap_class_62_signal_8_args,
     2
 },
 {
     "match_requested_with_other_players",
-    gap_class_49_signal_9_args,
+    gap_class_62_signal_9_args,
     2
 },
 {
     "player_wants_to_quit_match",
-    gap_class_49_signal_10_args,
+    gap_class_62_signal_10_args,
     2
 },
 {
     "saved_game_modified",
-    gap_class_49_signal_11_args,
+    gap_class_62_signal_11_args,
     2
 },
 {
     "turn_based_match_ended",
-    gap_class_49_signal_12_args,
+    gap_class_62_signal_12_args,
     2
 },
 {
     "turn_event_received",
-    gap_class_49_signal_13_args,
+    gap_class_62_signal_13_args,
     3
 },
 };
-static const GAPStubNamedTypeInfo gap_class_50_method_0_args[] = {
+static const GAPStubNamedTypeInfo gap_class_63_method_0_args[] = {
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_50_method_2_args[] = {
+static const GAPStubNamedTypeInfo gap_class_63_method_2_args[] = {
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_50_method_3_args[] = {
+static const GAPStubNamedTypeInfo gap_class_63_method_3_args[] = {
     { "data", { GDEXTENSION_VARIANT_TYPE_PACKED_BYTE_ARRAY, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "toPlayers", { GDEXTENSION_VARIANT_TYPE_ARRAY, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "dataMode", { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_50_method_4_args[] = {
+static const GAPStubNamedTypeInfo gap_class_63_method_4_args[] = {
     { "data", { GDEXTENSION_VARIANT_TYPE_PACKED_BYTE_ARRAY, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "dataMode", { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_50_method_5_args[] = {
+static const GAPStubNamedTypeInfo gap_class_63_method_5_args[] = {
     { "channel", { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_50_method_11_args[] = {
+static const GAPStubNamedTypeInfo gap_class_63_method_11_args[] = {
     { "should_reinvite_disconnected_player", { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT | GAP_PROPERTY_USAGE_NIL_IS_VARIANT } },
 };
-static const GAPStubNamedTypeInfo gap_class_50_signal_0_args[] = {
+static const GAPStubNamedTypeInfo gap_class_63_signal_0_args[] = {
     { "data", { GDEXTENSION_VARIANT_TYPE_PACKED_BYTE_ARRAY, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "player", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKPlayer", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_50_signal_1_args[] = {
+static const GAPStubNamedTypeInfo gap_class_63_signal_1_args[] = {
     { "data", { GDEXTENSION_VARIANT_TYPE_PACKED_BYTE_ARRAY, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "recipient", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKPlayer", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "from_remote_player", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKPlayer", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_50_signal_2_args[] = {
+static const GAPStubNamedTypeInfo gap_class_63_signal_2_args[] = {
     { "message", { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_50_signal_3_args[] = {
+static const GAPStubNamedTypeInfo gap_class_63_signal_3_args[] = {
     { "player", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKPlayer", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "connected", { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubMethodDescriptor gap_class_50_methods[] = {
+static const GAPStubMethodDescriptor gap_class_63_methods[] = {
 {
     "choose_best_hosting_player",
     "GKMatch.choose_best_hosting_player",
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_50_method_0_args,
+    gap_class_63_method_0_args,
     1
 },
 {
@@ -8380,7 +10239,7 @@ static const GAPStubMethodDescriptor gap_class_50_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_50_method_2_args,
+    gap_class_63_method_2_args,
     1
 },
 {
@@ -8389,7 +10248,7 @@ static const GAPStubMethodDescriptor gap_class_50_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     1,
     { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_50_method_3_args,
+    gap_class_63_method_3_args,
     3
 },
 {
@@ -8398,7 +10257,7 @@ static const GAPStubMethodDescriptor gap_class_50_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     1,
     { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_50_method_4_args,
+    gap_class_63_method_4_args,
     2
 },
 {
@@ -8407,7 +10266,7 @@ static const GAPStubMethodDescriptor gap_class_50_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     1,
     { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKVoiceChat", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_50_method_5_args,
+    gap_class_63_method_5_args,
     1
 },
 {
@@ -8461,11 +10320,11 @@ static const GAPStubMethodDescriptor gap_class_50_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_50_method_11_args,
+    gap_class_63_method_11_args,
     1
 },
 };
-static const GAPStubPropertyDescriptor gap_class_50_properties[] = {
+static const GAPStubPropertyDescriptor gap_class_63_properties[] = {
 {
     "expected_player_count",
     { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
@@ -8497,76 +10356,76 @@ static const GAPStubPropertyDescriptor gap_class_50_properties[] = {
     "get_should_reinvite_disconnected_player"
 },
 };
-static const GAPStubSignalDescriptor gap_class_50_signals[] = {
+static const GAPStubSignalDescriptor gap_class_63_signals[] = {
 {
     "data_received",
-    gap_class_50_signal_0_args,
+    gap_class_63_signal_0_args,
     2
 },
 {
     "data_received_for_recipient_from_player",
-    gap_class_50_signal_1_args,
+    gap_class_63_signal_1_args,
     3
 },
 {
     "did_fail_with_error",
-    gap_class_50_signal_2_args,
+    gap_class_63_signal_2_args,
     1
 },
 {
     "player_changed",
-    gap_class_50_signal_3_args,
+    gap_class_63_signal_3_args,
     2
 },
 };
-static const GAPStubConstantDescriptor gap_class_50_constants[] = {
+static const GAPStubConstantDescriptor gap_class_63_constants[] = {
 { "SendDataMode", "RELIABLE", 0, 0 },
 { "SendDataMode", "UNRELIABLE", 1, 0 },
 };
-static const GAPStubNamedTypeInfo gap_class_51_method_0_args[] = {
+static const GAPStubNamedTypeInfo gap_class_64_method_0_args[] = {
     { "forType", { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_51_method_2_args[] = {
+static const GAPStubNamedTypeInfo gap_class_64_method_2_args[] = {
     { "default_number_of_players", { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_51_method_4_args[] = {
+static const GAPStubNamedTypeInfo gap_class_64_method_4_args[] = {
     { "invite_message", { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_51_method_6_args[] = {
+static const GAPStubNamedTypeInfo gap_class_64_method_6_args[] = {
     { "max_players", { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_51_method_8_args[] = {
+static const GAPStubNamedTypeInfo gap_class_64_method_8_args[] = {
     { "min_players", { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_51_method_10_args[] = {
+static const GAPStubNamedTypeInfo gap_class_64_method_10_args[] = {
     { "player_attributes", { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_51_method_12_args[] = {
+static const GAPStubNamedTypeInfo gap_class_64_method_12_args[] = {
     { "player_group", { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_51_method_14_args[] = {
+static const GAPStubNamedTypeInfo gap_class_64_method_14_args[] = {
     { "properties", { GDEXTENSION_VARIANT_TYPE_DICTIONARY, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_51_method_16_args[] = {
+static const GAPStubNamedTypeInfo gap_class_64_method_16_args[] = {
     { "queue_name", { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_51_method_18_args[] = {
+static const GAPStubNamedTypeInfo gap_class_64_method_18_args[] = {
     { "recipient_properties", { GDEXTENSION_VARIANT_TYPE_DICTIONARY, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_51_method_20_args[] = {
+static const GAPStubNamedTypeInfo gap_class_64_method_20_args[] = {
     { "recipient_response", { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT | GAP_PROPERTY_USAGE_NIL_IS_VARIANT } },
 };
-static const GAPStubNamedTypeInfo gap_class_51_method_22_args[] = {
+static const GAPStubNamedTypeInfo gap_class_64_method_22_args[] = {
     { "recipients", { GDEXTENSION_VARIANT_TYPE_ARRAY, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubMethodDescriptor gap_class_51_methods[] = {
+static const GAPStubMethodDescriptor gap_class_64_methods[] = {
 {
     "max_players_allowed_for_match",
     "GKMatchRequest.max_players_allowed_for_match",
     GDEXTENSION_METHOD_FLAG_NORMAL | GDEXTENSION_METHOD_FLAG_STATIC,
     1,
     { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_51_method_0_args,
+    gap_class_64_method_0_args,
     1
 },
 {
@@ -8584,7 +10443,7 @@ static const GAPStubMethodDescriptor gap_class_51_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_51_method_2_args,
+    gap_class_64_method_2_args,
     1
 },
 {
@@ -8602,7 +10461,7 @@ static const GAPStubMethodDescriptor gap_class_51_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_51_method_4_args,
+    gap_class_64_method_4_args,
     1
 },
 {
@@ -8620,7 +10479,7 @@ static const GAPStubMethodDescriptor gap_class_51_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_51_method_6_args,
+    gap_class_64_method_6_args,
     1
 },
 {
@@ -8638,7 +10497,7 @@ static const GAPStubMethodDescriptor gap_class_51_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_51_method_8_args,
+    gap_class_64_method_8_args,
     1
 },
 {
@@ -8656,7 +10515,7 @@ static const GAPStubMethodDescriptor gap_class_51_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_51_method_10_args,
+    gap_class_64_method_10_args,
     1
 },
 {
@@ -8674,7 +10533,7 @@ static const GAPStubMethodDescriptor gap_class_51_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_51_method_12_args,
+    gap_class_64_method_12_args,
     1
 },
 {
@@ -8692,7 +10551,7 @@ static const GAPStubMethodDescriptor gap_class_51_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_51_method_14_args,
+    gap_class_64_method_14_args,
     1
 },
 {
@@ -8710,7 +10569,7 @@ static const GAPStubMethodDescriptor gap_class_51_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_51_method_16_args,
+    gap_class_64_method_16_args,
     1
 },
 {
@@ -8728,7 +10587,7 @@ static const GAPStubMethodDescriptor gap_class_51_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_51_method_18_args,
+    gap_class_64_method_18_args,
     1
 },
 {
@@ -8746,7 +10605,7 @@ static const GAPStubMethodDescriptor gap_class_51_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_51_method_20_args,
+    gap_class_64_method_20_args,
     1
 },
 {
@@ -8764,11 +10623,11 @@ static const GAPStubMethodDescriptor gap_class_51_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_51_method_22_args,
+    gap_class_64_method_22_args,
     1
 },
 };
-static const GAPStubPropertyDescriptor gap_class_51_properties[] = {
+static const GAPStubPropertyDescriptor gap_class_64_properties[] = {
 {
     "default_number_of_players",
     { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
@@ -8836,7 +10695,7 @@ static const GAPStubPropertyDescriptor gap_class_51_properties[] = {
     "get_recipients"
 },
 };
-static const GAPStubConstantDescriptor gap_class_51_constants[] = {
+static const GAPStubConstantDescriptor gap_class_64_constants[] = {
 { "MatchType", "PEER_TO_PEER", 0, 0 },
 { "MatchType", "HOSTED", 1, 0 },
 { "MatchType", "TURN_BASED", 2, 0 },
@@ -8848,59 +10707,59 @@ static const GAPStubConstantDescriptor gap_class_51_constants[] = {
 { "InviteRecipientResponse", "NO_ANSWER", 5, 0 },
 { "InviteRecipientResponse", "UNKNOWN", 6, 0 },
 };
-static const GAPStubNamedTypeInfo gap_class_52_method_0_args[] = {
+static const GAPStubNamedTypeInfo gap_class_65_method_0_args[] = {
     { "match", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKMatch", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "request", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKMatchRequest", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_52_method_2_args[] = {
+static const GAPStubNamedTypeInfo gap_class_65_method_2_args[] = {
     { "player", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKPlayer", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_52_method_3_args[] = {
+static const GAPStubNamedTypeInfo gap_class_65_method_3_args[] = {
     { "request", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKMatchRequest", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_52_method_4_args[] = {
+static const GAPStubNamedTypeInfo gap_class_65_method_4_args[] = {
     { "request", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKMatchRequest", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_52_method_5_args[] = {
+static const GAPStubNamedTypeInfo gap_class_65_method_5_args[] = {
     { "request", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKMatchRequest", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_52_method_6_args[] = {
+static const GAPStubNamedTypeInfo gap_class_65_method_6_args[] = {
     { "match", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKMatch", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_52_method_7_args[] = {
+static const GAPStubNamedTypeInfo gap_class_65_method_7_args[] = {
     { "invite", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKInvite", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_52_method_8_args[] = {
+static const GAPStubNamedTypeInfo gap_class_65_method_8_args[] = {
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_52_method_9_args[] = {
+static const GAPStubNamedTypeInfo gap_class_65_method_9_args[] = {
     { "groupID", { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_52_method_10_args[] = {
+static const GAPStubNamedTypeInfo gap_class_65_method_10_args[] = {
     { "queueName", { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_52_signal_0_args[] = {
+static const GAPStubNamedTypeInfo gap_class_65_signal_0_args[] = {
     { "player", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKPlayer", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "is_reachable", { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_52_signal_1_args[] = {
+static const GAPStubNamedTypeInfo gap_class_65_signal_1_args[] = {
     { "player", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKPlayer", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubMethodDescriptor gap_class_52_methods[] = {
+static const GAPStubMethodDescriptor gap_class_65_methods[] = {
 {
     "add_players",
     "GKMatchmaker.add_players",
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_52_method_0_args,
+    gap_class_65_method_0_args,
     3
 },
 {
@@ -8918,7 +10777,7 @@ static const GAPStubMethodDescriptor gap_class_52_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_52_method_2_args,
+    gap_class_65_method_2_args,
     1
 },
 {
@@ -8927,7 +10786,7 @@ static const GAPStubMethodDescriptor gap_class_52_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_52_method_3_args,
+    gap_class_65_method_3_args,
     2
 },
 {
@@ -8936,7 +10795,7 @@ static const GAPStubMethodDescriptor gap_class_52_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_52_method_4_args,
+    gap_class_65_method_4_args,
     2
 },
 {
@@ -8945,7 +10804,7 @@ static const GAPStubMethodDescriptor gap_class_52_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_52_method_5_args,
+    gap_class_65_method_5_args,
     2
 },
 {
@@ -8954,7 +10813,7 @@ static const GAPStubMethodDescriptor gap_class_52_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_52_method_6_args,
+    gap_class_65_method_6_args,
     1
 },
 {
@@ -8963,7 +10822,7 @@ static const GAPStubMethodDescriptor gap_class_52_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_52_method_7_args,
+    gap_class_65_method_7_args,
     2
 },
 {
@@ -8972,7 +10831,7 @@ static const GAPStubMethodDescriptor gap_class_52_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_52_method_8_args,
+    gap_class_65_method_8_args,
     1
 },
 {
@@ -8981,7 +10840,7 @@ static const GAPStubMethodDescriptor gap_class_52_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_52_method_9_args,
+    gap_class_65_method_9_args,
     2
 },
 {
@@ -8990,7 +10849,7 @@ static const GAPStubMethodDescriptor gap_class_52_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_52_method_10_args,
+    gap_class_65_method_10_args,
     2
 },
 {
@@ -9030,70 +10889,70 @@ static const GAPStubMethodDescriptor gap_class_52_methods[] = {
     0
 },
 };
-static const GAPStubSignalDescriptor gap_class_52_signals[] = {
+static const GAPStubSignalDescriptor gap_class_65_signals[] = {
 {
     "nearby_player_reachable",
-    gap_class_52_signal_0_args,
+    gap_class_65_signal_0_args,
     2
 },
 {
     "player_joining_group_activity",
-    gap_class_52_signal_1_args,
+    gap_class_65_signal_1_args,
     1
 },
 };
-static const GAPStubNamedTypeInfo gap_class_53_method_0_args[] = {
+static const GAPStubNamedTypeInfo gap_class_66_method_0_args[] = {
     { "match", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKMatch", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_53_method_1_args[] = {
+static const GAPStubNamedTypeInfo gap_class_66_method_1_args[] = {
     { "request", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKMatchRequest", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_53_method_2_args[] = {
+static const GAPStubNamedTypeInfo gap_class_66_method_2_args[] = {
     { "invite", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKInvite", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_53_method_4_args[] = {
+static const GAPStubNamedTypeInfo gap_class_66_method_4_args[] = {
     { "request", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKMatchRequest", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_53_method_5_args[] = {
+static const GAPStubNamedTypeInfo gap_class_66_method_5_args[] = {
     { "player", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKPlayer", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "didConnect", { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_53_method_7_args[] = {
+static const GAPStubNamedTypeInfo gap_class_66_method_7_args[] = {
     { "can_start_with_minimum_players", { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_53_method_9_args[] = {
+static const GAPStubNamedTypeInfo gap_class_66_method_9_args[] = {
     { "get_match_properties_for_recipient", { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT | GAP_PROPERTY_USAGE_NIL_IS_VARIANT } },
 };
-static const GAPStubNamedTypeInfo gap_class_53_method_11_args[] = {
+static const GAPStubNamedTypeInfo gap_class_66_method_11_args[] = {
     { "is_hosted", { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_53_method_14_args[] = {
+static const GAPStubNamedTypeInfo gap_class_66_method_14_args[] = {
     { "matchmaking_mode", { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_53_signal_0_args[] = {
+static const GAPStubNamedTypeInfo gap_class_66_signal_0_args[] = {
     { "detail", { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_53_signal_1_args[] = {
+static const GAPStubNamedTypeInfo gap_class_66_signal_1_args[] = {
     { "players", { GDEXTENSION_VARIANT_TYPE_ARRAY, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_53_signal_2_args[] = {
+static const GAPStubNamedTypeInfo gap_class_66_signal_2_args[] = {
     { "match", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKMatch", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_53_signal_3_args[] = {
+static const GAPStubNamedTypeInfo gap_class_66_signal_3_args[] = {
     { "message", { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_53_signal_4_args[] = {
+static const GAPStubNamedTypeInfo gap_class_66_signal_4_args[] = {
     { "player", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKPlayer", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubMethodDescriptor gap_class_53_methods[] = {
+static const GAPStubMethodDescriptor gap_class_66_methods[] = {
 {
     "add_players_to_match",
     "GKMatchmakerViewController.add_players_to_match",
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_53_method_0_args,
+    gap_class_66_method_0_args,
     1
 },
 {
@@ -9102,7 +10961,7 @@ static const GAPStubMethodDescriptor gap_class_53_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL | GDEXTENSION_METHOD_FLAG_STATIC,
     1,
     { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKMatchmakerViewController", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_53_method_1_args,
+    gap_class_66_method_1_args,
     1
 },
 {
@@ -9111,7 +10970,7 @@ static const GAPStubMethodDescriptor gap_class_53_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL | GDEXTENSION_METHOD_FLAG_STATIC,
     1,
     { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKMatchmakerViewController", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_53_method_2_args,
+    gap_class_66_method_2_args,
     1
 },
 {
@@ -9129,7 +10988,7 @@ static const GAPStubMethodDescriptor gap_class_53_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL | GDEXTENSION_METHOD_FLAG_STATIC,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_53_method_4_args,
+    gap_class_66_method_4_args,
     2
 },
 {
@@ -9138,7 +10997,7 @@ static const GAPStubMethodDescriptor gap_class_53_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_53_method_5_args,
+    gap_class_66_method_5_args,
     2
 },
 {
@@ -9156,7 +11015,7 @@ static const GAPStubMethodDescriptor gap_class_53_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_53_method_7_args,
+    gap_class_66_method_7_args,
     1
 },
 {
@@ -9174,7 +11033,7 @@ static const GAPStubMethodDescriptor gap_class_53_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_53_method_9_args,
+    gap_class_66_method_9_args,
     1
 },
 {
@@ -9192,7 +11051,7 @@ static const GAPStubMethodDescriptor gap_class_53_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_53_method_11_args,
+    gap_class_66_method_11_args,
     1
 },
 {
@@ -9219,11 +11078,11 @@ static const GAPStubMethodDescriptor gap_class_53_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_53_method_14_args,
+    gap_class_66_method_14_args,
     1
 },
 };
-static const GAPStubPropertyDescriptor gap_class_53_properties[] = {
+static const GAPStubPropertyDescriptor gap_class_66_properties[] = {
 {
     "can_start_with_minimum_players",
     { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
@@ -9255,50 +11114,50 @@ static const GAPStubPropertyDescriptor gap_class_53_properties[] = {
     "get_matchmaking_mode"
 },
 };
-static const GAPStubSignalDescriptor gap_class_53_signals[] = {
+static const GAPStubSignalDescriptor gap_class_66_signals[] = {
 {
     "cancelled",
-    gap_class_53_signal_0_args,
+    gap_class_66_signal_0_args,
     1
 },
 {
     "did_find_hosted_players",
-    gap_class_53_signal_1_args,
+    gap_class_66_signal_1_args,
     1
 },
 {
     "did_find_match",
-    gap_class_53_signal_2_args,
+    gap_class_66_signal_2_args,
     1
 },
 {
     "failed_with_error",
-    gap_class_53_signal_3_args,
+    gap_class_66_signal_3_args,
     1
 },
 {
     "hosted_player_did_accept",
-    gap_class_53_signal_4_args,
+    gap_class_66_signal_4_args,
     1
 },
 };
-static const GAPStubNamedTypeInfo gap_class_54_method_0_args[] = {
+static const GAPStubNamedTypeInfo gap_class_67_method_0_args[] = {
     { "title", { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "message", { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_54_method_1_args[] = {
+static const GAPStubNamedTypeInfo gap_class_67_method_1_args[] = {
     { "title", { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "message", { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "duration", { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubMethodDescriptor gap_class_54_methods[] = {
+static const GAPStubMethodDescriptor gap_class_67_methods[] = {
 {
     "show",
     "GKNotificationBanner.show",
     GDEXTENSION_METHOD_FLAG_NORMAL | GDEXTENSION_METHOD_FLAG_STATIC,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_54_method_0_args,
+    gap_class_67_method_0_args,
     2
 },
 {
@@ -9307,21 +11166,21 @@ static const GAPStubMethodDescriptor gap_class_54_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL | GDEXTENSION_METHOD_FLAG_STATIC,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_54_method_1_args,
+    gap_class_67_method_1_args,
     3
 },
 };
-static const GAPStubNamedTypeInfo gap_class_55_method_0_args[] = {
+static const GAPStubNamedTypeInfo gap_class_68_method_0_args[] = {
     { "done", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubMethodDescriptor gap_class_55_methods[] = {
+static const GAPStubMethodDescriptor gap_class_68_methods[] = {
 {
     "load_data",
     "GKSavedGame.load_data",
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_55_method_0_args,
+    gap_class_68_method_0_args,
     1
 },
 {
@@ -9352,7 +11211,7 @@ static const GAPStubMethodDescriptor gap_class_55_methods[] = {
     0
 },
 };
-static const GAPStubPropertyDescriptor gap_class_55_properties[] = {
+static const GAPStubPropertyDescriptor gap_class_68_properties[] = {
 {
     "device_name",
     { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
@@ -9372,7 +11231,7 @@ static const GAPStubPropertyDescriptor gap_class_55_properties[] = {
     "get_name"
 },
 };
-static const GAPStubMethodDescriptor gap_class_56_methods[] = {
+static const GAPStubMethodDescriptor gap_class_69_methods[] = {
 {
     "get_context",
     "GKScoreChallenge.get_context",
@@ -9437,7 +11296,7 @@ static const GAPStubMethodDescriptor gap_class_56_methods[] = {
     0
 },
 };
-static const GAPStubPropertyDescriptor gap_class_56_properties[] = {
+static const GAPStubPropertyDescriptor gap_class_69_properties[] = {
 {
     "context",
     { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
@@ -9481,25 +11340,25 @@ static const GAPStubPropertyDescriptor gap_class_56_properties[] = {
     "get_score"
 },
 };
-static const GAPStubNamedTypeInfo gap_class_57_method_0_args[] = {
+static const GAPStubNamedTypeInfo gap_class_70_method_0_args[] = {
     { "localizableMessageKey", { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "arguments", { GDEXTENSION_VARIANT_TYPE_PACKED_STRING_ARRAY, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_57_method_1_args[] = {
+static const GAPStubNamedTypeInfo gap_class_70_method_1_args[] = {
     { "localizableMessageKey", { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "arguments", { GDEXTENSION_VARIANT_TYPE_PACKED_STRING_ARRAY, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "data", { GDEXTENSION_VARIANT_TYPE_PACKED_BYTE_ARRAY, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubMethodDescriptor gap_class_57_methods[] = {
+static const GAPStubMethodDescriptor gap_class_70_methods[] = {
 {
     "cancel",
     "GKTurnBasedExchange.cancel",
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_57_method_0_args,
+    gap_class_70_method_0_args,
     3
 },
 {
@@ -9508,7 +11367,7 @@ static const GAPStubMethodDescriptor gap_class_57_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_57_method_1_args,
+    gap_class_70_method_1_args,
     4
 },
 {
@@ -9602,7 +11461,7 @@ static const GAPStubMethodDescriptor gap_class_57_methods[] = {
     0
 },
 };
-static const GAPStubPropertyDescriptor gap_class_57_properties[] = {
+static const GAPStubPropertyDescriptor gap_class_70_properties[] = {
 {
     "completion_date",
     { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
@@ -9664,7 +11523,7 @@ static const GAPStubPropertyDescriptor gap_class_57_properties[] = {
     "get_timeout_date"
 },
 };
-static const GAPStubMethodDescriptor gap_class_58_methods[] = {
+static const GAPStubMethodDescriptor gap_class_71_methods[] = {
 {
     "get_data",
     "GKTurnBasedExchangeReply.get_data",
@@ -9702,7 +11561,7 @@ static const GAPStubMethodDescriptor gap_class_58_methods[] = {
     0
 },
 };
-static const GAPStubPropertyDescriptor gap_class_58_properties[] = {
+static const GAPStubPropertyDescriptor gap_class_71_properties[] = {
 {
     "data",
     { GDEXTENSION_VARIANT_TYPE_PACKED_BYTE_ARRAY, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
@@ -9728,63 +11587,63 @@ static const GAPStubPropertyDescriptor gap_class_58_properties[] = {
     "get_reply_date"
 },
 };
-static const GAPStubNamedTypeInfo gap_class_59_method_0_args[] = {
+static const GAPStubNamedTypeInfo gap_class_72_method_0_args[] = {
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_59_method_1_args[] = {
+static const GAPStubNamedTypeInfo gap_class_72_method_1_args[] = {
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_59_method_2_args[] = {
+static const GAPStubNamedTypeInfo gap_class_72_method_2_args[] = {
     { "data", { GDEXTENSION_VARIANT_TYPE_PACKED_BYTE_ARRAY, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_59_method_3_args[] = {
+static const GAPStubNamedTypeInfo gap_class_72_method_3_args[] = {
     { "nextParticipants", { GDEXTENSION_VARIANT_TYPE_ARRAY, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "timeout", { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "data", { GDEXTENSION_VARIANT_TYPE_PACKED_BYTE_ARRAY, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_59_method_6_args[] = {
+static const GAPStubNamedTypeInfo gap_class_72_method_6_args[] = {
     { "request", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKMatchRequest", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_59_method_7_args[] = {
+static const GAPStubNamedTypeInfo gap_class_72_method_7_args[] = {
     { "matchID", { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_59_method_8_args[] = {
+static const GAPStubNamedTypeInfo gap_class_72_method_8_args[] = {
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_59_method_9_args[] = {
+static const GAPStubNamedTypeInfo gap_class_72_method_9_args[] = {
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_59_method_10_args[] = {
+static const GAPStubNamedTypeInfo gap_class_72_method_10_args[] = {
     { "outcome", { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "nextParticipants", { GDEXTENSION_VARIANT_TYPE_ARRAY, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "timeout", { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "data", { GDEXTENSION_VARIANT_TYPE_PACKED_BYTE_ARRAY, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_59_method_11_args[] = {
+static const GAPStubNamedTypeInfo gap_class_72_method_11_args[] = {
     { "outcome", { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_59_method_12_args[] = {
+static const GAPStubNamedTypeInfo gap_class_72_method_12_args[] = {
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_59_method_13_args[] = {
+static const GAPStubNamedTypeInfo gap_class_72_method_13_args[] = {
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_59_method_14_args[] = {
+static const GAPStubNamedTypeInfo gap_class_72_method_14_args[] = {
     { "data", { GDEXTENSION_VARIANT_TYPE_PACKED_BYTE_ARRAY, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_59_method_15_args[] = {
+static const GAPStubNamedTypeInfo gap_class_72_method_15_args[] = {
     { "data", { GDEXTENSION_VARIANT_TYPE_PACKED_BYTE_ARRAY, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "resolvedExchanges", { GDEXTENSION_VARIANT_TYPE_ARRAY, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_59_method_16_args[] = {
+static const GAPStubNamedTypeInfo gap_class_72_method_16_args[] = {
     { "participants", { GDEXTENSION_VARIANT_TYPE_ARRAY, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "data", { GDEXTENSION_VARIANT_TYPE_PACKED_BYTE_ARRAY, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "localizableMessageKey", { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
@@ -9792,24 +11651,24 @@ static const GAPStubNamedTypeInfo gap_class_59_method_16_args[] = {
     { "timeout", { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_59_method_17_args[] = {
+static const GAPStubNamedTypeInfo gap_class_72_method_17_args[] = {
     { "participants", { GDEXTENSION_VARIANT_TYPE_ARRAY, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "localizableMessageKey", { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "arguments", { GDEXTENSION_VARIANT_TYPE_PACKED_STRING_ARRAY, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_59_method_18_args[] = {
+static const GAPStubNamedTypeInfo gap_class_72_method_18_args[] = {
     { "key", { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "arguments", { GDEXTENSION_VARIANT_TYPE_PACKED_STRING_ARRAY, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubMethodDescriptor gap_class_59_methods[] = {
+static const GAPStubMethodDescriptor gap_class_72_methods[] = {
 {
     "accept_invite",
     "GKTurnBasedMatch.accept_invite",
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_59_method_0_args,
+    gap_class_72_method_0_args,
     1
 },
 {
@@ -9818,7 +11677,7 @@ static const GAPStubMethodDescriptor gap_class_59_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_59_method_1_args,
+    gap_class_72_method_1_args,
     1
 },
 {
@@ -9827,7 +11686,7 @@ static const GAPStubMethodDescriptor gap_class_59_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_59_method_2_args,
+    gap_class_72_method_2_args,
     2
 },
 {
@@ -9836,7 +11695,7 @@ static const GAPStubMethodDescriptor gap_class_59_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_59_method_3_args,
+    gap_class_72_method_3_args,
     4
 },
 {
@@ -9863,7 +11722,7 @@ static const GAPStubMethodDescriptor gap_class_59_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL | GDEXTENSION_METHOD_FLAG_STATIC,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_59_method_6_args,
+    gap_class_72_method_6_args,
     2
 },
 {
@@ -9872,7 +11731,7 @@ static const GAPStubMethodDescriptor gap_class_59_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL | GDEXTENSION_METHOD_FLAG_STATIC,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_59_method_7_args,
+    gap_class_72_method_7_args,
     2
 },
 {
@@ -9881,7 +11740,7 @@ static const GAPStubMethodDescriptor gap_class_59_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_59_method_8_args,
+    gap_class_72_method_8_args,
     1
 },
 {
@@ -9890,7 +11749,7 @@ static const GAPStubMethodDescriptor gap_class_59_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL | GDEXTENSION_METHOD_FLAG_STATIC,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_59_method_9_args,
+    gap_class_72_method_9_args,
     1
 },
 {
@@ -9899,7 +11758,7 @@ static const GAPStubMethodDescriptor gap_class_59_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_59_method_10_args,
+    gap_class_72_method_10_args,
     5
 },
 {
@@ -9908,7 +11767,7 @@ static const GAPStubMethodDescriptor gap_class_59_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_59_method_11_args,
+    gap_class_72_method_11_args,
     2
 },
 {
@@ -9917,7 +11776,7 @@ static const GAPStubMethodDescriptor gap_class_59_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_59_method_12_args,
+    gap_class_72_method_12_args,
     1
 },
 {
@@ -9926,7 +11785,7 @@ static const GAPStubMethodDescriptor gap_class_59_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_59_method_13_args,
+    gap_class_72_method_13_args,
     1
 },
 {
@@ -9935,7 +11794,7 @@ static const GAPStubMethodDescriptor gap_class_59_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_59_method_14_args,
+    gap_class_72_method_14_args,
     2
 },
 {
@@ -9944,7 +11803,7 @@ static const GAPStubMethodDescriptor gap_class_59_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_59_method_15_args,
+    gap_class_72_method_15_args,
     3
 },
 {
@@ -9953,7 +11812,7 @@ static const GAPStubMethodDescriptor gap_class_59_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_59_method_16_args,
+    gap_class_72_method_16_args,
     6
 },
 {
@@ -9962,7 +11821,7 @@ static const GAPStubMethodDescriptor gap_class_59_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_59_method_17_args,
+    gap_class_72_method_17_args,
     4
 },
 {
@@ -9971,7 +11830,7 @@ static const GAPStubMethodDescriptor gap_class_59_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_59_method_18_args,
+    gap_class_72_method_18_args,
     2
 },
 {
@@ -10119,7 +11978,7 @@ static const GAPStubMethodDescriptor gap_class_59_methods[] = {
     0
 },
 };
-static const GAPStubPropertyDescriptor gap_class_59_properties[] = {
+static const GAPStubPropertyDescriptor gap_class_72_properties[] = {
 {
     "active_exchanges",
     { GDEXTENSION_VARIANT_TYPE_ARRAY, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
@@ -10205,39 +12064,39 @@ static const GAPStubPropertyDescriptor gap_class_59_properties[] = {
     "get_status"
 },
 };
-static const GAPStubNamedTypeInfo gap_class_60_method_0_args[] = {
+static const GAPStubNamedTypeInfo gap_class_73_method_0_args[] = {
     { "request", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKMatchRequest", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_60_method_2_args[] = {
+static const GAPStubNamedTypeInfo gap_class_73_method_2_args[] = {
     { "request", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKMatchRequest", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_60_method_4_args[] = {
+static const GAPStubNamedTypeInfo gap_class_73_method_4_args[] = {
     { "matchmaking_mode", { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_60_method_6_args[] = {
+static const GAPStubNamedTypeInfo gap_class_73_method_6_args[] = {
     { "show_existing_matches", { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_60_signal_0_args[] = {
+static const GAPStubNamedTypeInfo gap_class_73_signal_0_args[] = {
     { "detail", { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_60_signal_1_args[] = {
+static const GAPStubNamedTypeInfo gap_class_73_signal_1_args[] = {
     { "match", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKTurnBasedMatch", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_60_signal_2_args[] = {
+static const GAPStubNamedTypeInfo gap_class_73_signal_2_args[] = {
     { "message", { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_60_signal_3_args[] = {
+static const GAPStubNamedTypeInfo gap_class_73_signal_3_args[] = {
     { "match", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKTurnBasedMatch", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubMethodDescriptor gap_class_60_methods[] = {
+static const GAPStubMethodDescriptor gap_class_73_methods[] = {
 {
     "create_controller",
     "GKTurnBasedMatchmakerViewController.create_controller",
     GDEXTENSION_METHOD_FLAG_NORMAL | GDEXTENSION_METHOD_FLAG_STATIC,
     1,
     { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKTurnBasedMatchmakerViewController", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_60_method_0_args,
+    gap_class_73_method_0_args,
     1
 },
 {
@@ -10255,7 +12114,7 @@ static const GAPStubMethodDescriptor gap_class_60_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL | GDEXTENSION_METHOD_FLAG_STATIC,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_60_method_2_args,
+    gap_class_73_method_2_args,
     2
 },
 {
@@ -10273,7 +12132,7 @@ static const GAPStubMethodDescriptor gap_class_60_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_60_method_4_args,
+    gap_class_73_method_4_args,
     1
 },
 {
@@ -10291,11 +12150,11 @@ static const GAPStubMethodDescriptor gap_class_60_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_60_method_6_args,
+    gap_class_73_method_6_args,
     1
 },
 };
-static const GAPStubPropertyDescriptor gap_class_60_properties[] = {
+static const GAPStubPropertyDescriptor gap_class_73_properties[] = {
 {
     "matchmaking_mode",
     { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
@@ -10309,38 +12168,38 @@ static const GAPStubPropertyDescriptor gap_class_60_properties[] = {
     "get_show_existing_matches"
 },
 };
-static const GAPStubSignalDescriptor gap_class_60_signals[] = {
+static const GAPStubSignalDescriptor gap_class_73_signals[] = {
 {
     "cancelled",
-    gap_class_60_signal_0_args,
+    gap_class_73_signal_0_args,
     1
 },
 {
     "did_find_match",
-    gap_class_60_signal_1_args,
+    gap_class_73_signal_1_args,
     1
 },
 {
     "failed_with_error",
-    gap_class_60_signal_2_args,
+    gap_class_73_signal_2_args,
     1
 },
 {
     "player_quit_for_match",
-    gap_class_60_signal_3_args,
+    gap_class_73_signal_3_args,
     1
 },
 };
-static const GAPStubConstantDescriptor gap_class_60_constants[] = {
+static const GAPStubConstantDescriptor gap_class_73_constants[] = {
 { "MatchmakingMode", "DEFAULT", 0, 0 },
 { "MatchmakingMode", "NEARBY_ONLY", 1, 0 },
 { "MatchmakingMode", "AUTOMATCH_ONLY", 2, 0 },
 { "MatchmakingMode", "INVITE_ONLY", 3, 0 },
 };
-static const GAPStubNamedTypeInfo gap_class_61_method_2_args[] = {
+static const GAPStubNamedTypeInfo gap_class_74_method_2_args[] = {
     { "match_outcome", { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubMethodDescriptor gap_class_61_methods[] = {
+static const GAPStubMethodDescriptor gap_class_74_methods[] = {
 {
     "get_last_turn_date",
     "GKTurnBasedParticipant.get_last_turn_date",
@@ -10365,7 +12224,7 @@ static const GAPStubMethodDescriptor gap_class_61_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_61_method_2_args,
+    gap_class_74_method_2_args,
     1
 },
 {
@@ -10396,7 +12255,7 @@ static const GAPStubMethodDescriptor gap_class_61_methods[] = {
     0
 },
 };
-static const GAPStubPropertyDescriptor gap_class_61_properties[] = {
+static const GAPStubPropertyDescriptor gap_class_74_properties[] = {
 {
     "last_turn_date",
     { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
@@ -10428,21 +12287,21 @@ static const GAPStubPropertyDescriptor gap_class_61_properties[] = {
     "get_timeout_date"
 },
 };
-static const GAPStubNamedTypeInfo gap_class_62_method_1_args[] = {
+static const GAPStubNamedTypeInfo gap_class_75_method_1_args[] = {
     { "player", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKPlayer", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "muted", { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_62_method_5_args[] = {
+static const GAPStubNamedTypeInfo gap_class_75_method_5_args[] = {
     { "is_active", { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_62_method_9_args[] = {
+static const GAPStubNamedTypeInfo gap_class_75_method_9_args[] = {
     { "volume", { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_62_signal_0_args[] = {
+static const GAPStubNamedTypeInfo gap_class_75_signal_0_args[] = {
     { "player", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKPlayer", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "state", { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubMethodDescriptor gap_class_62_methods[] = {
+static const GAPStubMethodDescriptor gap_class_75_methods[] = {
 {
     "is_voip_allowed",
     "GKVoiceChat.is_voip_allowed",
@@ -10458,7 +12317,7 @@ static const GAPStubMethodDescriptor gap_class_62_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_62_method_1_args,
+    gap_class_75_method_1_args,
     2
 },
 {
@@ -10494,7 +12353,7 @@ static const GAPStubMethodDescriptor gap_class_62_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_62_method_5_args,
+    gap_class_75_method_5_args,
     1
 },
 {
@@ -10530,11 +12389,11 @@ static const GAPStubMethodDescriptor gap_class_62_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_62_method_9_args,
+    gap_class_75_method_9_args,
     1
 },
 };
-static const GAPStubPropertyDescriptor gap_class_62_properties[] = {
+static const GAPStubPropertyDescriptor gap_class_75_properties[] = {
 {
     "is_active",
     { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
@@ -10560,23 +12419,23 @@ static const GAPStubPropertyDescriptor gap_class_62_properties[] = {
     "get_volume"
 },
 };
-static const GAPStubSignalDescriptor gap_class_62_signals[] = {
+static const GAPStubSignalDescriptor gap_class_75_signals[] = {
 {
     "player_state_changed",
-    gap_class_62_signal_0_args,
+    gap_class_75_signal_0_args,
     2
 },
 };
-static const GAPStubNamedTypeInfo gap_class_63_method_3_args[] = {
+static const GAPStubNamedTypeInfo gap_class_76_method_3_args[] = {
     { "local_player", { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKLocalPlayer", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_63_signal_0_args[] = {
+static const GAPStubNamedTypeInfo gap_class_76_signal_0_args[] = {
     { "message", { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_63_signal_1_args[] = {
+static const GAPStubNamedTypeInfo gap_class_76_signal_1_args[] = {
     { "status", { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubMethodDescriptor gap_class_63_methods[] = {
+static const GAPStubMethodDescriptor gap_class_76_methods[] = {
 {
     "authenticate",
     "GameCenterManager.authenticate",
@@ -10610,11 +12469,11 @@ static const GAPStubMethodDescriptor gap_class_63_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_63_method_3_args,
+    gap_class_76_method_3_args,
     1
 },
 };
-static const GAPStubPropertyDescriptor gap_class_63_properties[] = {
+static const GAPStubPropertyDescriptor gap_class_76_properties[] = {
 {
     "access_point",
     { GDEXTENSION_VARIANT_TYPE_OBJECT, "GKAccessPoint", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
@@ -10628,31 +12487,31 @@ static const GAPStubPropertyDescriptor gap_class_63_properties[] = {
     "get_local_player"
 },
 };
-static const GAPStubSignalDescriptor gap_class_63_signals[] = {
+static const GAPStubSignalDescriptor gap_class_76_signals[] = {
 {
     "authentication_error",
-    gap_class_63_signal_0_args,
+    gap_class_76_signal_0_args,
     1
 },
 {
     "authentication_result",
-    gap_class_63_signal_1_args,
+    gap_class_76_signal_1_args,
     1
 },
 };
-static const GAPStubNamedTypeInfo gap_class_64_method_3_args[] = {
+static const GAPStubNamedTypeInfo gap_class_77_method_3_args[] = {
     { "prefers_promotional_icon", { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_64_method_5_args[] = {
+static const GAPStubNamedTypeInfo gap_class_77_method_5_args[] = {
     { "product_id", { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_64_method_7_args[] = {
+static const GAPStubNamedTypeInfo gap_class_77_method_7_args[] = {
     { "style", { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_64_method_9_args[] = {
+static const GAPStubNamedTypeInfo gap_class_77_method_9_args[] = {
     { "system_icon_name", { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubMethodDescriptor gap_class_64_methods[] = {
+static const GAPStubMethodDescriptor gap_class_77_methods[] = {
 {
     "dismiss",
     "ProductView.dismiss",
@@ -10686,7 +12545,7 @@ static const GAPStubMethodDescriptor gap_class_64_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_64_method_3_args,
+    gap_class_77_method_3_args,
     1
 },
 {
@@ -10704,7 +12563,7 @@ static const GAPStubMethodDescriptor gap_class_64_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_64_method_5_args,
+    gap_class_77_method_5_args,
     1
 },
 {
@@ -10722,7 +12581,7 @@ static const GAPStubMethodDescriptor gap_class_64_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_64_method_7_args,
+    gap_class_77_method_7_args,
     1
 },
 {
@@ -10740,11 +12599,11 @@ static const GAPStubMethodDescriptor gap_class_64_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_64_method_9_args,
+    gap_class_77_method_9_args,
     1
 },
 };
-static const GAPStubPropertyDescriptor gap_class_64_properties[] = {
+static const GAPStubPropertyDescriptor gap_class_77_properties[] = {
 {
     "prefers_promotional_icon",
     { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
@@ -10770,13 +12629,13 @@ static const GAPStubPropertyDescriptor gap_class_64_properties[] = {
     "get_system_icon_name"
 },
 };
-static const GAPStubConstantDescriptor gap_class_64_constants[] = {
+static const GAPStubConstantDescriptor gap_class_77_constants[] = {
 { "ViewStyle", "AUTOMATIC", 0, 0 },
 { "ViewStyle", "COMPACT", 1, 0 },
 { "ViewStyle", "LARGE", 2, 0 },
 { "ViewStyle", "REGULAR", 3, 0 },
 };
-static const GAPStubMethodDescriptor gap_class_65_methods[] = {
+static const GAPStubMethodDescriptor gap_class_78_methods[] = {
 {
     "proxy",
     "SignalProxy.proxy",
@@ -10787,43 +12646,43 @@ static const GAPStubMethodDescriptor gap_class_65_methods[] = {
     0
 },
 };
-static const GAPStubNamedTypeInfo gap_class_66_method_1_args[] = {
+static const GAPStubNamedTypeInfo gap_class_79_method_1_args[] = {
     { "product", { GDEXTENSION_VARIANT_TYPE_OBJECT, "StoreProduct", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_66_method_2_args[] = {
+static const GAPStubNamedTypeInfo gap_class_79_method_2_args[] = {
     { "product", { GDEXTENSION_VARIANT_TYPE_OBJECT, "StoreProduct", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "options", { GDEXTENSION_VARIANT_TYPE_ARRAY, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_66_method_3_args[] = {
+static const GAPStubNamedTypeInfo gap_class_79_method_3_args[] = {
     { "productIds", { GDEXTENSION_VARIANT_TYPE_PACKED_STRING_ARRAY, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_66_signal_0_args[] = {
+static const GAPStubNamedTypeInfo gap_class_79_signal_0_args[] = {
     { "products", { GDEXTENSION_VARIANT_TYPE_ARRAY, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "status", { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_66_signal_1_args[] = {
+static const GAPStubNamedTypeInfo gap_class_79_signal_1_args[] = {
     { "transaction", { GDEXTENSION_VARIANT_TYPE_OBJECT, "StoreTransaction", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "status", { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "error_message", { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_66_signal_2_args[] = {
+static const GAPStubNamedTypeInfo gap_class_79_signal_2_args[] = {
     { "product", { GDEXTENSION_VARIANT_TYPE_OBJECT, "StoreProduct", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_66_signal_3_args[] = {
+static const GAPStubNamedTypeInfo gap_class_79_signal_3_args[] = {
     { "status", { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "error_message", { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_66_signal_4_args[] = {
+static const GAPStubNamedTypeInfo gap_class_79_signal_4_args[] = {
     { "status", { GDEXTENSION_VARIANT_TYPE_OBJECT, "StoreSubscriptionInfoStatus", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_66_signal_5_args[] = {
+static const GAPStubNamedTypeInfo gap_class_79_signal_5_args[] = {
     { "transaction", { GDEXTENSION_VARIANT_TYPE_OBJECT, "StoreTransaction", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_66_signal_6_args[] = {
+static const GAPStubNamedTypeInfo gap_class_79_signal_6_args[] = {
     { "transaction", { GDEXTENSION_VARIANT_TYPE_OBJECT, "StoreTransaction", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "verification_error", { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubMethodDescriptor gap_class_66_methods[] = {
+static const GAPStubMethodDescriptor gap_class_79_methods[] = {
 {
     "fetch_current_entitlements",
     "StoreKitManager.fetch_current_entitlements",
@@ -10839,7 +12698,7 @@ static const GAPStubMethodDescriptor gap_class_66_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_66_method_1_args,
+    gap_class_79_method_1_args,
     1
 },
 {
@@ -10848,7 +12707,7 @@ static const GAPStubMethodDescriptor gap_class_66_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_66_method_2_args,
+    gap_class_79_method_2_args,
     2
 },
 {
@@ -10857,7 +12716,7 @@ static const GAPStubMethodDescriptor gap_class_66_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_66_method_3_args,
+    gap_class_79_method_3_args,
     1
 },
 {
@@ -10879,44 +12738,44 @@ static const GAPStubMethodDescriptor gap_class_66_methods[] = {
     0
 },
 };
-static const GAPStubSignalDescriptor gap_class_66_signals[] = {
+static const GAPStubSignalDescriptor gap_class_79_signals[] = {
 {
     "products_request_completed",
-    gap_class_66_signal_0_args,
+    gap_class_79_signal_0_args,
     2
 },
 {
     "purchase_completed",
-    gap_class_66_signal_1_args,
+    gap_class_79_signal_1_args,
     3
 },
 {
     "purchase_intent",
-    gap_class_66_signal_2_args,
+    gap_class_79_signal_2_args,
     1
 },
 {
     "restore_completed",
-    gap_class_66_signal_3_args,
+    gap_class_79_signal_3_args,
     2
 },
 {
     "supscription_update",
-    gap_class_66_signal_4_args,
+    gap_class_79_signal_4_args,
     1
 },
 {
     "transaction_updated",
-    gap_class_66_signal_5_args,
+    gap_class_79_signal_5_args,
     1
 },
 {
     "unverified_transaction_updated",
-    gap_class_66_signal_6_args,
+    gap_class_79_signal_6_args,
     2
 },
 };
-static const GAPStubConstantDescriptor gap_class_66_constants[] = {
+static const GAPStubConstantDescriptor gap_class_79_constants[] = {
 { "StoreKitStatus", "OK", 0, 0 },
 { "StoreKitStatus", "INVALID_PRODUCT", 1, 0 },
 { "StoreKitStatus", "CANCELLED", 2, 0 },
@@ -10932,7 +12791,7 @@ static const GAPStubConstantDescriptor gap_class_66_constants[] = {
 { "VerificationError", "MISSING_REQUIRED_PROPERTIES", 5, 0 },
 { "VerificationError", "OTHER", 6, 0 },
 };
-static const GAPStubMethodDescriptor gap_class_67_methods[] = {
+static const GAPStubMethodDescriptor gap_class_80_methods[] = {
 {
     "get_description_value",
     "StoreProduct.get_description_value",
@@ -10997,7 +12856,7 @@ static const GAPStubMethodDescriptor gap_class_67_methods[] = {
     0
 },
 };
-static const GAPStubPropertyDescriptor gap_class_67_properties[] = {
+static const GAPStubPropertyDescriptor gap_class_80_properties[] = {
 {
     "description_value",
     { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
@@ -11041,7 +12900,7 @@ static const GAPStubPropertyDescriptor gap_class_67_properties[] = {
     "get_product_id"
 },
 };
-static const GAPStubMethodDescriptor gap_class_68_methods[] = {
+static const GAPStubMethodDescriptor gap_class_81_methods[] = {
 {
     "get_free_trial",
     "StoreProductPaymentMode.get_free_trial",
@@ -11079,7 +12938,7 @@ static const GAPStubMethodDescriptor gap_class_68_methods[] = {
     0
 },
 };
-static const GAPStubPropertyDescriptor gap_class_68_properties[] = {
+static const GAPStubPropertyDescriptor gap_class_81_properties[] = {
 {
     "localized_description",
     { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
@@ -11087,29 +12946,29 @@ static const GAPStubPropertyDescriptor gap_class_68_properties[] = {
     "get_localized_description"
 },
 };
-static const GAPStubNamedTypeInfo gap_class_69_method_0_args[] = {
+static const GAPStubNamedTypeInfo gap_class_82_method_0_args[] = {
     { "stringUuidToken", { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_69_method_1_args[] = {
+static const GAPStubNamedTypeInfo gap_class_82_method_1_args[] = {
     { "jws", { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_69_method_2_args[] = {
+static const GAPStubNamedTypeInfo gap_class_82_method_2_args[] = {
     { "value", { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_69_method_3_args[] = {
+static const GAPStubNamedTypeInfo gap_class_82_method_3_args[] = {
     { "enabled", { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_69_method_4_args[] = {
+static const GAPStubNamedTypeInfo gap_class_82_method_4_args[] = {
     { "offer", { GDEXTENSION_VARIANT_TYPE_OBJECT, "StoreProductSubscriptionOffer", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubMethodDescriptor gap_class_69_methods[] = {
+static const GAPStubMethodDescriptor gap_class_82_methods[] = {
 {
     "app_account_token",
     "StoreProductPurchaseOption.app_account_token",
     GDEXTENSION_METHOD_FLAG_NORMAL | GDEXTENSION_METHOD_FLAG_STATIC,
     1,
     { GDEXTENSION_VARIANT_TYPE_OBJECT, "StoreProductPurchaseOption", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_69_method_0_args,
+    gap_class_82_method_0_args,
     1
 },
 {
@@ -11118,7 +12977,7 @@ static const GAPStubMethodDescriptor gap_class_69_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL | GDEXTENSION_METHOD_FLAG_STATIC,
     1,
     { GDEXTENSION_VARIANT_TYPE_OBJECT, "StoreProductPurchaseOption", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_69_method_1_args,
+    gap_class_82_method_1_args,
     1
 },
 {
@@ -11127,7 +12986,7 @@ static const GAPStubMethodDescriptor gap_class_69_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL | GDEXTENSION_METHOD_FLAG_STATIC,
     1,
     { GDEXTENSION_VARIANT_TYPE_OBJECT, "StoreProductPurchaseOption", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_69_method_2_args,
+    gap_class_82_method_2_args,
     1
 },
 {
@@ -11136,7 +12995,7 @@ static const GAPStubMethodDescriptor gap_class_69_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL | GDEXTENSION_METHOD_FLAG_STATIC,
     1,
     { GDEXTENSION_VARIANT_TYPE_OBJECT, "StoreProductPurchaseOption", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_69_method_3_args,
+    gap_class_82_method_3_args,
     1
 },
 {
@@ -11145,41 +13004,41 @@ static const GAPStubMethodDescriptor gap_class_69_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL | GDEXTENSION_METHOD_FLAG_STATIC,
     1,
     { GDEXTENSION_VARIANT_TYPE_OBJECT, "StoreProductPurchaseOption", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_69_method_4_args,
+    gap_class_82_method_4_args,
     1
 },
 };
-static const GAPStubConstantDescriptor gap_class_70_constants[] = {
+static const GAPStubConstantDescriptor gap_class_83_constants[] = {
 { "OfferType", "INTRODUCTORY", 0, 0 },
 { "OfferType", "PROMOTIONAL", 1, 0 },
 { "OfferType", "WIN_BACK", 2, 0 },
 { "OfferType", "UNKNOWN", 3, 0 },
 };
-static const GAPStubConstantDescriptor gap_class_71_constants[] = {
+static const GAPStubConstantDescriptor gap_class_84_constants[] = {
 { "Unit", "DAY", 0, 0 },
 { "Unit", "MONTH", 1, 0 },
 { "Unit", "WEEK", 2, 0 },
 { "Unit", "YEAR", 3, 0 },
 };
-static const GAPStubNamedTypeInfo gap_class_72_method_0_args[] = {
+static const GAPStubNamedTypeInfo gap_class_85_method_0_args[] = {
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_72_method_1_args[] = {
+static const GAPStubNamedTypeInfo gap_class_85_method_1_args[] = {
     { "group_id", { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "status", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_72_method_2_args[] = {
+static const GAPStubNamedTypeInfo gap_class_85_method_2_args[] = {
     { "transaction_id", { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
     { "status", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubMethodDescriptor gap_class_72_methods[] = {
+static const GAPStubMethodDescriptor gap_class_85_methods[] = {
 {
     "getStatus",
     "StoreSubscriptionInfo.getStatus",
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_72_method_0_args,
+    gap_class_85_method_0_args,
     1
 },
 {
@@ -11188,7 +13047,7 @@ static const GAPStubMethodDescriptor gap_class_72_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_72_method_1_args,
+    gap_class_85_method_1_args,
     2
 },
 {
@@ -11197,7 +13056,7 @@ static const GAPStubMethodDescriptor gap_class_72_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_72_method_2_args,
+    gap_class_85_method_2_args,
     2
 },
 {
@@ -11228,7 +13087,7 @@ static const GAPStubMethodDescriptor gap_class_72_methods[] = {
     0
 },
 };
-static const GAPStubPropertyDescriptor gap_class_72_properties[] = {
+static const GAPStubPropertyDescriptor gap_class_85_properties[] = {
 {
     "group_display_name",
     { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
@@ -11248,7 +13107,7 @@ static const GAPStubPropertyDescriptor gap_class_72_properties[] = {
     "get_subscription_group_id"
 },
 };
-static const GAPStubMethodDescriptor gap_class_73_methods[] = {
+static const GAPStubMethodDescriptor gap_class_86_methods[] = {
 {
     "get_app_account_token",
     "StoreSubscriptionInfoRenewalInfo.get_app_account_token",
@@ -11286,7 +13145,7 @@ static const GAPStubMethodDescriptor gap_class_73_methods[] = {
     0
 },
 };
-static const GAPStubPropertyDescriptor gap_class_73_properties[] = {
+static const GAPStubPropertyDescriptor gap_class_86_properties[] = {
 {
     "app_account_token",
     { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
@@ -11312,7 +13171,7 @@ static const GAPStubPropertyDescriptor gap_class_73_properties[] = {
     "get_original_transaction_id"
 },
 };
-static const GAPStubMethodDescriptor gap_class_74_methods[] = {
+static const GAPStubMethodDescriptor gap_class_87_methods[] = {
 {
     "get_renewal_info",
     "StoreSubscriptionInfoStatus.get_renewal_info",
@@ -11341,7 +13200,7 @@ static const GAPStubMethodDescriptor gap_class_74_methods[] = {
     0
 },
 };
-static const GAPStubPropertyDescriptor gap_class_74_properties[] = {
+static const GAPStubPropertyDescriptor gap_class_87_properties[] = {
 {
     "renewal_info",
     { GDEXTENSION_VARIANT_TYPE_OBJECT, "StoreSubscriptionInfoRenewalInfo", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
@@ -11361,7 +13220,7 @@ static const GAPStubPropertyDescriptor gap_class_74_properties[] = {
     "get_transaction"
 },
 };
-static const GAPStubConstantDescriptor gap_class_74_constants[] = {
+static const GAPStubConstantDescriptor gap_class_87_constants[] = {
 { "RenewalState", "UNKNOWN", 0, 0 },
 { "RenewalState", "EXPIRED", 1, 0 },
 { "RenewalState", "SUBSCRIBED", 2, 0 },
@@ -11369,7 +13228,7 @@ static const GAPStubConstantDescriptor gap_class_74_constants[] = {
 { "RenewalState", "IN_GRACE_PERIOD", 4, 0 },
 { "RenewalState", "REVOKED", 5, 0 },
 };
-static const GAPStubMethodDescriptor gap_class_75_methods[] = {
+static const GAPStubMethodDescriptor gap_class_88_methods[] = {
 {
     "finish",
     "StoreTransaction.finish",
@@ -11452,7 +13311,7 @@ static const GAPStubMethodDescriptor gap_class_75_methods[] = {
     0
 },
 };
-static const GAPStubPropertyDescriptor gap_class_75_properties[] = {
+static const GAPStubPropertyDescriptor gap_class_88_properties[] = {
 {
     "expiration_date",
     { GDEXTENSION_VARIANT_TYPE_FLOAT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
@@ -11502,10 +13361,10 @@ static const GAPStubPropertyDescriptor gap_class_75_properties[] = {
     "get_transaction_id"
 },
 };
-static const GAPStubNamedTypeInfo gap_class_76_method_3_args[] = {
+static const GAPStubNamedTypeInfo gap_class_89_method_3_args[] = {
     { "product_ids", { GDEXTENSION_VARIANT_TYPE_PACKED_STRING_ARRAY, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubMethodDescriptor gap_class_76_methods[] = {
+static const GAPStubMethodDescriptor gap_class_89_methods[] = {
 {
     "dismiss",
     "StoreView.dismiss",
@@ -11539,11 +13398,11 @@ static const GAPStubMethodDescriptor gap_class_76_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_76_method_3_args,
+    gap_class_89_method_3_args,
     1
 },
 };
-static const GAPStubPropertyDescriptor gap_class_76_properties[] = {
+static const GAPStubPropertyDescriptor gap_class_89_properties[] = {
 {
     "product_ids",
     { GDEXTENSION_VARIANT_TYPE_PACKED_STRING_ARRAY, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
@@ -11551,16 +13410,16 @@ static const GAPStubPropertyDescriptor gap_class_76_properties[] = {
     "get_product_ids"
 },
 };
-static const GAPStubNamedTypeInfo gap_class_77_method_1_args[] = {
+static const GAPStubNamedTypeInfo gap_class_90_method_1_args[] = {
     { "callback", { GDEXTENSION_VARIANT_TYPE_CALLABLE, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_77_method_3_args[] = {
+static const GAPStubNamedTypeInfo gap_class_90_method_3_args[] = {
     { "title", { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_77_signal_0_args[] = {
+static const GAPStubNamedTypeInfo gap_class_90_signal_0_args[] = {
     { "message", { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubMethodDescriptor gap_class_77_methods[] = {
+static const GAPStubMethodDescriptor gap_class_90_methods[] = {
 {
     "dismiss",
     "SubscriptionOfferView.dismiss",
@@ -11576,7 +13435,7 @@ static const GAPStubMethodDescriptor gap_class_77_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_77_method_1_args,
+    gap_class_90_method_1_args,
     1
 },
 {
@@ -11594,11 +13453,11 @@ static const GAPStubMethodDescriptor gap_class_77_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_77_method_3_args,
+    gap_class_90_method_3_args,
     1
 },
 };
-static const GAPStubPropertyDescriptor gap_class_77_properties[] = {
+static const GAPStubPropertyDescriptor gap_class_90_properties[] = {
 {
     "title",
     { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
@@ -11606,10 +13465,10 @@ static const GAPStubPropertyDescriptor gap_class_77_properties[] = {
     "get_title"
 },
 };
-static const GAPStubSignalDescriptor gap_class_77_signals[] = {
+static const GAPStubSignalDescriptor gap_class_90_signals[] = {
 {
     "error",
-    gap_class_77_signal_0_args,
+    gap_class_90_signal_0_args,
     1
 },
 {
@@ -11618,16 +13477,16 @@ static const GAPStubSignalDescriptor gap_class_77_signals[] = {
     0
 },
 };
-static const GAPStubNamedTypeInfo gap_class_78_method_3_args[] = {
+static const GAPStubNamedTypeInfo gap_class_91_method_3_args[] = {
     { "control_style", { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_78_method_5_args[] = {
+static const GAPStubNamedTypeInfo gap_class_91_method_5_args[] = {
     { "group_id", { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubNamedTypeInfo gap_class_78_method_7_args[] = {
+static const GAPStubNamedTypeInfo gap_class_91_method_7_args[] = {
     { "product_i_ds", { GDEXTENSION_VARIANT_TYPE_PACKED_STRING_ARRAY, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT } },
 };
-static const GAPStubMethodDescriptor gap_class_78_methods[] = {
+static const GAPStubMethodDescriptor gap_class_91_methods[] = {
 {
     "dismiss",
     "SubscriptionStoreView.dismiss",
@@ -11661,7 +13520,7 @@ static const GAPStubMethodDescriptor gap_class_78_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_78_method_3_args,
+    gap_class_91_method_3_args,
     1
 },
 {
@@ -11679,7 +13538,7 @@ static const GAPStubMethodDescriptor gap_class_78_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_78_method_5_args,
+    gap_class_91_method_5_args,
     1
 },
 {
@@ -11697,11 +13556,11 @@ static const GAPStubMethodDescriptor gap_class_78_methods[] = {
     GDEXTENSION_METHOD_FLAG_NORMAL,
     0,
     { GDEXTENSION_VARIANT_TYPE_NIL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
-    gap_class_78_method_7_args,
+    gap_class_91_method_7_args,
     1
 },
 };
-static const GAPStubPropertyDescriptor gap_class_78_properties[] = {
+static const GAPStubPropertyDescriptor gap_class_91_properties[] = {
 {
     "control_style",
     { GDEXTENSION_VARIANT_TYPE_INT, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
@@ -11721,7 +13580,7 @@ static const GAPStubPropertyDescriptor gap_class_78_properties[] = {
     "get_product_i_ds"
 },
 };
-static const GAPStubConstantDescriptor gap_class_78_constants[] = {
+static const GAPStubConstantDescriptor gap_class_91_constants[] = {
 { "ControlStyle", "AUTOMATIC", 0, 0 },
 { "ControlStyle", "PICKER", 1, 0 },
 { "ControlStyle", "BUTTONS", 2, 0 },
@@ -11987,7 +13846,7 @@ static const GAPStubClassDescriptor gap_classes[] = {
     "ARSession",
     "RefCounted",
     gap_class_21_methods,
-    21,
+    19,
     gap_class_21_properties,
     4,
     gap_class_21_signals,
@@ -12116,9 +13975,165 @@ static const GAPStubClassDescriptor gap_classes[] = {
     0
 },
 {
-    "Foundation",
+    "CMAbsoluteAltitudeData",
     "RefCounted",
     gap_class_32_methods,
+    8,
+    gap_class_32_properties,
+    4,
+    NULL,
+    0,
+    NULL,
+    0
+},
+{
+    "CMAccelerometerData",
+    "RefCounted",
+    gap_class_33_methods,
+    4,
+    gap_class_33_properties,
+    2,
+    NULL,
+    0,
+    NULL,
+    0
+},
+{
+    "CMAltimeter",
+    "RefCounted",
+    gap_class_34_methods,
+    7,
+    NULL,
+    0,
+    gap_class_34_signals,
+    3,
+    NULL,
+    0
+},
+{
+    "CMAltitudeData",
+    "RefCounted",
+    gap_class_35_methods,
+    6,
+    gap_class_35_properties,
+    3,
+    NULL,
+    0,
+    NULL,
+    0
+},
+{
+    "CMDeviceMotion",
+    "RefCounted",
+    gap_class_36_methods,
+    18,
+    gap_class_36_properties,
+    9,
+    NULL,
+    0,
+    gap_class_36_constants,
+    4
+},
+{
+    "CMGyroData",
+    "RefCounted",
+    gap_class_37_methods,
+    4,
+    gap_class_37_properties,
+    2,
+    NULL,
+    0,
+    NULL,
+    0
+},
+{
+    "CMHeadphoneMotionManager",
+    "RefCounted",
+    gap_class_38_methods,
+    6,
+    gap_class_38_properties,
+    3,
+    gap_class_38_signals,
+    4,
+    NULL,
+    0
+},
+{
+    "CMMagnetometerData",
+    "RefCounted",
+    gap_class_39_methods,
+    4,
+    gap_class_39_properties,
+    2,
+    NULL,
+    0,
+    NULL,
+    0
+},
+{
+    "CMMotionActivity",
+    "RefCounted",
+    gap_class_40_methods,
+    16,
+    gap_class_40_properties,
+    8,
+    NULL,
+    0,
+    gap_class_40_constants,
+    3
+},
+{
+    "CMMotionActivityManager",
+    "RefCounted",
+    gap_class_41_methods,
+    5,
+    NULL,
+    0,
+    gap_class_41_signals,
+    2,
+    NULL,
+    0
+},
+{
+    "CMMotionManager",
+    "RefCounted",
+    gap_class_42_methods,
+    28,
+    gap_class_42_properties,
+    16,
+    gap_class_42_signals,
+    5,
+    gap_class_42_constants,
+    4
+},
+{
+    "CMPedometer",
+    "RefCounted",
+    gap_class_43_methods,
+    9,
+    NULL,
+    0,
+    gap_class_43_signals,
+    2,
+    NULL,
+    0
+},
+{
+    "CMPedometerData",
+    "RefCounted",
+    gap_class_44_methods,
+    18,
+    gap_class_44_properties,
+    9,
+    NULL,
+    0,
+    NULL,
+    0
+},
+{
+    "Foundation",
+    "RefCounted",
+    gap_class_45_methods,
     1,
     NULL,
     0,
@@ -12130,21 +14145,21 @@ static const GAPStubClassDescriptor gap_classes[] = {
 {
     "GKAccessPoint",
     "RefCounted",
-    gap_class_33_methods,
+    gap_class_46_methods,
     22,
-    gap_class_33_properties,
+    gap_class_46_properties,
     7,
     NULL,
     0,
-    gap_class_33_constants,
+    gap_class_46_constants,
     4
 },
 {
     "GKAchievement",
     "RefCounted",
-    gap_class_34_methods,
+    gap_class_47_methods,
     16,
-    gap_class_34_properties,
+    gap_class_47_properties,
     6,
     NULL,
     0,
@@ -12154,21 +14169,21 @@ static const GAPStubClassDescriptor gap_classes[] = {
 {
     "GKChallenge",
     "RefCounted",
-    gap_class_35_methods,
+    gap_class_48_methods,
     9,
-    gap_class_35_properties,
+    gap_class_48_properties,
     7,
     NULL,
     0,
-    gap_class_35_constants,
+    gap_class_48_constants,
     7
 },
 {
     "GKAchievementChallenge",
     "GKChallenge",
-    gap_class_36_methods,
+    gap_class_49_methods,
     1,
-    gap_class_36_properties,
+    gap_class_49_properties,
     1,
     NULL,
     0,
@@ -12178,9 +14193,9 @@ static const GAPStubClassDescriptor gap_classes[] = {
 {
     "GKAchievementDescription",
     "RefCounted",
-    gap_class_37_methods,
+    gap_class_50_methods,
     16,
-    gap_class_37_properties,
+    gap_class_50_properties,
     12,
     NULL,
     0,
@@ -12190,9 +14205,9 @@ static const GAPStubClassDescriptor gap_classes[] = {
 {
     "GKChallengeDefinition",
     "RefCounted",
-    gap_class_38_methods,
+    gap_class_51_methods,
     11,
-    gap_class_38_properties,
+    gap_class_51_properties,
     8,
     NULL,
     0,
@@ -12202,21 +14217,21 @@ static const GAPStubClassDescriptor gap_classes[] = {
 {
     "GKError",
     "RefCounted",
-    gap_class_39_methods,
+    gap_class_52_methods,
     6,
-    gap_class_39_properties,
+    gap_class_52_properties,
     3,
     NULL,
     0,
-    gap_class_39_constants,
+    gap_class_52_constants,
     42
 },
 {
     "GKGameActivity",
     "RefCounted",
-    gap_class_40_methods,
+    gap_class_53_methods,
     35,
-    gap_class_40_properties,
+    gap_class_53_properties,
     13,
     NULL,
     0,
@@ -12226,9 +14241,9 @@ static const GAPStubClassDescriptor gap_classes[] = {
 {
     "GKGameActivityDefinition",
     "RefCounted",
-    gap_class_41_methods,
+    gap_class_54_methods,
     17,
-    gap_class_41_properties,
+    gap_class_54_properties,
     12,
     NULL,
     0,
@@ -12238,21 +14253,21 @@ static const GAPStubClassDescriptor gap_classes[] = {
 {
     "GKGameCenterViewController",
     "RefCounted",
-    gap_class_42_methods,
+    gap_class_55_methods,
     6,
     NULL,
     0,
     NULL,
     0,
-    gap_class_42_constants,
+    gap_class_55_constants,
     6
 },
 {
     "GKInvite",
     "RefCounted",
-    gap_class_43_methods,
+    gap_class_56_methods,
     4,
-    gap_class_43_properties,
+    gap_class_56_properties,
     4,
     NULL,
     0,
@@ -12262,21 +14277,21 @@ static const GAPStubClassDescriptor gap_classes[] = {
 {
     "GKLeaderboard",
     "RefCounted",
-    gap_class_44_methods,
+    gap_class_57_methods,
     18,
-    gap_class_44_properties,
+    gap_class_57_properties,
     12,
     NULL,
     0,
-    gap_class_44_constants,
+    gap_class_57_constants,
     8
 },
 {
     "GKLeaderboardEntry",
     "RefCounted",
-    gap_class_45_methods,
+    gap_class_58_methods,
     6,
-    gap_class_45_properties,
+    gap_class_58_properties,
     6,
     NULL,
     0,
@@ -12286,9 +14301,9 @@ static const GAPStubClassDescriptor gap_classes[] = {
 {
     "GKLeaderboardScore",
     "RefCounted",
-    gap_class_46_methods,
+    gap_class_59_methods,
     8,
-    gap_class_46_properties,
+    gap_class_59_properties,
     4,
     NULL,
     0,
@@ -12298,9 +14313,9 @@ static const GAPStubClassDescriptor gap_classes[] = {
 {
     "GKLeaderboardSet",
     "RefCounted",
-    gap_class_47_methods,
+    gap_class_60_methods,
     6,
-    gap_class_47_properties,
+    gap_class_60_properties,
     3,
     NULL,
     0,
@@ -12310,9 +14325,9 @@ static const GAPStubClassDescriptor gap_classes[] = {
 {
     "GKPlayer",
     "RefCounted",
-    gap_class_48_methods,
+    gap_class_61_methods,
     9,
-    gap_class_48_properties,
+    gap_class_61_properties,
     6,
     NULL,
     0,
@@ -12322,11 +14337,11 @@ static const GAPStubClassDescriptor gap_classes[] = {
 {
     "GKLocalPlayer",
     "GKPlayer",
-    gap_class_49_methods,
+    gap_class_62_methods,
     18,
-    gap_class_49_properties,
+    gap_class_62_properties,
     4,
-    gap_class_49_signals,
+    gap_class_62_signals,
     14,
     NULL,
     0
@@ -12334,35 +14349,35 @@ static const GAPStubClassDescriptor gap_classes[] = {
 {
     "GKMatch",
     "RefCounted",
-    gap_class_50_methods,
+    gap_class_63_methods,
     12,
-    gap_class_50_properties,
+    gap_class_63_properties,
     5,
-    gap_class_50_signals,
+    gap_class_63_signals,
     4,
-    gap_class_50_constants,
+    gap_class_63_constants,
     2
 },
 {
     "GKMatchRequest",
     "RefCounted",
-    gap_class_51_methods,
+    gap_class_64_methods,
     23,
-    gap_class_51_properties,
+    gap_class_64_properties,
     11,
     NULL,
     0,
-    gap_class_51_constants,
+    gap_class_64_constants,
     10
 },
 {
     "GKMatchmaker",
     "RefCounted",
-    gap_class_52_methods,
+    gap_class_65_methods,
     15,
     NULL,
     0,
-    gap_class_52_signals,
+    gap_class_65_signals,
     2,
     NULL,
     0
@@ -12370,11 +14385,11 @@ static const GAPStubClassDescriptor gap_classes[] = {
 {
     "GKMatchmakerViewController",
     "RefCounted",
-    gap_class_53_methods,
+    gap_class_66_methods,
     15,
-    gap_class_53_properties,
+    gap_class_66_properties,
     5,
-    gap_class_53_signals,
+    gap_class_66_signals,
     5,
     NULL,
     0
@@ -12382,7 +14397,7 @@ static const GAPStubClassDescriptor gap_classes[] = {
 {
     "GKNotificationBanner",
     "RefCounted",
-    gap_class_54_methods,
+    gap_class_67_methods,
     2,
     NULL,
     0,
@@ -12394,9 +14409,9 @@ static const GAPStubClassDescriptor gap_classes[] = {
 {
     "GKSavedGame",
     "GKPlayer",
-    gap_class_55_methods,
+    gap_class_68_methods,
     4,
-    gap_class_55_properties,
+    gap_class_68_properties,
     3,
     NULL,
     0,
@@ -12406,9 +14421,9 @@ static const GAPStubClassDescriptor gap_classes[] = {
 {
     "GKScoreChallenge",
     "GKChallenge",
-    gap_class_56_methods,
+    gap_class_69_methods,
     7,
-    gap_class_56_properties,
+    gap_class_69_properties,
     7,
     NULL,
     0,
@@ -12418,9 +14433,9 @@ static const GAPStubClassDescriptor gap_classes[] = {
 {
     "GKTurnBasedExchange",
     "RefCounted",
-    gap_class_57_methods,
+    gap_class_70_methods,
     12,
-    gap_class_57_properties,
+    gap_class_70_properties,
     10,
     NULL,
     0,
@@ -12430,9 +14445,9 @@ static const GAPStubClassDescriptor gap_classes[] = {
 {
     "GKTurnBasedExchangeReply",
     "RefCounted",
-    gap_class_58_methods,
+    gap_class_71_methods,
     4,
-    gap_class_58_properties,
+    gap_class_71_properties,
     4,
     NULL,
     0,
@@ -12442,9 +14457,9 @@ static const GAPStubClassDescriptor gap_classes[] = {
 {
     "GKTurnBasedMatch",
     "RefCounted",
-    gap_class_59_methods,
+    gap_class_72_methods,
     35,
-    gap_class_59_properties,
+    gap_class_72_properties,
     14,
     NULL,
     0,
@@ -12454,21 +14469,21 @@ static const GAPStubClassDescriptor gap_classes[] = {
 {
     "GKTurnBasedMatchmakerViewController",
     "RefCounted",
-    gap_class_60_methods,
+    gap_class_73_methods,
     7,
-    gap_class_60_properties,
+    gap_class_73_properties,
     2,
-    gap_class_60_signals,
+    gap_class_73_signals,
     4,
-    gap_class_60_constants,
+    gap_class_73_constants,
     4
 },
 {
     "GKTurnBasedParticipant",
     "RefCounted",
-    gap_class_61_methods,
+    gap_class_74_methods,
     6,
-    gap_class_61_properties,
+    gap_class_74_properties,
     5,
     NULL,
     0,
@@ -12478,11 +14493,11 @@ static const GAPStubClassDescriptor gap_classes[] = {
 {
     "GKVoiceChat",
     "RefCounted",
-    gap_class_62_methods,
+    gap_class_75_methods,
     10,
-    gap_class_62_properties,
+    gap_class_75_properties,
     4,
-    gap_class_62_signals,
+    gap_class_75_signals,
     1,
     NULL,
     0
@@ -12490,11 +14505,11 @@ static const GAPStubClassDescriptor gap_classes[] = {
 {
     "GameCenterManager",
     "RefCounted",
-    gap_class_63_methods,
+    gap_class_76_methods,
     4,
-    gap_class_63_properties,
+    gap_class_76_properties,
     2,
-    gap_class_63_signals,
+    gap_class_76_signals,
     2,
     NULL,
     0
@@ -12502,19 +14517,19 @@ static const GAPStubClassDescriptor gap_classes[] = {
 {
     "ProductView",
     "RefCounted",
-    gap_class_64_methods,
+    gap_class_77_methods,
     10,
-    gap_class_64_properties,
+    gap_class_77_properties,
     4,
     NULL,
     0,
-    gap_class_64_constants,
+    gap_class_77_constants,
     4
 },
 {
     "SignalProxy",
     "Object",
-    gap_class_65_methods,
+    gap_class_78_methods,
     1,
     NULL,
     0,
@@ -12526,21 +14541,21 @@ static const GAPStubClassDescriptor gap_classes[] = {
 {
     "StoreKitManager",
     "RefCounted",
-    gap_class_66_methods,
+    gap_class_79_methods,
     6,
     NULL,
     0,
-    gap_class_66_signals,
+    gap_class_79_signals,
     7,
-    gap_class_66_constants,
+    gap_class_79_constants,
     14
 },
 {
     "StoreProduct",
     "RefCounted",
-    gap_class_67_methods,
+    gap_class_80_methods,
     7,
-    gap_class_67_properties,
+    gap_class_80_properties,
     7,
     NULL,
     0,
@@ -12550,9 +14565,9 @@ static const GAPStubClassDescriptor gap_classes[] = {
 {
     "StoreProductPaymentMode",
     "RefCounted",
-    gap_class_68_methods,
+    gap_class_81_methods,
     4,
-    gap_class_68_properties,
+    gap_class_81_properties,
     1,
     NULL,
     0,
@@ -12562,7 +14577,7 @@ static const GAPStubClassDescriptor gap_classes[] = {
 {
     "StoreProductPurchaseOption",
     "RefCounted",
-    gap_class_69_methods,
+    gap_class_82_methods,
     5,
     NULL,
     0,
@@ -12580,7 +14595,7 @@ static const GAPStubClassDescriptor gap_classes[] = {
     0,
     NULL,
     0,
-    gap_class_70_constants,
+    gap_class_83_constants,
     4
 },
 {
@@ -12592,15 +14607,15 @@ static const GAPStubClassDescriptor gap_classes[] = {
     0,
     NULL,
     0,
-    gap_class_71_constants,
+    gap_class_84_constants,
     4
 },
 {
     "StoreSubscriptionInfo",
     "RefCounted",
-    gap_class_72_methods,
+    gap_class_85_methods,
     6,
-    gap_class_72_properties,
+    gap_class_85_properties,
     3,
     NULL,
     0,
@@ -12610,9 +14625,9 @@ static const GAPStubClassDescriptor gap_classes[] = {
 {
     "StoreSubscriptionInfoRenewalInfo",
     "RefCounted",
-    gap_class_73_methods,
+    gap_class_86_methods,
     4,
-    gap_class_73_properties,
+    gap_class_86_properties,
     4,
     NULL,
     0,
@@ -12622,21 +14637,21 @@ static const GAPStubClassDescriptor gap_classes[] = {
 {
     "StoreSubscriptionInfoStatus",
     "RefCounted",
-    gap_class_74_methods,
+    gap_class_87_methods,
     3,
-    gap_class_74_properties,
+    gap_class_87_properties,
     3,
     NULL,
     0,
-    gap_class_74_constants,
+    gap_class_87_constants,
     6
 },
 {
     "StoreTransaction",
     "RefCounted",
-    gap_class_75_methods,
+    gap_class_88_methods,
     9,
-    gap_class_75_properties,
+    gap_class_88_properties,
     8,
     NULL,
     0,
@@ -12646,9 +14661,9 @@ static const GAPStubClassDescriptor gap_classes[] = {
 {
     "StoreView",
     "RefCounted",
-    gap_class_76_methods,
+    gap_class_89_methods,
     4,
-    gap_class_76_properties,
+    gap_class_89_properties,
     1,
     NULL,
     0,
@@ -12658,11 +14673,11 @@ static const GAPStubClassDescriptor gap_classes[] = {
 {
     "SubscriptionOfferView",
     "RefCounted",
-    gap_class_77_methods,
+    gap_class_90_methods,
     4,
-    gap_class_77_properties,
+    gap_class_90_properties,
     1,
-    gap_class_77_signals,
+    gap_class_90_signals,
     2,
     NULL,
     0
@@ -12670,13 +14685,13 @@ static const GAPStubClassDescriptor gap_classes[] = {
 {
     "SubscriptionStoreView",
     "RefCounted",
-    gap_class_78_methods,
+    gap_class_91_methods,
     8,
-    gap_class_78_properties,
+    gap_class_91_properties,
     3,
     NULL,
     0,
-    gap_class_78_constants,
+    gap_class_91_constants,
     7
 },
 };
