@@ -19,13 +19,21 @@ jobs:
           # Drop entries in the user keychain search list whose file no longer
           # exists. Git credential helpers are disabled for this job, but this
           # keeps the persistent self-hosted runner state clean as well.
+          LOGIN_KEYCHAIN="$HOME/Library/Keychains/login.keychain-db"
           KEEP=()
           while IFS= read -r kc; do
             kc="$(echo "${kc//\"/}" | xargs)"
             [ -n "$kc" ] && [ -e "$kc" ] && KEEP+=("$kc")
           done < <(security list-keychains -d user)
+          if [ "${#KEEP[@]}" -eq 0 ] && [ -e "$LOGIN_KEYCHAIN" ]; then
+            KEEP+=("$LOGIN_KEYCHAIN")
+          fi
           if [ "${#KEEP[@]}" -gt 0 ]; then
             security list-keychains -d user -s "${KEEP[@]}"
+            DEFAULT_KEYCHAIN="$(security default-keychain -d user 2>/dev/null | tr -d '"' | xargs || true)"
+            if [ -z "$DEFAULT_KEYCHAIN" ] || [ ! -e "$DEFAULT_KEYCHAIN" ]; then
+              security default-keychain -d user -s "${KEEP[0]}"
+            fi
           fi
 
       - name: Checkout repository
@@ -271,13 +279,21 @@ jobs:
           # exists. Otherwise git's osxkeychain credential helper triggers a
           # blocking "A keychain cannot be found to store …" GUI dialog when
           # actions/checkout runs.
+          LOGIN_KEYCHAIN="$HOME/Library/Keychains/login.keychain-db"
           KEEP=()
           while IFS= read -r kc; do
             kc="$(echo "${kc//\"/}" | xargs)"
             [ -n "$kc" ] && [ -e "$kc" ] && KEEP+=("$kc")
           done < <(security list-keychains -d user)
+          if [ "${#KEEP[@]}" -eq 0 ] && [ -e "$LOGIN_KEYCHAIN" ]; then
+            KEEP+=("$LOGIN_KEYCHAIN")
+          fi
           if [ "${#KEEP[@]}" -gt 0 ]; then
             security list-keychains -d user -s "${KEEP[@]}"
+            DEFAULT_KEYCHAIN="$(security default-keychain -d user 2>/dev/null | tr -d '"' | xargs || true)"
+            if [ -z "$DEFAULT_KEYCHAIN" ] || [ ! -e "$DEFAULT_KEYCHAIN" ]; then
+              security default-keychain -d user -s "${KEEP[0]}"
+            fi
           fi
 
       - name: Checkout repository
@@ -532,12 +548,6 @@ jobs:
       - name: Clean up signing keychain
         if: always() && env.KEYCHAIN_PATH != ''
         run: |
-          security delete-keychain "$KEYCHAIN_PATH" || true
-
-          if [ -n "${DEFAULT_KEYCHAIN_PATH:-}" ] && [ -e "$DEFAULT_KEYCHAIN_PATH" ]; then
-            security default-keychain -d user -s "$DEFAULT_KEYCHAIN_PATH" || true
-          fi
-
           existing_keychains=()
           for keychain in ${ORIGINAL_KEYCHAINS:-}; do
             if [ -e "$keychain" ]; then
@@ -545,6 +555,14 @@ jobs:
             fi
           done
 
+          if [ -n "${DEFAULT_KEYCHAIN_PATH:-}" ] && [ -e "$DEFAULT_KEYCHAIN_PATH" ]; then
+            security default-keychain -d user -s "$DEFAULT_KEYCHAIN_PATH" || true
+          elif [ "${#existing_keychains[@]}" -gt 0 ]; then
+            security default-keychain -d user -s "${existing_keychains[0]}" || true
+          fi
+
           if [ "${#existing_keychains[@]}" -gt 0 ]; then
             security list-keychains -d user -s "${existing_keychains[@]}" || true
           fi
+
+          security delete-keychain "$KEYCHAIN_PATH" || true
