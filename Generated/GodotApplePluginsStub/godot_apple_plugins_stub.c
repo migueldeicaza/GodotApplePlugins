@@ -13257,6 +13257,15 @@ static const GAPStubMethodDescriptor gap_class_88_methods[] = {
     0
 },
 {
+    "get_jws_representation",
+    "StoreTransaction.get_jws_representation",
+    GDEXTENSION_METHOD_FLAG_NORMAL,
+    1,
+    { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    NULL,
+    0
+},
+{
     "get_original_id",
     "StoreTransaction.get_original_id",
     GDEXTENSION_METHOD_FLAG_NORMAL,
@@ -13323,6 +13332,12 @@ static const GAPStubPropertyDescriptor gap_class_88_properties[] = {
     { GDEXTENSION_VARIANT_TYPE_BOOL, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
     "",
     "get_is_upgraded"
+},
+{
+    "jws_representation",
+    { GDEXTENSION_VARIANT_TYPE_STRING, "", GAP_PROPERTY_HINT_NONE, "", GAP_PROPERTY_USAGE_DEFAULT },
+    "",
+    "get_jws_representation"
 },
 {
     "original_id",
@@ -14650,9 +14665,9 @@ static const GAPStubClassDescriptor gap_classes[] = {
     "StoreTransaction",
     "RefCounted",
     gap_class_88_methods,
-    9,
+    10,
     gap_class_88_properties,
-    8,
+    9,
     NULL,
     0,
     NULL,
