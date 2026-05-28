@@ -31,6 +31,9 @@
 		<member name="is_upgraded" type="bool" setter="" getter="get_is_upgraded" default="false">
 			Whether this transaction is an upgrade of another transaction.
 		</member>
+		<member name="jws_representation" type="String" setter="" getter="get_jws_representation" default="&quot;&quot;">
+			The JWS (JSON Web Signature) representation of the signed transaction, suitable for server-side receipt validation (for example the App Store Server API or a third-party validator such as RevenueCat). Empty when the transaction was not constructed from a verification result.
+		</member>
 		<member name="original_id" type="int" setter="" getter="get_original_id" default="0">
 			The transaction identifier of the original purchase.
 		</member>
