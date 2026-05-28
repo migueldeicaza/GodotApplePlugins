@@ -149,9 +149,10 @@ class StoreSubscriptionInfoStatus: RefCounted, @unchecked Sendable {
     }
 
     @Export var transaction: StoreTransaction? {
-        switch status?.transaction {
+        guard let verificationResult = status?.transaction else { return nil }
+        switch verificationResult {
         case .verified(let txn):
-            return StoreTransaction(txn)
+            return StoreTransaction(txn, jws: verificationResult.jwsRepresentation)
         default:
             return nil
         }

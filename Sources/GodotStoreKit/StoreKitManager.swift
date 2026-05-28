@@ -140,7 +140,7 @@ public class StoreKitManager: RefCounted, @unchecked Sendable {
     private func handleTransaction(_ verificationResult: VerificationResult<Transaction>) {
         switch verificationResult {
         case .verified(let transaction):
-            let storeTransaction = StoreTransaction(transaction)
+            let storeTransaction = StoreTransaction(transaction, jws: verificationResult.jwsRepresentation)
             // Always finish the transaction if it's verified and we've received it
             // In a real app, we might want to wait until the user has unlocked content,
             // but for this binding, we'll emit the signal and finish it.
@@ -151,7 +151,7 @@ public class StoreKitManager: RefCounted, @unchecked Sendable {
                 self.transaction_updated.emit(storeTransaction)
             }
         case .unverified(let transaction, let verificationError):
-            let storeTransaction = StoreTransaction(transaction)
+            let storeTransaction = StoreTransaction(transaction, jws: verificationResult.jwsRepresentation)
             Task { @MainActor in
                 self.unverified_transaction_updated.emit(storeTransaction, VerificationError.from(verificationError).rawValue)
             }
@@ -205,7 +205,7 @@ public class StoreKitManager: RefCounted, @unchecked Sendable {
                 case .success(let verification):
                     switch verification {
                     case .verified(let transaction):
-                        let storeTransaction = StoreTransaction(transaction)
+                        let storeTransaction = StoreTransaction(transaction, jws: verification.jwsRepresentation)
                         await MainActor.run {
                             _ = self.purchase_completed.emit(storeTransaction, StoreKitStatus.OK.rawValue, "")
                         }

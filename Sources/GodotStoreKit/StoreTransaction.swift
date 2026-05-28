@@ -11,11 +11,19 @@ import StoreKit
 @Godot
 class StoreTransaction: RefCounted, @unchecked Sendable {
     var transaction: Transaction?
+    var jws: String = ""
 
-    convenience init(_ transaction: Transaction) {
+    convenience init(_ transaction: Transaction, jws: String = "") {
         self.init()
         self.transaction = transaction
+        self.jws = jws
     }
+
+    /// The JWS (JSON Web Signature) representation of the signed transaction.
+    /// Useful for server-side validation, e.g. the App Store Server API or
+    /// third-party receipt validators such as RevenueCat's `/receipts` endpoint.
+    /// Empty when the transaction was not constructed from a `VerificationResult`.
+    @Export var jws_representation: String { jws }
 
     @Export var transactionId: Int { Int(bitPattern: UInt(transaction?.id ?? 0)) }
     @Export var originalID: Int { Int(bitPattern: UInt(transaction?.originalID ?? 0)) }
