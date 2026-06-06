@@ -1,4 +1,4 @@
-.PHONY: run build build2 package dist xcframework check_swiftsyntax generate-stubs split-generate-stubs gendocs docs-html deploy-docs split-build split-dist split-package split-smoke split-validate split-validate-built split-validate-matrix
+.PHONY: run build build2 package dist xcframework check_swiftsyntax generate-stubs split-generate-stubs gendocs docs-html deploy-docs split-build split-dist split-package split-smoke split-validate split-validate-built split-validate-matrix o o-runtime o-fix-rpaths o-sync
 
 # Allow overriding common build knobs.
 CONFIG ?= Release
@@ -30,6 +30,10 @@ STUB_LIBRARY_NAME ?= godot_apple_plugins_stub
 STUB_FILES ?=
 STUB_GENERATOR ?= swift run GodotApplePluginsStubGenerator
 SPLIT_SELECTED_FRAMEWORK_NAMES ?= $(SPLIT_FRAMEWORK_NAMES)
+QUICK_FRAMEWORK ?= GodotApplePluginsGameCenter
+QUICK_CONFIG ?= Debug
+QUICK_DESTINATIONS ?= generic/platform=iOS generic/platform=iOS\ Simulator platform=macOS,arch=$(HOST_ARCH)
+QUICK_PROJECT ?= $(HOME)/Documents/TestApplePlugins
 
 empty :=
 space := $(empty) $(empty)
@@ -474,19 +478,100 @@ deploy-docs:
 #
 # Quick hacks I use for rapid iteration
 #
-# My hack is that I build on Xcode for Mac and iPad first, then I
-# iterate by just rebuilding in one platform, and then running
-# "make o" here over and over, and my Godot project already has a
-# symlink here, so I can test quickly on desktop against the Mac 
-# API.
+# Builds one split plugin locally, packages its Apple payloads, and copies
+# the plugin plus SwiftGodot runtime payloads into a Godot test project.
 o:
-	rm -rf '$(XCFRAMEWORK_GODOTAPPLEPLUGINS)'; \
-	rm -rf addons/GodotApplePlugins/bin/GodotApplePlugins.framework; \
-	$(XCODEBUILD) -create-xcframework \
-		-framework ~/DerivedData/GodotApplePlugins-*/Build/Products/Debug-iphoneos/PackageFrameworks/GodotApplePlugins.framework/ \
-		-output '$(XCFRAMEWORK_GODOTAPPLEPLUGINS)'
-	cp -pr ~/DerivedData/GodotApplePlugins-*/Build/Products/Debug/PackageFrameworks/GodotApplePlugins.framework addons/GodotApplePlugins/bin/GodotApplePlugins.framework
-	rsync -a doc_classes/ addons/GodotApplePlugins/bin/GodotApplePlugins.framework/Resources/doc_classes/
+	$(MAKE) build \
+		CONFIG="$(QUICK_CONFIG)" \
+		DESTINATIONS="$(QUICK_DESTINATIONS)" \
+		FRAMEWORK_NAMES="$(QUICK_FRAMEWORK)"
+	$(MAKE) dist CONFIG="$(QUICK_CONFIG)" FRAMEWORK_NAMES="$(QUICK_FRAMEWORK)"
+	$(MAKE) o-runtime QUICK_CONFIG="$(QUICK_CONFIG)"
+	$(MAKE) o-fix-rpaths QUICK_FRAMEWORK="$(QUICK_FRAMEWORK)" QUICK_CONFIG="$(QUICK_CONFIG)"
+	$(MAKE) o-sync QUICK_FRAMEWORK="$(QUICK_FRAMEWORK)" QUICK_PROJECT="$(QUICK_PROJECT)"
+
+o-runtime:
+	@set -e; \
+	runtime_bin="$(CURDIR)/addons/GodotApplePluginsRuntime/bin"; \
+	rm -rf "$$runtime_bin/$(SPLIT_RUNTIME_FRAMEWORK).xcframework" \
+		"$$runtime_bin/$(SPLIT_RUNTIME_FRAMEWORK).framework"; \
+	mkdir -p "$$runtime_bin"; \
+	runtime_ios_device="$(DERIVED_DATA)/Build/Products/$(QUICK_CONFIG)-iphoneos/PackageFrameworks/$(SPLIT_RUNTIME_FRAMEWORK).framework"; \
+	runtime_ios_sim="$(DERIVED_DATA)simulator/Build/Products/$(QUICK_CONFIG)-iphonesimulator/PackageFrameworks/$(SPLIT_RUNTIME_FRAMEWORK).framework"; \
+	if [ -d "$$runtime_ios_device" ] && [ -d "$$runtime_ios_sim" ]; then \
+		$(XCODEBUILD) -create-xcframework \
+			-framework "$$runtime_ios_device" \
+			-framework "$$runtime_ios_sim" \
+			-output "$$runtime_bin/$(SPLIT_RUNTIME_FRAMEWORK).xcframework"; \
+	else \
+		echo "Skipping runtime xcframework; missing iOS device or simulator runtime product."; \
+	fi; \
+	runtime_macos="$(DERIVED_DATA)$(HOST_ARCH)/Build/Products/$(QUICK_CONFIG)/PackageFrameworks/$(SPLIT_RUNTIME_FRAMEWORK).framework"; \
+	if [ -d "$$runtime_macos" ]; then \
+		rsync -a "$$runtime_macos/" "$$runtime_bin/$(SPLIT_RUNTIME_FRAMEWORK).framework"; \
+	else \
+		echo "Missing host macOS runtime product: $$runtime_macos" >&2; \
+		exit 1; \
+	fi
+
+o-fix-rpaths:
+	@set -e; \
+	addon="$(QUICK_FRAMEWORK)"; \
+	binary="$(CURDIR)/addons/$$addon/bin/$$addon.framework/Versions/A/$$addon"; \
+	if [ ! -f "$$binary" ]; then \
+		echo "Missing host macOS framework binary: $$binary" >&2; \
+		exit 1; \
+	fi; \
+	has_rpath() { \
+		check_binary="$$1"; \
+		rpath="$$2"; \
+		otool -l "$$check_binary" | grep -Fq "path $$rpath "; \
+	}; \
+	add_or_replace_rpath() { \
+		check_binary="$$1"; \
+		old_rpath="$$2"; \
+		new_rpath="$$3"; \
+		if ! has_rpath "$$check_binary" "$$new_rpath"; then \
+			if has_rpath "$$check_binary" "$$old_rpath"; then \
+				install_name_tool -rpath "$$old_rpath" "$$new_rpath" "$$check_binary"; \
+			else \
+				install_name_tool -add_rpath "$$new_rpath" "$$check_binary"; \
+			fi; \
+		fi; \
+	}; \
+	old_rpath="$(DERIVED_DATA)$(HOST_ARCH)/Build/Products/$(QUICK_CONFIG)/PackageFrameworks"; \
+	add_or_replace_rpath "$$binary" "$$old_rpath" "$(SPLIT_RUNTIME_RPATH)"; \
+	add_or_replace_rpath "$$binary" "$$old_rpath" "$(SPLIT_RUNTIME_FRAMEWORK_RPATH)"; \
+	if ! otool -L "$$binary" | grep -Fq "$(SPLIT_RUNTIME_LOAD_DYLIB)"; then \
+		echo "Runtime load command is not set on $$binary: $(SPLIT_RUNTIME_LOAD_DYLIB)" >&2; \
+		exit 1; \
+	fi
+
+o-sync:
+	@set -e; \
+	addon="$(QUICK_FRAMEWORK)"; \
+	project="$(QUICK_PROJECT)"; \
+	target_addons="$$project/addons"; \
+	if [ ! -d "$$project" ]; then \
+		echo "Missing Godot project: $$project" >&2; \
+		exit 1; \
+	fi; \
+	if [ ! -d "$(CURDIR)/addons/$$addon/bin" ]; then \
+		echo "Missing packaged addon payloads for $$addon. Run make o first." >&2; \
+		exit 1; \
+	fi; \
+	if [ ! -d "$(CURDIR)/addons/GodotApplePluginsRuntime/bin" ]; then \
+		echo "Missing packaged SwiftGodot runtime payloads. Run make o first." >&2; \
+		exit 1; \
+	fi; \
+	mkdir -p "$$target_addons/$$addon/bin" "$$target_addons/GodotApplePluginsRuntime/bin"; \
+	rm -rf "$$target_addons/$$addon/bin/$$addon.xcframework" \
+		"$$target_addons/$$addon/bin/$$addon.framework" \
+		"$$target_addons/GodotApplePluginsRuntime/bin/$(SPLIT_RUNTIME_FRAMEWORK).xcframework" \
+		"$$target_addons/GodotApplePluginsRuntime/bin/$(SPLIT_RUNTIME_FRAMEWORK).framework"; \
+	rsync -a "$(CURDIR)/addons/$$addon/" "$$target_addons/$$addon/"; \
+	rsync -a "$(CURDIR)/addons/GodotApplePluginsRuntime/" "$$target_addons/GodotApplePluginsRuntime/"; \
+	echo "Updated $$addon and GodotApplePluginsRuntime payloads in $$project"
 #
 # This I am using to test on the "Exported" project I placed
 #
