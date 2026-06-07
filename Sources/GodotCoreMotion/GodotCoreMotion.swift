@@ -35,7 +35,9 @@ public func godotApplePluginsCoreMotionInitialize(level: ExtensionInitialization
         registerEnum(CMDeviceMotion.MagneticFieldCalibrationAccuracy.self)
         registerEnum(CMMotionActivity.Confidence.self)
     } else if level == .editor {
-        EditorInterop.loadLibraryDocs()
+#if os(macOS)
+        loadEmbeddedCoreMotionDocs()
+#endif
     }
 }
 

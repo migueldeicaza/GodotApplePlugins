@@ -66,7 +66,9 @@ public func godotApplePluginsARKitInitialize(level: ExtensionInitializationLevel
         registerEnum(ARGeoAnchor.AltitudeSource.self)
         registerEnum(ARCollaborationData.Priority.self)
     } else if level == .editor {
-        EditorInterop.loadLibraryDocs()
+#if os(macOS)
+        loadEmbeddedARKitDocs()
+#endif
     }
 }
 

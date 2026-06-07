@@ -20,12 +20,130 @@ let runtimeDependency: Target.Dependency = .product(
     package: "SwiftGodot"
 )
 
-func pluginTarget(name: String, path: String, exclude: [String] = []) -> Target {
+func docResource(_ name: String) -> Resource {
+    .embedInCode("../../doc_classes/\(name).xml")
+}
+
+let avFoundationDocResources = [
+    "AVAudioSession",
+].map(docResource)
+
+let foundationDocResources = [
+    "AppleFilePicker",
+    "AppleURL",
+    "Foundation",
+    "SignalProxy",
+].map(docResource)
+
+let gameCenterDocResources = [
+    "GKAccessPoint",
+    "GKAchievement",
+    "GKAchievementChallenge",
+    "GKAchievementDescription",
+    "GKChallenge",
+    "GKChallengeDefinition",
+    "GKError",
+    "GKGameActivity",
+    "GKGameActivityDefinition",
+    "GKGameCenterViewController",
+    "GKInvite",
+    "GKLeaderboard",
+    "GKLeaderboardEntry",
+    "GKLeaderboardScore",
+    "GKLeaderboardSet",
+    "GKLocalPlayer",
+    "GKMatch",
+    "GKMatchRequest",
+    "GKMatchmaker",
+    "GKMatchmakerViewController",
+    "GKNotificationBanner",
+    "GKPlayer",
+    "GKSavedGame",
+    "GKScoreChallenge",
+    "GKTurnBasedExchange",
+    "GKTurnBasedExchangeReply",
+    "GKTurnBasedMatch",
+    "GKTurnBasedMatchmakerViewController",
+    "GKTurnBasedParticipant",
+    "GKVoiceChat",
+    "GameCenterManager",
+].map(docResource)
+
+let storeKitDocResources = [
+    "ProductView",
+    "StoreKitManager",
+    "StoreProduct",
+    "StoreProductPaymentMode",
+    "StoreProductPurchaseOption",
+    "StoreProductSubscriptionOffer",
+    "StoreProductSubscriptionPeriod",
+    "StoreSubscriptionInfo",
+    "StoreSubscriptionInfoRenewalInfo",
+    "StoreSubscriptionInfoStatus",
+    "StoreTransaction",
+    "StoreView",
+    "SubscriptionOfferView",
+    "SubscriptionStoreView",
+].map(docResource)
+
+let authenticationServicesDocResources = [
+    "ASAuthorizationAppleIDCredential",
+    "ASAuthorizationController",
+    "ASPasswordCredential",
+    "ASWebAuthenticationSession",
+].map(docResource)
+
+let arKitDocResources = [
+    "ARAnchor",
+    "ARBodyAnchor",
+    "ARBodySkeleton",
+    "ARBodyTrackingConfiguration",
+    "ARCamera",
+    "ARCoachingOverlay",
+    "ARCollaborationData",
+    "AREnvironmentProbeAnchor",
+    "ARFaceAnchor",
+    "ARFrame",
+    "ARGeoAnchor",
+    "ARGeoTrackingConfiguration",
+    "ARHandAnchor",
+    "ARHandSkeleton",
+    "ARImageAnchor",
+    "ARLightEstimate",
+    "ARMeshAnchor",
+    "ARPlaneAnchor",
+    "ARPointCloud",
+    "ARRaycastQuery",
+    "ARRaycastResult",
+    "ARSession",
+    "ARTrackedRaycast",
+    "ARWorldMap",
+    "ARWorldTrackingConfiguration",
+].map(docResource)
+
+let coreMotionDocResources = [
+    "CMAbsoluteAltitudeData",
+    "CMAccelerometerData",
+    "CMAltimeter",
+    "CMAltitudeData",
+    "CMDeviceMotion",
+    "CMGyroData",
+    "CMHeadphoneMotionManager",
+    "CMMagnetometerData",
+    "CMMotionActivity",
+    "CMMotionActivityManager",
+    "CMMotionManager",
+    "CMPedometer",
+    "CMPedometerData",
+].map(docResource)
+
+func pluginTarget(name: String, path: String, exclude: [String] = [], resources: [Resource] = []) -> Target {
     .target(
         name: name,
         dependencies: [runtimeDependency],
         path: path,
         exclude: exclude,
+        resources: resources,
         swiftSettings: swiftSettings,
         linkerSettings: linkerSettings
     )
@@ -85,9 +203,9 @@ let package = Package(
         ),
     ],
     dependencies: [
-        //.package(url: "https://github.com/migueldeicaza/SwiftGodot", revision: "5cf54f881f158e04108946472a1b3be6acd21e7b")
+        .package(url: "https://github.com/migueldeicaza/SwiftGodot", revision: "8122086c57b803c11ec5d01faf1f2449583cd374")
         // For local development:
-        .package(path: "../SwiftGodot")
+        //.package(path: "../SwiftGodot")
     ],
     targets: [
         .target(
@@ -108,11 +226,13 @@ let package = Package(
         ),
         pluginTarget(
             name: "GodotApplePluginsAVFoundation",
-            path: "Sources/GodotAVFoundation"
+            path: "Sources/GodotAVFoundation",
+            resources: avFoundationDocResources
         ),
         pluginTarget(
             name: "GodotApplePluginsFoundation",
-            path: "Sources/GodotFoundation"
+            path: "Sources/GodotFoundation",
+            resources: foundationDocResources
         ),
         pluginTarget(
             name: "GodotApplePluginsGameCenter",
@@ -120,26 +240,31 @@ let package = Package(
             exclude: [
                 "Entitlements.md",
                 "GameCenterGuide.md",
-            ]
+            ],
+            resources: gameCenterDocResources
         ),
         pluginTarget(
             name: "GodotApplePluginsStoreKit",
-            path: "Sources/GodotStoreKit"
+            path: "Sources/GodotStoreKit",
+            resources: storeKitDocResources
         ),
         pluginTarget(
             name: "GodotApplePluginsAuthenticationServices",
             path: "Sources/GodotAuthenticationServices",
-            exclude: ["AuthenticationServicesGuide.md"]
+            exclude: ["AuthenticationServicesGuide.md"],
+            resources: authenticationServicesDocResources
         ),
         pluginTarget(
             name: "GodotApplePluginsARKit",
             path: "Sources/GodotARKit",
-            exclude: ["ARKitGuide.md"]
+            exclude: ["ARKitGuide.md"],
+            resources: arKitDocResources
         ),
         pluginTarget(
             name: "GodotApplePluginsCoreMotion",
             path: "Sources/GodotCoreMotion",
-            exclude: ["CoreMotionGuide.md"]
+            exclude: ["CoreMotionGuide.md"],
+            resources: coreMotionDocResources
         ),
         .executableTarget(
             name: "GodotApplePluginsStubGenerator"

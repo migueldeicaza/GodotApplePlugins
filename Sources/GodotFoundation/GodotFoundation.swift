@@ -21,7 +21,9 @@ public let godotApplePluginsFoundationMinimumInitializationLevel = minimumInitia
 public func godotApplePluginsFoundationInitialize(level: ExtensionInitializationLevel) {
     godotApplePluginsFoundationTypes[level]?.forEach(register)
     if level == .editor {
-        EditorInterop.loadLibraryDocs()
+#if os(macOS)
+        loadEmbeddedFoundationDocs()
+#endif
     }
 }
 

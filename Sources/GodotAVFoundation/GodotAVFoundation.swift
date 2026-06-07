@@ -24,7 +24,9 @@ public func godotApplePluginsAVFoundationInitialize(level: ExtensionInitializati
         registerEnum(AVAudioSession.SessionCategory.self)
         registerEnum(AVAudioSession.SessionMode.self)
     } else if level == .editor {
-        EditorInterop.loadLibraryDocs()
+#if os(macOS)
+        loadEmbeddedAVFoundationDocs()
+#endif
     }
 }
 

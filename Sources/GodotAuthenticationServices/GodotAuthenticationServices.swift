@@ -25,7 +25,9 @@ public func godotApplePluginsAuthenticationServicesInitialize(level: ExtensionIn
         registerEnum(ASAuthorizationAppleIDCredential.UserDetectionStatus.self)
         registerEnum(ASAuthorizationAppleIDCredential.UserAgeRange.self)
     } else if level == .editor {
-        EditorInterop.loadLibraryDocs()
+#if os(macOS)
+        loadEmbeddedAuthenticationServicesDocs()
+#endif
     }
 }
 

@@ -40,7 +40,9 @@ public func godotApplePluginsStoreKitInitialize(level: ExtensionInitializationLe
         registerEnum(StoreProductSubscriptionPeriod.Unit.self)
         registerEnum(StoreSubscriptionInfoStatus.RenewalState.self)
     } else if level == .editor {
-        EditorInterop.loadLibraryDocs()
+#if os(macOS)
+        loadEmbeddedStoreKitDocs()
+#endif
     }
 }
 

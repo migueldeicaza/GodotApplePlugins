@@ -61,7 +61,9 @@ public func godotApplePluginsGameCenterInitialize(level: ExtensionInitialization
         registerEnum(GKTurnBasedMatchmakerViewController.MatchmakingMode.self)
         registerEnum(GKError.Code.self)
     } else if level == .editor {
-        EditorInterop.loadLibraryDocs()
+#if os(macOS)
+        loadEmbeddedGameCenterDocs()
+#endif
     }
 }
 
