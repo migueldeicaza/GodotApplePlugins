@@ -85,9 +85,9 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(url: "https://github.com/migueldeicaza/SwiftGodot", revision: "5cf54f881f158e04108946472a1b3be6acd21e7b")
+        //.package(url: "https://github.com/migueldeicaza/SwiftGodot", revision: "5cf54f881f158e04108946472a1b3be6acd21e7b")
         // For local development:
-        //.package(path: "../SwiftGodot")
+        .package(path: "../SwiftGodot")
     ],
     targets: [
         .target(

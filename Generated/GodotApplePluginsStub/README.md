@@ -18,6 +18,7 @@ This run used the full `doc_classes/*.xml` set.
 
 - All documented classes are registered in ClassDB.
 - All documented methods, synthesized member accessors, properties, signals, and enum constants are registered.
+- Selected XML documentation is embedded in the generated C source and loaded into Godot's editor help at editor initialization.
 - Every callable entry point reports that the API is unavailable on the current platform and returns an unimplemented stub result.
 
 ## Files

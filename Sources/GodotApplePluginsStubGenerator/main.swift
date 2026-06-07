@@ -155,6 +155,7 @@ struct DocClass {
     let name: String
     let parentName: String
     let sourceFileName: String
+    let sourceXMLBytes: [UInt8]
     let methods: [DocMethod]
     let members: [DocMember]
     let signals: [DocSignal]
@@ -195,7 +196,8 @@ enum DocumentationParser {
     }
 
     private static func parseClass(from fileURL: URL) throws -> DocClass {
-        let document = try XMLDocument(contentsOf: fileURL, options: [])
+        let xmlData = try Data(contentsOf: fileURL)
+        let document = try XMLDocument(data: xmlData, options: [])
         guard let root = document.rootElement(), root.requiredName == "class" else {
             throw GeneratorError.message("Invalid class XML: \(fileURL.lastPathComponent)")
         }
@@ -213,6 +215,7 @@ enum DocumentationParser {
             name: className,
             parentName: parentName,
             sourceFileName: fileURL.lastPathComponent,
+            sourceXMLBytes: [UInt8](xmlData),
             methods: methods,
             members: members,
             signals: signals,
@@ -304,6 +307,7 @@ enum DocumentationParser {
             name: docClass.name,
             parentName: docClass.parentName,
             sourceFileName: docClass.sourceFileName,
+            sourceXMLBytes: docClass.sourceXMLBytes,
             methods: methods,
             members: docClass.members,
             signals: docClass.signals,
@@ -554,6 +558,12 @@ enum CEmitter {
         } GAPStubClassDescriptor;
 
         typedef struct {
+            const char *name;
+            const unsigned char *data;
+            size_t size;
+        } GAPStubDocDescriptor;
+
+        typedef struct {
             GAPStubStringNameStorage name;
             GAPStubStringNameStorage class_name;
             GAPStubStringStorage hint_string;
@@ -582,6 +592,8 @@ enum CEmitter {
             GDExtensionInterfaceClassdbRegisterExtensionClassSignal classdb_register_extension_class_signal;
             GDExtensionInterfaceClassdbRegisterExtensionClassIntegerConstant classdb_register_extension_class_integer_constant;
             GDExtensionInterfaceClassdbUnregisterExtensionClass classdb_unregister_extension_class;
+            GDExtensionsInterfaceEditorHelpLoadXmlFromUtf8Chars editor_help_load_xml_from_utf8_chars;
+            GDExtensionsInterfaceEditorHelpLoadXmlFromUtf8CharsAndLen editor_help_load_xml_from_utf8_chars_and_len;
             GDExtensionPtrDestructor string_destructor;
             GDExtensionPtrDestructor string_name_destructor;
         } GAPStubAPI;
@@ -860,8 +872,38 @@ enum CEmitter {
         }
         lines.append("};")
 
+        for (classIndex, docClass) in classes.enumerated() {
+            lines.append("static const unsigned char gap_doc_\(classIndex)_xml[] = {")
+            lines.append(contentsOf: cByteArrayLines(docClass.sourceXMLBytes + [0]))
+            lines.append("};")
+        }
+
+        lines.append("static const GAPStubDocDescriptor gap_docs[] = {")
+        for (classIndex, docClass) in classes.enumerated() {
+            lines.append("    { \(cString(docClass.sourceFileName)), gap_doc_\(classIndex)_xml, sizeof(gap_doc_\(classIndex)_xml) - 1 },")
+        }
+        lines.append("};")
+
         lines.append("""
         static const size_t gap_class_count = sizeof(gap_classes) / sizeof(gap_classes[0]);
+        static const size_t gap_doc_count = sizeof(gap_docs) / sizeof(gap_docs[0]);
+
+        static void gap_load_embedded_docs(void) {
+            size_t index;
+
+            if (gap_api.editor_help_load_xml_from_utf8_chars_and_len != NULL) {
+                for (index = 0; index < gap_doc_count; ++index) {
+                    gap_api.editor_help_load_xml_from_utf8_chars_and_len((const char *)gap_docs[index].data, (GDExtensionInt)gap_docs[index].size);
+                }
+                return;
+            }
+
+            if (gap_api.editor_help_load_xml_from_utf8_chars != NULL) {
+                for (index = 0; index < gap_doc_count; ++index) {
+                    gap_api.editor_help_load_xml_from_utf8_chars((const char *)gap_docs[index].data);
+                }
+            }
+        }
 
         static void gap_register_method(const GAPStubMethodDescriptor *method, GDExtensionConstStringNamePtr class_name) {
             GAPStubStringNameStorage *method_name;
@@ -1101,6 +1143,8 @@ enum CEmitter {
             (void)userdata;
             if (level == GDEXTENSION_INITIALIZATION_SCENE) {
                 gap_register_all();
+            } else if (level == GDEXTENSION_INITIALIZATION_EDITOR) {
+                gap_load_embedded_docs();
             }
         }
 
@@ -1149,6 +1193,8 @@ enum CEmitter {
             GAP_LOAD_REQUIRED(classdb_register_extension_class_signal, "classdb_register_extension_class_signal", GDExtensionInterfaceClassdbRegisterExtensionClassSignal);
             GAP_LOAD_REQUIRED(classdb_register_extension_class_integer_constant, "classdb_register_extension_class_integer_constant", GDExtensionInterfaceClassdbRegisterExtensionClassIntegerConstant);
             GAP_LOAD_OPTIONAL(classdb_unregister_extension_class, "classdb_unregister_extension_class", GDExtensionInterfaceClassdbUnregisterExtensionClass);
+            GAP_LOAD_OPTIONAL(editor_help_load_xml_from_utf8_chars, "editor_help_load_xml_from_utf8_chars", GDExtensionsInterfaceEditorHelpLoadXmlFromUtf8Chars);
+            GAP_LOAD_OPTIONAL(editor_help_load_xml_from_utf8_chars_and_len, "editor_help_load_xml_from_utf8_chars_and_len", GDExtensionsInterfaceEditorHelpLoadXmlFromUtf8CharsAndLen);
 
             gap_api.string_destructor = gap_api.variant_get_ptr_destructor(GDEXTENSION_VARIANT_TYPE_STRING);
             gap_api.string_name_destructor = gap_api.variant_get_ptr_destructor(GDEXTENSION_VARIANT_TYPE_STRING_NAME);
@@ -1258,6 +1304,7 @@ enum CEmitter {
 
         - All documented classes are registered in ClassDB.
         - All documented methods, synthesized member accessors, properties, signals, and enum constants are registered.
+        - Selected XML documentation is embedded in the generated C source and loaded into Godot's editor help at editor initialization.
         - Every callable entry point reports that the API is unavailable on the current platform and returns an unimplemented stub result.
 
         ## Files
@@ -1295,11 +1342,26 @@ enum CEmitter {
         return "\"\(escaped)\""
     }
 
+    private static func cByteArrayLines(_ bytes: [UInt8]) -> [String] {
+        bytes.chunked(into: 16).map { chunk in
+            let values = chunk.map { String(format: "0x%02X", $0) }.joined(separator: ", ")
+            return "    \(values),"
+        }
+    }
+
     private static func shellEscape(_ value: String) -> String {
         if value.allSatisfy({ $0.isLetter || $0.isNumber || $0 == "/" || $0 == "." || $0 == "_" || $0 == "-" }) {
             return value
         }
         return "'\(value.replacingOccurrences(of: "'", with: "'\"'\"'"))'"
+    }
+}
+
+private extension Array {
+    func chunked(into size: Int) -> [[Element]] {
+        stride(from: 0, to: count, by: size).map {
+            Array(self[$0..<Swift.min($0 + size, count)])
+        }
     }
 }
 
