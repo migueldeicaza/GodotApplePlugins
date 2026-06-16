@@ -203,7 +203,7 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(url: "https://github.com/migueldeicaza/SwiftGodot", revision: "8122086c57b803c11ec5d01faf1f2449583cd374")
+        .package(url: "https://github.com/migueldeicaza/SwiftGodot", revision: "f528ba67accbe3cca06c1d401c8f9d7c17022f63")
         // For local development:
         //.package(path: "../SwiftGodot")
     ],
