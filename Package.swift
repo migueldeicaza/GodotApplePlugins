@@ -203,7 +203,7 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(url: "https://github.com/migueldeicaza/SwiftGodot", revision: "f528ba67accbe3cca06c1d401c8f9d7c17022f63")
+        .package(url: "https://github.com/migueldeicaza/SwiftGodot", revision: "f628b7827a8eaeb7b5d0ee54f7e0e50c118fe6af")
         // For local development:
         //.package(path: "../SwiftGodot")
     ],
@@ -246,6 +246,7 @@ let package = Package(
         pluginTarget(
             name: "GodotApplePluginsStoreKit",
             path: "Sources/GodotStoreKit",
+            exclude: ["StoreKitGuide.md"],
             resources: storeKitDocResources
         ),
         pluginTarget(

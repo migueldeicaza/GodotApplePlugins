@@ -48,7 +48,10 @@ class SubscriptionOfferView: RefCounted, @unchecked Sendable {
 }
 
 struct OfferCodeWrapperView: View {
-    @State private var isPresented = true
+    // The presentation modifier must first be installed with a false binding.
+    // Changing it on the next main-loop turn starts the redemption sheet.
+    @State private var isPresented = false
+    @State private var hasRequestedPresentation = false
     let title: String
     let offer: SubscriptionOfferView
 
@@ -56,7 +59,11 @@ struct OfferCodeWrapperView: View {
         if #available(iOS 15.0, macOS 15.0, *) {
             Text(title)
                 .onAppear {
-                    isPresented = true
+                    guard !hasRequestedPresentation else { return }
+                    hasRequestedPresentation = true
+                    DispatchQueue.main.async {
+                        isPresented = true
+                    }
                 }
                 .offerCodeRedemption(isPresented: $isPresented) { result in
                     switch result {

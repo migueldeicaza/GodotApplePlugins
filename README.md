@@ -15,7 +15,7 @@ export your iOS project and run.
 This add-on currently includes comprehensive support for:
 
 * GameCenter [GameCenter Integration Guide](Sources/GodotGameCenter/GameCenterGuide.md)
-* StoreKit2 (https://migueldeicaza.github.io/GodotApplePlugins/class_storekitmanager.html)
+* StoreKit2 [StoreKit Integration Guide](Sources/GodotStoreKit/StoreKitGuide.md)
 * Sign-in with Apple [AuthenticationServices Integration Guide](Sources/GodotAuthenticationServices/AuthenticationServicesGuide.md)
 * AppleFilePicker: allow your application to invoke the file system picker.
 * ARKit [ARKit Integration Guide](Sources/GodotARKit/ARKitGuide.md)

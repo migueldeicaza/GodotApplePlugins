@@ -43,6 +43,7 @@ public class StoreKitManager: RefCounted, @unchecked Sendable {
         case UNKNOWN_STATUS
     }
     private var updatesTask: Task<Void, Never>?
+    private var unfinishedTask: Task<Void, Never>?
     private var subscriptionTask: Task<Void, Never>?
     private var intentsTask: Task<Void, Never>?
 
@@ -52,6 +53,7 @@ public class StoreKitManager: RefCounted, @unchecked Sendable {
     
     deinit {
         updatesTask?.cancel()
+        unfinishedTask?.cancel()
         intentsTask?.cancel()
         subscriptionTask?.cancel()
     }
@@ -61,18 +63,21 @@ public class StoreKitManager: RefCounted, @unchecked Sendable {
     @Callable
     func start() {
         if started { return }
+        started = true
         startTransactionListener()
         startPurchaseIntentListener()
-        started = true
+        fetch_unfinished_transactions()
     }
 
     func stop() {
         guard started else { return }
         updatesTask?.cancel()
+        unfinishedTask?.cancel()
         intentsTask?.cancel()
         subscriptionTask?.cancel()
         subscriptionTask = nil
         updatesTask = nil
+        unfinishedTask = nil
         intentsTask = nil
         started = false
     }
@@ -256,6 +261,22 @@ public class StoreKitManager: RefCounted, @unchecked Sendable {
         Task {
             for await entitlement in Transaction.currentEntitlements {
                 handleTransaction(entitlement)
+            }
+        }
+    }
+
+    /// Delivers transactions that StoreKit has not finished yet.
+    ///
+    /// This includes consumable purchases that happened while the app was not
+    /// running. After delivering the product, call `finish()` on the emitted
+    /// StoreTransaction.
+    @Callable()
+    func fetch_unfinished_transactions() {
+        unfinishedTask?.cancel()
+        unfinishedTask = Task {
+            for await transaction in Transaction.unfinished {
+                guard !Task.isCancelled else { return }
+                handleTransaction(transaction)
             }
         }
     }

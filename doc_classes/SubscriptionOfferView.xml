@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <class name="SubscriptionOfferView" inherits="RefCounted" api_type="extension" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
 	<brief_description>
-		A view for redeeming subscription offers.
+		A view for redeeming In-App Purchase offer codes.
 	</brief_description>
 	<description>
-		This class provides a view for users to redeem subscription offer codes. It handles the UI flow for entering and verifying offer codes.
+		This class provides the Apple redemption sheet for offer codes. Offer codes can apply to consumables, non-consumables, non-renewing subscriptions, and auto-renewable subscriptions.
+
+		Create the offer in App Store Connect for the exact product before you call [method present]. No extra app entitlement is required. The [signal success] signal only confirms that the redemption flow completed. Deliver the purchased product when [StoreKitManager] emits [signal StoreKitManager.transaction_updated], then call [method StoreTransaction.finish].
+
+		In-app redemption for consumables, non-consumables, and non-renewing subscriptions requires iOS or iPadOS 16.3 or later. It requires macOS 15 or later on Mac. For the complete workflow, see [url=https://migueldeicaza.github.io/GodotApplePlugins/storekit_storekitguide.html]Using Apple's StoreKit APIs with Godot[/url].
 	</description>
 	<tutorials>
 	</tutorials>
@@ -19,7 +23,7 @@
 			<return type="void" />
 			<param index="0" name="callback" type="Callable" />
 			<description>
-				Presents the offer code redemption view. note: The `callback` parameter is currently unused; use the [signal success] and [signal error] signals to handle the result.
+				Presents the Apple offer-code redemption sheet. The [param callback] parameter is unused. Use [signal success] and [signal error] to handle the redemption flow. Use [signal StoreKitManager.transaction_updated] to deliver the product transaction.
 			</description>
 		</method>
 	</methods>
