@@ -12,14 +12,22 @@ SubscriptionOfferView
 
 **Inherits:** :ref:`RefCounted<class_RefCounted>` **<** :ref:`Object<class_Object>`
 
-A view for redeeming subscription offers.
+A view for redeeming In-App Purchase offer codes.
 
 .. rst-class:: classref-introduction-group
 
 Description
 -----------
 
-This class provides a view for users to redeem subscription offer codes. It handles the UI flow for entering and verifying offer codes.
+This class provides the Apple redemption sheet for offer codes. Offer codes can apply to consumables, non-consumables, non-renewing subscriptions, and auto-renewable subscriptions.
+
+
+
+Create the offer in App Store Connect for the exact product before you call :ref:`present()<class_SubscriptionOfferView_method_present>`. No extra app entitlement is required. The :ref:`success<class_SubscriptionOfferView_signal_success>` signal only confirms that the redemption flow completed. Deliver the purchased product when :ref:`StoreKitManager<class_StoreKitManager>` emits :ref:`StoreKitManager.transaction_updated<class_StoreKitManager_signal_transaction_updated>`, then call :ref:`StoreTransaction.finish()<class_StoreTransaction_method_finish>`.
+
+
+
+In-app redemption for consumables, non-consumables, and non-renewing subscriptions requires iOS or iPadOS 16.3 or later. It requires macOS 15 or later on Mac. For the complete workflow, see `Using Apple's StoreKit APIs with Godot <https://migueldeicaza.github.io/GodotApplePlugins/storekit_storekitguide.html>`__.
 
 .. rst-class:: classref-reftable-group
 
@@ -125,7 +133,7 @@ Dismisses the currently presented view.
 
 |void| **present**\ (\ callback\: :ref:`Callable<class_Callable>`\ ) :ref:`🔗<class_SubscriptionOfferView_method_present>`
 
-Presents the offer code redemption view. note: The `callback` parameter is currently unused; use the :ref:`success<class_SubscriptionOfferView_signal_success>` and :ref:`error<class_SubscriptionOfferView_signal_error>` signals to handle the result.
+Presents the Apple offer-code redemption sheet. The ``callback`` parameter is unused. Use :ref:`success<class_SubscriptionOfferView_signal_success>` and :ref:`error<class_SubscriptionOfferView_signal_error>` to handle the redemption flow. Use :ref:`StoreKitManager.transaction_updated<class_StoreKitManager_signal_transaction_updated>` to deliver the product transaction.
 
 .. |virtual| replace:: :abbr:`virtual (This method should typically be overridden by the user to have any effect.)`
 .. |required| replace:: :abbr:`required (This method is required to be overridden when extending its base class.)`

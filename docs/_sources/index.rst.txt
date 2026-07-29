@@ -14,7 +14,9 @@ Guides
 
     arkit_arkitguide
     authenticationservices_authenticationservicesguide
+    coremotion_coremotionguide
     gamecenter_gamecenterguide
+    storekit_storekitguide
 
 .. toctree::
     :hidden:

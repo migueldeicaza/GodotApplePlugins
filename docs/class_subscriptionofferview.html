@@ -36,10 +36,12 @@
   <section id="subscriptionofferview">
 <span id="class-subscriptionofferview"></span><h1>SubscriptionOfferView<a class="headerlink" href="#subscriptionofferview" title="Link to this heading">¶</a></h1>
 <p><strong>Inherits:</strong> <span class="xref std std-ref">RefCounted</span> <strong>&lt;</strong> <span class="xref std std-ref">Object</span></p>
-<p>A view for redeeming subscription offers.</p>
+<p>A view for redeeming In-App Purchase offer codes.</p>
 <section class="classref-introduction-group" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Link to this heading">¶</a></h2>
-<p>This class provides a view for users to redeem subscription offer codes. It handles the UI flow for entering and verifying offer codes.</p>
+<p>This class provides the Apple redemption sheet for offer codes. Offer codes can apply to consumables, non-consumables, non-renewing subscriptions, and auto-renewable subscriptions.</p>
+<p>Create the offer in App Store Connect for the exact product before you call <a class="reference internal" href="#class-subscriptionofferview-method-present"><span class="std std-ref">present()</span></a>. No extra app entitlement is required. The <a class="reference internal" href="#class-subscriptionofferview-signal-success"><span class="std std-ref">success</span></a> signal only confirms that the redemption flow completed. Deliver the purchased product when <a class="reference internal" href="class_storekitmanager.html#class-storekitmanager"><span class="std std-ref">StoreKitManager</span></a> emits <a class="reference internal" href="class_storekitmanager.html#class-storekitmanager-signal-transaction-updated"><span class="std std-ref">StoreKitManager.transaction_updated</span></a>, then call <a class="reference internal" href="class_storetransaction.html#class-storetransaction-method-finish"><span class="std std-ref">StoreTransaction.finish()</span></a>.</p>
+<p>In-app redemption for consumables, non-consumables, and non-renewing subscriptions requires iOS or iPadOS 16.3 or later. It requires macOS 15 or later on Mac. For the complete workflow, see <a class="reference external" href="https://migueldeicaza.github.io/GodotApplePlugins/storekit_storekitguide.html">Using Apple’s StoreKit APIs with Godot</a>.</p>
 </section>
 <section class="classref-reftable-group" id="properties">
 <h2>Properties<a class="headerlink" href="#properties" title="Link to this heading">¶</a></h2>
@@ -91,7 +93,7 @@
 <p>Dismisses the currently presented view.</p>
 <hr class="classref-item-separator docutils" />
 <p class="classref-method" id="class-subscriptionofferview-method-present"><abbr title="No return value.">void</abbr> <strong>present</strong>(callback: <span class="xref std std-ref">Callable</span>) <a class="reference internal" href="#class-subscriptionofferview-method-present"><span class="std std-ref">🔗</span></a></p>
-<p>Presents the offer code redemption view. note: The <cite>callback</cite> parameter is currently unused; use the <a class="reference internal" href="#class-subscriptionofferview-signal-success"><span class="std std-ref">success</span></a> and <a class="reference internal" href="#class-subscriptionofferview-signal-error"><span class="std std-ref">error</span></a> signals to handle the result.</p>
+<p>Presents the Apple offer-code redemption sheet. The <code class="docutils literal notranslate"><span class="pre">callback</span></code> parameter is unused. Use <a class="reference internal" href="#class-subscriptionofferview-signal-success"><span class="std std-ref">success</span></a> and <a class="reference internal" href="#class-subscriptionofferview-signal-error"><span class="std std-ref">error</span></a> to handle the redemption flow. Use <a class="reference internal" href="class_storekitmanager.html#class-storekitmanager-signal-transaction-updated"><span class="std std-ref">StoreKitManager.transaction_updated</span></a> to deliver the product transaction.</p>
 </section>
 </section>
 
@@ -129,6 +131,13 @@
 <li class="toctree-l1"><a class="reference internal" href="authenticationservices_authenticationservicesguide.html">Using Apple’s AuthenticationServices APIs with Godot</a></li>
 <li class="toctree-l1"><a class="reference internal" href="authenticationservices_authenticationservicesguide.html#entitlements">Entitlements</a></li>
 <li class="toctree-l1"><a class="reference internal" href="authenticationservices_authenticationservicesguide.html#quick-start">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="coremotion_coremotionguide.html">Using Apple’s CoreMotion APIs with Godot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="coremotion_coremotionguide.html#table-of-contents">Table of Contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="coremotion_coremotionguide.html#available-types">Available Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="coremotion_coremotionguide.html#info-plist-and-permissions">Info.plist and Permissions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="coremotion_coremotionguide.html#choosing-between-raw-sensors-and-device-motion">Choosing Between Raw Sensors and Device Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="coremotion_coremotionguide.html#platform-notes">Platform Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="coremotion_coremotionguide.html#examples">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gamecenter_gamecenterguide.html">Using Apple’s GameKit APIs with Godot</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gamecenter_gamecenterguide.html#table-of-contents">Table of Contents</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gamecenter_gamecenterguide.html#installation">Installation</a></li>
@@ -140,6 +149,13 @@
 <li class="toctree-l1"><a class="reference internal" href="gamecenter_gamecenterguide.html#turn-based-matchmaking">Turn-Based Matchmaking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gamecenter_gamecenterguide.html#challenges">Challenges</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gamecenter_gamecenterguide.html#leaderboards">Leaderboards</a></li>
+<li class="toctree-l1"><a class="reference internal" href="storekit_storekitguide.html">Using Apple’s StoreKit APIs with Godot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="storekit_storekitguide.html#table-of-contents">Table of Contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="storekit_storekitguide.html#start-storekit">Start StoreKit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="storekit_storekitguide.html#handle-transactions">Handle transactions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="storekit_storekitguide.html#redeem-offer-codes">Redeem offer codes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="storekit_storekitguide.html#handle-external-offer-code-redemptions">Handle external offer-code redemptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="storekit_storekitguide.html#test-offer-codes">Test offer codes</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="gamecenter_entitlements.html">Adding the Entitlement to the Godot Mac Editor.</a></li>

@@ -23,9 +23,7 @@ This class contains details about a purchase, such as the product ID, purchase d
 
 
 
-When you receive a transaction update, you must call the :ref:`finish()<class_StoreTransaction_method_finish>` method on the transaction once you have made sure 
-
-that you have delivered the content to the user.
+When you receive a transaction update, deliver the content first. Then call :ref:`finish()<class_StoreTransaction_method_finish>`. StoreKit can send the transaction again until you finish it. Make delivery idempotent by recording :ref:`transaction_id<class_StoreTransaction_property_transaction_id>` with the delivered product.
 
 .. rst-class:: classref-reftable-group
 

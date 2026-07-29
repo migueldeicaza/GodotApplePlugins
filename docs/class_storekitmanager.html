@@ -39,25 +39,11 @@
 <p>Manages StoreKit interactions such as requesting products, purchasing, and restoring purchases.</p>
 <section class="classref-introduction-group" id="description">
 <h2>Description<a class="headerlink" href="#description" title="Link to this heading">¶</a></h2>
-<p>This class handles the core StoreKit functionality. It provides methods to fetch product information from the App Store, initiate purchases,</p>
-<blockquote>
-<div><p>restore previous purchases and be notified of the current status of the purchase upon startup.</p>
-<blockquote>
-<div><p>Once you instantiate this class, connect to the the <a class="reference internal" href="#class-storekitmanager-signal-transaction-updated"><span class="std std-ref">transaction_updated</span></a> signal to</p>
-<p>get notification related to the status of your purchases - these are delivered to notify</p>
-<p>your application of what products your user is entitled to at startup.   If you are using</p>
-<p>Apple’s PurchaseIntent, you will also want to connect to the <a class="reference internal" href="#class-storekitmanager-signal-purchase-intent"><span class="std std-ref">purchase_intent</span></a>.</p>
-</div></blockquote>
-</div></blockquote>
-<p>The <a class="reference internal" href="#class-storekitmanager-signal-transaction-updated"><span class="std std-ref">transaction_updated</span></a> is only raised for verified transactions.</p>
-<p>Apple also supports unverified transactions, those are posted to the <a class="reference internal" href="#class-storekitmanager-signal-unverified-transaction-updated"><span class="std std-ref">unverified_transaction_updated</span></a> signal</p>
-<p>and in addition to the transaction they contains a status code from the <a class="reference internal" href="#enum-storekitmanager-verificationerror"><span class="std std-ref">VerificationError</span></a>.</p>
-<blockquote>
-<div><p>After you have set up your signals, you are ready to receive those events.</p>
-<p>In addition, when you call the <a class="reference internal" href="#class-storekitmanager-method-purchase"><span class="std std-ref">purchase()</span></a> or <a class="reference internal" href="#class-storekitmanager-method-purchase-with-options"><span class="std std-ref">purchase_with_options()</span></a> you will</p>
-<p>want to setup a handler for the <a class="reference internal" href="#class-storekitmanager-signal-purchase-completed"><span class="std std-ref">purchase_completed</span></a> signal which is raised in</p>
-<p>response to different events during the purchasing.</p>
-</div></blockquote>
+<p>This class handles StoreKit product requests, purchases, restores, and transaction updates.</p>
+<p>Create one manager when your app starts and keep it alive for the life of the app. Connect <a class="reference internal" href="#class-storekitmanager-signal-transaction-updated"><span class="std std-ref">transaction_updated</span></a> and <a class="reference internal" href="#class-storekitmanager-signal-unverified-transaction-updated"><span class="std std-ref">unverified_transaction_updated</span></a> before you call <a class="reference internal" href="#class-storekitmanager-method-start"><span class="std std-ref">start()</span></a>. <a class="reference internal" href="#class-storekitmanager-method-start"><span class="std std-ref">start()</span></a> begins the transaction listener and checks for unfinished transactions.</p>
+<p><a class="reference internal" href="#class-storekitmanager-signal-transaction-updated"><span class="std std-ref">transaction_updated</span></a> only contains verified transactions. Deliver the product, then call <a class="reference internal" href="class_storetransaction.html#class-storetransaction-method-finish"><span class="std std-ref">StoreTransaction.finish()</span></a>. Make delivery idempotent because StoreKit can send an unfinished transaction again. <a class="reference internal" href="#class-storekitmanager-signal-unverified-transaction-updated"><span class="std std-ref">unverified_transaction_updated</span></a> contains transactions that StoreKit could not verify, plus a code from <a class="reference internal" href="#enum-storekitmanager-verificationerror"><span class="std std-ref">VerificationError</span></a>.</p>
+<p>StoreKit sends transactions for purchases, subscriptions, and offer-code redemptions that happen in or outside your app. If a consumable offer code is redeemed while your app is not running, <a class="reference internal" href="#class-storekitmanager-method-start"><span class="std std-ref">start()</span></a> finds it through unfinished transactions when the app next starts. Do not use <a class="reference internal" href="#class-storekitmanager-method-fetch-current-entitlements"><span class="std std-ref">fetch_current_entitlements()</span></a> to recover consumables because it excludes them.</p>
+<p>For the full setup, redemption, and test workflow, see <a class="reference external" href="https://migueldeicaza.github.io/GodotApplePlugins/storekit_storekitguide.html">Using Apple’s StoreKit APIs with Godot</a>.</p>
 </section>
 <section class="classref-reftable-group" id="methods">
 <h2>Methods<a class="headerlink" href="#methods" title="Link to this heading">¶</a></h2>
@@ -199,9 +185,7 @@
 </div></blockquote>
 <hr class="classref-item-separator docutils" />
 <p class="classref-method" id="class-storekitmanager-method-start"><abbr title="No return value.">void</abbr> <strong>start</strong>() <a class="reference internal" href="#class-storekitmanager-method-start"><span class="std std-ref">🔗</span></a></p>
-<div class="contribute docutils container">
-<p>There is currently no description for this method. Please help us by <a class="reference external" href="https://contributing.godotengine.org/en/latest/documentation/class_reference.html">contributing one</a>!</p>
-</div>
+<p>Starts transaction and purchase-intent listeners, then checks for unfinished transactions. Connect all relevant signals before calling this method.</p>
 </section>
 </section>
 
@@ -239,6 +223,13 @@
 <li class="toctree-l1"><a class="reference internal" href="authenticationservices_authenticationservicesguide.html">Using Apple’s AuthenticationServices APIs with Godot</a></li>
 <li class="toctree-l1"><a class="reference internal" href="authenticationservices_authenticationservicesguide.html#entitlements">Entitlements</a></li>
 <li class="toctree-l1"><a class="reference internal" href="authenticationservices_authenticationservicesguide.html#quick-start">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="coremotion_coremotionguide.html">Using Apple’s CoreMotion APIs with Godot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="coremotion_coremotionguide.html#table-of-contents">Table of Contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="coremotion_coremotionguide.html#available-types">Available Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="coremotion_coremotionguide.html#info-plist-and-permissions">Info.plist and Permissions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="coremotion_coremotionguide.html#choosing-between-raw-sensors-and-device-motion">Choosing Between Raw Sensors and Device Motion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="coremotion_coremotionguide.html#platform-notes">Platform Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="coremotion_coremotionguide.html#examples">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gamecenter_gamecenterguide.html">Using Apple’s GameKit APIs with Godot</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gamecenter_gamecenterguide.html#table-of-contents">Table of Contents</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gamecenter_gamecenterguide.html#installation">Installation</a></li>
@@ -250,6 +241,13 @@
 <li class="toctree-l1"><a class="reference internal" href="gamecenter_gamecenterguide.html#turn-based-matchmaking">Turn-Based Matchmaking</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gamecenter_gamecenterguide.html#challenges">Challenges</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gamecenter_gamecenterguide.html#leaderboards">Leaderboards</a></li>
+<li class="toctree-l1"><a class="reference internal" href="storekit_storekitguide.html">Using Apple’s StoreKit APIs with Godot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="storekit_storekitguide.html#table-of-contents">Table of Contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="storekit_storekitguide.html#start-storekit">Start StoreKit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="storekit_storekitguide.html#handle-transactions">Handle transactions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="storekit_storekitguide.html#redeem-offer-codes">Redeem offer codes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="storekit_storekitguide.html#handle-external-offer-code-redemptions">Handle external offer-code redemptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="storekit_storekitguide.html#test-offer-codes">Test offer codes</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="gamecenter_entitlements.html">Adding the Entitlement to the Godot Mac Editor.</a></li>

@@ -19,39 +19,23 @@ Manages StoreKit interactions such as requesting products, purchasing, and resto
 Description
 -----------
 
-This class handles the core StoreKit functionality. It provides methods to fetch product information from the App Store, initiate purchases,
-
-        restore previous purchases and be notified of the current status of the purchase upon startup.
+This class handles StoreKit product requests, purchases, restores, and transaction updates.
 
 
 
-                Once you instantiate this class, connect to the the :ref:`transaction_updated<class_StoreKitManager_signal_transaction_updated>` signal to
-
-                get notification related to the status of your purchases - these are delivered to notify
-
-                your application of what products your user is entitled to at startup.   If you are using
-
-                Apple's PurchaseIntent, you will also want to connect to the :ref:`purchase_intent<class_StoreKitManager_signal_purchase_intent>`.
+Create one manager when your app starts and keep it alive for the life of the app. Connect :ref:`transaction_updated<class_StoreKitManager_signal_transaction_updated>` and :ref:`unverified_transaction_updated<class_StoreKitManager_signal_unverified_transaction_updated>` before you call :ref:`start()<class_StoreKitManager_method_start>`. :ref:`start()<class_StoreKitManager_method_start>` begins the transaction listener and checks for unfinished transactions.
 
 
 
-The :ref:`transaction_updated<class_StoreKitManager_signal_transaction_updated>` is only raised for verified transactions.   
-
-Apple also supports unverified transactions, those are posted to the :ref:`unverified_transaction_updated<class_StoreKitManager_signal_unverified_transaction_updated>` signal 
-
-and in addition to the transaction they contains a status code from the :ref:`VerificationError<enum_StoreKitManager_VerificationError>`.
+\ :ref:`transaction_updated<class_StoreKitManager_signal_transaction_updated>` only contains verified transactions. Deliver the product, then call :ref:`StoreTransaction.finish()<class_StoreTransaction_method_finish>`. Make delivery idempotent because StoreKit can send an unfinished transaction again. :ref:`unverified_transaction_updated<class_StoreKitManager_signal_unverified_transaction_updated>` contains transactions that StoreKit could not verify, plus a code from :ref:`VerificationError<enum_StoreKitManager_VerificationError>`.
 
 
 
-                After you have set up your signals, you are ready to receive those events.
+StoreKit sends transactions for purchases, subscriptions, and offer-code redemptions that happen in or outside your app. If a consumable offer code is redeemed while your app is not running, :ref:`start()<class_StoreKitManager_method_start>` finds it through unfinished transactions when the app next starts. Do not use :ref:`fetch_current_entitlements()<class_StoreKitManager_method_fetch_current_entitlements>` to recover consumables because it excludes them.
 
 
 
-                In addition, when you call the :ref:`purchase()<class_StoreKitManager_method_purchase>` or :ref:`purchase_with_options()<class_StoreKitManager_method_purchase_with_options>` you will
-
-                want to setup a handler for the :ref:`purchase_completed<class_StoreKitManager_signal_purchase_completed>` signal which is raised in
-
-                response to different events during the purchasing.
+For the full setup, redemption, and test workflow, see `Using Apple's StoreKit APIs with Godot <https://migueldeicaza.github.io/GodotApplePlugins/storekit_storekitguide.html>`__.
 
 .. rst-class:: classref-reftable-group
 
@@ -426,9 +410,7 @@ Restores previously purchased non-consumable products and auto-renewable subscri
 
 |void| **start**\ (\ ) :ref:`🔗<class_StoreKitManager_method_start>`
 
-.. container:: contribute
-
-	There is currently no description for this method. Please help us by `contributing one <https://contributing.godotengine.org/en/latest/documentation/class_reference.html>`__!
+Starts transaction and purchase-intent listeners, then checks for unfinished transactions. Connect all relevant signals before calling this method.
 
 .. |virtual| replace:: :abbr:`virtual (This method should typically be overridden by the user to have any effect.)`
 .. |required| replace:: :abbr:`required (This method is required to be overridden when extending its base class.)`
