@@ -354,16 +354,10 @@ jobs:
 
           make split-build DESTINATIONS="generic/platform=iOS generic/platform=iOS\ Simulator platform=macOS,arch=arm64"
 
-          x86_xcodebuild="xcodebuild"
-          if [ "$(uname -m)" = "arm64" ]; then
-            if ! arch -x86_64 /usr/bin/true 2>/dev/null; then
-              echo "Rosetta is required to build macOS x86_64 frameworks on this arm64 runner" >&2
-              exit 1
-            fi
-            x86_xcodebuild="arch -x86_64 xcodebuild"
-          fi
-
-          caffeinate -dimsu make split-build DESTINATIONS="platform=macOS,arch=x86_64" XCODEBUILD="$x86_xcodebuild"
+          # Keep Xcode native on Apple silicon. Swift macro plug-ins run on the
+          # host architecture, while the destination below still builds the
+          # framework product for x86_64.
+          caffeinate -dimsu make split-build DESTINATIONS="platform=macOS,arch=x86_64"
 
       - name: Package split addons for Distribution
         run: caffeinate -dimsu make split-dist
