@@ -1,10 +1,14 @@
 name: Build and Release Addons
 
 on:
-  push:
+  workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
   generate-split-stub-sources:
+    if: github.ref == 'refs/heads/main'
     runs-on:
       - self-hosted
       - macos
@@ -37,7 +41,7 @@ jobs:
           fi
 
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
 
       - name: Generate split stub sources
         run: |
@@ -64,7 +68,7 @@ jobs:
             Generated/GodotApplePluginsCoreMotionStub
 
       - name: Upload split stub sources
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: godot-apple-plugins-split-stub-sources
           path: split-stub-sources.tar.gz
@@ -75,10 +79,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
 
       - name: Download split stub sources
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
         with:
           name: godot-apple-plugins-split-stub-sources
           path: .
@@ -108,7 +112,7 @@ jobs:
           done
 
       - name: Upload Linux x64 stubs
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: godot-apple-plugins-split-stubs-linux-x64
           path: dist/*.so
@@ -119,10 +123,10 @@ jobs:
     runs-on: ubuntu-24.04-arm
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
 
       - name: Download split stub sources
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
         with:
           name: godot-apple-plugins-split-stub-sources
           path: .
@@ -152,7 +156,7 @@ jobs:
           done
 
       - name: Upload Linux ARM64 stubs
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: godot-apple-plugins-split-stubs-linux-arm64
           path: dist/*.so
@@ -163,10 +167,10 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
 
       - name: Download split stub sources
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
         with:
           name: godot-apple-plugins-split-stub-sources
           path: .
@@ -201,7 +205,7 @@ jobs:
           )
 
       - name: Upload Windows x64 stubs
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: godot-apple-plugins-split-stubs-windows-x64
           path: dist/*.dll
@@ -212,10 +216,10 @@ jobs:
     runs-on: windows-11-arm
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
 
       - name: Download split stub sources
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
         with:
           name: godot-apple-plugins-split-stub-sources
           path: .
@@ -250,13 +254,14 @@ jobs:
           )
 
       - name: Upload Windows ARM64 stubs
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: godot-apple-plugins-split-stubs-windows-arm64
           path: dist/*.dll
           if-no-files-found: error
 
   package:
+    if: github.ref == 'refs/heads/main'
     needs:
       - build-stub-linux-x64
       - build-stub-linux-arm64
@@ -297,7 +302,7 @@ jobs:
           fi
 
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
 
       - name: Import Code Signing Certificate
         if: env.MACOS_CERTIFICATE != ''
@@ -363,25 +368,25 @@ jobs:
         run: caffeinate -dimsu make split-dist
 
       - name: Download Linux x64 split stubs
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
         with:
           name: godot-apple-plugins-split-stubs-linux-x64
           path: ${{ runner.temp }}/split-stubs/linux-x64
 
       - name: Download Linux ARM64 split stubs
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
         with:
           name: godot-apple-plugins-split-stubs-linux-arm64
           path: ${{ runner.temp }}/split-stubs/linux-arm64
 
       - name: Download Windows x64 split stubs
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
         with:
           name: godot-apple-plugins-split-stubs-windows-x64
           path: ${{ runner.temp }}/split-stubs/windows-x64
 
       - name: Download Windows ARM64 split stubs
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
         with:
           name: godot-apple-plugins-split-stubs-windows-arm64
           path: ${{ runner.temp }}/split-stubs/windows-arm64
@@ -532,7 +537,7 @@ jobs:
 
       - name: Publish release
         if: github.ref == 'refs/heads/main'
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@3bb12739c298aeb8a4eeaf626c5b8d85266b0e65 # v2.6.2
         with:
           tag_name: build-${{ github.sha }}
           name: Addons build for ${{ github.sha }}
