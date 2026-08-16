@@ -114,7 +114,23 @@ class GKMatchmakerViewController: RefCounted, @unchecked Sendable {
         func matchmakerViewController(
             _ viewController: GameKit.GKMatchmakerViewController, didFind match: GameKit.GKMatch
         ) {
-            base?.did_find_match.emit(GKMatch(match: match))
+            guard let base else { return }
+            // A presented view controller does not dismiss itself; the presenter has to.
+            // Without this the matchmaking sheet stays over the game after the match has
+            // started, and the player has to close it by hand — while the match, and any
+            // clock it runs, is already under way.
+            //
+            // The match itself stays out of the main-actor closure: it is task-isolated, and
+            // handing it across would be a data race the compiler is right to refuse. It is
+            // emitted where the original emitted it.
+            MainActor.assumeIsolated {
+                #if os(macOS)
+                    base.dialogController?.dismiss(viewController)
+                #else
+                    viewController.dismiss(animated: true)
+                #endif
+            }
+            base.did_find_match.emit(GKMatch(match: match))
         }
 
         func matchmakerViewController(
@@ -293,7 +309,18 @@ class GKMatchmakerViewController: RefCounted, @unchecked Sendable {
             _ viewController: GameKit.GKMatchmakerViewController,
             didFind match: GameKit.GKMatch
         ) {
+            // Same reason as `Proxy` above: found is an ending like cancelled and failed are,
+            // and it is the only one of the three that left the sheet on screen. `done()`
+            // releases the delegate, so the callback fires exactly once.
+            MainActor.assumeIsolated {
+                #if os(iOS)
+                    viewController.dismiss(animated: true)
+                #else
+                    dialogController?.dismiss(viewController)
+                #endif
+            }
             _ = self.callback.call(Variant(GKMatch(match: match)), nil)
+            done()
         }
 
         func matchmakerViewControllerWasCancelled(

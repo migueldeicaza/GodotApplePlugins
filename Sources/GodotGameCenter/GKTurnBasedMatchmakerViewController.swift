@@ -68,7 +68,14 @@ class GKTurnBasedMatchmakerViewController: RefCounted, @unchecked Sendable {
             _ viewController: GameKit.GKTurnBasedMatchmakerViewController,
             didFind match: GameKit.GKTurnBasedMatch
         ) {
-            base?.did_find_match.emit(GKTurnBasedMatch(match: match))
+            guard let base else { return }
+            // The sheet is dismissed on cancel and on error already; a found match is the
+            // third ending and was the one left on screen. The match stays outside the
+            // main-actor closure — it is task-isolated and cannot be handed across.
+            MainActor.assumeIsolated {
+                base.dismiss(viewController)
+            }
+            base.did_find_match.emit(GKTurnBasedMatch(match: match))
         }
 
         func turnBasedMatchmakerViewController(
@@ -169,7 +176,17 @@ class GKTurnBasedMatchmakerViewController: RefCounted, @unchecked Sendable {
             _ viewController: GameKit.GKTurnBasedMatchmakerViewController,
             didFind match: GameKit.GKTurnBasedMatch
         ) {
+            // As in the real-time controller: dismiss, answer, and release the delegate so the
+            // callback fires exactly once.
+            MainActor.assumeIsolated {
+                #if os(iOS)
+                    viewController.dismiss(animated: true)
+                #else
+                    dialogController?.dismiss(viewController)
+                #endif
+            }
             _ = callback.call(Variant(GKTurnBasedMatch(match: match)), nil)
+            done()
         }
 
         func turnBasedMatchmakerViewControllerWasCancelled(
