@@ -108,7 +108,17 @@ class GKMatchmakerViewController: RefCounted, @unchecked Sendable {
             _ viewController: GameKit.GKMatchmakerViewController, didFailWithError error: any Error
         ) {
             GD.print("GKMVC: didFailWithError")
-            base?.failed_with_error.emit(String(describing: error))
+            guard let base else { return }
+            // Apple requires the delegate to dismiss the controller on failure, the same as
+            // on cancellation — the turn-based controller already does; this one did not.
+            MainActor.assumeIsolated {
+                #if os(macOS)
+                    base.dialogController?.dismiss(viewController)
+                #else
+                    viewController.dismiss(animated: true)
+                #endif
+            }
+            base.failed_with_error.emit(String(describing: error))
         }
 
         func matchmakerViewController(
@@ -137,11 +147,22 @@ class GKMatchmakerViewController: RefCounted, @unchecked Sendable {
             _ viewController: GameKit.GKMatchmakerViewController,
             didFindHostedPlayers players: [GameKit.GKPlayer]
         ) {
+            guard let base else { return }
+            // A hosted match found is the same ending as `didFind` — GameKit calls this
+            // callback instead of that one when `isHosted` is set, so it needs the same
+            // dismissal.
+            MainActor.assumeIsolated {
+                #if os(macOS)
+                    base.dialogController?.dismiss(viewController)
+                #else
+                    viewController.dismiss(animated: true)
+                #endif
+            }
             let result = VariantArray()
             for player in players {
                 result.append(Variant(GKPlayer(player: player)))
             }
-            base?.did_find_hosted_players.emit(result)
+            base.did_find_hosted_players.emit(result)
         }
 
         func matchmakerViewController(
@@ -310,8 +331,8 @@ class GKMatchmakerViewController: RefCounted, @unchecked Sendable {
             didFind match: GameKit.GKMatch
         ) {
             // Same reason as `Proxy` above: found is an ending like cancelled and failed are,
-            // and it is the only one of the three that left the sheet on screen. `done()`
-            // releases the delegate, so the callback fires exactly once.
+            // and every ending dismisses the sheet. `done()` releases the delegate, so the
+            // callback fires exactly once.
             MainActor.assumeIsolated {
                 #if os(iOS)
                     viewController.dismiss(animated: true)
@@ -345,6 +366,15 @@ class GKMatchmakerViewController: RefCounted, @unchecked Sendable {
             _ source: GameKit.GKMatchmakerViewController,
             didFailWithError: (any Error)
         ) {
+            // Dismiss on failure as on cancellation, mirroring the turn-based
+            // `RequestMatchDelegate`, then answer and release the delegate.
+            MainActor.assumeIsolated {
+                #if os(iOS)
+                    source.dismiss(animated: true)
+                #else
+                    dialogController?.dismiss(source)
+                #endif
+            }
             _ = self.callback.call(nil, GKError.from(didFailWithError))
             done()
         }
