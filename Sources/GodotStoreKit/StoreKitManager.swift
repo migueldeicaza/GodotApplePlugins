@@ -280,4 +280,23 @@ public class StoreKitManager: RefCounted, @unchecked Sendable {
             }
         }
     }
+
+    /// Asks StoreKit to show the rating/review sheet. Whether it actually appears is
+    /// the system's decision (at most three times per year, and never guaranteed) --
+    /// this is a request, not a command, per Apple's documentation.
+    @Callable
+    func request_review() {
+        Task { @MainActor in
+#if canImport(UIKit)
+            guard let scene = UIApplication.shared.activeWindowScene else { return }
+            if #available(iOS 16.0, tvOS 16.0, *) {
+                AppStore.requestReview(in: scene)
+            } else {
+                SKStoreReviewController.requestReview(in: scene)
+            }
+#elseif canImport(AppKit)
+            SKStoreReviewController.requestReview()
+#endif
+        }
+    }
 }
