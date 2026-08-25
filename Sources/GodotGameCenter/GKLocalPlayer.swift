@@ -32,7 +32,7 @@ class GKLocalPlayer: GKPlayer, @unchecked Sendable {
         return GKError.from(error)
     }
 
-    @available(iOS 26.0, macOS 26.0, *)
+    @available(iOS 26.0, macOS 26.0, visionOS 26.0, *)
     class ActivityProxy: NSObject, GKLocalPlayerListener {
         weak var base: GKLocalPlayer?
 
@@ -464,7 +464,7 @@ class GKLocalPlayer: GKPlayer, @unchecked Sendable {
         if let proxy = proxy {
             local.register(proxy)
         }
-        if #available(iOS 26.0, macOS 26.0, *) {
+        if #available(iOS 26.0, macOS 26.0, visionOS 26.0, *) {
             if activityProxy == nil {
                 activityProxy = ActivityProxy(base: self)
             }
@@ -479,7 +479,7 @@ class GKLocalPlayer: GKPlayer, @unchecked Sendable {
         if let proxy = proxy {
             local.unregisterListener(proxy)
         }
-        if #available(iOS 26.0, macOS 26.0, *),
+        if #available(iOS 26.0, macOS 26.0, visionOS 26.0, *),
             let activityProxy = activityProxy as? ActivityProxy
         {
             local.unregisterListener(activityProxy)
