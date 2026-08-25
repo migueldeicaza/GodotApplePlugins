@@ -19,6 +19,9 @@ import SwiftUI
 class GKLocalPlayer: GKPlayer, @unchecked Sendable {
     var local: GameKit.GKLocalPlayer
     private var proxy: Proxy?
+    // `AnyObject` because the class it holds is @available(iOS 26, macOS 26) and a
+    // stored property cannot narrow availability; the casts at use sites restore it.
+    private var activityProxy: AnyObject?
 
     private func unsupportedError(_ method: String) -> Variant? {
         let error = NSError(
@@ -27,6 +30,32 @@ class GKLocalPlayer: GKPlayer, @unchecked Sendable {
             userInfo: [NSLocalizedDescriptionKey: "\(method) requires a newer OS version"]
         )
         return GKError.from(error)
+    }
+
+    @available(iOS 26.0, macOS 26.0, visionOS 26.0, *)
+    class ActivityProxy: NSObject, GKLocalPlayerListener {
+        weak var base: GKLocalPlayer?
+
+        init(base: GKLocalPlayer) {
+            self.base = base
+        }
+
+        func player(
+            _ player: GameKit.GKPlayer,
+            wantsToPlay activity: GameKit.GKGameActivity,
+            completionHandler: @escaping (Bool) -> Void
+        ) {
+            guard let base = base else {
+                completionHandler(false)
+                return
+            }
+            let gkPlayer = GKPlayer(player: player)
+            let gkActivity = GKGameActivity(activity: activity)
+            Task { @MainActor in
+                base.game_activity_wants_to_play.emit(gkPlayer, gkActivity)
+            }
+            completionHandler(true)
+        }
     }
 
     class Proxy: NSObject, GKLocalPlayerListener {
@@ -260,6 +289,12 @@ class GKLocalPlayer: GKPlayer, @unchecked Sendable {
     @Signal("player", "challenge", "friend_player") var challenge_other_player_completed:
         SignalWithArguments<GKPlayer, GKChallenge, GKPlayer>
 
+    /// Emitted when the player opens a game activity from outside the game (the Games
+    /// app, an activity link) and the system asks the game to play it. Requires iOS 26
+    /// or macOS 26; on older systems it simply never fires.
+    @Signal("player", "activity") var game_activity_wants_to_play:
+        SignalWithArguments<GKPlayer, GKGameActivity>
+
     required init(_ context: InitContext) {
         local = GameKit.GKLocalPlayer.local
         super.init(context)
@@ -429,12 +464,25 @@ class GKLocalPlayer: GKPlayer, @unchecked Sendable {
         if let proxy = proxy {
             local.register(proxy)
         }
+        if #available(iOS 26.0, macOS 26.0, visionOS 26.0, *) {
+            if activityProxy == nil {
+                activityProxy = ActivityProxy(base: self)
+            }
+            if let activityProxy = activityProxy as? ActivityProxy {
+                local.register(activityProxy)
+            }
+        }
     }
 
     @Callable
     func unregister_listener() {
         if let proxy = proxy {
             local.unregisterListener(proxy)
+        }
+        if #available(iOS 26.0, macOS 26.0, visionOS 26.0, *),
+            let activityProxy = activityProxy as? ActivityProxy
+        {
+            local.unregisterListener(activityProxy)
         }
     }
 
