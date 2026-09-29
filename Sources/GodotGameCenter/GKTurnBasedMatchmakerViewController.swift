@@ -253,6 +253,15 @@ class GKTurnBasedMatchmakerViewController: RefCounted, @unchecked Sendable {
         }
     }
 
+    @Callable
+    func dismiss() {
+        guard let vc else { return }
+
+        MainActor.assumeIsolated {
+            dismiss(vc)
+        }
+    }
+
     static func present(
         controller: GameKit.GKTurnBasedMatchmakerViewController,
         track: @MainActor (AnyObject) -> Void

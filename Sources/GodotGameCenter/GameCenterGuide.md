@@ -512,6 +512,14 @@ controller.failed_with_error.connect(func(message: String) -> void:
 controller.present()
 ```
 
+Keep `controller` while the UI is open. To close it from your game, call:
+
+```gdscript
+controller.dismiss()
+```
+
+Calling `dismiss()` does not emit `cancelled`.
+
 # Challenges
 
 `GKLocalPlayer` now emits challenge-related signals once you call

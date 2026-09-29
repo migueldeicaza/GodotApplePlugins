@@ -5,6 +5,21 @@
 	</brief_description>
 	<description>
 		Wrapper around [code skip-lint]GKTurnBasedMatchmakerViewController[/code]. Use [method create_controller] when you want to keep the controller instance and listen to its signals, or [method request_match] for a one-shot request/callback flow.
+
+		Keep the controller to close its UI later:
+		[codeblocks]
+		[gdscript]
+		var request := GKMatchRequest.new()
+		request.min_players = 2
+		request.max_players = 2
+
+		var controller := GKTurnBasedMatchmakerViewController.create_controller(request)
+		controller.present()
+
+		# Later, from your own event handler:
+		controller.dismiss()
+		[/gdscript]
+		[/codeblocks]
 	</description>
 	<tutorials>
 	</tutorials>
@@ -14,6 +29,12 @@
 			<param index="0" name="request" type="GKMatchRequest" />
 			<description>
 				Creates a controller for the provided [GKMatchRequest]. Call [method present] to show it and connect to signals such as [signal did_find_match] and [signal failed_with_error].
+			</description>
+		</method>
+		<method name="dismiss">
+			<return type="void" />
+			<description>
+				Closes this controller's matchmaking UI. This method does not emit [signal cancelled]. Keep the controller returned by [method create_controller] to call this method.
 			</description>
 		</method>
 		<method name="present">
