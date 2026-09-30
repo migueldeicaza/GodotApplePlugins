@@ -237,6 +237,7 @@ link_args=(
 	"-dead_strip"
 	"-rdynamic"
 	"-Xlinker" "-no_deduplicate"
+	"-Xlinker" "-headerpad_max_install_names"
 	"-fobjc-link-runtime"
 	"-Wl,-no_warn_duplicate_libraries"
 	"-Wl,-make_mergeable"
